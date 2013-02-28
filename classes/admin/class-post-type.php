@@ -10,9 +10,9 @@ class MPT_Admin_Post_Type {
 
 	public static function admin_head() {
 		echo '<style type="text/css" media="screen">';
-			echo '#menu-posts-<?php echo MPT_CPT_NAME; ?> .wp-menu-image {background: transparent url(<?php echo MPT_URL;?>/assets/images/toilet.png) no-repeat 6px -17px !important;}';
-			echo '#menu-posts-<?php echo MPT_CPT_NAME; ?>:hover .wp-menu-image, #menu-posts-<?php echo MPT_CPT_NAME; ?>.wp-has-current-submenu .wp-menu-image {background-position:6px 7px!important;}';
-			echo '.icon32-posts-<?php echo MPT_CPT_NAME; ?> {background: transparent url(<?php echo MPT_URL;?>/assets/images/toilet.png) no-repeat 6px 12px !important;}';
+			echo '#menu-posts-'.MPT_CPT_NAME.' .wp-menu-image {background: transparent url('.MPT_URL.'/assets/images/toilet.png) no-repeat 6px -17px !important;}';
+			echo '#menu-posts-'.MPT_CPT_NAME.':hover .wp-menu-image, #menu-posts-'.MPT_CPT_NAME.'.wp-has-current-submenu .wp-menu-image {background-position:6px 7px!important;}';
+			echo '.icon32-posts-'.MPT_CPT_NAME.' {background: transparent url('.MPT_URL.'/assets/images/toilet.png) no-repeat 6px 12px !important;}';
 		echo '</style>';
 	}
 

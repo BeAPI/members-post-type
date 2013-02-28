@@ -8,9 +8,10 @@ class MPT_Shortcode {
 	}
 	
 	public static function load_shortcodes() {
-		_mpt_load_files(MPT_DIR . '/classes/shortcodes/', array('shortcode-registration'), 'class-');
+		_mpt_load_files(MPT_DIR . '/classes/shortcodes/', array('shortcode-registration', 'shortcode-login'), 'class-');
 		
 		new MPT_Shortcode_Registration();
+		new MPT_Shortcode_Login();
 	} 
 	
 	/**

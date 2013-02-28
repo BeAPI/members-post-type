@@ -70,24 +70,24 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 			if ( isset($_POST['new_user']['password']) && isset($_POST['new_user']['password_repeat']) && !empty($_POST['new_user']['password']) && !empty($_POST['new_user']['password_repeat']) ) {
 				if ( $_POST['new_user']['password'] != $_POST['new_user']['password_repeat'] ) { // password is the same ?
 					$status = 'error';
-					$message .= "Les mots de passe que vous avez entrés ne coïncident pas.<br />";
+					$message .= __( "The two password you filled doesn't match<br />", 'mpt' );
 					$form_errors[] = 'password';
 					$form_errors[] = 'password_repeat';
 				} elseif( strlen($_POST['new_user']['password']) < 6 ) {
 					$status = 'error';
-					$message .= "Votre mot de passe doit être composé d'au moins 6 caractères.<br />";
+					$message .= __( "You password need to be at least 6 characters long<br />", 'mpt' );
 					$form_errors[] = 'password';
 				}
 			} else {
 				$status = 'error';
 				$form_errors[] = 'password';
-				$message .= "Vous devez remplir les champs mot de passe et confirmation de mot de passe. <br />";
+				$message .= __( "You need to fill the two password fields<br />", 'mpt' );
 			}
 			
 			// Email valid ?
 			if ( isset($_POST['new_user']['user_email']) && !is_email($_POST['new_user']['user_email']) ) {
 				$status = 'error';
-				$message .= "Vous devez entrer une adresse email valide <br />";
+				$message .= __( "You need to enter a valid email addresse<br />", 'mpt' );
 				$form_errors[] = 'user_email';
 			}
 			
@@ -95,7 +95,7 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 			// TODO use mpt_email_exists
 			if ( email_exists( $_POST['new_user']['user_email'] ) ){
 				$status = 'error';
-				$message .= "Cette adresse email est déjà utilisée sur le site. <br />";
+				$message .= __( "This email address is already taken<br />", 'mpt' );
 				$form_errors[] = 'user_email';
 			}
 			
@@ -124,15 +124,15 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 				}
 				
 				$status = "success";
-				$message = "Votre compte a bien été créé. Vous pouvez dès maintenant vous connecter avec vos identifiants.<br />";
+				$message = __( "Your account has beed created. You can now log-in with your access<br />", 'mpt' );
 				
 				
 				add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
-				$content = sprintf( '<p>Bonjour, </p>
-				<p>Votre inscription au site ' . get_bloginfo( 'name' ) . ' a bien été prise en compte. </p>
-				<p>Votre login : <br />%s</p>
-				<p><a href="%s">Accéder à mon compte</a></p>
-				', $args['user_login'], home_url() ); // TODO get the correct page
+				$content = sprintf( __( '<p>Hello, </p>
+				<p>Your subscription to the website %1s is completed. </p>
+				<p>Your login : <br />%2s</p>
+				<p><a href="%3s">Go to my account</a></p>
+				', get_bloginfo( 'name' ), $args['user_login'], home_url() ) ); // TODO get the correct page
 				
 				$mail = wp_mail( $args['user_login'], 'Votre inscription au site ' . get_bloginfo( 'name' ), $content );
 				

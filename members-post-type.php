@@ -10,6 +10,14 @@
  Network: false
  Text Domain: mpt
 
+ TODO:
+ 	Taxonomy : Role + With capabilities
+ 	Custom capabilities
+ 	Activation key
+ 	Registration date
+ 	Last connection
+ 	Connection counter
+
  ----
 
  Copyright 2013 Amaury Balmer (amaury@beapi.fr)
@@ -60,7 +68,7 @@ if (is_admin()) {
 
 // Plugin activate/desactive hooks
 register_activation_hook(__FILE__, array('MPT_Plugin', 'activate'));
-register_deactivation_hook(__FILE__, array('MPT_Plugin', 'deactivates'));
+register_deactivation_hook(__FILE__, array('MPT_Plugin', 'deactivate'));
 
 add_action('plugins_loaded', 'init_mpt_plugin');
 function init_mpt_plugin() {
@@ -70,6 +78,7 @@ function init_mpt_plugin() {
 	// Client
 	new MPT_Main();
 	new MPT_Post_Type();
+	new MPT_Admin_Taxonomy();
 
 	// Admin
 	if (is_admin()) {

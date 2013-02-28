@@ -1,11 +1,18 @@
 <?php
 class MPT_Admin_Post_Type {
 	public function __construct() {
+		add_action( 'admin_init', array(__CLASS__, 'admin_init') );
 		add_action( 'admin_head', array(__CLASS__, 'admin_head') );
 
 		// Metabox member
 		add_action( 'add_meta_boxes', array( __CLASS__, 'add_meta_boxes' ) );
 		add_action( 'save_post', array( __CLASS__, 'save_post' ) );
+	}
+	
+	public static function admin_init() {
+		if ( isset($_GET['mpt-message']) && $_GET['mpt-message'] == '1' ) {
+			add_settings_error( MPT_CPT_NAME.'-password', MPT_CPT_NAME.'-password', __('Password and confirmation must be the same.', 'mpt'), 'error' );
+		}
 	}
 
 	public static function admin_head() {
@@ -17,8 +24,8 @@ class MPT_Admin_Post_Type {
 	}
 
 	public static function add_meta_boxes( ) {
-		add_meta_box( MPT_CPT_NAME.'-main', __('Main information', 'mpt') , array( __CLASS__, 'metabox_main' ), MPT_CPT_NAME, 'normal', 'high' );
-		add_meta_box( MPT_CPT_NAME.'-password', __('Change password', 'mpt') , array( __CLASS__, 'metabox_password' ), MPT_CPT_NAME, 'normal', 'high' );
+		add_meta_box( MPT_CPT_NAME.'-main', __('Main information', 'mpt'), array( __CLASS__, 'metabox_main' ), MPT_CPT_NAME, 'normal', 'high' );
+		add_meta_box( MPT_CPT_NAME.'-password', __('Change password', 'mpt'), array( __CLASS__, 'metabox_password' ), MPT_CPT_NAME, 'normal', 'high' );
 	}
 
 	public static function metabox_main( $post ) {
@@ -38,7 +45,10 @@ class MPT_Admin_Post_Type {
 	public static function metabox_password( $post ) {
 		// Use nonce for verification
 		wp_nonce_field( plugin_basename( __FILE__ ), MPT_CPT_NAME.'-password' );
-
+		
+		// Show error messages
+		settings_errors( MPT_CPT_NAME.'-password' );
+		
 		// Call Template
 		include( MPT_DIR . '/views/admin/metabox-password.php');
 	}
@@ -62,10 +72,10 @@ class MPT_Admin_Post_Type {
 		}
 
 		// Instanciate user
-		$user = new MPT_User( $post_id, $field, $value );
+		$user = new MPT_User( $post_id );
 
 		// Sanitize user inputs
-		foreach ( $user->core_fields as $field ) {
+		foreach ( MPT_User::$core_fields as $field ) {
 			if ( !isset($_POST['member'][$field]) ) {
 				continue;
 			}
@@ -86,12 +96,26 @@ class MPT_Admin_Post_Type {
 		if ( !isset( $_POST[MPT_CPT_NAME.'-password'] ) || !wp_verify_nonce( $_POST[MPT_CPT_NAME.'-password'], plugin_basename( __FILE__ ) ) ) {
 			return false;
 		}
+		
+		$pmp = $_POST['memberpwd'];
+		if ( empty($pmp['password']) && empty($pmp['confirm_password']) ) {
+			return false;
+		}
+		
+		if ( empty($pmp['password']) || empty($pmp['confirm_password']) || $pmp['password'] != $pmp['confirm_password'] ) {
+			// Add param on URL redirect
+			add_filter('redirect_post_location', array(__CLASS__, 'redirect_post_location'), 10, 2 );
+			return false;
+		}
 
 		// Instanciate user
-		$user = new MPT_User( $post_id, $field, $value );
-
-		// TODO, manage change.
-
+		$user = new MPT_User( $post_id );
+		$user->set_password( $_POST['memberpwd']['password'] );
+		
 		return true;
+	}
+	
+	public static function redirect_post_location( $location, $post_id ) {
+		return add_query_arg( 'mpt-message', 1, $location );
 	}
 }

@@ -1,71 +1,139 @@
 <?php
 class MPT_User {
-	public function __construct() {
+	public $core_fields = array('email', 'username', 'first_name', 'last_name', 'password');
 
-	}
+	// Core public fields
+	public $id 			= 0;
+	public $email 		= null;
+	public $username 	= null;
+	public $first_name 	= null;
+	public $last_name 	= null;
+	public $password 	= null;
+
+	// Private object
+	private $_object 	= false;
 
 	/**
-	 * Log the current user out.
-	 *
-	 * @since 2.5.0
+	 * Constructor
+	 * 
+	 * @param integer $id [description]
 	 */
-	function logout() {
-		wp_clear_auth_cookie();
+	public function __construct( $id = 0 ) {
+		if ( (int) $id > 0 ) {
+			$this->fill_by( 'id', $id );
+		}
 	}
 
 	/**
 	 * Retrieve user info by a given field
 	 *
-	 *
-	 * @param string $field The field to retrieve the user with.  id | slug | email | login
-	 * @param int|string $value A value for $field.  A user ID, slug, email address, or login name.
-	 * @return bool|object False on failure, User DB row object
+	 * @param string $field The field to retrieve the user with.  id | email | username
+	 * @param int|string $value A value for $field.  A user ID, email address, or username.
+	 * @return bool False on failure, True on success
 	 */
-	function get_user_by($field, $value) {
-		global $wpdb;
-
+	public function fill_by($field, $value) {
 		switch ($field) {
 			case 'id':
-				return get_userdata($value);
-				break;
-			case 'slug':
-				$user_id = wp_cache_get($value, 'userslugs');
-				$field = 'user_nicename';
+				$this->_object = get_post($value);
 				break;
 			case 'email':
-				$user_id = wp_cache_get($value, 'useremail');
-				$field = 'user_email';
-				break;
-			case 'login':
-				$value = sanitize_user( $value );
-				$user_id = wp_cache_get($value, 'userlogins');
-				$field = 'user_login';
+			case 'username':
+				$id = $this->_get_id_from_key_value( $field, $value );
+				if ( $id == 0 ) {
+					return false;
+				}
+
+				$this->_object = get_post($id);
 				break;
 			default:
 				return false;
 		}
 
-		 if ( false !== $user_id )
-			return get_userdata($user_id);
-
-		if ( !$user = $wpdb->get_row( $wpdb->prepare("SELECT * FROM $wpdb->users WHERE $field = %s", $value) ) )
+		if ( $this->_object == false || is_wp_error($this->_object) ) {
 			return false;
+		}
 
-		return $user;
+		// Set ID
+		$this->id = $this->_object->ID;
+
+		// Set core fields
+		foreach( self::$core_fields as $key ) {
+			$this->$key = get_post_meta( $this->id, $key, true );
+		} 
+
+		return true;
+	}
+
+	/**
+	 * Update post meta value of members
+	 * 
+	 * @param string $key   [description]
+	 * @param boolean $value [description]
+	 */
+	public function set_meta_value( $key = '', $value = null ) {
+		if ( $this->id == 0 ) { // Valid instance user ?
+			return false;
+		}
+
+		if ( $key == 'password' ) { // Forbide, use specific method
+			return false;
+		}
+
+		if( !in_array($key, self::$core_fields) ) { // Allow only core user fields
+			return false;
+		}
+
+		return update_post_meta( $this->id, $key, $value );
+	}
+
+	/**
+	 * Updates the user's password with a new encrypted one.
+	 *
+	 * For integration with other applications, this function can be overwritten to
+	 * instead use the other package password checking algorithm.
+	 *
+	 * @param string $password The plaintext new user password
+	 */
+	public function set_password( $password = '' ) {
+		if ( $this->id == 0 ) { // Valid instance user ?
+			return false;
+		}
+
+		if ( empty($password) ) { // Valid password ?
+			return false;
+		}
+
+		$hash = wp_hash_password($password);
+
+		update_post_meta( $this->id, 'password', $password );
+		delete_post_meta( $this->id, 'user_activation_key' );
+
+		return true;
+	}
+
+	/**
+	 * Private method for get member id from key/value, work post meta table
+	 * 
+	 * @param  string $key   [description]
+	 * @param  string $value [description]
+	 * @return integer        [description]
+	 */
+	private function _get_id_from_key_value( $key = '', $value = '' ) {
+		global $wpdb;
+		return (int) $wpdb->get_var( $wpdb->prepare("SELECT ID FROM $wpdb->postmeta WHERE meta_key = %s AND meta_value = %s", $key, $value) );
 	}
 
 	/**
 	 * Notify the blog admin of a user changing password, normally via email.
-	 *
-	 * @since 2.7
+	 * TODO: add hooks
 	 *
 	 * @param object $user User Object
 	 */
-	function password_change_notification(&$user) {
+	public function password_change_notification() {
 		// send a copy of password change notification to the admin
 		// but check to see if it's the admin whose password we're changing, and skip this
-		if ( $user->user_email != get_option('admin_email') ) {
-			$message = sprintf(__('Password Lost and Changed for user: %s'), $user->user_login) . "\r\n";
+		if ( $this->email != get_option('admin_email') ) {
+			$message = sprintf(__('Password Lost and Changed for user: %s'), $this->username) . "\r\n";
 			// The blogname option is escaped with esc_html on the way into the database in sanitize_option
 			// we want to reverse this for the plain text arena of emails.
 			$blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
@@ -75,58 +143,32 @@ class MPT_User {
 
 	/**
 	 * Notify the blog admin of a new user, normally via email.
+	 * TODO: Add hooks
 	 *
-	 * @since 2.0
-	 *
-	 * @param int $user_id User ID
 	 * @param string $plaintext_pass Optional. The user's plaintext password
 	 */
-	function new_user_notification($user_id, $plaintext_pass = '') {
-		$user = new WP_User($user_id);
-
-		$user_login = stripslashes($user->user_login);
-		$user_email = stripslashes($user->user_email);
+	public function new_user_notification($plaintext_pass = '') {
+		$username = stripslashes($this->username);
+		$email = stripslashes($this->email);
 
 		// The blogname option is escaped with esc_html on the way into the database in sanitize_option
 		// we want to reverse this for the plain text arena of emails.
 		$blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
 
 		$message  = sprintf(__('New user registration on your site %s:'), $blogname) . "\r\n\r\n";
-		$message .= sprintf(__('Username: %s'), $user_login) . "\r\n\r\n";
-		$message .= sprintf(__('E-mail: %s'), $user_email) . "\r\n";
+		$message .= sprintf(__('Username: %s'), $username) . "\r\n\r\n";
+		$message .= sprintf(__('E-mail: %s'), $email) . "\r\n";
 
 		@wp_mail(get_option('admin_email'), sprintf(__('[%s] New User Registration'), $blogname), $message);
 
-		if ( empty($plaintext_pass) )
-			return;
+		if ( empty($plaintext_pass) ) {
+			return false;
+		}
 
-		$message  = sprintf(__('Username: %s'), $user_login) . "\r\n";
+		$message  = sprintf(__('Username: %s'), $username) . "\r\n";
 		$message .= sprintf(__('Password: %s'), $plaintext_pass) . "\r\n";
-		$message .= wp_login_url() . "\r\n";
+		$message .= wp_login_url() . "\r\n"; // TODO use custom function
 
-		wp_mail($user_email, sprintf(__('[%s] Your username and password'), $blogname), $message);
-
-	}
-
-	/**
-	 * Updates the user's password with a new encrypted one.
-	 *
-	 * For integration with other applications, this function can be overwritten to
-	 * instead use the other package password checking algorithm.
-	 *
-	 * @since 2.5
-	 * @uses $wpdb WordPress database object for queries
-	 * @uses wp_hash_password() Used to encrypt the user's password before passing to the database
-	 *
-	 * @param string $password The plaintext new user password
-	 * @param int $user_id User ID
-	 */
-	function set_password( $password, $user_id ) {
-		global $wpdb;
-
-		$hash = wp_hash_password($password);
-		$wpdb->update($wpdb->users, array('user_pass' => $hash, 'user_activation_key' => ''), array('ID' => $user_id) );
-
-		wp_cache_delete($user_id, 'users');
+		return wp_mail($email, sprintf(__('[%s] Your username and password'), $blogname), $message);
 	}
 }

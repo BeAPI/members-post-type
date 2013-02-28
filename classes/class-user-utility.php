@@ -1,7 +1,27 @@
 <?php
 class MPT_User_Utility {
-	public function __construct() {
+	public function __construct() {}
 
+	/**
+	 * Checks if the current visitor is a logged in user.
+	 *
+	 * @return bool True if user is logged in, false if not logged in.
+	 */
+	public static function is_logged_in() {
+		$user = wp_get_current_user();
+
+		if ( $user->id == 0 )
+			return false;
+
+		return true;
+	}
+
+	/**
+	 * Log the current user out.
+	 *
+	 */
+	public static function logout() {
+		wp_clear_auth_cookie();
 	}
 
 	/**
@@ -13,13 +33,11 @@ class MPT_User_Utility {
 	 * Makes sure the cookie is not expired. Verifies the hash in cookie is what is
 	 * should be and compares the two.
 	 *
-	 * @since 2.5
-	 *
 	 * @param string $cookie Optional. If used, will validate contents instead of cookie's
 	 * @param string $scheme Optional. The cookie scheme to use: auth, secure_auth, or logged_in
 	 * @return bool|int False if invalid cookie, User ID if valid.
 	 */
-	function validate_auth_cookie($cookie = '', $scheme = '') {
+	public static function validate_auth_cookie($cookie = '', $scheme = '') {
 		if ( ! $cookie_elements = wp_parse_auth_cookie($cookie, $scheme) ) {
 			do_action('auth_cookie_malformed', $cookie, $scheme);
 			return false;
@@ -66,7 +84,6 @@ class MPT_User_Utility {
 	/**
 	 * Generate authentication cookie contents.
 	 *
-	 * @since 2.5
 	 * @uses apply_filters() Calls 'auth_cookie' hook on $cookie contents, User ID
 	 *		and expiration of cookie.
 	 *
@@ -75,7 +92,7 @@ class MPT_User_Utility {
 	 * @param string $scheme Optional. The cookie scheme to use: auth, secure_auth, or logged_in
 	 * @return string Authentication cookie contents
 	 */
-	function generate_auth_cookie($user_id, $expiration, $scheme = 'auth') {
+	public static function generate_auth_cookie($user_id, $expiration, $scheme = 'auth') {
 		$user = get_userdata($user_id);
 
 		$pass_frag = substr($user->user_pass, 8, 4);
@@ -97,7 +114,7 @@ class MPT_User_Utility {
 	 * @param string $scheme Optional. The cookie scheme to use: auth, secure_auth, or logged_in
 	 * @return array Authentication cookie components
 	 */
-	function parse_auth_cookie($cookie = '', $scheme = '') {
+	public static function parse_auth_cookie($cookie = '', $scheme = '') {
 		if ( empty($cookie) ) {
 			switch ($scheme){
 				case 'auth':
@@ -143,7 +160,7 @@ class MPT_User_Utility {
 	 * @param int $user_id User ID
 	 * @param bool $remember Whether to remember the user
 	 */
-	function set_auth_cookie($user_id, $remember = false, $secure = '') {
+	public static function set_auth_cookie($user_id, $remember = false, $secure = '') {
 		if ( $remember ) {
 			$expiration = $expire = time() + apply_filters('auth_cookie_expiration', 1209600, $user_id, $remember);
 		} else {
@@ -194,7 +211,7 @@ class MPT_User_Utility {
 	 * Removes all of the cookies associated with authentication.
 	 *
 	 */
-	function clear_auth_cookie() {
+	public static function clear_auth_cookie() {
 		do_action('mpt_clear_auth_cookie');
 
 		setcookie(AUTH_COOKIE, ' ', time() - 31536000, ADMIN_COOKIE_PATH, COOKIE_DOMAIN);
@@ -203,19 +220,5 @@ class MPT_User_Utility {
 		setcookie(SECURE_AUTH_COOKIE, ' ', time() - 31536000, PLUGINS_COOKIE_PATH, COOKIE_DOMAIN);
 		setcookie(LOGGED_IN_COOKIE, ' ', time() - 31536000, COOKIEPATH, COOKIE_DOMAIN);
 		setcookie(LOGGED_IN_COOKIE, ' ', time() - 31536000, SITECOOKIEPATH, COOKIE_DOMAIN);
-	}
-
-	/**
-	 * Checks if the current visitor is a logged in user.
-	 *
-	 * @return bool True if user is logged in, false if not logged in.
-	 */
-	function is_user_logged_in() {
-		$user = wp_get_current_user();
-
-		if ( $user->id == 0 )
-			return false;
-
-		return true;
 	}
 }

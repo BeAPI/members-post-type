@@ -79,6 +79,7 @@ function init_mpt_plugin() {
 	new MPT_Main();
 	new MPT_Post_Type();
 	new MPT_Taxonomy();
+	new MPT_Shortcode();
 
 	// Admin
 	if (is_admin()) {

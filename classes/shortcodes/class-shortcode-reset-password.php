@@ -1,11 +1,11 @@
 <?php
-class MPT_Shortcode_Login extends MPT_Shortcode {
+class MPT_Shortcode_Reset_Password extends MPT_Shortcode {
 	
 	/**
 	 * All about the registration shortcode
 	 */
 	public function __construct() {
-		add_shortcode( 'member-login' , array( __CLASS__, 'shortcode' ) );
+		add_shortcode( 'member-reset-password' , array( __CLASS__, 'shortcode' ) );
 		add_action( 'template_redirect', array( __CLASS__, 'check_changes'), 12 );
 	}
 	
@@ -13,7 +13,7 @@ class MPT_Shortcode_Login extends MPT_Shortcode {
 		// Require the file tempalte
 		ob_start();
 		
-		parent::load_template( 'member-login' );
+		parent::load_template( 'member-reset-password' );
 		
 		$html = ob_get_contents();
 		ob_end_clean();
@@ -23,7 +23,7 @@ class MPT_Shortcode_Login extends MPT_Shortcode {
 	}
 
 	/**
-	 * Check POST data for creation user. Need for set_cookie function.
+	 * Check POST data 
 	 *
 	 * @return void
 	 * @author Benjamin Niess

@@ -11,11 +11,11 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 	 * All about the registration shortcode
 	 */
 	public function __construct() {
-		add_shortcode( 'member-registration' , array( __CLASS__, 'shortcode_member_registration' ) );
+		add_shortcode( 'member-registration' , array( __CLASS__, 'shortcode' ) );
 		add_action( 'template_redirect', array( __CLASS__, 'check_changes'), 12 );
 	}
 	
-	public static function shortcode_member_registration() {
+	public static function shortcode() {
 		// Fix notices, string
 		$user = new StdClass;
 		$user->ID = 0;

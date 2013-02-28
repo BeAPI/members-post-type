@@ -78,7 +78,7 @@ function init_mpt_plugin() {
 	// Client
 	new MPT_Main();
 	new MPT_Post_Type();
-	new MPT_Admin_Taxonomy();
+	new MPT_Taxonomy();
 
 	// Admin
 	if (is_admin()) {

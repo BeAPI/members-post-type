@@ -8,7 +8,7 @@ class MPT_Taxonomy {
 		$labels = array(
 			'name'                       => _x( 'Roles', 'Taxonomy General Name', 'mpt' ),
 			'singular_name'              => _x( 'Role', 'Taxonomy Singular Name', 'mpt' ),
-			'menu_name'                  => __( 'Role', 'mpt' ),
+			'menu_name'                  => __( 'Roles', 'mpt' ),
 			'all_items'                  => __( 'All Roles', 'mpt' ),
 			'parent_item'                => __( 'Parent Role', 'mpt' ),
 			'parent_item_colon'          => __( 'Parent Role:', 'mpt' ),

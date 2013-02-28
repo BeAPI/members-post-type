@@ -1,7 +1,7 @@
 <?php
 class MPT_Taxonomy {
 	public function __construct() {
-		add_action('init', array(__CLASS__, 'init') );
+		add_action('init', array(__CLASS__, 'init'), 11 );
 	}
 
 	public static function init() {

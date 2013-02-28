@@ -1,6 +1,6 @@
 <?php
 class MPT_User {
-	public $core_fields = array('email', 'username', 'first_name', 'last_name', 'password');
+	public static $core_fields = array('email', 'username', 'first_name', 'last_name', 'password');
 
 	// Core public fields
 	public $id 			= 0;

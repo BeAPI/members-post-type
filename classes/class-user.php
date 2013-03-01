@@ -194,7 +194,7 @@ class MPT_User {
 	}
 	
 	/**
-	 * Build a proper post title by concatenation of last and first name
+	 * Build a proper post title, using filled values when it disponible
 	 */
 	public function regenerate_post_title() {
 		global $wpdb;
@@ -202,7 +202,23 @@ class MPT_User {
 		if ( !$this->exists() ) { // Valid instance user ?
 			return false;
 		}
+
+		// Build post title
+		if ( !empty($this->last_name) || !empty($this->last_name) ) {
+			$separator = ( !empty($this->last_name) && !empty($this->last_name) ) ? ' ' : '';
+			$post_title = $this->last_name . $separator . $this->first_name;
+		} elseif( !empty($this->username) ) {
+			$post_title = $this->username;
+		} elseif( !empty($this->email) ) {
+			$post_title = $this->email;
+		} else {
+			$post_title = $this->id;
+		}
 		
-		return $wpdb->update( $wpdb->posts, array('post_title' => $this->last_name . ' ' . $this->first_name), array('ID' => $this->id) );
+		return $wpdb->update( $wpdb->posts, array('post_title' => $post_title), array('ID' => $this->id) );
+	}
+
+	public function set_role() {
+
 	}
 }

@@ -118,7 +118,7 @@ class MPT_User {
 
 		$hash = wp_hash_password($password);
 
-		update_post_meta( $this->id, 'password', $password );
+		update_post_meta( $this->id, 'password', $hash );
 		delete_post_meta( $this->id, 'user_activation_key' );
 
 		return true;
@@ -133,7 +133,7 @@ class MPT_User {
 	 */
 	private function _get_id_from_key_value( $key = '', $value = '' ) {
 		global $wpdb;
-		return (int) $wpdb->get_var( $wpdb->prepare("SELECT ID FROM $wpdb->postmeta WHERE meta_key = %s AND meta_value = %s", $key, $value) );
+		return (int) $wpdb->get_var( $wpdb->prepare("SELECT post_id FROM $wpdb->postmeta WHERE meta_key = %s AND meta_value = %s", $key, $value) );
 	}
 
 	/**

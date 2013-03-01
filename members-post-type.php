@@ -42,6 +42,11 @@ define('MPT_VERSION', '0.0.1');
 define('MPT_OPTION', 'members-post-type');
 define('MPT_CPT_NAME', 'member');
 
+// Auth constants
+define('MPT_AUTH_COOKIE', 'mpt_wordpress_' . COOKIEHASH);
+define('MPT_SECURE_AUTH_COOKIE', 'mpt_wordpress_sec_' . COOKIEHASH);
+define('MPT_LOGGED_IN_COOKIE', 'mpt_wordpress_logged_in_' . COOKIEHASH);
+
 // Plugin URL and PATH
 define('MPT_URL', plugins_url('', __FILE__));
 define('MPT_DIR', dirname(__FILE__));
@@ -59,7 +64,7 @@ function _mpt_load_files($dir, $files, $prefix = '') {
 _mpt_load_files(MPT_DIR . '/functions/', array('api', 'template'));
 
 // Plugin client classes
-_mpt_load_files(MPT_DIR . '/classes/', array('main', 'plugin', 'post-type', 'role', 'shortcode', 'taxonomy', 'user', 'widget'), 'class-');
+_mpt_load_files(MPT_DIR . '/classes/', array('main', 'plugin', 'post-type', 'role', 'shortcode', 'taxonomy', 'user', 'user-utility', 'widget'), 'class-');
 
 // Plugin admin classes
 if (is_admin()) {

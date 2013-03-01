@@ -13,13 +13,11 @@ class MPT_User_Utility {
 	 * set for a longer period depending on if the 'remember' credential is set to
 	 * true.
 	 *
-	 * @since 2.5.0
-	 *
 	 * @param array $credentials Optional. User info in order to sign on.
 	 * @param bool $secure_cookie Optional. Whether to use secure cookie.
 	 * @return object Either WP_Error on failure, or WP_User on success.
 	 */
-	function signon( $credentials = '', $secure_cookie = '' ) {
+	public static function signon( $credentials = '', $secure_cookie = '' ) {
 		if ( empty($credentials) ) {
 			if ( ! empty($_POST['log']) ) {
 				$credentials['user_login'] = $_POST['log'];
@@ -79,9 +77,9 @@ class MPT_User_Utility {
 			global $auth_secure_cookie;
 	
 			if ( $auth_secure_cookie ) {
-				$auth_cookie = SECURE_AUTH_COOKIE;
+				$auth_cookie = MPT_SECURE_AUTH_COOKIE;
 			} else {
-				$auth_cookie = AUTH_COOKIE;
+				$auth_cookie = MPT_AUTH_COOKIE;
 			}	
 			
 			if ( !empty($_COOKIE[$auth_cookie]) ) {
@@ -97,8 +95,6 @@ class MPT_User_Utility {
 	/**
 	 * Checks a user's login information and logs them in if it checks out.
 	 *
-	 * @since 2.5.0
-	 *
 	 * @param string $username User's username
 	 * @param string $password User's password
 	 * @return WP_Error|MPT_User MPT_User object if login successful, otherwise WP_Error object.
@@ -109,7 +105,6 @@ class MPT_User_Utility {
 	
 		add_filter('mpt_authenticate', array(__CLASS__, 'authenticate_username_password'), 20, 3);
 		$user = apply_filters('mpt_authenticate', null, $username, $password);
-	
 		if ( $user == null ) {
 			// TODO what should the error message be? (Or would these even happen?)
 			// Only needed if all authentication handlers fail to return anything.
@@ -128,7 +123,7 @@ class MPT_User_Utility {
 	/**
 	 * Authenticate the user using the username and password.
 	 */
-	function authenticate_username_password($user, $username, $password) {
+	public static function authenticate_username_password($user, $username, $password) {
 		if ( is_a($user, 'MPT_User') ) {
 			return $user;
 		}
@@ -148,7 +143,7 @@ class MPT_User_Utility {
 		
 		$userdata = new MPT_User();
 		$userdata->fill_by( 'username', $username );
-	
+		
 		if ( !$userdata->exists() ) {
 			return new WP_Error('invalid_username', sprintf(__('<strong>ERROR</strong>: Invalid username. <a href="%s" title="Password Lost and Found">Lost your password</a>?'), site_url('wp-login.php?action=lostpassword', 'login')));
 		}
@@ -249,7 +244,7 @@ class MPT_User_Utility {
 			return false;
 	
 		if ( ! $user = self::validate_auth_cookie() ) {
-			if ( empty($_COOKIE[LOGGED_IN_COOKIE]) || !$user = self::validate_auth_cookie($_COOKIE[LOGGED_IN_COOKIE], 'logged_in') ) {
+			if ( empty($_COOKIE[MPT_LOGGED_IN_COOKIE]) || !$user = self::validate_auth_cookie($_COOKIE[MPT_LOGGED_IN_COOKIE], 'logged_in') ) {
 				self::set_current_user(0);
 				return false;
 			}
@@ -320,15 +315,13 @@ class MPT_User_Utility {
 		if ( $expiration < time() ) // AJAX/POST grace period set above
 			$GLOBALS['login_grace_period'] = 1;
 
-		do_action('mpt_auth_cookie_valid', $cookie_elements, $user);
+		do_action('mpt_auth_cookie_valid', $cookie_elements, $userdata);
 
-		return $user->id;
+		return $userdata->id;
 	}
 
 	/**
 	 * Parse a cookie into its components
-	 *
-	 * @since 2.7
 	 *
 	 * @param string $cookie
 	 * @param string $scheme Optional. The cookie scheme to use: auth, secure_auth, or logged_in
@@ -338,20 +331,20 @@ class MPT_User_Utility {
 		if ( empty($cookie) ) {
 			switch ($scheme){
 				case 'auth':
-					$cookie_name = AUTH_COOKIE;
+					$cookie_name = MPT_AUTH_COOKIE;
 					break;
 				case 'secure_auth':
-					$cookie_name = SECURE_AUTH_COOKIE;
+					$cookie_name = MPT_SECURE_AUTH_COOKIE;
 					break;
 				case "logged_in":
-					$cookie_name = LOGGED_IN_COOKIE;
+					$cookie_name = MPT_LOGGED_IN_COOKIE;
 					break;
 				default:
 					if ( is_ssl() ) {
-						$cookie_name = SECURE_AUTH_COOKIE;
+						$cookie_name = MPT_SECURE_AUTH_COOKIE;
 						$scheme = 'secure_auth';
 					} else {
-						$cookie_name = AUTH_COOKIE;
+						$cookie_name = MPT_AUTH_COOKIE;
 						$scheme = 'auth';
 					}
 			}
@@ -395,10 +388,10 @@ class MPT_User_Utility {
 		$secure_logged_in_cookie = apply_filters('mpt_secure_logged_in_cookie', false, $user_id, $secure);
 
 		if ( $secure ) {
-			$auth_cookie_name = SECURE_AUTH_COOKIE;
+			$auth_cookie_name = MPT_SECURE_AUTH_COOKIE;
 			$scheme = 'secure_auth';
 		} else {
-			$auth_cookie_name = AUTH_COOKIE;
+			$auth_cookie_name = MPT_AUTH_COOKIE;
 			$scheme = 'auth';
 		}
 
@@ -410,9 +403,9 @@ class MPT_User_Utility {
 		
 		setcookie($auth_cookie_name, $auth_cookie, $expire, PLUGINS_COOKIE_PATH, COOKIE_DOMAIN, $secure, true);
 		setcookie($auth_cookie_name, $auth_cookie, $expire, ADMIN_COOKIE_PATH, COOKIE_DOMAIN, $secure, true);
-		setcookie(LOGGED_IN_COOKIE, $logged_in_cookie, $expire, COOKIEPATH, COOKIE_DOMAIN, $secure_logged_in_cookie, true);
+		setcookie(MPT_LOGGED_IN_COOKIE, $logged_in_cookie, $expire, COOKIEPATH, COOKIE_DOMAIN, $secure_logged_in_cookie, true);
 		if ( COOKIEPATH != SITECOOKIEPATH ) {
-			setcookie(LOGGED_IN_COOKIE, $logged_in_cookie, $expire, SITECOOKIEPATH, COOKIE_DOMAIN, $secure_logged_in_cookie, true);
+			setcookie(MPT_LOGGED_IN_COOKIE, $logged_in_cookie, $expire, SITECOOKIEPATH, COOKIE_DOMAIN, $secure_logged_in_cookie, true);
 		}
 	}
 	
@@ -447,11 +440,13 @@ class MPT_User_Utility {
 	public static function clear_auth_cookie() {
 		do_action('mpt_clear_auth_cookie');
 
-		setcookie(AUTH_COOKIE, ' ', time() - 31536000, ADMIN_COOKIE_PATH, COOKIE_DOMAIN);
-		setcookie(SECURE_AUTH_COOKIE, ' ', time() - 31536000, ADMIN_COOKIE_PATH, COOKIE_DOMAIN);
-		setcookie(AUTH_COOKIE, ' ', time() - 31536000, PLUGINS_COOKIE_PATH, COOKIE_DOMAIN);
-		setcookie(SECURE_AUTH_COOKIE, ' ', time() - 31536000, PLUGINS_COOKIE_PATH, COOKIE_DOMAIN);
-		setcookie(LOGGED_IN_COOKIE, ' ', time() - 31536000, COOKIEPATH, COOKIE_DOMAIN);
-		setcookie(LOGGED_IN_COOKIE, ' ', time() - 31536000, SITECOOKIEPATH, COOKIE_DOMAIN);
+		setcookie(MPT_AUTH_COOKIE, ' ', time() - 31536000, ADMIN_COOKIE_PATH, COOKIE_DOMAIN);
+		setcookie(MPT_AUTH_COOKIE, ' ', time() - 31536000, PLUGINS_COOKIE_PATH, COOKIE_DOMAIN);
+		
+		setcookie(MPT_SECURE_AUTH_COOKIE, ' ', time() - 31536000, ADMIN_COOKIE_PATH, COOKIE_DOMAIN);
+		setcookie(MPT_SECURE_AUTH_COOKIE, ' ', time() - 31536000, PLUGINS_COOKIE_PATH, COOKIE_DOMAIN);
+		
+		setcookie(MPT_LOGGED_IN_COOKIE, ' ', time() - 31536000, COOKIEPATH, COOKIE_DOMAIN);
+		setcookie(MPT_LOGGED_IN_COOKIE, ' ', time() - 31536000, SITECOOKIEPATH, COOKIE_DOMAIN);
 	}
 }

@@ -62,7 +62,7 @@ class MPT_User {
 				return false;
 		}
 
-		if ( $this->_object == false || is_wp_error($this->_object) ) {
+		if ( !$this->exists() ) {
 			return false;
 		}
 
@@ -84,7 +84,7 @@ class MPT_User {
 	 * @param boolean $value [description]
 	 */
 	public function set_meta_value( $key = '', $value = null ) {
-		if ( $this->id == 0 ) { // Valid instance user ?
+		if ( !$this->exists() ) { // Valid instance user ?
 			return false;
 		}
 
@@ -108,7 +108,7 @@ class MPT_User {
 	 * @param string $password The plaintext new user password
 	 */
 	public function set_password( $password = '' ) {
-		if ( $this->id == 0 ) { // Valid instance user ?
+		if ( !$this->exists() ) { // Valid instance user ?
 			return false;
 		}
 
@@ -143,6 +143,10 @@ class MPT_User {
 	 * @param object $user User Object
 	 */
 	public function password_change_notification() {
+		if ( !$this->exists() ) { // Valid instance user ?
+			return false;
+		}
+		
 		// send a copy of password change notification to the admin
 		// but check to see if it's the admin whose password we're changing, and skip this
 		if ( $this->email != get_option('admin_email') ) {
@@ -161,6 +165,10 @@ class MPT_User {
 	 * @param string $plaintext_pass Optional. The user's plaintext password
 	 */
 	public function new_user_notification($plaintext_pass = '') {
+		if ( !$this->exists() ) { // Valid instance user ?
+			return false;
+		}
+		
 		$username = stripslashes($this->username);
 		$email = stripslashes($this->email);
 
@@ -183,5 +191,15 @@ class MPT_User {
 		$message .= wp_login_url() . "\r\n"; // TODO use custom function
 
 		return wp_mail($email, sprintf(__('[%s] Your username and password'), $blogname), $message);
+	}
+
+	public function regenerate_post_title() {
+		global $wpdb;
+		
+		if ( !$this->exists() ) { // Valid instance user ?
+			return false;
+		}
+		
+		return $wpdb->update( $wpdb->posts, array('post_title' => $this->last_name . ' ' . $this->first_name), array('ID' => $this->id) );
 	}
 }

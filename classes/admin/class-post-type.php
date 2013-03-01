@@ -88,6 +88,9 @@ class MPT_Admin_Post_Type {
 			
 			$user->set_meta_value( $field, $value );
 		}
+		
+		// Set proper post_title for WP
+		$user->regenerate_post_title();
 
 		return true;
 	}

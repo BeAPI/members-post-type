@@ -1,4 +1,4 @@
-<?php echo MPT_Shortcode::get_message(); ?> 
+<?php echo MPT_Shortcode::get_messages(); ?> 
 <form id="member-reset-password"  method="post" action="">
 	<div class="row">
 		<div class="col-label">

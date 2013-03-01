@@ -91,8 +91,6 @@ class MPT_Shortcode_Forgot_Password extends MPT_Shortcode {
 	 * @author Benjamin Niess
 	 */
 	public static function check_step_1() {
-		global $message, $status;
-		
 		// Check if the user is reseting
 		if ( !isset( $_POST['forgot_password'] ) || (int) $_POST['forgot_password'] != 1 ) {
 			return false;
@@ -100,23 +98,19 @@ class MPT_Shortcode_Forgot_Password extends MPT_Shortcode {
 		
 		// Check if the email field is filled
 		if ( !isset( $_POST['mpt_user_email'] ) || empty( $_POST['mpt_user_email'] ) || !is_email( $_POST['mpt_user_email'] ) ) {
-			$message = __( "You need to enter a valid email address", 'mpt' );
-			$status = 'error';
+			parent::set_message( 'email_invalid', __( "You need to enter a valid email address", 'mpt' ), 'error' );
 		}
 		
 		// che if login given
 		$errors = self::retrieve_password();
 		// Check if errors
 		if( is_wp_error( $errors ) ) {
-			$message = $errors->get_error_message();
-			$status = 'error';
+			parent::set_message( $errors->get_error_code(), $errors->get_error_message(), 'error' );
 			return false;
 		}
 		
 		// Display the message
-		$message = __( "You are going to receive an email with a reset link.", 'mpt' );
-		$status = 'success'; 
-		
+		parent::set_message( 'check_step_1', __( "You are going to receive an email with a reset link.", 'mpt' ), 'success' );
 	}
 	
 	/**

@@ -192,7 +192,10 @@ class MPT_User {
 
 		return wp_mail($email, sprintf(__('[%s] Your username and password'), $blogname), $message);
 	}
-
+	
+	/**
+	 * Build a proper post title by concatenation of last and first name
+	 */
 	public function regenerate_post_title() {
 		global $wpdb;
 		

@@ -42,7 +42,7 @@
 	</div>
 	<div class="row">
 		<div class="col-label two-lines">
-			<label for="new_user[password_repeat]"><?php _e( 'Passwordd', 'mpt' ) ; ?> * <?php _e( '(confirmation)', 'mpt' ) ; ?></label>
+			<label for="new_user[password_repeat]"><?php _e( 'Password', 'mpt' ) ; ?> * <?php _e( '(confirmation)', 'mpt' ) ; ?></label>
 		</div>
 		<div class="col-input">
 			<input type="password" class="text" id="new_user[password_repeat]" name="new_user[password_repeat]" value="" />

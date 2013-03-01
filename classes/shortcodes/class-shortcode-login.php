@@ -7,6 +7,11 @@ class MPT_Shortcode_Login extends MPT_Shortcode {
 	public function __construct() {
 		add_shortcode( 'member-login' , array( __CLASS__, 'shortcode' ) );
 		add_action( 'template_redirect', array( __CLASS__, 'check_changes'), 12 );
+		add_action( 'init' , array( __CLASS__, 'init' ) );
+	}
+	
+	public static function init() {
+		self::check_log();
 	}
 	
 	public static function shortcode() {
@@ -21,6 +26,15 @@ class MPT_Shortcode_Login extends MPT_Shortcode {
 		return $html;
 		
 	}
+	
+	/**
+	 * Test if the users try to login
+	 */
+	public static function check_log() {
+		//$signon = MPT_User_Utility::signon();
+		//var_dump($signon);
+	}
+
 
 	/**
 	 * Check POST data for creation user. Need for set_cookie function.

@@ -5,7 +5,7 @@
 			<label for="mpt_user_login"><?php _e( 'Login', 'mpt' ) ; ?></label>
 		</div>
 		<div class="col-input">
-			<input type="text" class="text" name="mpt_user_login" id="mpt_user_login" value="" />
+			<input type="text" class="text" name="log" id="mpt_user_login" value="" />
 		</div>
 	</div>
 	<div class="row">
@@ -13,7 +13,7 @@
 			<label for="mpt_user_password"><?php _e( 'Password', 'mpt' ) ; ?></label>
 		</div>
 		<div class="col-input">
-			<input type="password" class="text" id="mpt_user_password" name="mpt_user_password" value="" />
+			<input type="password" class="text" id="mpt_user_password" name="pwd" value="" />
 		</div>
 	</div>
 	<div class="row">

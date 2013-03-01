@@ -30,8 +30,6 @@ class MPT_Shortcode_Reset_Password extends MPT_Shortcode {
 	 * @access public
 	 */
 	public static function check_changes() {
-		global $message, $status, $form_errors;
-		
 		if ( is_admin() ) {
 			return false;
 		}

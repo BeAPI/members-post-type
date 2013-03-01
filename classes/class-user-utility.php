@@ -57,7 +57,7 @@ class MPT_User_Utility {
 		if ( is_wp_error($user_id) ) {
 			return $user_id;
 		}
-
+		
 		// Instanciate user for have methods
 		$user = new MPT_User($user_id);
 		if( !$user->exists() ) {
@@ -77,7 +77,10 @@ class MPT_User_Utility {
 			
 			$user->set_meta_value( $field, $userdata[$field] );
 		}
-
+		
+		// Refresh data
+		$user = new MPT_User($user_id);
+		
 		// Set proper post title
 		$user->regenerate_post_title();
 

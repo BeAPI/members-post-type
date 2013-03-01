@@ -61,18 +61,19 @@ class MPT_User {
 			default:
 				return false;
 		}
-
+		
+		
 		if ( !$this->exists() ) {
 			return false;
 		}
 
 		// Set ID
 		$this->id = $this->_object->ID;
-
+		
 		// Set core fields
 		foreach( self::$core_fields as $key ) {
 			$this->$key = get_post_meta( $this->id, $key, true );
-		} 
+		}
 
 		return true;
 	}
@@ -95,7 +96,7 @@ class MPT_User {
 		if( !in_array($key, self::$core_fields) ) { // Allow only core user fields
 			return false;
 		}
-
+		
 		return update_post_meta( $this->id, $key, $value );
 	}
 
@@ -202,7 +203,7 @@ class MPT_User {
 		if ( !$this->exists() ) { // Valid instance user ?
 			return false;
 		}
-
+		
 		// Build post title
 		if ( !empty($this->last_name) || !empty($this->last_name) ) {
 			$separator = ( !empty($this->last_name) && !empty($this->last_name) ) ? ' ' : '';
@@ -215,7 +216,13 @@ class MPT_User {
 			$post_title = $this->id;
 		}
 		
-		return $wpdb->update( $wpdb->posts, array('post_title' => $post_title), array('ID' => $this->id) );
+		// update DB
+		$wpdb->update( $wpdb->posts, array('post_title' => $post_title), array('ID' => $this->id) );
+		
+		// Refresh cache
+		clean_post_cache($this->id);
+		
+		return true;
 	}
 
 	public function set_role() {

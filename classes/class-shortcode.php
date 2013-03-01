@@ -1,19 +1,19 @@
 <?php
 class MPT_Shortcode {
 	/**
-	 * Register X shortcodes : [member-registration], [member-login], [member-forget-password], [member-change-password]
+	 * Register X shortcodes : [member-registration], [member-login], [member-lost-password], [member-change-password]
 	 */
 	public function __construct() {
 		self::load_shortcodes();
 	}
 	
 	public static function load_shortcodes() {
-		_mpt_load_files(MPT_DIR . '/classes/shortcodes/', array('shortcode-registration', 'shortcode-login', 'shortcode-forgot-password', 'shortcode-reset-password'), 'class-');
+		_mpt_load_files(MPT_DIR . '/classes/shortcodes/', array('shortcode-registration', 'shortcode-login', 'shortcode-lost-password', 'shortcode-change-password'), 'class-');
 		
 		new MPT_Shortcode_Registration();
 		new MPT_Shortcode_Login();
-		new MPT_Shortcode_Forgot_Password();
-		new MPT_Shortcode_Reset_Password();
+		new MPT_Shortcode_Lost_Password();
+		new MPT_Shortcode_Change_Password();
 	} 
 	
 	/**
@@ -31,11 +31,11 @@ class MPT_Shortcode {
 		}
 		
 		ob_start();
-		if ( file_exists( STYLESHEETPATH . '/shortcodes/mpt-' . $template . '.tpl.php' ) ) {
+		if ( is_file( STYLESHEETPATH . '/shortcodes/mpt-' . $template . '.tpl.php' ) ) {
 			include( STYLESHEETPATH . '/shortcodes/mpt-' . $template . '.tpl.php' );
-		} elseif ( file_exists( TEMPLATEPATH . '/shortcodes/mpt-' . $template . '.tpl.php' ) ) {
+		} elseif ( is_file( TEMPLATEPATH . '/shortcodes/mpt-' . $template . '.tpl.php' ) ) {
 			include( TEMPLATEPATH . '/shortcodes/mpt-' . $template . '.tpl.php' );
-		} elseif ( file_exists( MPT_DIR . '/views/client/' . $template . '.tpl.php' ) ) {
+		} elseif ( is_file( MPT_DIR . '/views/client/' . $template . '.tpl.php' ) ) {
 			include( MPT_DIR . '/views/client/' . $template . '.tpl.php' );
 		} else {
 			ob_end_clean();

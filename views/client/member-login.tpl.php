@@ -1,4 +1,4 @@
-<?php echo MPT_Shortcode::get_messages(); ?> 
+<?php echo MPT_Shortcode::get_messages(); ?>
 
 <form method="post">
 	<label><?php _e( 'Login', 'mpt' ); ?></label>

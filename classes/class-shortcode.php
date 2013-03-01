@@ -61,8 +61,7 @@ class MPT_Shortcode {
 		if ( $format == 'display' ) {
 			$output = '';
 			foreach( $mpt_messages as $error_code => $message ) {
-				$message['message'] = stripslashes($message['message']);
-				$output .= '<div class="' . esc_attr( $message['status'] ) . '">' . $message['message'] . '</div>';
+				$output .= '<div class="' . esc_attr( $message['status'] ) . '">' . stripslashes($message['message']) . '</div>';
 			}
 			return $output;
 		} else {

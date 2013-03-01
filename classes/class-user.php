@@ -23,6 +23,19 @@ class MPT_User {
 			$this->fill_by( 'id', $id );
 		}
 	}
+	
+	/**
+	 * Test if user exist
+	 * 
+	 * @return bool False on failure, True on success
+	 */
+	public function exists() {
+		if ( $this->_object == false || is_wp_error($this->_object) ) {
+			return false;
+		}
+		
+		return true;
+	}
 
 	/**
 	 * Retrieve user info by a given field

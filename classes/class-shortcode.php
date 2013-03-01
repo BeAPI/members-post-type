@@ -60,8 +60,8 @@ class MPT_Shortcode {
 		
 		if ( $format == 'display' ) {
 			$output = '';
-			foreach( $mpt_messages as $error_code => $message ) {
-				$output .= '<div class="' . esc_attr( $message['status'] ) . '">' . stripslashes($message['message']) . '</div>';
+			foreach( $mpt_messages as $field => $message ) {
+				$output .= '<div class="field-target-' . esc_attr($field) . ' ' . esc_attr($message['status']) . '">' . stripslashes($message['message']) . '</div>';
 			}
 			return $output;
 		} else {
@@ -75,10 +75,10 @@ class MPT_Shortcode {
 	 * @param format the return format. 'display' for having the div container, 'raw' for having an array
 	 * @author Benjamin Niess
 	 */
-	public static function set_message( $error_code = '', $message = '', $status = 'error' ) {
+	public static function set_message( $field = '', $message = '', $status = 'error' ) {
 		global $mpt_messages;
 		
-		if ( empty($error_code) || empty($message) ) {
+		if ( empty($field) || empty($message) ) {
 			return false;
 		}
 		
@@ -86,7 +86,7 @@ class MPT_Shortcode {
 			$mpt_messages = array();
 		}
 		
-		$mpt_messages[$error_code] = array('status' => $status, 'message' => $message);
+		$mpt_messages[$field] = array('status' => $status, 'message' => $message);
 		return true;
 	}
 }

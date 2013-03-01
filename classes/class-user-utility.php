@@ -83,7 +83,7 @@ class MPT_User_Utility {
 		
 		// Set proper post title
 		$user->regenerate_post_title();
-
+		
 		// Set role
 		if ( isset($userdata['role']) ) {
 			$user->set_role($userdata['role']);
@@ -91,9 +91,9 @@ class MPT_User_Utility {
 			// TODO: Manage default role
 			// $user->set_role(get_option('default_role'));
 		}
-
+		
 		do_action('mpt_insert_user', $user->id);
-
+		
 		return $user->id;
 	}
 	
@@ -143,7 +143,6 @@ class MPT_User_Utility {
 		add_filter('mpt_authenticate', array(__CLASS__, 'authenticate_cookie'), 30, 3);
 	
 		$user = self::authenticate($credentials['user_login'], $credentials['user_password']);
-	
 		if ( is_wp_error($user) ) {
 			if ( $user->get_error_codes() == array('empty_username', 'empty_password') ) {
 				$user = new WP_Error('', '');

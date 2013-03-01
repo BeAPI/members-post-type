@@ -1,10 +1,12 @@
 <?php
 class MPT_Shortcode_Registration extends MPT_Shortcode {
-	
-	public static $string_fields = array(
-		'user_email',
-		'first_name',
-		'last_name',
+	public static $form_fields = array(
+		'username' => '',
+		'first_name' => '',
+		'last_name'  => '',
+		'email'  => '',
+		'password'  => '',
+		'password_repeat'  => ''
 	);
 	
 	/**
@@ -25,9 +27,9 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 		$user_data = ( !isset($_POST['mptregistration']) ) ? array() : $_POST['mptregistration'];
 		
 		// Parse vs defaults
-		$user_data = wp_parse_args( $user_data, array('username' => '', 'rememberme' => '') );
+		$user_data = wp_parse_args( $user_data, self::$form_fields );
 		
-		return parent::load_template( 'member-registration' );
+		return parent::load_template( 'member-registration', $user_data );
 	}
 
 	/**
@@ -38,109 +40,76 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 	 * @access public
 	 */
 	public static function init() {
-		global $message, $status, $form_errors;
-		
-		if ( is_admin() ) {
-			return false;
-		}
-		
-		// TODO if ( !is_user_logged_in .... )
-		
-		if ( isset($_POST['creation_user']) ) {
-			check_admin_referer( 'creation-user' );
+		if ( isset($_POST['mptregistration']) ) {
+			// Cleanup data
+			$mptr = $_POST['mptregistration'] = stripslashes_deep($_POST['mptregistration']);
 			
-			$message = '';
+			// Parse vs default
+			$mptr = wp_parse_args( $mptr, self::$form_fields );
 			
-			// Password
-			if ( isset($_POST['new_user']['password']) && isset($_POST['new_user']['password_repeat']) && !empty($_POST['new_user']['password']) && !empty($_POST['new_user']['password_repeat']) ) {
-				if ( $_POST['new_user']['password'] != $_POST['new_user']['password_repeat'] ) { // password is the same ?
-					$status = 'error';
-					$message .= __( "The two password you filled doesn't match<br />", 'mpt' );
-					$form_errors[] = 'password';
-					$form_errors[] = 'password_repeat';
-				} elseif( strlen($_POST['new_user']['password']) < 6 ) {
-					$status = 'error';
-					$message .= __( "You password need to be at least 6 characters long<br />", 'mpt' );
-					$form_errors[] = 'password';
+			// Check _NONCE
+			$nonce = isset($_POST['_wpnonce']) ? $_POST['_wpnonce'] : '';
+			if ( !wp_verify_nonce($nonce, 'mptregistration') ) {
+				parent::set_message( 'check-nonce', 'Security check failed', 'error' );
+				return false;
+			}
+			
+			// Check password, confirmation, complexity
+			if ( !empty($mptr['password']) && !empty($mptr['password_repeat']) ) {
+				if ( $mptr['password'] != $mptr['password_repeat'] ) { // password is the same ?
+					parent::set_message( 'password_repeat', __('The two password you filled doesn\'t match', 'mpt'), 'error' );
+				} elseif( strlen($mptr['password']) < 6 ) {
+					parent::set_message( 'password', __('You password need to be at least 6 characters long', 'mpt'), 'error' );
 				}
 			} else {
-				$status = 'error';
-				$form_errors[] = 'password';
-				$message .= __( "You need to fill the two password fields<br />", 'mpt' );
+				parent::set_message( 'password', __('You need to fill the two password fields', 'mpt'), 'error' );
 			}
 			
 			// Email valid ?
-			if ( isset($_POST['new_user']['user_email']) && !is_email($_POST['new_user']['user_email']) ) {
-				$status = 'error';
-				$message .= __( "You need to enter a valid email addresse<br />", 'mpt' );
-				$form_errors[] = 'user_email';
+			if ( !is_email($mptr['email']) ) {
+				parent::set_message( 'email', __('You need to enter a valid email address', 'mpt'), 'error' );
 			}
 			
-			//Email exists
-			// TODO use mpt_email_exists
-			if ( email_exists( $_POST['new_user']['user_email'] ) ){
-				$status = 'error';
-				$message .= __( "This email address is already taken<br />", 'mpt' );
-				$form_errors[] = 'user_email';
+			// Email exists
+			if ( mpt_email_exists($mptr['email']) ) {
+				parent::set_message( 'email', __('This email address is already taken', 'mpt'), 'error' );
 			}
+			
+			// Have messages ?
+			$messages = parent::get_messages( 'raw' );
 			
 			// All is fine ? start insertion
-			if ( empty( $message ) ) {
+			if ( empty($messages) ) {
 				
 				// Default user insert args 
-				$args = array(
-					'role' 				=> 'subscriber',
-					'user_registered' 	=> current_time('mysql')
-				);
-				
-				$args['user_pass'] = $_POST['new_user']['password'];
-				$args['user_login'] 	= stripslashes( $_POST['new_user']['user_nickname'] );
-				$args['user_email']		= sanitize_email( $_POST['new_user']['user_email'] );
-				$args['first_name']		= stripslashes( $_POST['new_user']['first_name'] );
-				$args['last_name']		= stripslashes( $_POST['new_user']['last_name'] );
+				$args = array();
+				$args['password'] 	= $mptr['password'];
+				$args['username'] 	= sanitize_text_field($mptr['username']);
+				$args['email'] 		= sanitize_email( $mptr['email'] );
+				$args['first_name'] = sanitize_text_field($mptr['first_name']);
+				$args['last_name'] 	= sanitize_text_field($mptr['last_name']);
 				
 				// insert member
-				var_dump($args);
-				die();
+				$user_id = MPT_User_Utility::insert_user( $args );
 				
-				// An error ?+
+				// An wp error ?
 				if ( is_wp_error($user_id) ) {
-					wp_die( $user_id->get_error_message() );
+					parent::set_message( $user_id->get_error_code(), $user_id->get_error_message(), 'error' );
+					return false;
 				}
+
+				// Send user notification
+				$user = new MPT_User($user_id);
+				$user->new_user_notification( $args['password'] );
+
+				// Flush POST
+				unset($_POST['mptregistration']);
 				
-				$status = "success";
-				$message = __( "Your account has beed created. You can now log-in with your access<br />", 'mpt' );
-				
-				
-				add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
-				$content = sprintf( __( '<p>Hello, </p>
-				<p>Your subscription to the website %1s is completed. </p>
-				<p>Your login : <br />%2s</p>
-				<p><a href="%3s">Go to my account</a></p>
-				', get_bloginfo( 'name' ), $args['user_login'], home_url() ) ); // TODO get the correct page
-				
-				$mail = wp_mail( $args['user_login'], 'Votre inscription au site ' . get_bloginfo( 'name' ), $content );
-				
-				wp_redirect( add_query_arg( array( 'confirm-user-registered' => true ), home_url() ) );
-				exit;
+				// Set success message
+				parent::set_message( 'mptregistration', __( 'Your account has beed created. You can now log-in with your access', 'mpt' ), 'success' );
 			}
 		}
 		
 		return true;
-	}
-	
-	/**
-	 * Return the value of a field when the form is submitted
-	 * 
-	 * @param string $field_name the name of the subfield
-	 * @param string $parent_field the name of the parent field ( $parent_field['$field_name']) 
-	 * 
-	 * @return the sanitized content of the field
-	 */
-	public static function get_field_value( $field_name, $parent_field = 'new_user' ) {
-		if ( !isset( $_POST[$parent_field][$field_name] ) )
-			return false;
-		
-		return esc_attr( $_POST[$parent_field][$field_name] );
 	}
 }

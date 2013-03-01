@@ -177,21 +177,21 @@ class MPT_User {
 		// we want to reverse this for the plain text arena of emails.
 		$blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
 
-		$message  = sprintf(__('New user registration on your site %s:'), $blogname) . "\r\n\r\n";
-		$message .= sprintf(__('Username: %s'), $username) . "\r\n\r\n";
-		$message .= sprintf(__('E-mail: %s'), $email) . "\r\n";
+		$message  = sprintf(__('New user registration on your site %s:', 'mpt'), $blogname) . "\r\n\r\n";
+		$message .= sprintf(__('Username: %s', 'mpt'), $username) . "\r\n\r\n";
+		$message .= sprintf(__('E-mail: %s', 'mpt'), $email) . "\r\n";
 
-		@wp_mail(get_option('admin_email'), sprintf(__('[%s] New User Registration'), $blogname), $message);
+		@wp_mail(get_option('admin_email'), sprintf(__('[%s] New User Registration', 'mpt'), $blogname), $message);
 
 		if ( empty($plaintext_pass) ) {
 			return false;
 		}
 
-		$message  = sprintf(__('Username: %s'), $username) . "\r\n";
-		$message .= sprintf(__('Password: %s'), $plaintext_pass) . "\r\n";
+		$message  = sprintf(__('Username: %s', 'mpt'), $username) . "\r\n";
+		$message .= sprintf(__('Password: %s', 'mpt'), $plaintext_pass) . "\r\n";
 		$message .= wp_login_url() . "\r\n"; // TODO use custom function
 
-		return wp_mail($email, sprintf(__('[%s] Your username and password'), $blogname), $message);
+		return wp_mail($email, sprintf(__('[%s] Your username and password', 'mpt'), $blogname), $message);
 	}
 	
 	/**

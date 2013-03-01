@@ -1,60 +1,24 @@
-<?php echo MPT_Shortcode::get_message(); ?> 
-<form id="member-registration-form"  method="post" action="">
-	<div class="row">
-		<div class="col-label">
-			<label for="user_nickname"><?php _e( 'Login', 'mpt' ) ; ?> *</label>
-		</div>
-		<div class="col-input">
-			<input type="text" class="text" name="new_user[user_nickname]" id="user_nickname" value="<?php echo MPT_Shortcode_Registration::get_field_value( 'user_nickname' ); ?>" />
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-label">
-			<label for="last-name"><?php _e( 'Firstname', 'mpt' ) ; ?> *</label>
-		</div>
-		<div class="col-input">
-			<input type="text" class="text" name="new_user[first_name]" id="first-name" value="<?php echo MPT_Shortcode_Registration::get_field_value( 'first_name' ); ?>" />
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-label">
-			<label for="name"><?php _e( 'Last name', 'mpt' ) ; ?> *</label>
-		</div>
-		<div class="col-input">
-			<input type="text" class="text" name="new_user[last_name]" id="last-name" value="<?php echo MPT_Shortcode_Registration::get_field_value( 'last_name' ); ?>" />
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-label">
-			<label for="new_user[user_email]"><?php _e( 'Email', 'mpt' ) ; ?> *</label>
-		</div>
-		<div class="col-input">
-			<input type="email" name="new_user[user_email]" id="new_user[user_email]" class="text" value="<?php echo MPT_Shortcode_Registration::get_field_value( 'user_email' ); ?>" />
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-label">
-			<label for="new_user[password]"><?php _e( 'Password', 'mpt' ) ; ?> *</label>
-		</div>
-		<div class="col-input">
-			<input type="password" class="text" id="new_user[password]" name="new_user[password]" value="" />
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-label two-lines">
-			<label for="new_user[password_repeat]"><?php _e( 'Password', 'mpt' ) ; ?> * <?php _e( '(confirmation)', 'mpt' ) ; ?></label>
-		</div>
-		<div class="col-input">
-			<input type="password" class="text" id="new_user[password_repeat]" name="new_user[password_repeat]" value="" />
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-notice">
-			<span>* <?php _e( 'Required fields', 'mpt' ) ; ?></span>
-		</div>
-		<div class="col-submit">
-			<?php wp_nonce_field( 'creation-user' ); ?>
-			<input type="submit" value="<?php _e( 'Submit', 'mpt' ) ; ?>" name="creation_user" class="submit-btn" />
-		</div>
-	</div>
+<?php echo MPT_Shortcode::get_messages(); ?>
+
+<form method="post">
+	<label><?php _e( 'Login', 'mpt' ) ; ?></label>
+	<input type="text" name="mptregistration[username]" value="<?php echo esc_attr($user_data['username']); ?>" />
+
+	<label><?php _e( 'Firstname', 'mpt' ) ; ?></label>
+	<input type="text" name="mptregistration[first_name]" value="<?php echo esc_attr($user_data['first_name']); ?>" />
+
+	<label><?php _e( 'Last name', 'mpt' ) ; ?></label>
+	<input type="text" name="mptregistration[last_name]" value="<?php echo esc_attr($user_data['last_name']); ?>" />
+
+	<label><?php _e( 'Email', 'mpt' ) ; ?></label>
+	<input type="email" name="mptregistration[email]" value="<?php echo esc_attr($user_data['email']); ?>" />
+
+	<label><?php _e( 'Password', 'mpt' ) ; ?></label>
+	<input type="password" name="mptregistration[password]" value="" />
+
+	<label><?php _e( 'Password (confirmation)', 'mpt' ) ; ?></label>
+	<input type="password" name="mptregistration[password_repeat]" value="" />
+
+	<?php wp_nonce_field( 'mptregistration' ); ?>
+	<input type="submit" value="<?php _e( 'Submit', 'mpt' ) ; ?>" />
 </form>

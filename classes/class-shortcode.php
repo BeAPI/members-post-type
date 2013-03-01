@@ -20,39 +20,74 @@ class MPT_Shortcode {
 	 * Load a shortcode template from the theme or directly from the plugin
 	 * 
 	 * @param string $template the template name without extension and path
+	 * @param array $user_data variable to passe to template for display _POST values
 	 * @return string the file content | bool false
 	 * 
 	 * @author Benjamin Niess
 	 */
-	public static function load_template( $template = '' ) {
+	public static function load_template( $template = '', $user_data = array() ) {
 		if ( empty( $template ) ) {
 			return false;
 		}
 		
-		if ( file_exists( TEMPLATEPATH . '/mpt/' . $template . '.tpl.php' ) ) {
-			require( TEMPLATEPATH . '/mpt/' . $template . '.tpl.php' );
+		ob_start();
+		if ( file_exists( STYLESHEETPATH . '/shortcodes/mpt-' . $template . '.tpl.php' ) ) {
+			include( STYLESHEETPATH . '/shortcodes/mpt-' . $template . '.tpl.php' );
+		} elseif ( file_exists( TEMPLATEPATH . '/shortcodes/mpt-' . $template . '.tpl.php' ) ) {
+			include( TEMPLATEPATH . '/shortcodes/mpt-' . $template . '.tpl.php' );
 		} elseif ( file_exists( MPT_DIR . '/views/client/' . $template . '.tpl.php' ) ) {
-			require( MPT_DIR . '/views/client/' . $template . '.tpl.php' );
+			include( MPT_DIR . '/views/client/' . $template . '.tpl.php' );
 		} else {
+			ob_end_clean();
 			return false;
+		}
+		
+		return ob_get_clean();
+	}
+	
+	/**
+	 * Get message success/error global messages
+	 * 
+	 * @param format the return format. 'display' for having the div container, 'raw' for having an array
+	 * @author Benjamin Niess
+	 */
+	public static function get_messages( $format = 'display' ) {
+		global $mpt_messages;
+		
+		if ( !isset($mpt_messages) ) {
+			$mpt_messages = array();
+		}
+		
+		if ( $format == 'display' ) {
+			$output = '';
+			foreach( $mpt_messages as $error_code => $message ) {
+				$message['message'] = stripslashes($message['message']);
+				$output .= '<div class="' . esc_attr( $message['status'] ) . '">' . $message['message'] . '</div>';
+			}
+			return $output;
+		} else {
+			return $mpt_messages;
 		}
 	}
 	
 	/**
-	 * Display the global message and status values
+	 * Set message success/error global messages
 	 * 
 	 * @param format the return format. 'display' for having the div container, 'raw' for having an array
-	 * 
 	 * @author Benjamin Niess
 	 */
-	public static function get_message( $format = 'display' ) {
-		global $message, $status;
+	public static function set_message( $error_code = '', $message = '', $status = 'error' ) {
+		global $mpt_messages;
 		
-		if ( $format == 'display' ) {
-			echo '<div class="' . esc_attr( $status ) . '">' . stripslashes( $message ) . '</div>';
-		} else {
-			return array( 'message' => $message, 'status' => $status );
+		if ( empty($error_code) || empty($message) ) {
+			return false;
 		}
+		
+		if ( !isset($mpt_messages) ) {
+			$mpt_messages = array();
+		}
+		
+		$mpt_messages[$error_code] = array('status' => $status, 'message' => $message);
+		return true;
 	}
-
 }

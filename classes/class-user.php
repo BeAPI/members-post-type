@@ -224,8 +224,4 @@ class MPT_User {
 		
 		return true;
 	}
-
-	public function set_role() {
-
-	}
 }

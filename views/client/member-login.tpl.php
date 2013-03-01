@@ -1,26 +1,21 @@
-<?php echo MPT_Shortcode::get_message(); ?> 
-<form id="member-login-form"  method="post" action="">
-	<div class="row">
-		<div class="col-label">
-			<label for="mpt_user_login"><?php _e( 'Login', 'mpt' ) ; ?></label>
-		</div>
-		<div class="col-input">
-			<input type="text" class="text" name="log" id="mpt_user_login" value="" />
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-label">
-			<label for="mpt_user_password"><?php _e( 'Password', 'mpt' ) ; ?></label>
-		</div>
-		<div class="col-input">
-			<input type="password" class="text" id="mpt_user_password" name="pwd" value="" />
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-submit">
-			<?php wp_nonce_field( 'log-user' ); ?>
-			<input type="submit" value="<?php _e( 'Submit', 'mpt' ) ; ?>" name="log_user" class="submit-btn" />
-		</div>
-	</div>
-	<p><a href=""><?php _e( 'Forgot password ?', 'mpt' ) ; ?></a></p>
+<?php echo MPT_Shortcode::get_messages(); ?> 
+
+<form method="post">
+	<label><?php _e( 'Login', 'mpt' ); ?></label>
+	<input type="text" name="mptlogin[username]" value="<?php echo esc_attr($user_data['username']); ?>" />
+	
+	<label><?php _e( 'Password', 'mpt' ); ?></label>
+	<input type="password" name="mptlogin[password]" value="" />
+	
+	<label>
+		<input name="mptlogin[rememberme]" type="checkbox" value="forever" <?php checked($user_data['rememberme']); ?> />
+		<?php _e('Remember me', 'mpt'); ?>
+	</label>
+	
+	<input type="hidden" name="mptlogin[redirect_to]" value="<?php echo esc_attr($user_data['redirect_to']); ?>" />
+	
+	<?php wp_nonce_field( 'mptlogin' ); ?>
+	<input type="submit" value="<?php _e( 'Submit', 'mpt' ) ; ?>" />
 </form>
+
+<a href=""><?php _e( 'Forgot password ?', 'mpt' ) ; ?></a>

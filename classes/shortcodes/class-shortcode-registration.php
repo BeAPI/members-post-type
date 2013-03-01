@@ -12,37 +12,22 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 	 */
 	public function __construct() {
 		add_shortcode( 'member-registration' , array( __CLASS__, 'shortcode' ) );
-		add_action( 'template_redirect', array( __CLASS__, 'check_changes'), 12 );
+		add_action( 'init', array( __CLASS__, 'init'), 12 );
 	}
 	
 	public static function shortcode() {
-		// Fix notices, string
-		$user = new StdClass;
-		$user->ID = 0;
-		foreach( self::$string_fields as $key ) { 
-			if ( isset($_POST['new_user'][$key]) ) {
-				if ( is_string($_POST['new_user'][$key]) ) {
-					$user->$key = stripslashes($_POST['new_user'][$key]);
-				} 
-			} else {
-				$user->$key = '';
-			}
+		// User logged-in ?
+		if ( mpt_is_member_logged_in() ) {
+			return '<!-- Members already logged-in. -->';
 		}
-
-		// Password fields
-		$user->password = ( isset($_POST['new_user']['password']) ) ? $_POST['new_user']['password'] : '';
-		$user->password_repeat = ( isset($_POST['new_user']['password_repeat']) ) ? $_POST['new_user']['password_repeat'] : '';
-
-		// Require the file tempalte
-		ob_start();
 		
-		parent::load_template( 'member-registration' );
+		// Get data from POST, cleanup it
+		$user_data = ( !isset($_POST['mptregistration']) ) ? array() : $_POST['mptregistration'];
 		
-		$html = ob_get_contents();
-		ob_end_clean();
-
-		return $html;
+		// Parse vs defaults
+		$user_data = wp_parse_args( $user_data, array('username' => '', 'rememberme' => '') );
 		
+		return parent::load_template( 'member-registration' );
 	}
 
 	/**

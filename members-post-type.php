@@ -42,10 +42,19 @@ define('MPT_VERSION', '0.0.1');
 define('MPT_OPTION', 'members-post-type');
 define('MPT_CPT_NAME', 'member');
 
+// Used to guarantee unique hash cookies
+if ( !defined( 'COOKIEHASH' ) ) {
+	$siteurl = home_url('/');
+	if ( $siteurl )
+		define( 'COOKIEHASH', md5( $siteurl ) );
+	else
+		define( 'COOKIEHASH', '' );
+}
+
 // Auth constants
-define('MPT_AUTH_COOKIE', 'mpt_wordpress_' . COOKIEHASH);
-define('MPT_SECURE_AUTH_COOKIE', 'mpt_wordpress_sec_' . COOKIEHASH);
-define('MPT_LOGGED_IN_COOKIE', 'mpt_wordpress_logged_in_' . COOKIEHASH);
+define('MPT_AUTH_COOKIE', 'mpt_wordpress_' . constant('COOKIEHASH'));
+define('MPT_SECURE_AUTH_COOKIE', 'mpt_wordpress_sec_' . constant('COOKIEHASH'));
+define('MPT_LOGGED_IN_COOKIE', 'mpt_wordpress_logged_in_' . constant('COOKIEHASH'));
 
 // Plugin URL and PATH
 define('MPT_URL', plugins_url('', __FILE__));

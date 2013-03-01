@@ -37,7 +37,7 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 	 * @author Benjamin Niess
 	 * @access public
 	 */
-	public static function check_changes() {
+	public static function init() {
 		global $message, $status, $form_errors;
 		
 		if ( is_admin() ) {

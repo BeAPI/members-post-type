@@ -101,10 +101,13 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 		if ( !isset( $_GET['mpt-action'] ) || $_GET['mpt-action'] != 'lost-password' ) {
 			return false;
 		}
-
+		
 		if ( !isset( $_GET['id'] ) || !isset( $_GET['key'] ) || empty( $_GET['id'] ) || empty( $_GET['key'] ) ) {
 			wp_die( __( 'The link you clicked seems to be broken. Please contact the administrator of the site', 'mpt' ) );
 		}
+		
+		// Format key
+		$_GET['key'] = preg_replace('/[^a-z0-9]/i', '', $_GET['key']);
 		
 		// Try load user with this activation_key
 		$user = new MPT_User( );

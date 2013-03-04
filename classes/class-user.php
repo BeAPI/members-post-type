@@ -51,11 +51,11 @@ class MPT_User {
 				break;
 			case 'email':
 			case 'username':
+			case 'user_activation_key':
 				$id = $this->_get_id_from_key_value( $field, $value );
 				if ( $id == 0 ) {
 					return false;
 				}
-
 				$this->_object = get_post($id);
 				break;
 			default:
@@ -195,6 +195,29 @@ class MPT_User {
 	}
 	
 	/**
+	 * Get better display name, first name, last name, username, email or id...
+	 */
+	function get_display_name() {
+		if ( !$this->exists() ) { // Valid instance user ?
+			return false;
+		}
+		
+		// Build post title
+		if ( !empty($this->last_name) || !empty($this->last_name) ) {
+			$separator = ( !empty($this->last_name) && !empty($this->last_name) ) ? ' ' : '';
+			$display_name = $this->last_name . $separator . $this->first_name;
+		} elseif( !empty($this->username) ) {
+			$display_name = $this->username;
+		} elseif( !empty($this->email) ) {
+			$display_name = $this->email;
+		} else {
+			$display_name = $this->id;
+		}
+		
+		return $display_name;
+	}
+	
+	/**
 	 * Build a proper post title, using filled values when it disponible
 	 */
 	public function regenerate_post_title() {
@@ -204,23 +227,55 @@ class MPT_User {
 			return false;
 		}
 		
-		// Build post title
-		if ( !empty($this->last_name) || !empty($this->last_name) ) {
-			$separator = ( !empty($this->last_name) && !empty($this->last_name) ) ? ' ' : '';
-			$post_title = $this->last_name . $separator . $this->first_name;
-		} elseif( !empty($this->username) ) {
-			$post_title = $this->username;
-		} elseif( !empty($this->email) ) {
-			$post_title = $this->email;
-		} else {
-			$post_title = $this->id;
-		}
-		
 		// update DB
-		$wpdb->update( $wpdb->posts, array('post_title' => $post_title), array('ID' => $this->id) );
+		$wpdb->update( $wpdb->posts, array('post_title' => $this->get_display_name()), array('ID' => $this->id) );
 		
 		// Refresh cache
 		clean_post_cache($this->id);
+		
+		return true;
+	}
+	
+	public function reset_password_link() {
+		do_action('mpt_retrieve_password', $this->id);
+		
+		$allow = apply_filters('mpt_allow_password_reset', true, $this->id);
+		if ( $allow == false ) {
+			return new WP_Error('no_password_reset', __('Password reset is not allowed for this user'));
+		} elseif ( is_wp_error($allow) ) {
+			return $allow;
+		}
+		
+		// Buid new user activation key
+		$key = get_post_meta( $this->id, 'user_activation_key', true );
+		if ( empty($key) ) {
+			// Generate something random for a key...
+			$key = wp_generate_password(20, false);
+			
+			// Allow events
+			do_action('mpt_retrieve_password_key', $this->id, $key);
+			
+			// Now insert the new key into the db
+			update_post_meta( $this->id, 'user_activation_key', $key );
+		}
+		
+		// Build message text
+		$message = __('Someone requested that the password be reset for the following account:') . "\r\n\r\n";
+		$message .= network_site_url() . "\r\n\r\n";
+		$message .= sprintf(__('Username: %s'), $this->get_display_name()) . "\r\n\r\n";
+		$message .= __('If this was a mistake, just ignore this email and nothing will happen.') . "\r\n\r\n";
+		$message .= __('To reset your password, visit the following address:') . "\r\n\r\n";
+		$message .= '<' . network_site_url("wp-login.php?action=rp&key=$key&user_id=" . rawurlencode($this->id), 'login') . ">\r\n"; // TODO URL
+	
+		// Build title
+		$title = sprintf( __('[%s] Password Reset'), wp_specialchars_decode(get_option('blogname'), ENT_QUOTES) );
+		
+		// Allow plugins hooks
+		$title = apply_filters('mpt_retrieve_password_title', $title);
+		$message = apply_filters('mpt_retrieve_password_message', $message, $key);
+		
+		if ( $message && !wp_mail($this->email, $title, $message) )
+			wp_die( __('The e-mail could not be sent.') . "<br />\n" . __('Possible reason: your host may have disabled the mail() function...') );
 		
 		return true;
 	}

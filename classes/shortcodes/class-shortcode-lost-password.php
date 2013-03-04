@@ -1,149 +1,152 @@
 <?php
 class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
-	
+
 	/**
 	 * All about the registration shortcode
 	 */
-	public function __construct() {
-		add_shortcode( 'member-lost-password', array(__CLASS__, 'shortcode') );
-		add_action( 'init', array( __CLASS__, 'init'), 12 );
+	public function __construct( ) {
+		add_shortcode( 'member-lost-password', array( __CLASS__, 'shortcode' ) );
+		add_action( 'init', array( __CLASS__, 'init' ), 12 );
 	}
-	
-	public static function shortcode() {
-		if ( isset( $_GET['action'] ) && $_GET['action'] =='lost-password' ) {
+
+	public static function shortcode( ) {
+		if ( isset( $_GET['mpt-action'] ) && $_GET['mpt-action'] == 'lost-password' ) {
 			return parent::load_template( 'member-lost-password-step-2' );
 		} else {
 			// Get user_login
-			$user_login = isset($_POST['user_login']) ? stripslashes($_POST['user_login']) : '';
-			
+			$user_login = isset( $_POST['user_login'] ) ? stripslashes( $_POST['user_login'] ) : '';
+
 			// Default message
-			parent::set_message( 'info', __('Please enter your username or email address. You will receive a link to create a new password via email.'), 'notice' );
-			
+			if ( !isset( $_POST ) ) {
+				parent::set_message( 'info', __( 'Please enter your username or email address. You will receive a link to create a new password via email.' ), 'notice' );
+			}
+
 			return parent::load_template( 'member-lost-password-step-1' );
 		}
 	}
-	
-	public static function init() {
-		self::check_step_1();
-		self::check_regeneration_link();
-		self::check_step_2();
-	}
-	
-	
-	/**
-	 * lostpassword form action
-	 *
-	 * @return void
-	 * @author Benjamin Niess
-	 */
-	public static function redirect_default_password() {
-		
-		$password_url = get_permalink( ); // TODO
-		if ( isset($_POST['redirect_to']) ) {
-			$password_url = add_query_arg( array('redirect_to' => $_POST['redirect_to']), $password_url );
-		}
 
-		wp_redirect($password_url);
-		exit();
+	public static function init( ) {
+		// Ask link reset
+		self::check_step_1( );
+
+		// Check link reset and form new password
+		self::check_step_2_url( );
+		self::check_step_2_form( );
 	}
-	
-	/**
-	 * Redirect with key and login form action
-	 *
-	 * @return void
-	 * @author Benjamin Niess
-	 * @access public
-	 */
-	public static function redirect_default_password_check_key() {
-		
-		$password_url = get_permalink(  ); // TODO
-		
-		// If there is the key, add it
-		if ( isset($_GET['key']) ) {
-			$password_url = add_query_arg( array('key' => $_GET['key'] ), $password_url );
-		}
-		
-		// If there is the login, add it
-		if ( isset($_GET['login']) ) {
-			$password_url = add_query_arg( array('login' => urlencode( $_GET['login'] ) ), $password_url );
-		}
-		
-		// Redirect to right page
-		wp_redirect( $password_url );
-		exit();
-	}
-	
+
 	/**
 	 * Check POST data for email
 	 *
 	 * @return void
 	 * @author Benjamin Niess
 	 */
-	public static function check_step_1() {
-		// Check if the user is reseting
-		if ( !isset( $_POST['forgot_password'] ) || (int) $_POST['forgot_password'] != 1 ) {
+	public static function check_step_1( ) {
+		if ( isset( $_POST['mptlostpwd_s1'] ) ) {
+			// Cleanup data
+			$_POST['mptlostpwd_s1'] = stripslashes_deep( $_POST['mptlostpwd_s1'] );
+			
+			// Check _NONCE
+			$nonce = isset( $_POST['_wpnonce'] ) ? $_POST['_wpnonce'] : '';
+			if ( !wp_verify_nonce( $nonce, 'mptlostpwd_s1' ) ) {
+				parent::set_message( 'check-nonce', 'Security check failed', 'error' );
+				return false;
+			}
+
+			// Empty values ?
+			if ( empty( $_POST['mptlostpwd_s1']['username'] ) ) {
+				parent::set_message( 'check_step_1', __( 'Invalid username or e-mail.', 'mpt' ), 'error' );
+				return false;
+			}
+
+			// Try find user
+			$user = new MPT_User( );
+
+			// Test if @
+			if ( strpos( $_POST['mptlostpwd_s1']['username'], '@' ) !== false ) {
+				$user->fill_by( 'email', $_POST['mptlostpwd_s1']['username'] );
+			} else {
+				$user->fill_by( 'username', $_POST['mptlostpwd_s1']['username'] );
+			}
+
+			// No response for email and username, go out
+			if ( !$user->exists( ) ) {
+				parent::set_message( 'check_step_1', __( 'No user with this value.', 'mpt' ), 'error' );
+				return false;
+			}
+
+			// Send reset link
+			$user->reset_password_link( );
+
+			parent::set_message( 'check_step_1', __( "You are going to receive an email with a reset link.", 'mpt' ), 'success' );
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Check if user click on reset link, verify key/id on DB
+	 *
+	 * @author Benjamin Niess
+	 */
+	public static function check_step_2_url( ) {
+		if ( !isset( $_GET['mpt-action'] ) || $_GET['mpt-action'] != 'lost-password' ) {
 			return false;
 		}
-		
-		// Check if the email field is filled
-		if ( !isset( $_POST['mpt_user_email'] ) || empty( $_POST['mpt_user_email'] ) || !is_email( $_POST['mpt_user_email'] ) ) {
-			parent::set_message( 'email_invalid', __( "You need to enter a valid email address", 'mpt' ), 'error' );
+
+		if ( !isset( $_GET['id'] ) || !isset( $_GET['key'] ) || empty( $_GET['id'] ) || empty( $_GET['key'] ) ) {
+			wp_die( __( 'The link you clicked seems to be broken. Please contact the administrator of the site', 'mpt' ) );
 		}
 		
-		// che if login given
-		$errors = self::retrieve_password();
-		
-		// Check if errors
-		if( is_wp_error( $errors ) ) {
-			parent::set_message( $errors->get_error_code(), $errors->get_error_message(), 'error' );
-			return false;
+		// Try load user with this activation_key
+		$user = new MPT_User( );
+		$user->fill_by( 'user_activation_key', $_GET['key'] );
+		if ( !$user->exists() || ($user->exists() && $user->id != $_GET['id']) ) {
+			wp_die(__('Cheatin&#8217; uh?', 'mpt'));
 		}
 		
-		// Display the message
-		parent::set_message( 'check_step_1', __( "You are going to receive an email with a reset link.", 'mpt' ), 'success' );
+		return true;
 	}
 	
 	/**
-	 * Check if the user clicked on the regenerate link
-	 * 
-	 * @author Benjamin Niess
+	 * Check form new password
 	 */
-	public static function check_regeneration_link() {
-		
-		if ( !isset( $_GET['action'] ) || $_GET['action'] != 'regenerate_password' ) {
-			return false;
-		} 
-		
-		if ( !isset( $_GET['login'] ) || !isset( $_GET['key'] ) || empty( $_GET['login'] ) || empty( $_GET['key'] ) ) {
-			wp_die( __( 'The link you clicked seems to be broken. Please contact the administrator of the site', 'mpt' ) );
-		} 
-		
-		$user = self::check_password_reset_key($_GET['key'], $_GET['login']);
-		if( is_wp_error( $user ) ) {
-			wp_die( $user->get_error_message() );
-		}
-	}
-	
-	public static function check_step_2() {
-		if( isset($_POST['mpt_user_password']) && isset( $_POST['mpt_user_password_confirm'] ) ){
-			
-			// Check if pass 1 and pass 2 are the same
-			if( $_POST['mpt_user_password'] != $_POST['mpt_user_password_confirm'] ) {
-				$message = __( "The two passwords you entered don't match", 'mpt' );
-				$status = 'error';
+	public static function check_step_2_form( ) {
+		if ( isset( $_POST['mptlostpwd_s2'] ) ) {
+			// Check _NONCE
+			$nonce = isset( $_POST['_wpnonce'] ) ? $_POST['_wpnonce'] : '';
+			if ( !wp_verify_nonce( $nonce, 'mptlostpwd_s2' ) ) {
+				parent::set_message( 'check-nonce', 'Security check failed', 'error' );
 				return false;
-				
-			} elseif( isset( $_POST['mpt_user_password'] ) && !empty( $_POST['mpt_user_password_confirm'] ) ) {
-				// Check if the key and login are right and get the user
-				$user = self::check_password_reset_key( $_GET['key'], $_GET['login'] );
-				
-				// reset the user password
-				self::reset_password( $user, $_POST['mpt_user_password'] );
-				
-				// Add the message
-				$message = __( "Your password has been changed.", 'mpt' );
-				$status = 'success';
 			}
+			
+			// Check if passwords are the same
+			if ( $_POST['mptlostpwd_s2']['password'] != $_POST['mptlostpwd_s2']['password_confirmation'] ) {
+				parent::set_message( 'check_step_2', __( 'The two passwords you entered don\'t match.', 'mpt' ), 'error' );
+				return false;
+			}
+			
+			// Check password complexity
+			if( strlen($_POST['mptlostpwd_s2']['password']) < 6 ) { // TODO: Hooks and function for test password security
+				parent::set_message( 'check_step_2', __('You password need to be at least 6 characters long', 'mpt'), 'error' );
+				return false;
+			}
+			
+			// Try load user with this activation_key
+			$user = new MPT_User( );
+			$user->fill_by( 'user_activation_key', $_GET['key'] );
+			if ( !$user->exists() || ($user->exists() && $user->id != $_GET['id']) ) {
+				wp_die(__('Cheatin&#8217; uh?', 'mpt'));
+			}
+			
+			// reset the user password
+			$user->set_password($_POST['mptlostpwd_s2']['password']);
+			
+			// Redirect to login page
+			// TODO: Dynamic pages
+			wp_redirect( home_url('/') );
+			exit();
 		}
 	}
+
 }

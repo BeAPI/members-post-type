@@ -15,6 +15,8 @@
  	Custom capabilities
  	Logout link
  	Widget
+	Username (unicity + email)
+	Splitting user utility / user auth
 
  ----
 

@@ -139,12 +139,16 @@ class MPT_User {
 
 	/**
 	 * Notify the blog admin of a user changing password, normally via email.
-	 * TODO: add hooks
 	 *
 	 * @param object $user User Object
 	 */
 	public function password_change_notification() {
 		if ( !$this->exists() ) { // Valid instance user ?
+			return false;
+		}
+		
+		$stop = apply_filters_ref_array('mpt_password_change_notification', array(false, &$this) );
+		if ( $stop == true ) {
 			return false;
 		}
 		
@@ -161,12 +165,16 @@ class MPT_User {
 
 	/**
 	 * Notify the blog admin of a new user, normally via email.
-	 * TODO: Add hooks
 	 *
 	 * @param string $plaintext_pass Optional. The user's plaintext password
 	 */
 	public function new_user_notification($plaintext_pass = '') {
 		if ( !$this->exists() ) { // Valid instance user ?
+			return false;
+		}
+		
+		$stop = apply_filters_ref_array('mpt_new_user_notification', array(false, &$this, $plaintext_pass) );
+		if ( $stop == true ) {
 			return false;
 		}
 		
@@ -186,11 +194,11 @@ class MPT_User {
 		if ( empty($plaintext_pass) ) {
 			return false;
 		}
-
+		
 		$message  = sprintf(__('Username: %s', 'mpt'), $username) . "\r\n";
 		$message .= sprintf(__('Password: %s', 'mpt'), $plaintext_pass) . "\r\n";
 		$message .= wp_login_url() . "\r\n"; // TODO use custom function
-
+		
 		return wp_mail($email, sprintf(__('[%s] Your username and password', 'mpt'), $blogname), $message);
 	}
 	
@@ -257,6 +265,11 @@ class MPT_User {
 			
 			// Now insert the new key into the db
 			update_post_meta( $this->id, 'user_activation_key', $key );
+		}
+		
+		$stop = apply_filters_ref_array('mpt_reset_password_notification', array(false, &$this, $key) );
+		if ( $stop == true ) {
+			return false;
 		}
 		
 		// Build message text

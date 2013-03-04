@@ -58,7 +58,7 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 			if ( !empty($mptr['password']) && !empty($mptr['password_repeat']) ) {
 				if ( $mptr['password'] != $mptr['password_repeat'] ) { // password is the same ?
 					parent::set_message( 'password_repeat', __('The two password you filled doesn\'t match', 'mpt'), 'error' );
-				} elseif( strlen($mptr['password']) < 6 ) {
+				} elseif( strlen($mptr['password']) < 6 ) { // TODO: Hooks and function for test password security
 					parent::set_message( 'password', __('You password need to be at least 6 characters long', 'mpt'), 'error' );
 				}
 			} else {

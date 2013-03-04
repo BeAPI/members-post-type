@@ -10,6 +10,11 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 	}
 
 	public static function shortcode( ) {
+		// User logged-in ?
+		if ( mpt_is_member_logged_in() ) {
+			return '<!-- Members logged-in, impossible to reset password. -->';
+		}
+		
 		if ( isset( $_GET['mpt-action'] ) && $_GET['mpt-action'] == 'lost-password' ) {
 			return parent::load_template( 'member-lost-password-step-2' );
 		} else {

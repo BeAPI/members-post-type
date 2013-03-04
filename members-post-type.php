@@ -17,6 +17,8 @@
  	Registration date
  	Last connection
  	Connection counter
+ 	Logout link
+ 	Widget
 
  ----
 

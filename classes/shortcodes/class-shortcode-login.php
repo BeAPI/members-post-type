@@ -1,8 +1,7 @@
 <?php
 class MPT_Shortcode_Login extends MPT_Shortcode {
-	
 	/**
-	 * All about the registration shortcode
+	 * Constructor, register hooks
 	 */
 	public function __construct() {
 		add_shortcode( 'member-login' , array( __CLASS__, 'shortcode' ) );
@@ -11,7 +10,7 @@ class MPT_Shortcode_Login extends MPT_Shortcode {
 	
 	/**
 	 * Render shortcode, use local or theme template
-	 * @return [type] [description]
+	 * @return string HTML of shortcode
 	 */
 	public static function shortcode() {
 		// User logged-in ?

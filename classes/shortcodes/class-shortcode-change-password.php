@@ -1,14 +1,17 @@
 <?php
 class MPT_Shortcode_Change_Password extends MPT_Shortcode {
-	
 	/**
-	 * All about the registration shortcode
+	 * Constructor, register hooks
 	 */
 	public function __construct() {
 		add_shortcode( 'member-change-password' , array( __CLASS__, 'shortcode' ) );
 		add_action( 'init', array( __CLASS__, 'init'), 12 );
 	}
 	
+	/**
+	 * Render shortcode, use local or theme template
+	 * @return string HTML of shortcode
+	 */
 	public static function shortcode() {
 		// User logged-in ?
 		if ( !mpt_is_member_logged_in() ) {

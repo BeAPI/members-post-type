@@ -13,10 +13,6 @@
  TODO:
  	Taxonomy : Role + With capabilities
  	Custom capabilities
- 	Activation key
- 	Registration date
- 	Last connection
- 	Connection counter
  	Logout link
  	Widget
 

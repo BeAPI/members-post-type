@@ -152,7 +152,7 @@ class MPT_User_Utility {
 		}
 	
 		self::set_auth_cookie($user->id, $credentials['remember'], $secure_cookie);
-		do_action('mpt_login', $credentials['user_login']);
+		do_action('mpt_login', $credentials['user_login'], $user->id);
 		return $user;
 	}
 

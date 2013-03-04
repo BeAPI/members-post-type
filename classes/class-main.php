@@ -12,12 +12,16 @@ class MPT_Main {
 		if ( isset( $_GET['mpt-action'] ) && $_GET['mpt-action'] == 'logout' ) {
 			if ( MPT_User_Utility::is_logged_in( ) ) {
 				MPT_User_Utility::logout( );
-				wp_redirect( home_url( '/#logout-success' ) );
-				exit( );
+				$redirect_to = home_url( '/#logout-success' );
 			} else {
-				wp_redirect( home_url( '/#logout-error' ) );
-				exit( );
+				$redirect_to = home_url( '/#logout-error' );
 			}
+
+			// Check if request want redirect to somewehre
+			$redirect_to = !empty( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : $redirect_to;
+
+			wp_safe_redirect( $redirect_to );
+			exit( );
 		}
 	}
 

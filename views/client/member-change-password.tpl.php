@@ -8,7 +8,7 @@
 	<input type="password" name="mptchangepwd[new]" value="" />
 
 	<label><?php _e( 'Your new password (confirmation)', 'mpt' ) ; ?></label>
-	<input type="password" value="mptchangepwd[new_confirmation]" />
+	<input type="password" name="mptchangepwd[new_confirmation]" />
 
 	<?php wp_nonce_field( 'mptchangepwd' ); ?>
 	<input type="submit" value="<?php _e( 'Submit', 'mpt' ) ; ?>" />

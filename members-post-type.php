@@ -3,7 +3,7 @@
  Plugin Name: Members post type
  Version: 0.1
  Plugin URI: https://github.com/herewithme/members-post-type
- Description: Manage members on WordPress as post type. Implement, post type, authentification, role, clone from WP.
+ Description: Manage members on WordPress as post type. Implement: post type, authentification, role, clone from WP.
  Author: Amaury Balmer
  Author URI: http://www.beapi.fr
  Domain Path: languages

@@ -7,6 +7,11 @@ class MPT_Admin_Post_Type {
 		// Metabox member
 		add_action( 'add_meta_boxes', array( __CLASS__, 'add_meta_boxes' ) );
 		add_action( 'save_post', array( __CLASS__, 'save_post' ) );
+		
+		// Register settings tabs
+		new MPT_Admin_Settings_Main();
+		new MPT_Admin_Settings_Pages();
+		new MPT_Admin_Settings_Security();
 	}
 	
 	public static function admin_init() {

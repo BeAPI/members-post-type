@@ -10,8 +10,8 @@ class MPT_Main {
 	 */
 	public static function init( ) {
 		if ( isset( $_GET['mpt-action'] ) && $_GET['mpt-action'] == 'logout' ) {
-			if ( MPT_User_Utility::is_logged_in( ) ) {
-				MPT_User_Utility::logout( );
+			if ( MPT_User_Auth::is_logged_in( ) ) {
+				MPT_User_Auth::logout( );
 				$redirect_to = home_url( '/#logout-success' );
 			} else {
 				$redirect_to = home_url( '/#logout-error' );

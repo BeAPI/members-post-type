@@ -43,7 +43,7 @@ class MPT_Shortcode_Login extends MPT_Shortcode {
 			}
 			
 			// Try sign-on
-			$signon = MPT_User_Utility::signon( array(
+			$signon = MPT_User_Auth::signon( array(
 				'user_login' => $_POST['mptlogin']['username'], 
 				'user_password' => $_POST['mptlogin']['password']
 			) );

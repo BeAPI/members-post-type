@@ -53,10 +53,10 @@ class MPT_Shortcode_Change_Password extends MPT_Shortcode {
 			}
 			
 			// Get current user info
-			$current_user = MPT_User_Utility::get_current_user();
+			$current_user = MPT_User_Auth::get_current_user();
 			
 			// Re-sign-on, once password reset
-			$result = MPT_User_Utility::authenticate( $current_user->username, $_POST['mptchangepwd']['old'] );
+			$result = MPT_User_Auth::authenticate( $current_user->username, $_POST['mptchangepwd']['old'] );
 			
 			// result sign-on are error ?
 			if ( is_wp_error($result) ) {
@@ -68,10 +68,10 @@ class MPT_Shortcode_Change_Password extends MPT_Shortcode {
 			$current_user->set_password($_POST['mptchangepwd']['new']);
 			
 			// Re-signon
-			MPT_User_Utility::logout();
+			MPT_User_Auth::logout();
 			
 			// Re sign-on on real time for not broken user session
-			$signon = MPT_User_Utility::signon( array(
+			$signon = MPT_User_Auth::signon( array(
 				'user_login' => $current_user->username, 
 				'user_password' => $_POST['mptchangepwd']['new']
 			) );

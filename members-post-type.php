@@ -11,12 +11,38 @@
  Text Domain: mpt
 
  TODO:
- 	Taxonomy : Role + With capabilities
- 	Custom capabilities
- 	Logout link
- 	Widget
+ 	Custom Role API
+ 		Builtin taxonomy
+ 		Capabilities
+ 
+ 	Custom capabilities for custom post type
+ 		Builtin role
+
+ 	Pages links management : 
+ 		login, logout, lost password, registration
+
+ 	Widget (login/logout)
+ 		Settings for 
+ 			Title
+ 			Enable register link
+ 			Enable lost password link
+	
 	Username (unicity + email)
+	
 	Splitting user utility / user auth
+	
+	Social integration
+		Facebook
+		Twitter
+		+ hooks
+	
+	Security
+		Login lock
+		Force HTTPs ?
+		Password strategy
+			Minimum character
+			Enforcment
+			Renew
 
  ----
 
@@ -52,9 +78,15 @@ if ( !defined( 'COOKIEHASH' ) ) {
 }
 
 // Auth constants
-define('MPT_AUTH_COOKIE', 'mpt_wordpress_' . constant('COOKIEHASH'));
-define('MPT_SECURE_AUTH_COOKIE', 'mpt_wordpress_sec_' . constant('COOKIEHASH'));
-define('MPT_LOGGED_IN_COOKIE', 'mpt_wordpress_logged_in_' . constant('COOKIEHASH'));
+if ( !defined( 'MPT_AUTH_COOKIE' ) ) {
+	define('MPT_AUTH_COOKIE', 'mpt_wordpress_' . constant('COOKIEHASH'));
+}
+if ( !defined( 'MPT_SECURE_AUTH_COOKIE' ) ) {
+	define('MPT_SECURE_AUTH_COOKIE', 'mpt_wordpress_sec_' . constant('COOKIEHASH'));
+}
+if ( !defined( 'MPT_LOGGED_IN_COOKIE' ) ) {
+	define('MPT_LOGGED_IN_COOKIE', 'mpt_wordpress_logged_in_' . constant('COOKIEHASH'));
+}
 
 // Plugin URL and PATH
 define('MPT_URL', plugins_url('', __FILE__));
@@ -73,7 +105,7 @@ function _mpt_load_files($dir, $files, $prefix = '') {
 _mpt_load_files(MPT_DIR . '/functions/', array('api', 'template'));
 
 // Plugin client classes
-_mpt_load_files(MPT_DIR . '/classes/', array('main', 'plugin', 'post-type', 'role', 'shortcode', 'taxonomy', 'user', 'user-utility', 'widget'), 'class-');
+_mpt_load_files(MPT_DIR . '/classes/', array('main', 'plugin', 'post-type', 'role', 'shortcode', 'taxonomy', 'user', 'user-auth', 'user-utility', 'widget'), 'class-');
 
 // Plugin admin classes
 if (is_admin()) {

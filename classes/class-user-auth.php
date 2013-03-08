@@ -144,7 +144,7 @@ class MPT_User_Auth {
 		$userdata->fill_by( 'username', $username );
 		
 		if ( !$userdata->exists() ) {
-			return new WP_Error('invalid_username', sprintf(__('<strong>ERROR</strong>: Invalid username. <a href="%s" title="Password Lost and Found">Lost your password</a>?'), site_url('wp-login.php?action=lostpassword', 'login')));
+			return new WP_Error('invalid_username', sprintf(__('<strong>ERROR</strong>: Invalid username. <a href="%s" title="Password Lost and Found">Lost your password</a>?'), mpt_get_lost_password_permalink() ) );
 		}
 		
 		$userdata = apply_filters('mpt_authenticate_user', $userdata, $password);
@@ -154,7 +154,7 @@ class MPT_User_Auth {
 	
 		if ( !wp_check_password($password, $userdata->password, $userdata->id) ) {
 			return new WP_Error( 'incorrect_password', sprintf( __( '<strong>ERROR</strong>: The password you entered for the username <strong>%1$s</strong> is incorrect. <a href="%2$s" title="Password Lost and Found">Lost your password</a>?' ),
-			$username, site_url( 'wp-login.php?action=lostpassword', 'login' ) ) );
+			$username, mpt_get_lost_password_permalink() ) );
 		}
 	
 		return $userdata;

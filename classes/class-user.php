@@ -278,8 +278,8 @@ class MPT_User {
 		$message .= sprintf(__('Username: %s'), $this->get_display_name()) . "\r\n\r\n";
 		$message .= __('If this was a mistake, just ignore this email and nothing will happen.') . "\r\n\r\n";
 		$message .= __('To reset your password, visit the following address:') . "\r\n\r\n";
-		$message .= '<' . network_site_url("wp-login.php?action=rp&key=$key&user_id=" . rawurlencode($this->id), 'login') . ">\r\n"; // TODO URL
-	
+		$message .= '<' . add_query_arg( array('mpt-action' => 'lost-password', 'key' => $key, 'id' => $this->id), mpt_get_lost_password_permalink()) . ">\r\n";
+		
 		// Build title
 		$title = sprintf( __('[%s] Password Reset'), wp_specialchars_decode(get_option('blogname'), ENT_QUOTES) );
 		

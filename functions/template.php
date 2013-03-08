@@ -1,10 +1,10 @@
 <?php
 function mpt_get_login_permalink() {
-	return MPT_Main::get_action_permalink( 'logout' );
+	return MPT_Main::get_action_permalink( 'login' );
 }
 
 function mpt_get_logout_permalink() {
-	return home_url('/?mpt-action=logout');
+	return MPT_Main::get_action_permalink( 'logout' ); 
 }
 
 function mpt_get_register_permalink() {

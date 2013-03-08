@@ -60,6 +60,9 @@ class MPT_Main {
 					$return_url = '#no-page-id-for-this-action';
 				}
 				break;
+			case 'logout' :
+				$return_url = home_url('/?mpt-action=logout');
+				break;
 			default :
 				$return_url = '#no-known-action';
 				break;

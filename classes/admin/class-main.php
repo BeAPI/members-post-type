@@ -15,7 +15,7 @@ class MPT_Admin_Main {
 	}
 
 	public static function admin_menu( ) {
-		add_options_page( 'MPT users', 'MPT users', 'manage_options', 'mpt_users_settings', array( __CLASS__, 'render_page_settings' ) );
+		add_options_page( __('Members', 'mpt'), __('Members', 'mpt'), 'manage_options', 'mpt_users_settings', array( __CLASS__, 'render_page_settings' ) );
 	}
 
 	public static function render_page_settings() {

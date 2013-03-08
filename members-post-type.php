@@ -18,9 +18,6 @@
  	Custom capabilities for custom post type
  		Builtin role
 
- 	Pages links management : 
- 		login, logout, lost password, registration
-
  	Widget (login/logout)
  		Settings for 
  			Title
@@ -29,11 +26,10 @@
 	
 	Username (unicity + email)
 	
-	Splitting user utility / user auth
-	
 	Social integration
 		Facebook
 		Twitter
+		Google +
 		+ hooks
 	
 	Security

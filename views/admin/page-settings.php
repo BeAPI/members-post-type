@@ -1,8 +1,8 @@
 <!-- Create a header in the default WordPress 'wrap' container -->
 <div class="wrap">
 	<div id="icon-themes" class="icon32"></div>
-	<h2><?php _e( 'MPT Users - Settings', 'mpt' ); ?></h2>
-	<?php settings_errors(); ?>
+	<h2><?php _e( 'Members - Settings', 'mpt' ); ?></h2>
+	<?php //settings_errors(); ?>
 
 	<h2 class="nav-tab-wrapper">
 		<a href="<?php echo admin_url('options-general.php?page=mpt_users_settings&tab=main'); ?>" class="nav-tab <?php echo $active_tab == 'main' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Main', 'mpt' ); ?></a>

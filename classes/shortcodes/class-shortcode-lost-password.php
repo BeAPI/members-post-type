@@ -153,9 +153,11 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 			// reset the user password
 			$user->set_password($_POST['mptlostpwd_s2']['password']);
 			
-			// Redirect to login page
-			// TODO: Dynamic pages
-			wp_redirect( home_url('/') );
+			// Try to get the login page, otherwise get home link
+			$location = wp_validate_redirect( mpt_get_login_permalink(), home_url('/') );
+			
+			// Redirect
+			wp_redirect( $location );
 			exit();
 		}
 	}

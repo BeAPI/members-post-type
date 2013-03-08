@@ -15,7 +15,7 @@ class MPT_Shortcode_Change_Password extends MPT_Shortcode {
 	public static function shortcode() {
 		// User logged-in ?
 		if ( !mpt_is_member_logged_in() ) {
-			return __('You can\'t your password, if you aren\'t logged-in.', 'mpt');
+			return __('You can\'t change your password, if you aren\'t logged-in.', 'mpt');
 		}
 		
 		return parent::load_template( 'member-change-password', array() );

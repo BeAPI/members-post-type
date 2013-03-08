@@ -19,3 +19,10 @@ function mpt_email_exists( $email ) {
 	$test_user->fill_by('email', $email);
 	return $test_user->exists();
 }
+
+/**
+ * Shortlink for MPT_Main::get_action_permalink method
+ */
+function mpt_get_action_permalink( $action = '' ) {
+	return MPT_Main::get_action_permalink( $action );
+}

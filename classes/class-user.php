@@ -197,7 +197,7 @@ class MPT_User {
 		
 		$message  = sprintf(__('Username: %s', 'mpt'), $username) . "\r\n";
 		$message .= sprintf(__('Password: %s', 'mpt'), $plaintext_pass) . "\r\n";
-		$message .= wp_login_url() . "\r\n"; // TODO use custom function
+		$message .= mpt_get_login_permalink() . "\r\n";
 		
 		return wp_mail($email, sprintf(__('[%s] Your username and password', 'mpt'), $blogname), $message);
 	}

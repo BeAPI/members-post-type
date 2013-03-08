@@ -1,6 +1,18 @@
 <?php
 class MPT_User_Utility {
 	public function __construct() {}
+	
+	/**
+	 * Allow signon user with mail
+	 */
+	public static function is_signon_email() {
+		$main_settings = (array) get_option( 'mpt-main' );
+		if ( isset($main_settings['allow-signon-email']) && (int) $main_settings['allow-signon-email'] == 1 ) {
+			return true;
+		}
+		
+		return false;
+	}
 
 	/**
 	 * A simpler way of inserting an user into the database.

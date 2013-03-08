@@ -15,6 +15,8 @@
  		Builtin taxonomy
  		Capabilities
  
+ 	Custom Post Status
+ 
  	Custom capabilities for custom post type
  		Builtin role
 

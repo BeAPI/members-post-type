@@ -26,3 +26,7 @@ function mpt_email_exists( $email ) {
 function mpt_get_action_permalink( $action = '' ) {
 	return MPT_Main::get_action_permalink( $action );
 }
+
+function mpt_is_signon_email() {
+	return MPT_User_Utility::is_signon_email();
+}

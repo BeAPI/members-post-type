@@ -1,9 +1,11 @@
 <?php echo MPT_Shortcode::get_messages(); ?>
 
 <form method="post">
-	<label><?php _e( 'Login', 'mpt' ) ; ?></label>
-	<input type="text" name="mptregistration[username]" value="<?php echo esc_attr($user_data['username']); ?>" />
-
+	<?php if ( !mpt_is_signon_email() ) : ?>
+		<label><?php _e( 'Username', 'mpt' ) ; ?></label>
+		<input type="text" name="mptregistration[username]" value="<?php echo esc_attr($user_data['username']); ?>" />
+	<?php endif; ?>
+	
 	<label><?php _e( 'Firstname', 'mpt' ) ; ?></label>
 	<input type="text" name="mptregistration[first_name]" value="<?php echo esc_attr($user_data['first_name']); ?>" />
 

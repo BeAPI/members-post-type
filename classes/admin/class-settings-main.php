@@ -11,7 +11,8 @@ class MPT_Admin_Settings_Main {
 		add_settings_section( self::$id . '-section', __( 'General features', 'mpt' ), array(__CLASS__, 'pages_section_callback'), self::$id );
 
 		// Fields
-		add_settings_field( 'allow-signon-email', __( 'Email sign-on', 'mpt' ), array(__CLASS__, 'checkbox_element_callback'), self::$id, self::$id . '-section', array( 'name' => self::$id, 'id' => 'allow-signon-email', 'label' =>  __( 'Allow email sign-on ?', 'mpt'), 'description' => __('Do not change this value if you have already members! At the risk of breaking your site!', 'mpt' ) ) );
+		add_settings_field( 'allow-signon-email', __( 'Sign-on method', 'mpt' ), array(__CLASS__, 'checkbox_element_callback'), self::$id, self::$id . '-section', array( 'name' => self::$id, 'id' => 'allow-signon-email', 'label' =>  __( 'Allow email sign-on ?', 'mpt'), 'description' => __('Do not change this value if you have already members! At the risk of breaking your site!', 'mpt' ) ) );
+		add_settings_field( 'unique-email', __( 'Email constraint', 'mpt' ), array(__CLASS__, 'checkbox_element_callback'), self::$id, self::$id . '-section', array( 'name' => self::$id, 'id' => 'unique-email', 'label' =>  __( 'Email must be unique ?', 'mpt'), 'description' => __('Do not change this value if you have already members! At the risk of breaking your site! This option is automatically enabled when you allow email sign-on.', 'mpt' ) ) );
 
 		// DB options
 		register_setting( self::$id, self::$id, array(__CLASS__, 'validate_input') );
@@ -44,6 +45,7 @@ class MPT_Admin_Settings_Main {
 	public static function get_default_options() {
 		$defaults = array(
 			'allow-signon-email' => '1',
+			'unique-email' => '1'
 		);
 		
 		return apply_filters( 'mpt_get_default_options', $defaults, self::$id );
@@ -63,6 +65,11 @@ class MPT_Admin_Settings_Main {
 			} else {
 				$output[$key] = 0;
 			}
+		}
+		
+		// Constraint & Signon
+		if ( (int) $output['allow-signon-email'] == 1 ) {
+			$output['unique-email'] = 1;
 		}
 		
 		// Return the array processing any additional functions filtered by this action

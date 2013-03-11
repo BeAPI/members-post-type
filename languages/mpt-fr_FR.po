@@ -1,0 +1,504 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: MPT\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-03-08 17:44+0100\n"
+"PO-Revision-Date: 2013-03-11 09:43+0100\n"
+"Last-Translator: Benjamin Niess <bniess@beapi.fr>\n"
+"Language-Team: BeAPI <contact@beapi.fr>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: French\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Textdomain-Support: yes\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../classes/class-post-type.php:9
+msgctxt "Post Type General Name"
+msgid "Members"
+msgstr "Membres"
+
+#: ../classes/class-post-type.php:10
+msgctxt "Post Type Singular Name"
+msgid "Member"
+msgstr "Membre"
+
+#: ../classes/class-post-type.php:11
+#: ../classes/class-post-type.php:25
+#: ../classes/admin/class-main.php:18
+msgid "Members"
+msgstr "Membres"
+
+#: ../classes/class-post-type.php:12
+msgid "Parent Member:"
+msgstr "Membre parent : "
+
+#: ../classes/class-post-type.php:13
+msgid "All Members"
+msgstr "Tous les membres"
+
+#: ../classes/class-post-type.php:14
+msgid "View Member"
+msgstr "Voir le membre"
+
+# @ acf
+#: ../classes/class-post-type.php:15
+msgid "Add New Member"
+msgstr "Ajouter un nouveau membre"
+
+#: ../classes/class-post-type.php:16
+msgid "New Member"
+msgstr "Nouveau membre"
+
+# @ acf
+#: ../classes/class-post-type.php:17
+msgid "Edit Member"
+msgstr "Editer le membre"
+
+# @ acf
+#: ../classes/class-post-type.php:18
+msgid "Update Member"
+msgstr "Mettre à jour le membre"
+
+# @ default
+#: ../classes/class-post-type.php:19
+msgid "Search members"
+msgstr "Rechercher une membre"
+
+# @ default
+#: ../classes/class-post-type.php:20
+msgid "No members found"
+msgstr "Aucun membre trouvé"
+
+# @ default
+#: ../classes/class-post-type.php:21
+msgid "No members found in Trash"
+msgstr "Aucun membre trouvé dans la corbeille"
+
+#: ../classes/class-post-type.php:26
+msgid "Members as post type"
+msgstr "Type de contenu membres"
+
+# @ acf
+#: ../classes/class-taxonomy.php:9
+msgctxt "Taxonomy General Name"
+msgid "Roles"
+msgstr "Rôles"
+
+# @ acf
+#: ../classes/class-taxonomy.php:10
+msgctxt "Taxonomy Singular Name"
+msgid "Role"
+msgstr "Rôle"
+
+# @ acf
+#: ../classes/class-taxonomy.php:11
+msgid "Roles"
+msgstr "Rôles"
+
+#: ../classes/class-taxonomy.php:12
+msgid "All Roles"
+msgstr "Tous les rôles"
+
+#: ../classes/class-taxonomy.php:13
+msgid "Parent Role"
+msgstr "Rôle parent"
+
+#: ../classes/class-taxonomy.php:14
+msgid "Parent Role:"
+msgstr "Rôle parent : "
+
+# @ acf
+#: ../classes/class-taxonomy.php:15
+msgid "New Role Name"
+msgstr "Nouveau rôle"
+
+# @ acf
+#: ../classes/class-taxonomy.php:16
+msgid "Add New Role "
+msgstr "Ajouter un nouveau rôle"
+
+# @ acf
+#: ../classes/class-taxonomy.php:17
+msgid "Edit Role "
+msgstr "Editer le rôle"
+
+# @ acf
+#: ../classes/class-taxonomy.php:18
+msgid "Update Role "
+msgstr "Mettre à jour le rôle"
+
+#: ../classes/class-taxonomy.php:19
+msgid "Separate roles with commas"
+msgstr "Séparer les rôles par des virgules"
+
+#: ../classes/class-taxonomy.php:20
+msgid "Search roles"
+msgstr "Rechercher dans les rôles"
+
+#: ../classes/class-taxonomy.php:21
+msgid "Add or remove roles "
+msgstr "Ajouter ou supprimer des rôles"
+
+#: ../classes/class-taxonomy.php:22
+msgid "Choose from the most used roles"
+msgstr "Choisir parmi les rôles les plus utilisés"
+
+#: ../classes/class-user-auth.php:85
+msgid "Please log in again."
+msgstr "Merci de vous connecter de nouveau"
+
+#: ../classes/class-user-auth.php:109
+msgid "<strong>ERROR</strong>: Invalid username or incorrect password."
+msgstr "<strong>ERREUR</strong> : Nom d'utilisateur ou mot de passe incorrect"
+
+#: ../classes/class-user-auth.php:133
+msgid "<strong>ERROR</strong>: The username field is empty."
+msgstr "<strong>ERREUR</strong> : Le champs utilisateur est vide."
+
+#: ../classes/class-user-auth.php:136
+msgid "<strong>ERROR</strong>: The password field is empty."
+msgstr "<strong>ERREUR</strong> : Le champ mot de passe est vide."
+
+#: ../classes/class-user-auth.php:146
+#, php-format
+msgid "<strong>ERROR</strong>: Invalid username. <a href=\"%s\" title=\"Password Lost and Found\">Lost your password</a>?"
+msgstr "<strong>ERREUR</strong> : Nom d'utilisateur invalide. <a href=\"%s\" title=\"Mot de passe oublié\">Mot de passe oublié</a>?"
+
+#: ../classes/class-user-auth.php:155
+#, php-format
+msgid "<strong>ERROR</strong>: The password you entered for the username <strong>%1$s</strong> is incorrect. <a href=\"%2$s\" title=\"Password Lost and Found\">Lost your password</a>?"
+msgstr "<strong>ERREUR</strong> : Le mot de passe que vous avez enté pour l'identifiant %1$s est incorrect. <a href=\"%2$s\" title=\"Mot de passe oublié ?\">Mot de passe oublié ?</a>?"
+
+#: ../classes/class-user-utility.php:44
+msgid "This email address is already registered."
+msgstr "Cet email est déjà enregistré"
+
+#: ../classes/class-user-utility.php:64
+msgid "The user is invalid."
+msgstr "Cet utilisateur est invalide"
+
+#: ../classes/class-user.php:158
+#, php-format
+msgid "Password Lost and Changed for user: %s"
+msgstr "Mot de passe perdu et changé pour l'utilisateur %s"
+
+#: ../classes/class-user.php:162
+#, php-format
+msgid "[%s] Password Lost/Changed"
+msgstr "[%s] Mot de passe oublié/changé"
+
+#: ../classes/class-user.php:188
+#, php-format
+msgid "New user registration on your site %s:"
+msgstr "Nouvelle inscription sur le site %s : "
+
+#: ../classes/class-user.php:189
+#: ../classes/class-user.php:198
+#: ../classes/class-user.php:278
+#, php-format
+msgid "Username: %s"
+msgstr "Nom d'utilisateur : %s"
+
+#: ../classes/class-user.php:190
+#, php-format
+msgid "E-mail: %s"
+msgstr "E-mail : %s"
+
+#: ../classes/class-user.php:192
+#, php-format
+msgid "[%s] New User Registration"
+msgstr "[%s] Nouvelle inscription"
+
+#: ../classes/class-user.php:199
+#, php-format
+msgid "Password: %s"
+msgstr "Mot de passe : %s"
+
+#: ../classes/class-user.php:202
+#, php-format
+msgid "[%s] Your username and password"
+msgstr "[%s] Vos identifiants"
+
+#: ../classes/class-user.php:252
+msgid "Password reset is not allowed for this user"
+msgstr "La regénération de mot de passe n'est pas autorisée pour cet utilisateur"
+
+#: ../classes/class-user.php:276
+msgid "Someone requested that the password be reset for the following account:"
+msgstr "Quelqu'un a demandé une régénération de mot de passe pour le compte suivant :"
+
+#: ../classes/class-user.php:279
+msgid "If this was a mistake, just ignore this email and nothing will happen."
+msgstr "S'il s'agissait d'une erreur, ignorez simplement cet email."
+
+#: ../classes/class-user.php:280
+msgid "To reset your password, visit the following address:"
+msgstr "Pour régénérer votre mot de passe, rendez-vous à l'adresse suivante : "
+
+#: ../classes/class-user.php:284
+#, php-format
+msgid "[%s] Password Reset"
+msgstr "[%s] Régénération de mot de passe"
+
+#: ../classes/class-user.php:291
+msgid "The e-mail could not be sent."
+msgstr "Cet e-mail n'a pas pu être envoyé."
+
+#: ../classes/class-user.php:291
+msgid "Possible reason: your host may have disabled the mail() function..."
+msgstr "Raison possible : votre hébergeur a peut-être désactivé la fonction mail()..."
+
+#: ../classes/admin/class-post-type.php:19
+msgid "Password and confirmation must be the same."
+msgstr "Les deux mots de passe que vous avez entrés ne correspondent pas."
+
+#: ../classes/admin/class-post-type.php:32
+msgid "Main information"
+msgstr "Information principales"
+
+#: ../classes/admin/class-post-type.php:33
+#: ../classes/admin/class-settings-pages.php:16
+msgid "Change password"
+msgstr "Modifier son mot de passe"
+
+#: ../classes/admin/class-settings-main.php:11
+msgid "General features"
+msgstr "Fonctionnalités principales"
+
+#: ../classes/admin/class-settings-main.php:14
+msgid "Email sign-on"
+msgstr "Connexion par e-mail"
+
+#: ../classes/admin/class-settings-main.php:14
+msgid "Allow email sign-on ?"
+msgstr "Autoriser la connexion par e-mail ?"
+
+#: ../classes/admin/class-settings-main.php:14
+msgid "Do not change this value if you have already members! At the risk of breaking your site!"
+msgstr "Ne pas changer cette valeur si vous avez déjà des inscrits ! Vous risquez de casser votre site !"
+
+# @ acf
+#: ../classes/admin/class-settings-pages.php:11
+msgid "Feature Pages"
+msgstr "Pages"
+
+# @ acf
+#: ../classes/admin/class-settings-pages.php:14
+msgid "Registration"
+msgstr "Inscription"
+
+#: ../classes/admin/class-settings-pages.php:15
+msgid "Login/logout"
+msgstr "Connexion/déconnexion"
+
+#: ../classes/admin/class-settings-pages.php:17
+msgid "Lost password"
+msgstr "Mot de passe perdu"
+
+#: ../classes/admin/class-settings-pages.php:27
+msgid "You must define here the pages containing the WordPress shortcodes for different features (login, registration, etc)."
+msgstr "Vous devez définir les pages qui contiennent des shortcodes (connexion, inscription etc...)"
+
+#: ../classes/admin/class-settings-pages.php:46
+msgid "Please choose a page"
+msgstr "Merci de choisir une page"
+
+#: ../classes/admin/class-settings-security.php:11
+msgid "Input Examples"
+msgstr "Exemples de champs"
+
+#: ../classes/admin/class-settings-security.php:14
+msgid "Input Element"
+msgstr "Elément champ"
+
+#: ../classes/admin/class-settings-security.php:15
+msgid "Textarea Element"
+msgstr "Elément zone de texte"
+
+# @ acf
+#: ../classes/admin/class-settings-security.php:16
+msgid "Checkbox Element"
+msgstr "Elément checkbox"
+
+# @ acf
+#: ../classes/admin/class-settings-security.php:17
+msgid "Radio Button Elements"
+msgstr "elément bouton radio"
+
+# @ acf
+#: ../classes/admin/class-settings-security.php:18
+msgid "Select Element"
+msgstr "Elément sélectionné"
+
+#: ../classes/admin/class-settings-security.php:28
+msgid "Provides examples of the five basic element types."
+msgstr "Fournit des exemples sur les cinq élements types basiques."
+
+#: ../classes/shortcodes/class-shortcode-change-password.php:18
+msgid "You can't change your password, if you aren't logged-in."
+msgstr "Vous ne pouvez pas régénérer votre mot de passe si vous n'êtes pas connécté(e)"
+
+#: ../classes/shortcodes/class-shortcode-change-password.php:45
+#: ../classes/shortcodes/class-shortcode-lost-password.php:136
+msgid "The two passwords you entered don't match."
+msgstr "Les deux mots de passe que vous avez entrés ne coïncient pas"
+
+#: ../classes/shortcodes/class-shortcode-change-password.php:51
+#: ../classes/shortcodes/class-shortcode-lost-password.php:142
+#: ../classes/shortcodes/class-shortcode-registration.php:66
+msgid "You password need to be at least 6 characters long"
+msgstr "Votre mot de passe doit contenir au minimum 6 caractères"
+
+#: ../classes/shortcodes/class-shortcode-change-password.php:63
+msgid "You old password is incorrect."
+msgstr "Votre ancien mot de passe est incorrect."
+
+#: ../classes/shortcodes/class-shortcode-change-password.php:85
+msgid "Password updated with success."
+msgstr "Mot de passe mis à jour avec succès."
+
+#: ../classes/shortcodes/class-shortcode-lost-password.php:29
+msgid "Please enter your username or email address. You will receive a link to create a new password via email."
+msgstr "Merci d'entrer votre nom d'utilisateur ou adresse email. Vous recevrez par E-mail un lien pour regénérer votre mot de passe."
+
+#: ../classes/shortcodes/class-shortcode-lost-password.php:65
+msgid "Invalid username or e-mail."
+msgstr "Nom d'utilisateur ou E-mail invalide."
+
+#: ../classes/shortcodes/class-shortcode-lost-password.php:81
+msgid "No user with this value."
+msgstr "Aucun utilisateur ne correspond à ces informations"
+
+#: ../classes/shortcodes/class-shortcode-lost-password.php:88
+msgid "You are going to receive an email with a reset link."
+msgstr "Vous allez recevoir un email avec un lien pour régénérer votre mot de passe."
+
+#: ../classes/shortcodes/class-shortcode-lost-password.php:106
+msgid "The link you clicked seems to be broken. Please contact the administrator of the site"
+msgstr "Le lien sur lequel vous avez cliqué semble être corrompu. Merci de contacter l'administrateur du site"
+
+#: ../classes/shortcodes/class-shortcode-lost-password.php:116
+#: ../classes/shortcodes/class-shortcode-lost-password.php:150
+msgid "Cheatin&#8217; uh?"
+msgstr "Alors on triche ?"
+
+#: ../classes/shortcodes/class-shortcode-registration.php:64
+msgid "The two password you filled doesn't match"
+msgstr "Les deux mots de passe que vous avez entrés ne correspondent pas"
+
+#: ../classes/shortcodes/class-shortcode-registration.php:69
+msgid "You need to fill the two password fields"
+msgstr "Vous devez compléter les deux champs mot de passe"
+
+#: ../classes/shortcodes/class-shortcode-registration.php:74
+msgid "You need to enter a valid email address"
+msgstr "Vous devez entrer une adresse email valide"
+
+#: ../classes/shortcodes/class-shortcode-registration.php:79
+msgid "This email address is already taken"
+msgstr "Cette adresse email est déjà utilisée"
+
+#: ../classes/shortcodes/class-shortcode-registration.php:113
+msgid "Your account has beed created. You can now log-in with your access"
+msgstr "Votre compte a bien été créé. Vous pouvez désormais vous connecter avec vos accès"
+
+#: ../views/admin/metabox-main.php:4
+msgid "Email"
+msgstr "Email"
+
+#: ../views/admin/metabox-main.php:8
+msgid "Username"
+msgstr "Nom d'utilisateur"
+
+# @ acf
+#: ../views/admin/metabox-main.php:12
+msgid "First name"
+msgstr "Prénom"
+
+#: ../views/admin/metabox-main.php:16
+msgid "Last name"
+msgstr "Nom"
+
+#: ../views/admin/metabox-password.php:4
+#: ../views/client/member-login.tpl.php:7
+msgid "Password"
+msgstr "Mot de passe"
+
+#: ../views/admin/metabox-password.php:7
+msgid "If you would like to change the password type a new one. Otherwise leave this blank."
+msgstr "Si vous souhaitez changer de mot de passen entrez-en un nouveau. Le cas échéant, laissez ce champ vide"
+
+#: ../views/admin/metabox-password.php:11
+msgid "Confirm password"
+msgstr "Confirmez votre mot de passe"
+
+#: ../views/admin/metabox-password.php:14
+msgid "Type your new password again."
+msgstr "Entrez de nouveau votre mot de passe"
+
+# @ wp3i
+#: ../views/admin/page-settings.php:4
+msgid "Members - Settings"
+msgstr "Membres - Paramètres"
+
+#: ../views/admin/page-settings.php:8
+msgid "Main"
+msgstr "Général"
+
+# @ acf
+#: ../views/admin/page-settings.php:9
+msgid "Pages"
+msgstr "Pages"
+
+#: ../views/admin/page-settings.php:10
+msgid "Security"
+msgstr "Sécurité"
+
+#: ../views/client/member-change-password.tpl.php:4
+msgid "Your old password"
+msgstr "Votre ancien mot de passe"
+
+#: ../views/client/member-change-password.tpl.php:7
+msgid "Your new password"
+msgstr "Votre nouveau mot de passe"
+
+#: ../views/client/member-change-password.tpl.php:10
+msgid "Your new password (confirmation)"
+msgstr "Votre nouveau mot de passe (confirmation)"
+
+#: ../views/client/member-change-password.tpl.php:14
+#: ../views/client/member-login.tpl.php:18
+#: ../views/client/member-lost-password-step-1.tpl.php:8
+msgid "Submit"
+msgstr "Valider"
+
+# @ acf
+#: ../views/client/member-login.tpl.php:4
+msgid "Login"
+msgstr "Identifiant"
+
+#: ../views/client/member-login.tpl.php:12
+msgid "Remember me"
+msgstr "Se souvenir de moi"
+
+#: ../views/client/member-login.tpl.php:21
+msgid "Forgot password ?"
+msgstr "Mot de passe oublié ?"
+
+#: ../views/client/member-lost-password-step-1.tpl.php:4
+msgid "Username or E-mail"
+msgstr "Identifiant ou E-mail"
+
+#: ../views/client/member-registration.tpl.php:7
+msgid "Firstname"
+msgstr "Prénom"
+
+#: ../views/client/member-registration.tpl.php:19
+msgid "Password (confirmation)"
+msgstr "Mot de passe (confirmation)"
+

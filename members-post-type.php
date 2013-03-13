@@ -14,11 +14,11 @@
  	Custom Role API
  		Builtin taxonomy
  		Capabilities
+ 		Custom metabox for taxonomy
  
  	Custom Post Status
- 
- 	Custom capabilities for custom post type
- 		Builtin role
+ 		Pending
+ 		Unconfirmed
 
  	Widget (login/logout)
  		Settings for 

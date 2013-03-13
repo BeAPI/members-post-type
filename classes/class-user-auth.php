@@ -1,5 +1,12 @@
 <?php
 class MPT_User_Auth {
+    /**
+     * Do nothing
+     * 
+     * @access public
+     *
+     * @return mixed Value.
+     */
 	public function __construct() {}
 	
 	/**

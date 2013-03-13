@@ -1,13 +1,13 @@
 <?php
 class MPT_Shortcode {
 	/**
-	 * Register X shortcodes : [member-registration], [member-login], [member-lost-password], [member-change-password]
-	 */
+     * Register 5 shortcodes : [member-registration], [member-login], [member-lost-password], [member-change-password]
+     * 
+     * @access public
+     *
+     * @return mixed Value.
+     */
 	public function __construct() {
-		self::load_shortcodes();
-	}
-	
-	public static function load_shortcodes() {
 		_mpt_load_files(MPT_DIR . '/classes/shortcodes/', array('shortcode-registration', 'shortcode-login', 'shortcode-lost-password', 'shortcode-change-password'), 'class-');
 		
 		new MPT_Shortcode_Registration();

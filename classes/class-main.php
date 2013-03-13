@@ -1,13 +1,25 @@
 <?php
 class MPT_Main {
+	/**
+     * Register hooks
+     * 
+     * @access public
+     *
+     * @return void.
+     */
 	public function __construct( ) {
 		add_action( 'init', array( __CLASS__, 'init' ) );
 		add_action( 'mpt_login', array( __CLASS__, 'mpt_login' ), 10, 2 );
 	}
 
 	/**
-	 * Manage logout
-	 */
+     * Manage logout
+     *
+     * @access public
+     * @static
+     *
+     * @return void.
+     */
 	public static function init( ) {
 		if ( isset( $_GET['mpt-action'] ) && $_GET['mpt-action'] == 'logout' ) {
 			if ( MPT_User_Auth::is_logged_in( ) ) {
@@ -25,9 +37,17 @@ class MPT_Main {
 		}
 	}
 
-	/**
-	 * Manage login counter, last connection
-	 */
+    /**
+     * Manage login counter, last connection
+     * 
+     * @param string $user_name Description.
+     * @param int    $user_id   Description.
+     *
+     * @access public
+     * @static
+     *
+     * @return void.
+     */
 	public static function mpt_login( $user_name = '', $user_id = 0 ) {
 		// Increment counter
 		$counter = (int) get_post_meta( $user_id, '_counter_sign_on', true );
@@ -38,9 +58,16 @@ class MPT_Main {
 		update_post_meta( $user_id, '_last_sign_on_date', current_time( 'mysql' ) );
 	}
 
-	/**
-	 * Build action link for MPT actions
-	 */
+    /**
+     * Build action link for MPT actions
+     * 
+     * @param string $action action ask by user.
+     *
+     * @access public
+     * @static
+     *
+     * @return string link or anchor of action asked.
+     */
 	public static function get_action_permalink( $action = '' ) {
 		// Get page ids from options
 		$page_ids = (array) get_option( 'mpt-pages' );

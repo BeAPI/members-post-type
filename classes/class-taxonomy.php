@@ -1,9 +1,24 @@
 <?php
 class MPT_Taxonomy {
+    /**
+     * Register hooks
+     * 
+     * @access public
+     *
+     * @return mixed Value.
+     */
 	public function __construct() {
 		add_action('init', array(__CLASS__, 'init'), 11 );
 	}
 
+    /**
+     * Register taxonomy on WP
+     * 
+     * @access public
+     * @static
+     *
+     * @return mixed Value.
+     */
 	public static function init() {
 		$labels = array(
 			'name'                       => _x( 'Roles', 'Taxonomy General Name', 'mpt' ),
@@ -23,17 +38,19 @@ class MPT_Taxonomy {
 		);
 
 		$args = array(
+			'capabilities'               => MPT_Plugin::get_capabilities('taxonomy'),
 			'labels'                     => $labels,
 			'hierarchical'               => false,
-			'public'                     => false,
+			'public'                     => true,
+			'query_var'                  => false,
 			'show_ui'                    => true,
 			'show_admin_column'          => true,
 			'show_in_nav_menus'          => false,
 			'show_tagcloud'              => false,
 			'rewrite'                    => false,
-			// TODO: Manage custom capabilities
+			'update_count_callback'      => false
 		);
 
-		register_taxonomy( 'member-role', MPT_CPT_NAME, $args );
+		register_taxonomy( 'members-role', MPT_CPT_NAME, $args );
 	}
 }

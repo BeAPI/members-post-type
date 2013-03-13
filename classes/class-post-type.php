@@ -1,9 +1,24 @@
 <?php
 class MPT_Post_Type {
+	/**
+     * Register hooks
+     * 
+     * @access public
+     *
+     * @return void.
+     */
 	public function __construct() {
 		add_action('init', array(__CLASS__, 'init') );
 	}
 
+    /**
+     * Register custom post type for Members 
+     * 
+     * @access public
+     * @static
+     *
+     * @return void.
+     */
 	public static function init() {
 		$labels = array(
 			'name'                => _x( 'Members', 'Post Type General Name', 'mpt' ),
@@ -23,6 +38,7 @@ class MPT_Post_Type {
 
 		$args = array(
 			'label'               => __( 'Members', 'mpt' ),
+			'delete_with_user'    => false,
 			'description'         => __( 'Members as post type', 'mpt' ),
 			'labels'              => $labels,
 			'supports'            => array( 'thumbnail' ),
@@ -33,14 +49,15 @@ class MPT_Post_Type {
 			'show_in_nav_menus'   => false,
 			'show_in_admin_bar'   => true,
 			'menu_position'       => 70,
-			'menu_icon'           => '',
+			'menu_icon'           => null,
 			'can_export'          => true,
 			'has_archive'         => false,
 			'exclude_from_search' => true,
 			'publicly_queryable'  => false,
 			'query_var'           => false,
 			'rewrite'             => false,
-			'capability_type'     => 'post' // TODO: Use custom capability
+			'map_meta_cap'        => true,
+			'capability_type'     => 'member' // Let's WP do their job
 		);
 
 		register_post_type( MPT_CPT_NAME, $args );

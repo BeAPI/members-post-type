@@ -22,7 +22,7 @@ class MPT_Shortcode_Login extends MPT_Shortcode {
 		$user_data = ( !isset($_POST['mptlogin']) ) ? array() : $_POST['mptlogin'];
 		
 		// Parse vs defaults
-		$user_data = wp_parse_args( $user_data, array('username' => '', 'rememberme' => '') );
+		$user_data = wp_parse_args( $user_data, array('username' => '', 'rememberme' => '', 'redirect_to' => '0') );
 		
 		return parent::load_template( 'member-login', $user_data );
 	}

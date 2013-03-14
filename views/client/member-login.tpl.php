@@ -1,8 +1,8 @@
 <?php echo MPT_Shortcode::get_messages(); ?>
 
 <form method="post">
-	<label><?php mpt_is_signon_email() ? _e( 'E-mail', 'mpt' ) : _e( 'Username', 'mpt' ); ?></label>
-	<input type="text" name="mptlogin[username]" value="<?php echo esc_attr($user_data['username']); ?>" />
+	<label><?php mpt_is_allowed_email_signon() ? _e( 'E-mail', 'mpt' ) : _e( 'Username', 'mpt' ); ?></label>
+	<input type="<?php echo mpt_is_allowed_email_signon() ? 'email' : 'text'; ?>" name="mptlogin[username]" value="<?php echo esc_attr($user_data['username']); ?>" />
 	
 	<label><?php _e( 'Password', 'mpt' ); ?></label>
 	<input type="password" name="mptlogin[password]" value="" />

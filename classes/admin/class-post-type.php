@@ -69,6 +69,7 @@ class MPT_Admin_Post_Type {
 
 		self::save_metabox_main( $post_id );
 		self::save_metabox_password( $post_id );
+		return true;
 	}
 
 	public static function save_metabox_main( $post_id ) {
@@ -92,6 +93,14 @@ class MPT_Admin_Post_Type {
 			}
 			
 			$user->set_meta_value( $field, $value );
+		}
+		
+		// Force refresh
+		$user->fill_by('id', $post_id);
+		
+		// Replace username by email
+		if ( mpt_is_allowed_email_signon() ) {
+			$user->set_meta_value( 'username', $user->email );
 		}
 		
 		// Set proper post_title for WP

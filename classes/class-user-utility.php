@@ -3,11 +3,23 @@ class MPT_User_Utility {
 	public function __construct() {}
 	
 	/**
-	 * Allow signon user with mail
+	 * Is allow to sign-on user with mail
 	 */
-	public static function is_signon_email() {
+	public static function is_allowed_email_signon() {
 		$main_settings = (array) get_option( 'mpt-main' );
 		if ( isset($main_settings['allow-signon-email']) && (int) $main_settings['allow-signon-email'] == 1 ) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Is unique email constraint on DB
+	 */
+	public static function is_unique_email() {
+		$main_settings = (array) get_option( 'mpt-main' );
+		if ( isset($main_settings['unique-email']) && (int) $main_settings['unique-email'] == 1 ) {
 			return true;
 		}
 		

@@ -160,7 +160,10 @@ class MPT_User {
 			// we want to reverse this for the plain text arena of emails.
 			$blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
 			wp_mail(get_option('admin_email'), sprintf(__('[%s] Password Lost/Changed'), $blogname), $message);
+			return true;
 		}
+		
+		return false;
 	}
 
 	/**

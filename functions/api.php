@@ -27,6 +27,16 @@ function mpt_get_action_permalink( $action = '' ) {
 	return MPT_Main::get_action_permalink( $action );
 }
 
-function mpt_is_signon_email() {
-	return MPT_User_Utility::is_signon_email();
+/**
+ * Shortlink for MPT_User_Utility::is_allowed_email_signon method
+ */
+function mpt_is_allowed_email_signon() {
+	return MPT_User_Utility::is_allowed_email_signon();
+}
+
+/**
+ * Shortlink for MPT_User_Utility::is_unique_email method
+ */
+function mpt_is_unique_email() {
+	return MPT_User_Utility::is_unique_email();
 }

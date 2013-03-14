@@ -56,7 +56,7 @@ class MPT_User_Auth {
 	
 		$user = self::authenticate($credentials['user_login'], $credentials['user_password']);
 		if ( is_wp_error($user) ) {
-			if ( $user->get_error_codes() == array('empty_username', 'empty_password') ) {
+			if ( $user->get_error_codes() == array('empty_username', 'empty_email', 'empty_password') ) {
 				$user = new WP_Error('', '');
 			}
 	
@@ -109,7 +109,12 @@ class MPT_User_Auth {
 		$username = sanitize_user($username);
 		$password = trim($password);
 	
-		add_filter('mpt_authenticate', array(__CLASS__, 'authenticate_username_password'), 20, 3);
+		if ( mpt_is_allowed_email_signon() ) {
+			add_filter('mpt_authenticate', array(__CLASS__, 'authenticate_email_password'), 20, 3);
+		} else {
+			add_filter('mpt_authenticate', array(__CLASS__, 'authenticate_username_password'), 20, 3);
+		}
+		
 		$user = apply_filters('mpt_authenticate', null, $username, $password);
 		if ( $user == null ) {
 			// Only needed if all authentication handlers fail to return anything.
@@ -120,6 +125,47 @@ class MPT_User_Auth {
 	
 		if (is_wp_error($user) && !in_array($user->get_error_code(), $ignore_codes) ) {
 			do_action('mpt_login_failed', $username);
+		}
+	
+		return $user;
+	}
+	
+	/**
+	 * Authenticate the user using the email and password.
+	 */
+	public static function authenticate_email_password($user, $email, $password) {
+		if ( is_a($user, 'MPT_User') ) {
+			return $user;
+		}
+	
+		if ( empty($email) || empty($password) ) {
+			$error = new WP_Error();
+	
+			if ( empty($email) ) {
+				$error->add('empty_username', __('<strong>ERROR</strong>: The email field is empty.'));
+			}
+			if ( empty($password) ) {
+				$error->add('empty_password', __('<strong>ERROR</strong>: The password field is empty.'));
+			}
+			
+			return $error;
+		}
+		
+		$user = new MPT_User();
+		$user->fill_by( 'email', $email );
+		
+		if ( !$user->exists() ) {
+			return new WP_Error('invalid_email', sprintf(__('<strong>ERROR</strong>: Invalid email. <a href="%s" title="Password Lost and Found">Lost your password</a>?'), mpt_get_lost_password_permalink() ) );
+		}
+		
+		$user = apply_filters('mpt_authenticate_user', $user, $password);
+		if ( is_wp_error($user) ) {
+			return $user;
+		}
+	
+		if ( !wp_check_password($password, $user->password, false) ) {
+			return new WP_Error( 'incorrect_password', sprintf( __( '<strong>ERROR</strong>: The password you entered for the email <strong>%1$s</strong> is incorrect. <a href="%2$s" title="Password Lost and Found">Lost your password</a>?' ),
+			$email, mpt_get_lost_password_permalink() ) );
 		}
 	
 		return $user;
@@ -146,24 +192,24 @@ class MPT_User_Auth {
 			return $error;
 		}
 		
-		$userdata = new MPT_User();
-		$userdata->fill_by( 'username', $username );
+		$user = new MPT_User();
+		$user->fill_by( 'username', $username );
 		
-		if ( !$userdata->exists() ) {
+		if ( !$user->exists() ) {
 			return new WP_Error('invalid_username', sprintf(__('<strong>ERROR</strong>: Invalid username. <a href="%s" title="Password Lost and Found">Lost your password</a>?'), mpt_get_lost_password_permalink() ) );
 		}
 		
-		$userdata = apply_filters('mpt_authenticate_user', $userdata, $password);
-		if ( is_wp_error($userdata) ) {
-			return $userdata;
+		$user = apply_filters('mpt_authenticate_user', $user, $password);
+		if ( is_wp_error($user) ) {
+			return $user;
 		}
 	
-		if ( !wp_check_password($password, $userdata->password, $userdata->id) ) {
+		if ( !wp_check_password($password, $user->password, false) ) {
 			return new WP_Error( 'incorrect_password', sprintf( __( '<strong>ERROR</strong>: The password you entered for the username <strong>%1$s</strong> is incorrect. <a href="%2$s" title="Password Lost and Found">Lost your password</a>?' ),
 			$username, mpt_get_lost_password_permalink() ) );
 		}
 	
-		return $userdata;
+		return $user;
 	}
 
 	/**
@@ -300,17 +346,17 @@ class MPT_User_Auth {
 			return false;
 		}
 		
-		$userdata = new MPT_User();
-		$userdata->fill_by( 'username', $username );
-		if ( ! $userdata->exists() ) {
+		$user = new MPT_User();
+		$user->fill_by( 'id', $user_id );
+		if ( ! $user->exists() ) {
 			do_action('mpt_auth_cookie_bad_username', $cookie_elements);
 			return false;
 		}
 
-		$pass_frag = substr($userdata->password, 8, 4);
+		$pass_frag = substr($user->password, 8, 4);
 		
-		$key = wp_hash($username . $pass_frag . '|' . $expiration, $scheme);
-		$hash = hash_hmac('md5', $username . '|' . $expiration, $key);
+		$key = wp_hash('member-'.$user->id . $pass_frag . '|' . $expiration, $scheme); // TODO use ID instead username ?
+		$hash = hash_hmac('md5', 'member-'.$user->id . '|' . $expiration, $key);
 
 		if ( $hmac != $hash ) {
 			do_action('mpt_auth_cookie_bad_hash', $cookie_elements);
@@ -320,9 +366,9 @@ class MPT_User_Auth {
 		if ( $expiration < time() ) // AJAX/POST grace period set above
 			$GLOBALS['login_grace_period'] = 1;
 
-		do_action('mpt_auth_cookie_valid', $cookie_elements, $userdata);
+		do_action('mpt_auth_cookie_valid', $cookie_elements, $user);
 
-		return $userdata->id;
+		return $user->id;
 	}
 
 	/**
@@ -362,10 +408,13 @@ class MPT_User_Auth {
 		$cookie_elements = explode('|', $cookie);
 		if ( count($cookie_elements) != 3 )
 			return false;
+		
+		list($user_id, $expiration, $hmac) = $cookie_elements;
+		
+		// Extract ID from text
+		$user_id = str_replace('member-', '', $user_id);
 
-		list($username, $expiration, $hmac) = $cookie_elements;
-
-		return compact('username', 'expiration', 'hmac', 'scheme');
+		return compact('user_id', 'expiration', 'hmac', 'scheme');
 	}
 
 	/**
@@ -427,13 +476,16 @@ class MPT_User_Auth {
 	 */
 	public static function generate_auth_cookie($user_id, $expiration, $scheme = 'auth') {
 		$user = new MPT_User($user_id);
-
+		if ( !$user->exists() ) {
+			return false;
+		}
+		
 		$pass_frag = substr($user->password, 8, 4);
 
-		$key = wp_hash($user->username . $pass_frag . '|' . $expiration, $scheme);
-		$hash = hash_hmac('md5', $user->username . '|' . $expiration, $key);
+		$key = wp_hash('member-'.$user->id . $pass_frag . '|' . $expiration, $scheme);
+		$hash = hash_hmac('md5', 'member-'.$user->id . '|' . $expiration, $key);
 
-		$cookie = $user->username . '|' . $expiration . '|' . $hash;
+		$cookie = 'member-'.$user->id . '|' . $expiration . '|' . $hash;
 
 		return apply_filters('mpt_auth_cookie', $cookie, $user_id, $expiration, $scheme);
 	}

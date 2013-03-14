@@ -21,9 +21,6 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 		if ( isset( $_GET['mpt-action'] ) && $_GET['mpt-action'] == 'lost-password' ) {
 			return parent::load_template( 'member-lost-password-step-2' );
 		} else {
-			// Get user_login
-			$user_login = isset( $_POST['user_login'] ) ? stripslashes( $_POST['user_login'] ) : '';
-
 			// Default message
 			if ( !isset( $_POST ) ) {
 				parent::set_message( 'info', __( 'Please enter your username or email address. You will receive a link to create a new password via email.' ), 'notice' );
@@ -160,6 +157,8 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 			wp_redirect( $location );
 			exit();
 		}
+		
+		return false;
 	}
 
 }

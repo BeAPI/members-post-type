@@ -1,7 +1,7 @@
 <?php echo MPT_Shortcode::get_messages(); ?>
 
 <form method="post">
-	<?php if ( !mpt_is_signon_email() ) : ?>
+	<?php if ( !mpt_is_allowed_email_signon() ) : ?>
 		<label><?php _e( 'Username', 'mpt' ) ; ?></label>
 		<input type="text" name="mptregistration[username]" value="<?php echo esc_attr($user_data['username']); ?>" />
 	<?php endif; ?>

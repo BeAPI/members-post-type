@@ -3,10 +3,10 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 	public static $form_fields = array(
 		'username' => '',
 		'first_name' => '',
-		'last_name'  => '',
-		'email'  => '',
-		'password'  => '',
-		'password_repeat'  => ''
+		'last_name' => '',
+		'email' => '',
+		'password' => '',
+		'password_repeat' => ''
 	);
 	
 	/**

@@ -67,7 +67,7 @@ class MPT_Shortcode_Change_Password extends MPT_Shortcode {
 			// Set new password
 			$current_user->set_password($_POST['mptchangepwd']['new']);
 			
-			// Re-signon
+			// Force logout
 			MPT_User_Auth::logout();
 			
 			// Re sign-on on real time for not broken user session

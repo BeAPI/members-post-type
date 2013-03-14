@@ -52,7 +52,7 @@ class MPT_User {
 			case 'email':
 			case 'username':
 			case 'user_activation_key':
-				$id = $this->_get_id_from_key_value( $field, $value );
+				$id = self::get_id_from_key_value( $field, $value );
 				if ( $id == 0 ) {
 					return false;
 				}
@@ -130,11 +130,29 @@ class MPT_User {
 	 * 
 	 * @param  string $key   [description]
 	 * @param  string $value [description]
+	 * @param  array $exclude_ids [description]
 	 * @return integer        [description]
 	 */
-	private function _get_id_from_key_value( $key = '', $value = '' ) {
+	public static function get_id_from_key_value( $key = '', $value = '', $exclude_ids = array() ) {
 		global $wpdb;
-		return (int) $wpdb->get_var( $wpdb->prepare("SELECT post_id FROM $wpdb->postmeta WHERE meta_key = %s AND meta_value = %s", $key, $value) );
+		
+		// Convert to array if necessary
+		if ( !is_array($exclude_ids) ) {
+			$exclude_ids = (array) $exclude_ids;
+		}
+		
+		// Cleanup array
+		$exclude_ids = array_map('intval', $exclude_ids );
+		
+		// Prepare query
+		$query = $wpdb->prepare("SELECT post_id FROM $wpdb->postmeta WHERE meta_key = %s AND meta_value = %s", $key, $value);
+		
+		// Add SQL exclusion if IDs is filled
+		if ( !empty($exclude_ids) ) {
+			$query .= " AND post_id NOT IN ('" . implode( "', '", $term_ids ) . "')";
+		}
+		
+		return (int) $wpdb->get_var( $query );
 	}
 
 	/**

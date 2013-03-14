@@ -25,7 +25,7 @@ class MPT_User_Utility {
 		
 		return false;
 	}
-
+	
 	/**
 	 * A simpler way of inserting an user into the database.
 	 *

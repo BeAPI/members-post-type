@@ -95,7 +95,7 @@ class MPT_Admin_Post_Type {
 		}
 		
 		// Set proper post_title for WP
-		$user->regenerate_post_title();
+		$user->regenerate_post_title( true );
 
 		return true;
 	}

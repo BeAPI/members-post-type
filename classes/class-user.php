@@ -228,11 +228,16 @@ class MPT_User {
 	/**
 	 * Build a proper post title, using filled values when it disponible
 	 */
-	public function regenerate_post_title() {
+	public function regenerate_post_title( $force_refresh = false ) {
 		global $wpdb;
 		
 		if ( !$this->exists() ) { // Valid instance user ?
 			return false;
+		}
+		
+		// Refresh values from DB ?
+		if ( $force_refresh == true ) {
+			$this->fill_by('id', $this->id);
 		}
 		
 		// update DB

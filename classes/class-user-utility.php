@@ -90,11 +90,8 @@ class MPT_User_Utility {
 			$user->set_meta_value( $field, $userdata[$field] );
 		}
 		
-		// Refresh data
-		$user = new MPT_User($user_id);
-		
 		// Set proper post title
-		$user->regenerate_post_title();
+		$user->regenerate_post_title( true );
 		
 		// Set role
 		if ( isset($userdata['role']) ) {

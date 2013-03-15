@@ -96,6 +96,11 @@ class MPT_User {
 		if( !in_array($key, self::$core_fields) ) { // Allow only core user fields
 			return false;
 		}
+
+		// Check if email is unique, when option is enabled, restore old value if already exist.
+		if ( $key == 'email' && mpt_is_unique_email() && $this->email != $value && mpt_email_exists($value) ) {
+			return false; // TODO: WP ERROR ?
+		}
 		
 		return update_post_meta( $this->id, $key, $value );
 	}

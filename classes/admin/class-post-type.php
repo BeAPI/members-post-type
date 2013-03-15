@@ -1,5 +1,14 @@
 <?php
 class MPT_Admin_Post_Type {
+	static $errors = array();
+
+    /**
+     * __construct
+     * 
+     * @access public
+     *
+     * @return mixed Value.
+     */
 	public function __construct() {
 		add_action( 'admin_init', array(__CLASS__, 'admin_init') );
 		add_action( 'admin_head', array(__CLASS__, 'admin_head') );
@@ -7,6 +16,9 @@ class MPT_Admin_Post_Type {
 		// Metabox member
 		add_action( 'add_meta_boxes', array( __CLASS__, 'add_meta_boxes' ) );
 		add_action( 'save_post', array( __CLASS__, 'save_post' ) );
+
+		// Add param on URL redirect
+		add_filter('redirect_post_location', array(__CLASS__, 'redirect_post_location'), 10, 2 );
 		
 		// Register settings tabs
 		new MPT_Admin_Settings_Main();
@@ -14,12 +26,36 @@ class MPT_Admin_Post_Type {
 		new MPT_Admin_Settings_Security();
 	}
 	
+
+    /**
+     * admin_init
+     * 
+     * @access public
+     * @static
+     *
+     * @return mixed Value.
+     */
 	public static function admin_init() {
-		if ( isset($_GET['mpt-message']) && $_GET['mpt-message'] == '1' ) {
-			add_settings_error( MPT_CPT_NAME.'-password', MPT_CPT_NAME.'-password', __('Password and confirmation must be the same.', 'mpt'), 'error' );
+		if ( isset($_GET['mpt-message']) ) {
+			$message_codes = explode(',', $_GET['mpt-message']);
+
+			if ( in_array('1', $message_codes) ) {
+				add_settings_error( MPT_CPT_NAME.'-password', MPT_CPT_NAME.'-password', __('Password and confirmation must be the same.', 'mpt'), 'error' );
+			}
+			if ( in_array('2', $message_codes) ) {
+				add_settings_error( MPT_CPT_NAME.'-main', MPT_CPT_NAME.'-main', __('The email is already in use. Back to initial value.', 'mpt'), 'error' );
+			}
 		}
 	}
 
+    /**
+     * admin_head
+     * 
+     * @access public
+     * @static
+     *
+     * @return mixed Value.
+     */
 	public static function admin_head() {
 		echo '<style type="text/css" media="screen">';
 			echo '#menu-posts-'.MPT_CPT_NAME.' .wp-menu-image {background: transparent url('.MPT_URL.'/assets/images/toilet.png) no-repeat 6px -17px !important;}';
@@ -33,6 +69,16 @@ class MPT_Admin_Post_Type {
 		add_meta_box( MPT_CPT_NAME.'-password', __('Change password', 'mpt'), array( __CLASS__, 'metabox_password' ), MPT_CPT_NAME, 'normal', 'high' );
 	}
 
+    /**
+     * metabox_main
+     * 
+     * @param mixed $post Description.
+     *
+     * @access public
+     * @static
+     *
+     * @return mixed Value.
+     */
 	public static function metabox_main( $post ) {
 		// Use nonce for verification
 		wp_nonce_field( plugin_basename( __FILE__ ), MPT_CPT_NAME.'-main' );
@@ -43,10 +89,23 @@ class MPT_Admin_Post_Type {
 			$member[$field] = get_post_meta($post->ID, $field, true);
 		}
 
+		// Show error messages
+		settings_errors( MPT_CPT_NAME.'-main' );
+
 		// Call Template
 		include( MPT_DIR . '/views/admin/metabox-main.php');
 	}
 
+    /**
+     * metabox_password
+     * 
+     * @param mixed $post Description.
+     *
+     * @access public
+     * @static
+     *
+     * @return mixed Value.
+     */
 	public static function metabox_password( $post ) {
 		// Use nonce for verification
 		wp_nonce_field( plugin_basename( __FILE__ ), MPT_CPT_NAME.'-password' );
@@ -58,6 +117,16 @@ class MPT_Admin_Post_Type {
 		include( MPT_DIR . '/views/admin/metabox-password.php');
 	}
 
+    /**
+     * save_post
+     * 
+     * @param mixed $post_id Description.
+     *
+     * @access public
+     * @static
+     *
+     * @return mixed Value.
+     */
 	public static function save_post( $post_id ) {
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return false;
@@ -72,6 +141,16 @@ class MPT_Admin_Post_Type {
 		return true;
 	}
 
+    /**
+     * save_metabox_main
+     * 
+     * @param mixed $post_id Description.
+     *
+     * @access public
+     * @static
+     *
+     * @return mixed Value.
+     */
 	public static function save_metabox_main( $post_id ) {
 		if ( !isset( $_POST[MPT_CPT_NAME.'-main'] ) || !wp_verify_nonce( $_POST[MPT_CPT_NAME.'-main'], plugin_basename( __FILE__ ) ) ) {
 			return false;
@@ -88,6 +167,12 @@ class MPT_Admin_Post_Type {
 
 			if ( $field == 'email' ) {
 				$value = sanitize_email( $_POST['member'][$field] );
+
+				// Check if email is unique, when option is enabled, restore old value if already exist.
+				if ( mpt_is_unique_email() && $user->email != $value && mpt_email_exists($value) ) {
+					$value = $user->email;
+					self::$errors[] = 2;
+				}
 			} else {
 				$value = sanitize_text_field( $_POST['member'][$field] );
 			}
@@ -109,6 +194,16 @@ class MPT_Admin_Post_Type {
 		return true;
 	}
 
+    /**
+     * save_metabox_password
+     * 
+     * @param mixed $post_id Description.
+     *
+     * @access public
+     * @static
+     *
+     * @return mixed Value.
+     */
 	public static function save_metabox_password( $post_id ) {
 		if ( !isset( $_POST[MPT_CPT_NAME.'-password'] ) || !wp_verify_nonce( $_POST[MPT_CPT_NAME.'-password'], plugin_basename( __FILE__ ) ) ) {
 			return false;
@@ -120,8 +215,7 @@ class MPT_Admin_Post_Type {
 		}
 		
 		if ( empty($pmp['password']) || empty($pmp['confirm_password']) || $pmp['password'] != $pmp['confirm_password'] ) {
-			// Add param on URL redirect
-			add_filter('redirect_post_location', array(__CLASS__, 'redirect_post_location'), 10, 2 );
+			self::$errors[] = 1;
 			return false;
 		}
 
@@ -131,8 +225,23 @@ class MPT_Admin_Post_Type {
 		
 		return true;
 	}
-	
+
+    /**
+     * redirect_post_location
+     * 
+     * @param mixed $location Description.
+     * @param mixed $post_id  Description.
+     *
+     * @access public
+     * @static
+     *
+     * @return mixed Value.
+     */
 	public static function redirect_post_location( $location, $post_id ) {
-		return add_query_arg( 'mpt-message', 1, $location );
+		if ( !empty(self::$errors) ) {
+			return add_query_arg( array('mpt-message' => implode(',', self::$errors)), $location );
+		}
+
+		return $location;
 	}
 }

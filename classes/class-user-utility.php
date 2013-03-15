@@ -64,7 +64,7 @@ class MPT_User_Utility {
 	public static function insert_user($userdata) {
 		global $wpdb;
 		
-		if ( mpt_email_exists($userdata['email']) ) {
+		if ( mpt_is_unique_email() && mpt_email_exists($userdata['email']) ) {
 			return new WP_Error('existing_user_email', __('This email address is already registered.') );
 		}
 		

@@ -75,7 +75,7 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 			}
 			
 			// Email exists
-			if ( mpt_email_exists($mptr['email']) ) {
+			if ( mpt_is_unique_email() && mpt_email_exists($mptr['email']) ) {
 				parent::set_message( 'email', __('This email address is already taken', 'mpt'), 'error' );
 			}
 			

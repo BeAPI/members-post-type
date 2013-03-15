@@ -2,10 +2,25 @@
 class MPT_Admin_Settings_Main {
 	static $id = 'mpt-main';
 	
+	/**
+     * __construct
+     * 
+     * @access public
+     *
+     * @return mixed Value.
+     */
 	public function __construct( ) {
 		add_action( 'admin_init', array( __CLASS__, 'admin_init' ) );
 	}
-	
+
+    /**
+     * admin_init
+     * 
+     * @access public
+     * @static
+     *
+     * @return mixed Value.
+     */
 	public static function admin_init( ) {
 		// Section
 		add_settings_section( self::$id . '-section', __( 'General features', 'mpt' ), array(__CLASS__, 'pages_section_callback'), self::$id );
@@ -18,6 +33,17 @@ class MPT_Admin_Settings_Main {
 		register_setting( self::$id, self::$id, array(__CLASS__, 'validate_input') );
 	}
 	
+
+    /**
+     * checkbox_element_callback
+     * 
+     * @param mixed $args Description.
+     *
+     * @access public
+     * @static
+     *
+     * @return mixed Value.
+     */
 	public static function checkbox_element_callback( $args ) {
 		$options = get_option( self::$id );
 		$options = wp_parse_args( $options, self::get_default_options() );
@@ -32,16 +58,26 @@ class MPT_Admin_Settings_Main {
 		echo $html;
 	}
 	
-	/**
-	 * Get description for section
-	 */
+    /**
+     * Get description for section
+     * 
+     * @access public
+     * @static
+     *
+     * @return mixed Value.
+     */
 	public static function pages_section_callback() {
 		//echo '<p>' . __( 'General description.', 'mpt' ) . '</p>';
 	}
-	
-	/**
-	 * Default values for options
-	 */
+
+    /**
+     * Default values for options
+     * 
+     * @access public
+     * @static
+     *
+     * @return mixed Value.
+     */
 	public static function get_default_options() {
 		$defaults = array(
 			'allow-signon-email' => '1',
@@ -51,6 +87,17 @@ class MPT_Admin_Settings_Main {
 		return apply_filters( 'mpt_get_default_options', $defaults, self::$id );
 	}
 	
+
+    /**
+     * validate_input
+     * 
+     * @param mixed $input Description.
+     *
+     * @access public
+     * @static
+     *
+     * @return mixed Value.
+     */
 	public static function validate_input( $input ) {
 		// Cleanup input
 		$input = stripslashes_deep($input);

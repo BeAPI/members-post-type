@@ -1,11 +1,26 @@
 <?php
 class MPT_Admin_Settings_Security {
 	static $settings_group = 'mpt-security';
-	
+
+    /**
+     * __construct
+     * 
+     * @access public
+     *
+     * @return mixed Value.
+     */	
 	public function __construct( ) {
 		//add_action( 'admin_init', array( __CLASS__, 'admin_init' ) );
 	}
 	
+    /**
+     * admin_init
+     * 
+     * @access public
+     * @static
+     *
+     * @return mixed Value.
+     */
 	public static function admin_init( ) {
 		// Section 1
 		add_settings_section( self::$settings_group . '-section', __( 'Input Examples', 'mpt' ), array(__CLASS__, 'pages_section_callback'), self::$settings_group );
@@ -21,16 +36,26 @@ class MPT_Admin_Settings_Security {
 		register_setting( self::$settings_group, self::$settings_group, array(__CLASS__, 'validate_input') );
 	}
 	
-	/**
-	 * Get description for section
-	 */
+    /**
+     * Get description for section
+     * 
+     * @access public
+     * @static
+     *
+     * @return mixed Value.
+     */
 	public static function pages_section_callback() {
 		echo '<p>' . __( 'Provides examples of the five basic element types.', 'mpt' ) . '</p>';
 	}
-	
-	/**
-	 * Default values for options
-	 */
+
+    /**
+     * Default values for options
+     * 
+     * @access public
+     * @static
+     *
+     * @return mixed Value.
+     */
 	public static function get_default_options() {
 		$defaults = array(
 			'input_example'		=>	'',
@@ -43,6 +68,17 @@ class MPT_Admin_Settings_Security {
 		return apply_filters( 'mpt_get_default_options', $defaults, self::$settings_group );
 	}
 	
+
+    /**
+     * validate_input
+     * 
+     * @param mixed $input Description.
+     *
+     * @access public
+     * @static
+     *
+     * @return mixed Value.
+     */
 	public static function validate_input( $input ) {
 		// Create our array for storing the validated options
 		$output = array();
@@ -62,5 +98,5 @@ class MPT_Admin_Settings_Security {
 		
 		// Return the array processing any additional functions filtered by this action
 		return apply_filters( 'mpt_settings_validate_input', $output, $input, self::$settings_group );
-	} // end theme_validate_pages
+	}
 }

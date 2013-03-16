@@ -10,7 +10,7 @@ class MPT_Role {
      * @access public
      * @var string
      */
-    var $name;
+    public $name;
 
     /**
      * List of capabilities the role contains.
@@ -19,7 +19,7 @@ class MPT_Role {
      * @access public
      * @var array
      */
-    var $capabilities;
+    public $capabilities;
 
     /**
      * Constructor - Set up object properties.
@@ -33,7 +33,7 @@ class MPT_Role {
      * @param string $role Role name.
      * @param array $capabilities List of capabilities.
      */
-    function __construct( $role, $capabilities ) {
+    public function __construct( $role, $capabilities ) {
         $this->name = $role;
         $this->capabilities = $capabilities;
     }
@@ -48,7 +48,7 @@ class MPT_Role {
      * @param string $cap Capability name.
      * @param bool $grant Whether role has capability privilege.
      */
-    function add_cap( $cap, $grant = true ) {
+    public function add_cap( $cap, $grant = true ) {
         global $mpt_roles;
 
         if ( ! isset( $mpt_roles ) )
@@ -71,7 +71,7 @@ class MPT_Role {
      *
      * @param string $cap Capability name.
      */
-    function remove_cap( $cap ) {
+    public function remove_cap( $cap ) {
         global $mpt_roles;
 
         if ( ! isset( $mpt_roles ) )
@@ -95,7 +95,7 @@ class MPT_Role {
      * @param string $cap Capability name.
      * @return bool True, if user has capability. False, if doesn't have capability.
      */
-    function has_cap( $cap ) {
+    public function has_cap( $cap ) {
         $capabilities = apply_filters( 'mpt_role_has_cap', $this->capabilities, $cap, $this->name );
         if ( !empty( $capabilities[$cap] ) )
             return $capabilities[$cap];

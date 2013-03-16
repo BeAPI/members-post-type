@@ -1,5 +1,5 @@
 <?php
-class MPT_User {
+class MPT_Member {
 	public static $core_fields = array('email', 'username', 'first_name', 'last_name', 'password');
 
 	// Core public fields
@@ -25,7 +25,7 @@ class MPT_User {
 	}
 	
 	/**
-	 * Test if user exist
+	 * Test if member exist
 	 * 
 	 * @return bool False on failure, True on success
 	 */
@@ -38,10 +38,10 @@ class MPT_User {
 	}
 
 	/**
-	 * Retrieve user info by a given field
+	 * Retrieve member info by a given field
 	 *
-	 * @param string $field The field to retrieve the user with.  id | email | username
-	 * @param int|string $value A value for $field.  A user ID, email address, or username.
+	 * @param string $field The field to retrieve the member with.  id | email | username
+	 * @param int|string $value A value for $field.  A member ID, email address, or username.
 	 * @return bool False on failure, True on success
 	 */
 	public function fill_by($field, $value) {
@@ -51,7 +51,7 @@ class MPT_User {
 				break;
 			case 'email':
 			case 'username':
-			case 'user_activation_key':
+			case 'activation_key':
 				$id = self::get_id_from_key_value( $field, $value );
 				if ( $id == 0 ) {
 					return false;
@@ -85,7 +85,7 @@ class MPT_User {
 	 * @param boolean $value [description]
 	 */
 	public function set_meta_value( $key = '', $value = null ) {
-		if ( !$this->exists() ) { // Valid instance user ?
+		if ( !$this->exists() ) { // Valid instance member ?
 			return false;
 		}
 
@@ -93,7 +93,7 @@ class MPT_User {
 			return false;
 		}
 
-		if( !in_array($key, self::$core_fields) ) { // Allow only core user fields
+		if( !in_array($key, self::$core_fields) ) { // Allow only core member fields
 			return false;
 		}
 
@@ -106,15 +106,15 @@ class MPT_User {
 	}
 
 	/**
-	 * Updates the user's password with a new encrypted one.
+	 * Updates the member's password with a new encrypted one.
 	 *
 	 * For integration with other applications, this function can be overwritten to
 	 * instead use the other package password checking algorithm.
 	 *
-	 * @param string $password The plaintext new user password
+	 * @param string $password The plaintext new member password
 	 */
 	public function set_password( $password = '' ) {
-		if ( !$this->exists() ) { // Valid instance user ?
+		if ( !$this->exists() ) { // Valid instance member ?
 			return false;
 		}
 
@@ -125,7 +125,7 @@ class MPT_User {
 		$hash = wp_hash_password($password);
 
 		update_post_meta( $this->id, 'password', $hash );
-		delete_post_meta( $this->id, 'user_activation_key' );
+		delete_post_meta( $this->id, 'activation_key' );
 
 		return true;
 	}
@@ -161,12 +161,12 @@ class MPT_User {
 	}
 
 	/**
-	 * Notify the blog admin of a user changing password, normally via email.
+	 * Notify the blog admin of a member changing password, normally via email.
 	 *
-	 * @param object $user User Object
+	 * @param object $member Member Object
 	 */
 	public function password_change_notification() {
-		if ( !$this->exists() ) { // Valid instance user ?
+		if ( !$this->exists() ) { // Valid instance member ?
 			return false;
 		}
 		
@@ -178,7 +178,7 @@ class MPT_User {
 		// send a copy of password change notification to the admin
 		// but check to see if it's the admin whose password we're changing, and skip this
 		if ( $this->email != get_option('admin_email') ) {
-			$message = sprintf(__('Password Lost and Changed for user: %s'), $this->username) . "\r\n";
+			$message = sprintf(__('Password Lost and Changed for member: %s'), $this->username) . "\r\n";
 			// The blogname option is escaped with esc_html on the way into the database in sanitize_option
 			// we want to reverse this for the plain text arena of emails.
 			$blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
@@ -190,16 +190,16 @@ class MPT_User {
 	}
 
 	/**
-	 * Notify the blog admin of a new user, normally via email.
+	 * Notify the blog admin of a new member, normally via email.
 	 *
-	 * @param string $plaintext_pass Optional. The user's plaintext password
+	 * @param string $plaintext_pass Optional. The member's plaintext password
 	 */
-	public function new_user_notification($plaintext_pass = '') {
-		if ( !$this->exists() ) { // Valid instance user ?
+	public function register_notification($plaintext_pass = '') {
+		if ( !$this->exists() ) { // Valid instance member ?
 			return false;
 		}
 		
-		$stop = apply_filters_ref_array('mpt_new_user_notification', array(false, &$this, $plaintext_pass) );
+		$stop = apply_filters_ref_array('mpt_register_notification', array(false, &$this, $plaintext_pass) );
 		if ( $stop == true ) {
 			return false;
 		}
@@ -211,11 +211,11 @@ class MPT_User {
 		// we want to reverse this for the plain text arena of emails.
 		$blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
 
-		$message  = sprintf(__('New user registration on your site %s:', 'mpt'), $blogname) . "\r\n\r\n";
+		$message  = sprintf(__('New member registration on your site %s:', 'mpt'), $blogname) . "\r\n\r\n";
 		$message .= sprintf(__('Username: %s', 'mpt'), $username) . "\r\n\r\n";
 		$message .= sprintf(__('E-mail: %s', 'mpt'), $email) . "\r\n";
 
-		@wp_mail(get_option('admin_email'), sprintf(__('[%s] New User Registration', 'mpt'), $blogname), $message);
+		@wp_mail(get_option('admin_email'), sprintf(__('[%s] New Member Registration', 'mpt'), $blogname), $message);
 
 		if ( empty($plaintext_pass) ) {
 			return false;
@@ -232,7 +232,7 @@ class MPT_User {
 	 * Get better display name, first name, last name, username, email or id...
 	 */
 	function get_display_name() {
-		if ( !$this->exists() ) { // Valid instance user ?
+		if ( !$this->exists() ) { // Valid instance member ?
 			return false;
 		}
 		
@@ -257,7 +257,7 @@ class MPT_User {
 	public function regenerate_post_title( $force_refresh = false ) {
 		global $wpdb;
 		
-		if ( !$this->exists() ) { // Valid instance user ?
+		if ( !$this->exists() ) { // Valid instance member ?
 			return false;
 		}
 		
@@ -280,13 +280,13 @@ class MPT_User {
 		
 		$allow = apply_filters('mpt_allow_password_reset', true, $this->id);
 		if ( $allow == false ) {
-			return new WP_Error('no_password_reset', __('Password reset is not allowed for this user'));
+			return new WP_Error('no_password_reset', __('Password reset is not allowed for this member'));
 		} elseif ( is_wp_error($allow) ) {
 			return $allow;
 		}
 		
-		// Buid new user activation key
-		$key = get_post_meta( $this->id, 'user_activation_key', true );
+		// Buid new member activation key
+		$key = get_post_meta( $this->id, 'activation_key', true );
 		if ( empty($key) ) {
 			// Generate something random for a key...
 			$key = wp_generate_password(20, false);
@@ -295,7 +295,7 @@ class MPT_User {
 			do_action('mpt_retrieve_password_key', $this->id, $key);
 			
 			// Now insert the new key into the db
-			update_post_meta( $this->id, 'user_activation_key', $key );
+			update_post_meta( $this->id, 'activation_key', $key );
 		}
 		
 		$stop = apply_filters_ref_array('mpt_reset_password_notification', array(false, &$this, $key) );

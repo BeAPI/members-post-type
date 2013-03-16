@@ -22,8 +22,8 @@ class MPT_Main {
      */
 	public static function init( ) {
 		if ( isset( $_GET['mpt-action'] ) && $_GET['mpt-action'] == 'logout' ) {
-			if ( MPT_User_Auth::is_logged_in( ) ) {
-				MPT_User_Auth::logout( );
+			if ( MPT_Member_Auth::is_logged_in( ) ) {
+				MPT_Member_Auth::logout( );
 				$redirect_to = home_url( '/#logout-success' );
 			} else {
 				$redirect_to = home_url( '/#logout-error' );
@@ -40,28 +40,28 @@ class MPT_Main {
     /**
      * Manage login counter, last connection
      * 
-     * @param string $user_name Description.
-     * @param int    $user_id   Description.
+     * @param string $member_name Description.
+     * @param int    $member_id   Description.
      *
      * @access public
      * @static
      *
      * @return void.
      */
-	public static function mpt_login( $user_name = '', $user_id = 0 ) {
+	public static function mpt_login( $member_name = '', $member_id = 0 ) {
 		// Increment counter
-		$counter = (int) get_post_meta( $user_id, '_counter_sign_on', true );
+		$counter = (int) get_post_meta( $member_id, '_counter_sign_on', true );
 		$counter++;
-		update_post_meta( $user_id, '_counter_sign_on', $counter );
+		update_post_meta( $member_id, '_counter_sign_on', $counter );
 
 		// Update latest date connection
-		update_post_meta( $user_id, '_last_sign_on_date', current_time( 'mysql' ) );
+		update_post_meta( $member_id, '_last_sign_on_date', current_time( 'mysql' ) );
 	}
 
     /**
      * Build action link for MPT actions
      * 
-     * @param string $action action ask by user.
+     * @param string $action action ask by developper.
      *
      * @access public
      * @static

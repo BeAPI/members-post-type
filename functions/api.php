@@ -5,16 +5,16 @@
  * @return boolean False if disconnected, True if connected
  */
 function mpt_is_member_logged_in() {
-	return MPT_User_Auth::is_logged_in();
+	return MPT_Member_Auth::is_logged_in();
 }
 
 /**
- * Get curent user object
+ * Get curent member object
  * 
- * @return boolean False if disconnected, MPT_User object if connected
+ * @return boolean False if disconnected, MPT_Member object if connected
  */
-function mpt_get_current_user() {
-	return MPT_User_Auth::get_current_user();
+function mpt_get_current_member() {
+	return MPT_Member_Auth::get_current_member();
 }
 
 /**
@@ -24,9 +24,9 @@ function mpt_get_current_user() {
  * @return boolean        [description]
  */
 function mpt_email_exists( $email ) {
-	$test_user = new MPT_User();
-	$test_user->fill_by('email', $email);
-	return $test_user->exists();
+	$test = new MPT_Member();
+	$test->fill_by('email', $email);
+	return $test->exists();
 }
 
 /**
@@ -37,15 +37,15 @@ function mpt_get_action_permalink( $action = '' ) {
 }
 
 /**
- * Shortlink for MPT_User_Utility::is_allowed_email_signon method
+ * Shortlink for MPT_Member_Utility::is_allowed_email_signon method
  */
 function mpt_is_allowed_email_signon() {
-	return MPT_User_Utility::is_allowed_email_signon();
+	return MPT_Member_Utility::is_allowed_email_signon();
 }
 
 /**
- * Shortlink for MPT_User_Utility::is_unique_email method
+ * Shortlink for MPT_Member_Utility::is_unique_email method
  */
 function mpt_is_unique_email() {
-	return MPT_User_Utility::is_unique_email();
+	return MPT_Member_Utility::is_unique_email();
 }

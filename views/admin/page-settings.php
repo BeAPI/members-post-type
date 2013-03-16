@@ -5,9 +5,9 @@
 	<?php //settings_errors(); ?>
 
 	<h2 class="nav-tab-wrapper">
-		<a href="<?php echo admin_url('options-general.php?page=mpt_users_settings&tab=main'); ?>" class="nav-tab <?php echo $active_tab == 'main' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Main', 'mpt' ); ?></a>
-		<a href="<?php echo admin_url('options-general.php?page=mpt_users_settings&tab=pages'); ?>" class="nav-tab <?php echo $active_tab == 'pages' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Pages', 'mpt' ); ?></a>
-		<a href="<?php echo admin_url('options-general.php?page=mpt_users_settings&tab=security'); ?>" class="nav-tab <?php echo $active_tab == 'security' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Security', 'mpt' ); ?></a>
+		<a href="<?php echo admin_url('options-general.php?page=mpt-settings&tab=main'); ?>" class="nav-tab <?php echo $active_tab == 'main' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Main', 'mpt' ); ?></a>
+		<a href="<?php echo admin_url('options-general.php?page=mpt-settings&tab=pages'); ?>" class="nav-tab <?php echo $active_tab == 'pages' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Pages', 'mpt' ); ?></a>
+		<a href="<?php echo admin_url('options-general.php?page=mpt-settings&tab=security'); ?>" class="nav-tab <?php echo $active_tab == 'security' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Security', 'mpt' ); ?></a>
 	</h2>
 	
 	<form method="post" action="options.php">

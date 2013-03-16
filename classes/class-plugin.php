@@ -1,7 +1,7 @@
 <?php
 class MPT_Plugin {
     /**
-     * Callback when plugin is actived by user
+     * Callback when plugin is actived
      * TODO: Create first member ?
      * 
      * @access public
@@ -26,7 +26,7 @@ class MPT_Plugin {
 	}
 
     /**
-     * Callback when plugin is deactived by user
+     * Callback when plugin is deactived
      * 
      * @access public
      * @static

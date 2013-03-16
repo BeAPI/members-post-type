@@ -98,7 +98,7 @@ function _mpt_load_files($dir, $files, $prefix = '') {
 _mpt_load_files(MPT_DIR . 'functions/', array('api', 'template'));
 
 // Plugin client classes
-_mpt_load_files(MPT_DIR . 'classes/', array('main', 'plugin', 'post-type', 'role', 'shortcode', 'taxonomy', 'user', 'user-auth', 'user-utility', 'widget'), 'class-');
+_mpt_load_files(MPT_DIR . 'classes/', array('main', 'plugin', 'post-type', 'role', 'shortcode', 'taxonomy', 'member', 'member-auth', 'member-utility', 'widget'), 'class-');
 
 // Plugin admin classes
 if (is_admin()) {

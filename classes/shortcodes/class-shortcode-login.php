@@ -13,22 +13,22 @@ class MPT_Shortcode_Login extends MPT_Shortcode {
 	 * @return string HTML of shortcode
 	 */
 	public static function shortcode() {
-		// User logged-in ?
+		// Member logged-in ?
 		if ( mpt_is_member_logged_in() ) {
 			return '<!-- Members already logged-in. -->';
 		}
 		
 		// Get data from POST, cleanup it
-		$user_data = ( !isset($_POST['mptlogin']) ) ? array() : $_POST['mptlogin'];
+		$member_data = ( !isset($_POST['mptlogin']) ) ? array() : $_POST['mptlogin'];
 		
 		// Parse vs defaults
-		$user_data = wp_parse_args( $user_data, array('username' => '', 'rememberme' => '', 'redirect_to' => '0') );
+		$member_data = wp_parse_args( $member_data, array('username' => '', 'rememberme' => '', 'redirect_to' => '0') );
 		
-		return parent::load_template( 'member-login', $user_data );
+		return parent::load_template( 'member-login', $member_data );
 	}
 
 	/**
-	 * Test if the users try to login
+	 * Test if the members try to login
 	 */
 	public static function init() {
 		if ( isset($_POST['mptlogin']) ) {
@@ -43,9 +43,9 @@ class MPT_Shortcode_Login extends MPT_Shortcode {
 			}
 			
 			// Try sign-on
-			$signon = MPT_User_Auth::signon( array(
-				'user_login' => $_POST['mptlogin']['username'], 
-				'user_password' => $_POST['mptlogin']['password']
+			$signon = MPT_Member_Auth::signon( array(
+				'm_login' => $_POST['mptlogin']['username'], 
+				'm_password' => $_POST['mptlogin']['password']
 			) );
 			
 			// result sign-on are error ?

@@ -20,12 +20,12 @@ class MPT_Shortcode {
 	 * Load a shortcode template from the theme or directly from the plugin
 	 * 
 	 * @param string $template the template name without extension and path
-	 * @param array $user_data variable to passe to template for display _POST values
+	 * @param array $member_data variable to passe to template for display _POST values
 	 * @return string the file content | bool false
 	 * 
 	 * @author Benjamin Niess
 	 */
-	public static function load_template( $template = '', $user_data = array() ) {
+	public static function load_template( $template = '', $member_data = array() ) {
 		if ( empty( $template ) ) {
 			return false;
 		}

@@ -13,7 +13,7 @@ class MPT_Shortcode_Change_Password extends MPT_Shortcode {
 	 * @return string HTML of shortcode
 	 */
 	public static function shortcode() {
-		// User logged-in ?
+		// Member logged-in ?
 		if ( !mpt_is_member_logged_in() ) {
 			return __('You can\'t change your password, if you aren\'t logged-in.', 'mpt');
 		}
@@ -52,11 +52,11 @@ class MPT_Shortcode_Change_Password extends MPT_Shortcode {
 				return false;
 			}
 			
-			// Get current user info
-			$current_user = MPT_User_Auth::get_current_user();
+			// Get current member info
+			$current_member = MPT_Member_Auth::get_current_member();
 			
 			// Re-sign-on, once password reset
-			$result = MPT_User_Auth::authenticate( $current_user->username, $_POST['mptchangepwd']['old'] );
+			$result = MPT_Member_Auth::authenticate( $current_member->username, $_POST['mptchangepwd']['old'] );
 			
 			// result sign-on are error ?
 			if ( is_wp_error($result) ) {
@@ -65,15 +65,15 @@ class MPT_Shortcode_Change_Password extends MPT_Shortcode {
 			}
 			
 			// Set new password
-			$current_user->set_password($_POST['mptchangepwd']['new']);
+			$current_member->set_password($_POST['mptchangepwd']['new']);
 			
 			// Force logout
-			MPT_User_Auth::logout();
+			MPT_Member_Auth::logout();
 			
-			// Re sign-on on real time for not broken user session
-			$signon = MPT_User_Auth::signon( array(
-				'user_login' => $current_user->username, 
-				'user_password' => $_POST['mptchangepwd']['new']
+			// Re sign-on on real time for not broken member session
+			$signon = MPT_Member_Auth::signon( array(
+				'm_login' => $current_member->username, 
+				'm_password' => $_POST['mptchangepwd']['new']
 			) );
 			
 			// result sign-on are error ?

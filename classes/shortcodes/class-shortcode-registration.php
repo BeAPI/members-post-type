@@ -22,22 +22,22 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 	 * @return string HTML of shortcode
 	 */
 	public static function shortcode() {
-		// User logged-in ?
+		// Member logged-in ?
 		if ( mpt_is_member_logged_in() ) {
 			return '<!-- Members already logged-in. -->';
 		}
 		
 		// Get data from POST, cleanup it
-		$user_data = ( !isset($_POST['mptregistration']) ) ? array() : $_POST['mptregistration'];
+		$member_data = ( !isset($_POST['mptregistration']) ) ? array() : $_POST['mptregistration'];
 		
 		// Parse vs defaults
-		$user_data = wp_parse_args( $user_data, self::$form_fields );
+		$member_data = wp_parse_args( $member_data, self::$form_fields );
 		
-		return parent::load_template( 'member-registration', $user_data );
+		return parent::load_template( 'member-registration', $member_data );
 	}
 
 	/**
-	 * Check POST data for creation user. Need for set_cookie function.
+	 * Check POST data for creation member. Need for set_cookie function.
 	 *
 	 * @return void
 	 * @author Benjamin Niess
@@ -85,7 +85,7 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 			// All is fine ? start insertion
 			if ( empty($messages) ) {
 				
-				// Default user insert args 
+				// Default member insert args 
 				$args = array();
 				$args['password'] 	= $mptr['password'];
 				$args['username'] 	= sanitize_text_field($mptr['username']);
@@ -94,17 +94,17 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 				$args['last_name'] 	= sanitize_text_field($mptr['last_name']);
 				
 				// insert member
-				$user_id = MPT_User_Utility::insert_user( $args );
+				$member_id = MPT_Member_Utility::insert_member( $args );
 				
 				// An wp error ?
-				if ( is_wp_error($user_id) ) {
-					parent::set_message( $user_id->get_error_code(), $user_id->get_error_message(), 'error' );
+				if ( is_wp_error($member_id) ) {
+					parent::set_message( $member_id->get_error_code(), $member_id->get_error_message(), 'error' );
 					return false;
 				}
 
-				// Send user notification
-				$user = new MPT_User($user_id);
-				$user->new_user_notification( $args['password'] );
+				// Send member notification
+				$member = new MPT_Member($member_id);
+				$member->register_notification( $args['password'] );
 
 				// Flush POST
 				unset($_POST['mptregistration']);

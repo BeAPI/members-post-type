@@ -38,10 +38,10 @@ class MPT_Widget extends WP_Widget {
 		$template = ( mpt_is_member_logged_in() ) ? 'widget-mpt-connected.php' : 'widget-mpt-unconnected.php';
 
 		// Get data from POST, cleanup it
-		$user_data = ( !isset($_POST['mptlogin']) ) ? array() : $_POST['mptlogin'];
+		$member_data = ( !isset($_POST['mptlogin']) ) ? array() : $_POST['mptlogin'];
 		
 		// Parse vs defaults
-		$user_data = wp_parse_args( $user_data, array('username' => '', 'rememberme' => '', 'redirect_to' => '0') );
+		$member_data = wp_parse_args( $member_data, array('username' => '', 'rememberme' => '', 'redirect_to' => '0') );
 
 		echo $before_widget;
 

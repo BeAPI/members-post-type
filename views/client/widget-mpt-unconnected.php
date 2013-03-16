@@ -11,17 +11,17 @@ else : // Otherwise == 'html'
 	?>
 	<form method="post" action="<?php echo mpt_get_login_permalink(); ?>">
 		<label><?php mpt_is_allowed_email_signon() ? _e( 'E-mail', 'mpt' ) : _e( 'Username', 'mpt' ); ?></label>
-		<input required="required" type="<?php echo mpt_is_allowed_email_signon() ? 'email' : 'text'; ?>" name="mptlogin[username]" value="<?php echo esc_attr($user_data['username']); ?>" />
+		<input required="required" type="<?php echo mpt_is_allowed_email_signon() ? 'email' : 'text'; ?>" name="mptlogin[username]" value="<?php echo esc_attr($member_data['username']); ?>" />
 		
 		<label><?php _e( 'Password', 'mpt' ); ?></label>
 		<input required="required" type="password" name="mptlogin[password]" value="" />
 		
 		<label>
-			<input name="mptlogin[rememberme]" type="checkbox" value="forever" <?php checked($user_data['rememberme']); ?> />
+			<input name="mptlogin[rememberme]" type="checkbox" value="forever" <?php checked($member_data['rememberme']); ?> />
 			<?php _e('Remember me', 'mpt'); ?>
 		</label>
 		
-		<input type="hidden" name="mptlogin[redirect_to]" value="<?php echo esc_attr($user_data['redirect_to']); ?>" />
+		<input type="hidden" name="mptlogin[redirect_to]" value="<?php echo esc_attr($member_data['redirect_to']); ?>" />
 		
 		<?php wp_nonce_field( 'mptlogin' ); ?>
 		<input type="submit" value="<?php _e( 'Submit', 'mpt' ) ; ?>" />

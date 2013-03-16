@@ -1,9 +1,9 @@
 <?php
-class MPT_User_Utility {
+class MPT_Member_Utility {
 	public function __construct() {}
 	
 	/**
-	 * Is allow to sign-on user with mail
+	 * Is allow to sign-on member with mail
 	 */
 	public static function is_allowed_email_signon() {
 		$main_settings = (array) get_option( 'mpt-main' );
@@ -27,94 +27,94 @@ class MPT_User_Utility {
 	}
 	
 	/**
-	 * A simpler way of inserting an user into the database.
+	 * A simpler way of inserting an member into the database.
 	 *
-	 * Creates a new user with just the username, password, and email. For a more
-	 * detail creation of a user, use MPT_User_Auth::insert_user() to specify more infomation.
+	 * Creates a new member with just the username, password, and email. For a more
+	 * detail creation of a member, use MPT_Member_Auth::insert_member() to specify more infomation.
 	 *
-	 * @see MPT_User_Auth::insert_user() More complete way to create a new user
+	 * @see MPT_Member_Auth::insert_member() More complete way to create a new member
 	 *
-	 * @param string $username The user's username.
-	 * @param string $password The user's password.
-	 * @param string $email The user's email
-	 * @return int The new user's ID.
+	 * @param string $username The member's username.
+	 * @param string $password The member's password.
+	 * @param string $email The member's email
+	 * @return int The new member's ID.
 	 */
-	public static function create_user($username, $password, $email) {
+	public static function create_member($username, $password, $email) {
 		$username 	= esc_sql( $username );
 		$email 		= esc_sql( $email );
 
-		return self::insert_user( array('username' => $username, 'email' => $email, 'password' => $password) );
+		return self::insert_member( array('username' => $username, 'email' => $email, 'password' => $password) );
 	}
 
 	/**
-	 * Insert an user into the database.
+	 * Insert an member into the database.
 	 *
-	 * The $userdata array can contain the following fields:
-	 * 'password' - A string that contains the plain text password for the user.
-	 * 'username' - A string that contains the user's username for logging in.
-	 * 'email' - A string containing the user's email address.
-	 * 'first_name' - The user's first name.
-	 * 'last_name' - The user's last name.
-	 * 'user_registered' - The date the user registered. Format is 'Y-m-d H:i:s'.
-	 * 'role' - A string used to set the user's role
+	 * The $memberdata array can contain the following fields:
+	 * 'password' - A string that contains the plain text password for the member.
+	 * 'username' - A string that contains the member's username for logging in.
+	 * 'email' - A string containing the member's email address.
+	 * 'first_name' - The member's first name.
+	 * 'last_name' - The member's last name.
+	 * 'member_registered' - The date the member registered. Format is 'Y-m-d H:i:s'.
+	 * 'role' - A string used to set the member's role
 	 *
-	 * @param array $userdata An array of user data.
-	 * @return int|WP_Error The newly created user's ID or a WP_Error object if the user could not be created.
+	 * @param array $memberdata An array of member data.
+	 * @return int|WP_Error The newly created member's ID or a WP_Error object if the member could not be created.
 	 */
-	public static function insert_user($userdata) {
+	public static function insert_member($memberdata) {
 		global $wpdb;
 		
-		if ( mpt_is_unique_email() && mpt_email_exists($userdata['email']) ) {
-			return new WP_Error('existing_user_email', __('This email address is already registered.') );
+		if ( mpt_is_unique_email() && mpt_email_exists($memberdata['email']) ) {
+			return new WP_Error('existing_member_email', __('This email address is already registered.') );
 		}
 		
-		if ( !isset($userdata['user_registered']) || empty($userdata['user_registered']) )
-			$userdata['user_registered'] = gmdate('Y-m-d H:i:s');
+		if ( !isset($memberdata['member_registered']) || empty($memberdata['member_registered']) )
+			$memberdata['member_registered'] = gmdate('Y-m-d H:i:s');
 
-		$user_id = wp_insert_post( array(
+		$member_id = wp_insert_post( array(
 			'post_title' => 'tmp',
 			'post_type' => MPT_CPT_NAME,
 			'post_status' => 'publish',
-			'post_date' => $userdata['user_registered']
+			'post_date' => $memberdata['member_registered']
 		) );
 
-		if ( is_wp_error($user_id) ) {
-			return $user_id;
+		if ( is_wp_error($member_id) ) {
+			return $member_id;
 		}
 		
-		// Instanciate user for have methods
-		$user = new MPT_User($user_id);
-		if( !$user->exists() ) {
-			return new WP_Error('user_not_exists', __('The user is invalid.'));
+		// Instanciate member for have methods
+		$member = new MPT_Member($member_id);
+		if( !$member->exists() ) {
+			return new WP_Error('member_not_exists', __('The member is invalid.'));
 		}
 
 		// Set password
-		if ( isset($userdata['password']) ) {
-			$user->set_password( $userdata['password'] );
+		if ( isset($memberdata['password']) ) {
+			$member->set_password( $memberdata['password'] );
 		}
 
 		// Set core fields
-		foreach ( $user::$core_fields as $field ) {
-			if ( !isset($userdata[$field]) ) {
+		foreach ( $member::$core_fields as $field ) {
+			if ( !isset($memberdata[$field]) ) {
 				continue;
 			}
 			
-			$user->set_meta_value( $field, $userdata[$field] );
+			$member->set_meta_value( $field, $memberdata[$field] );
 		}
 		
 		// Set proper post title
-		$user->regenerate_post_title( true );
+		$member->regenerate_post_title( true );
 		
 		// Set role
-		if ( isset($userdata['role']) ) {
-			$user->set_role($userdata['role']);
+		if ( isset($memberdata['role']) ) {
+			$member->set_role($memberdata['role']);
 		} else {
 			// TODO: Manage default role
-			// $user->set_role(get_option('default_role'));
+			// $member->set_role(get_option('default_role'));
 		}
 		
-		do_action('mpt_insert_user', $user->id);
+		do_action('mpt_insert_member', $member->id);
 		
-		return $user->id;
+		return $member->id;
 	}
 }

@@ -85,7 +85,7 @@ class MPT_Admin_Post_Type {
 
 		// Get values from DB
 		$member = array();
-		foreach ( MPT_User::$core_fields as $field ) {
+		foreach ( MPT_Member::$core_fields as $field ) {
 			$member[$field] = get_post_meta($post->ID, $field, true);
 		}
 
@@ -156,11 +156,11 @@ class MPT_Admin_Post_Type {
 			return false;
 		}
 
-		// Instanciate user
-		$user = new MPT_User( $post_id );
+		// Instanciate member
+		$member = new MPT_Member( $post_id );
 
-		// Sanitize user inputs
-		foreach ( MPT_User::$core_fields as $field ) {
+		// Sanitize member inputs
+		foreach ( MPT_Member::$core_fields as $field ) {
 			if ( !isset($_POST['member'][$field]) ) {
 				continue;
 			}
@@ -169,27 +169,27 @@ class MPT_Admin_Post_Type {
 				$value = sanitize_email( $_POST['member'][$field] );
 
 				// Check if email is unique, when option is enabled, restore old value if already exist.
-				if ( mpt_is_unique_email() && $user->email != $value && mpt_email_exists($value) ) {
-					$value = $user->email;
+				if ( mpt_is_unique_email() && $member->email != $value && mpt_email_exists($value) ) {
+					$value = $member->email;
 					self::$errors[] = 2;
 				}
 			} else {
 				$value = sanitize_text_field( $_POST['member'][$field] );
 			}
 			
-			$user->set_meta_value( $field, $value );
+			$member->set_meta_value( $field, $value );
 		}
 		
 		// Force refresh
-		$user->fill_by('id', $post_id);
+		$member->fill_by('id', $post_id);
 		
 		// Replace username by email
 		if ( mpt_is_allowed_email_signon() ) {
-			$user->set_meta_value( 'username', $user->email );
+			$member->set_meta_value( 'username', $member->email );
 		}
 		
 		// Set proper post_title for WP
-		$user->regenerate_post_title( true );
+		$member->regenerate_post_title( true );
 
 		return true;
 	}
@@ -219,9 +219,9 @@ class MPT_Admin_Post_Type {
 			return false;
 		}
 
-		// Instanciate user
-		$user = new MPT_User( $post_id );
-		$user->set_password( $_POST['memberpwd']['password'] );
+		// Instanciate member
+		$member = new MPT_Member( $post_id );
+		$member->set_password( $_POST['memberpwd']['password'] );
 		
 		return true;
 	}

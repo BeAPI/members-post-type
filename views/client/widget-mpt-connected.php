@@ -8,7 +8,7 @@ if( isset($title) && !empty($title) )
 if ( $mode == 'ajax' ) :
 	echo '<div class="ajax-mpt-widget"><!-- This element will be replaced with AJAX content --></div>';
 else : // Otherwise == 'html'
-	$current_member = mpt_get_current_user();
+	$current_member = mpt_get_current_member();
 	?>
 	<p>
 		<?php printf(__('Welcome %s! It\'s been long since we had not seen you!', 'mpt'), $current_member->get_display_name()); ?>

@@ -13,7 +13,7 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 	 * @return string HTML of shortcode
 	 */
 	public static function shortcode( ) {
-		// User logged-in ?
+		// Member logged-in ?
 		if ( mpt_is_member_logged_in() ) {
 			return '<!-- Members logged-in, impossible to reset password. -->';
 		}
@@ -63,24 +63,24 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 				return false;
 			}
 
-			// Try find user
-			$user = new MPT_User( );
+			// Try find member
+			$member = new MPT_Member( );
 
 			// Test if @
 			if ( strpos( $_POST['mptlostpwd_s1']['username'], '@' ) !== false ) {
-				$user->fill_by( 'email', $_POST['mptlostpwd_s1']['username'] );
+				$member->fill_by( 'email', $_POST['mptlostpwd_s1']['username'] );
 			} else {
-				$user->fill_by( 'username', $_POST['mptlostpwd_s1']['username'] );
+				$member->fill_by( 'username', $_POST['mptlostpwd_s1']['username'] );
 			}
 
 			// No response for email and username, go out
-			if ( !$user->exists( ) ) {
-				parent::set_message( 'check_step_1', __( 'No user with this value.', 'mpt' ), 'error' );
+			if ( !$member->exists( ) ) {
+				parent::set_message( 'check_step_1', __( 'No member with this value.', 'mpt' ), 'error' );
 				return false;
 			}
 
 			// Send reset link
-			$user->reset_password_link( );
+			$member->reset_password_link( );
 
 			parent::set_message( 'check_step_1', __( "You are going to receive an email with a reset link.", 'mpt' ), 'success' );
 			return true;
@@ -90,7 +90,7 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 	}
 
 	/**
-	 * Check if user click on reset link, verify key/id on DB
+	 * Check if member click on reset link, verify key/id on DB
 	 *
 	 * @author Benjamin Niess
 	 */
@@ -106,10 +106,10 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 		// Format key
 		$_GET['key'] = preg_replace('/[^a-z0-9]/i', '', $_GET['key']);
 		
-		// Try load user with this activation_key
-		$user = new MPT_User( );
-		$user->fill_by( 'user_activation_key', $_GET['key'] );
-		if ( !$user->exists() || ($user->exists() && $user->id != $_GET['id']) ) {
+		// Try load member with this activation_key
+		$member = new MPT_Member( );
+		$member->fill_by( 'activation_key', $_GET['key'] );
+		if ( !$member->exists() || ($member->exists() && $member->id != $_GET['id']) ) {
 			wp_die(__('Cheatin&#8217; uh?', 'mpt'));
 		}
 		
@@ -140,15 +140,15 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 				return false;
 			}
 			
-			// Try load user with this activation_key
-			$user = new MPT_User( );
-			$user->fill_by( 'user_activation_key', $_GET['key'] );
-			if ( !$user->exists() || ($user->exists() && $user->id != $_GET['id']) ) {
+			// Try load member with this activation_key
+			$member = new MPT_Member( );
+			$member->fill_by( 'activation_key', $_GET['key'] );
+			if ( !$member->exists() || ($member->exists() && $member->id != $_GET['id']) ) {
 				wp_die(__('Cheatin&#8217; uh?', 'mpt'));
 			}
 			
-			// reset the user password
-			$user->set_password($_POST['mptlostpwd_s2']['password']);
+			// reset the member password
+			$member->set_password($_POST['mptlostpwd_s2']['password']);
 			
 			// Try to get the login page, otherwise get home link
 			$location = wp_validate_redirect( mpt_get_login_permalink(), home_url('/') );

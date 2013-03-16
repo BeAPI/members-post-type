@@ -132,7 +132,7 @@ class MPT_Admin_Post_Type {
 			return false;
 		}
 
-		if ( !current_user_can( 'edit_post', $post_id ) ) { // TODO : Use custom capabilities
+		if ( !current_user_can( 'edit_member', $post_id ) ) {
 			return false;
 		}
 

@@ -88,7 +88,7 @@ if ( !defined( 'MPT_LOGGED_IN_COOKIE' ) ) {
 function _mpt_load_files($dir, $files, $prefix = '') {
 	foreach ($files as $file) {
 		if ( is_file($dir . $prefix . $file . ".php") ) {
-			require_once $dir . $prefix . $file . ".php";
+			require_once($dir . $prefix . $file . ".php");
 		}
 	}	
 }
@@ -112,6 +112,11 @@ add_action('plugins_loaded', 'init_mpt_plugin');
 function init_mpt_plugin() {
 	// Load translations
 	load_plugin_textdomain('mpt', false, basename(MPT_DIR) . '/languages');
+
+	// Load builtin plugin "meta for taxo", if not already installed and actived
+	if ( !function_exists('add_term_taxonomy_meta') ) {
+		require_once(MPT_DIR.'libraries/meta-for-taxonomies/meta-for-taxonomies.php');
+	}
 
 	// Client
 	new MPT_Main();

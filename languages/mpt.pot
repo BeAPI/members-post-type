@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Members Post Type\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-16 22:13+0100\n"
-"PO-Revision-Date: 2013-03-16 22:25+0100\n"
+"POT-Creation-Date: 2013-03-16 23:00+0100\n"
+"PO-Revision-Date: 2013-03-16 23:00+0100\n"
 "Last-Translator: Benjamin Niess <bniess@beapi.fr>\n"
 "Language-Team: BeAPI <contact@beapi.fr>\n"
 "Language: French\n"
@@ -153,70 +153,123 @@ msgstr ""
 msgid "Members Manager"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:24
+#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:25
 msgctxt "Post Type General Name"
 msgid "Members"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:25
+#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:26
 msgctxt "Post Type Singular Name"
 msgid "Member"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:26
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:40
+#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:27
+#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:41
 #: /Users/amaury/Github/members-post-type/classes/admin/class-main.php:34
 msgid "Members"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:27
+#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:28
 msgid "Parent Member:"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:28
+#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:29
 msgid "All Members"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:29
+#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:30
 msgid "View Member"
 msgstr ""
 
 # @ acf
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:30
+#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:31
 msgid "Add New Member"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:31
+#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:32
 msgid "New Member"
 msgstr ""
 
 # @ acf
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:32
+#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:33
 msgid "Edit Member"
 msgstr ""
 
 # @ acf
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:33
+#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:34
 msgid "Update Member"
 msgstr ""
 
 # @ default
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:34
+#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:35
 msgid "Search members"
 msgstr ""
 
 # @ default
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:35
+#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:36
 msgid "No members found"
 msgstr ""
 
 # @ default
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:36
+#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:37
 msgid "No members found in Trash"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:42
+#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:43
 msgid "Members as post type"
+msgstr ""
+
+#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:81
+#, php-format
+msgid "Member updated. <a href=\"%s\">View member</a>"
+msgstr ""
+
+#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:82
+msgid "Custom field updated."
+msgstr ""
+
+#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:83
+msgid "Custom field deleted."
+msgstr ""
+
+#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:84
+msgid "Member updated."
+msgstr ""
+
+#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:86
+#, php-format
+msgid "Member restored to revision from %s"
+msgstr ""
+
+#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:87
+#, php-format
+msgid "Member published. <a href=\"%s\">View member</a>"
+msgstr ""
+
+#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:88
+msgid "Member saved."
+msgstr ""
+
+#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:89
+#, php-format
+msgid "Member submitted. <a target=\"_blank\" href=\"%s\">Preview member</a>"
+msgstr ""
+
+#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:90
+#, php-format
+msgid ""
+"Member scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
+"\">Preview member</a>"
+msgstr ""
+
+#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:92
+msgid "M j, Y @ G:i"
+msgstr ""
+
+#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:93
+#, php-format
+msgid ""
+"Member draft updated. <a target=\"_blank\" href=\"%s\">Preview member</a>"
 msgstr ""
 
 # @ acf

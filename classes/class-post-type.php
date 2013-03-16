@@ -9,6 +9,7 @@ class MPT_Post_Type {
      */
 	public function __construct() {
 		add_action('init', array(__CLASS__, 'init') );
+		add_filter('post_updated_messages', array(__CLASS__, 'post_updated_messages') );
 	}
 
     /**
@@ -61,5 +62,37 @@ class MPT_Post_Type {
 		);
 
 		register_post_type( MPT_CPT_NAME, $args );
+	}
+
+    /**
+     * Customize message on CPT admin
+     * 
+     * @param array $messages Array with messages for admin interface.
+     *
+     * @access public
+     *
+     * @return array $messages.
+     */
+	function post_updated_messages( $messages ) {
+		global $post, $post_ID;
+
+		$messages[MPT_CPT_NAME] = array(
+			0 => '', // Unused. Messages start at index 1.
+			1 => sprintf( __('Member updated. <a href="%s">View member</a>', 'mpt'), esc_url( get_permalink($post_ID) ) ),
+			2 => __('Custom field updated.', 'mpt'),
+			3 => __('Custom field deleted.', 'mpt'),
+			4 => __('Member updated.', 'mpt'),
+			/* translators: %s: date and time of the revision */
+			5 => isset($_GET['revision']) ? sprintf( __('Member restored to revision from %s', 'mpt'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+			6 => sprintf( __('Member published. <a href="%s">View member</a>', 'mpt'), esc_url( get_permalink($post_ID) ) ),
+			7 => __('Member saved.', 'mpt'),
+			8 => sprintf( __('Member submitted. <a target="_blank" href="%s">Preview member</a>', 'mpt'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+			9 => sprintf( __('Member scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview member</a>', 'mpt'),
+			// translators: Publish box date format, see http://php.net/date
+			date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
+			10 => sprintf( __('Member draft updated. <a target="_blank" href="%s">Preview member</a>', 'mpt'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+		);
+
+		return $messages;
 	}
 }

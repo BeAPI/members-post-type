@@ -10,8 +10,32 @@ class MPT_Member {
 	public $last_name 	= null;
 	public $password 	= null;
 
+	/**
+	 * The individual capabilities the member has been given.
+	 *
+	 * @access public
+	 * @var array
+	 */
+	public $caps = array();
+
+	/**
+	 * The roles the member is part of.
+	 *
+	 * @access public
+	 * @var array
+	 */
+	public $roles = array();
+
+	/**
+	 * All capabilities the member has, including individual and role based.
+	 *
+	 * @access public
+	 * @var array
+	 */
+	public $allcaps = array();
+
 	// Private object
-	private $_object 	= false;
+	private $_object = false;
 
 	/**
 	 * Constructor
@@ -321,6 +345,113 @@ class MPT_Member {
 		if ( $message && !wp_mail($this->email, $title, $message) )
 			wp_die( __('The e-mail could not be sent.') . "<br />\n" . __('Possible reason: your host may have disabled the mail() function...') );
 		
+		return true;
+	}
+
+	/**
+	 * Set up capability object properties.
+	 *
+	 * @access private
+	 *
+	 */
+	private function _init_caps() {
+		$this->caps = get_post_meta( $this->id, '_mpt_capabilities', true );
+		if ( ! is_array( $this->caps ) )
+			$this->caps = array();
+
+		$this->get_role_caps();
+	}
+
+	/**
+	 * Retrieve all of the role capabilities and merge with individual capabilities.
+	 *
+	 * All of the capabilities of the roles the member belongs to are merged with
+	 * the members individual roles. This also means that the member can be denied
+	 * specific roles that their role might have, but the specific member isn't
+	 * granted permission to.
+	 *
+	 * @uses $mpt_roles
+	 * @access public
+	 */
+	public function get_role_caps() {
+		global $mpt_roles;
+
+		if ( ! isset( $mpt_roles ) )
+			$mpt_roles = new MPT_Roles();
+
+		// Filter out caps that are not role names and assign to $this->roles
+		if ( is_array( $this->caps ) )
+			$this->roles = array_filter( array_keys( $this->caps ), array( $mpt_roles, 'is_role' ) );
+
+		// Build $allcaps from role caps, overlay member's $caps
+		$this->allcaps = array();
+		foreach ( (array) $this->roles as $role ) {
+			$the_role = $mpt_roles->get_role( $role );
+			$this->allcaps = array_merge( (array) $this->allcaps, (array) $the_role->capabilities );
+		}
+		$this->allcaps = array_merge( (array) $this->allcaps, (array) $this->caps );
+	}
+
+	/**
+	 * Add role to member.
+	 *
+	 * Updates the member's meta data option with capabilities and roles.
+	 *
+	 * @access public
+	 *
+	 * @param string $role Role name.
+	 */
+	public function add_role( $role ) {
+		$this->caps[$role] = true;
+		update_post_meta( $this->id, '_mpt_capabilities', $this->caps );
+		$this->get_role_caps();
+	}
+
+	/**
+	 * Remove role from member.
+	 *
+	 * @access public
+	 *
+	 * @param string $role Role name.
+	 */
+	public function remove_role( $role ) {
+		if ( !in_array($role, $this->roles) )
+			return false;
+
+		unset( $this->caps[$role] );
+		update_post_meta( $this->id, '_mpt_capabilities', $this->caps );
+		$this->get_role_caps();
+		return true;
+	}
+
+	/**
+	 * Set the role of the member.
+	 *
+	 * This will remove the previous roles of the member and assign the member the
+	 * new one. You can set the role to an empty string and it will remove all
+	 * of the roles from the member.
+	 *
+	 * @access public
+	 *
+	 * @param string $role Role name.
+	 */
+	public function set_role( $role ) {
+		if ( 1 == count( $this->roles ) && $role == current( $this->roles ) )
+			return false;
+
+		foreach ( (array) $this->roles as $oldrole )
+			unset( $this->caps[$oldrole] );
+
+		if ( !empty( $role ) ) {
+			$this->caps[$role] = true;
+			$this->roles = array( $role => true );
+		} else {
+			$this->roles = false;
+		}
+		update_post_meta( $this->id, '_mpt_capabilities', $this->caps );
+		$this->get_role_caps();
+
+		do_action( 'set_member_role', $this->id, $role );
 		return true;
 	}
 }

@@ -10,6 +10,7 @@ class MPT_Main {
 	public function __construct( ) {
 		add_action( 'init', array( __CLASS__, 'init' ) );
 		add_action( 'mpt_login', array( __CLASS__, 'mpt_login' ), 10, 2 );
+		add_action( 'switch_blog', array( __CLASS__, 'switch_blog' ), 10, 2 );
 	}
 
 	/**
@@ -98,4 +99,23 @@ class MPT_Main {
 		return apply_filters( 'mpt_action_permalink', $return_url, $action );
 	}
 
+    /**
+     * switch_blog
+     * 
+     * @param mixed $new_blog     Description.
+     * @param mixed $prev_blog_id Description.
+     *
+     * @access public
+     *
+     * @return mixed Value.
+     */
+	function switch_blog( $new_blog_id, $prev_blog_id ) {
+		global $mpt_roles;
+
+		if ( did_action( 'init' ) ) {
+			if ( isset($mpt_roles) ) {
+				$mpt_roles->reinit();
+			}
+		}
+	}
 }

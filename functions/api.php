@@ -49,3 +49,93 @@ function mpt_is_allowed_email_signon() {
 function mpt_is_unique_email() {
 	return MPT_Member_Utility::is_unique_email();
 }
+
+/**
+ * Whether current member has capability or role.
+ *
+ * @param string $capability Capability or role name.
+ * @return bool
+ */
+function current_member_can( $capability ) {
+	$current_member = mpt_get_current_member();
+	if ( empty( $current_member ) )
+		return false;
+
+	$args = array_slice( func_get_args(), 1 );
+	$args = array_merge( array( $capability ), $args );
+
+	return call_user_func_array( array( $current_member, 'has_cap' ), $args );
+}
+
+/**
+ * Whether a particular member has capability or role.
+ *
+ * @param int|object $member member ID or object.
+ * @param string $capability Capability or role name.
+ * @return bool
+ */
+function member_can( $member, $capability ) {
+	if ( ! is_object( $member ) )
+		$member = MPT_User( $member );
+
+	if ( ! $member || ! $member->exists() )
+		return false;
+
+	$args = array_slice( func_get_args(), 2 );
+	$args = array_merge( array( $capability ), $args );
+
+	return call_user_func_array( array( $user, 'has_cap' ), $args );
+}
+
+/**
+ * Retrieve role object.
+ *
+ * @see MPT_Roles::get_role() Uses method to retrieve role object.
+ *
+ * @param string $role Role name.
+ * @return object
+ */
+function mpt_get_role( $role ) {
+	global $mpt_roles;
+
+	if ( ! isset( $mpt_roles ) )
+		$mpt_roles = new MPT_Roles();
+
+	return $mpt_roles->get_role( $role );
+}
+
+/**
+ * Add role, if it does not exist.
+ *
+ * @see MPT_Roles::add_role() Uses method to add role.
+ *
+ * @param string $role Role name.
+ * @param string $display_name Display name for role.
+ * @param array $capabilities List of capabilities, e.g. array( 'edit_posts' => true, 'delete_posts' => false );
+ * @return null|MPT_Role MPT_Role object if role is added, null if already exists.
+ */
+function mpt_add_role( $role, $display_name, $capabilities = array() ) {
+	global $mpt_roles;
+
+	if ( ! isset( $mpt_roles ) )
+		$mpt_roles = new MPT_Roles();
+
+	return $mpt_roles->add_role( $role, $display_name, $capabilities );
+}
+
+/**
+ * Remove role, if it exists.
+ *
+ * @see MPT_Roles::remove_role() Uses method to remove role.
+ *
+ * @param string $role Role name.
+ * @return null
+ */
+function mpt_remove_role( $role ) {
+	global $mpt_roles;
+
+	if ( ! isset( $mpt_roles ) )
+		$mpt_roles = new MPT_Roles();
+
+	return $mpt_roles->remove_role( $role );
+}

@@ -1,7 +1,7 @@
 <?php
 /*
  Plugin Name: Members post type
- Version: 0.2
+ Version: 0.3
  Plugin URI: https://github.com/herewithme/members-post-type
  Description: Manage members on WordPress as post type. Implement: post type, authentification, role, clone from WP.
  Author: Amaury Balmer
@@ -20,12 +20,8 @@
  		Pending
  		Unconfirmed
 
- 	Widget (login/logout)
- 		Settings for 
- 			Title
- 			Enable register link
- 			Enable lost password link
- 		AJAX
+ 	Widget
+ 		AJAX Mode
 	
 	Social integration
 		Facebook
@@ -61,7 +57,7 @@
  */
 
 // Plugin constants
-define('MPT_VERSION', '0.2');
+define('MPT_VERSION', '0.3');
 define('MPT_OPTION', 'members-post-type');
 define('MPT_CPT_NAME', 'member');
 

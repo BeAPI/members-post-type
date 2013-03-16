@@ -25,8 +25,7 @@
  			Title
  			Enable register link
  			Enable lost password link
-	
-	Username (unicity + email)
+ 		AJAX
 	
 	Social integration
 		Facebook
@@ -62,7 +61,7 @@
  */
 
 // Plugin constants
-define('MPT_VERSION', '0.0.1');
+define('MPT_VERSION', '0.2');
 define('MPT_OPTION', 'members-post-type');
 define('MPT_CPT_NAME', 'member');
 
@@ -87,8 +86,8 @@ if ( !defined( 'MPT_LOGGED_IN_COOKIE' ) ) {
 }
 
 // Plugin URL and PATH
-define('MPT_URL', plugins_url('', __FILE__));
-define('MPT_DIR', dirname(__FILE__));
+define('MPT_URL', plugin_dir_url ( __FILE__ ));
+define('MPT_DIR', plugin_dir_path( __FILE__ ));
 
 // Function for easy load files
 function _mpt_load_files($dir, $files, $prefix = '') {
@@ -100,14 +99,14 @@ function _mpt_load_files($dir, $files, $prefix = '') {
 }
 
 // Plugin functions
-_mpt_load_files(MPT_DIR . '/functions/', array('api', 'template'));
+_mpt_load_files(MPT_DIR . 'functions/', array('api', 'template'));
 
 // Plugin client classes
-_mpt_load_files(MPT_DIR . '/classes/', array('main', 'plugin', 'post-type', 'role', 'shortcode', 'taxonomy', 'user', 'user-auth', 'user-utility', 'widget'), 'class-');
+_mpt_load_files(MPT_DIR . 'classes/', array('main', 'plugin', 'post-type', 'role', 'shortcode', 'taxonomy', 'user', 'user-auth', 'user-utility', 'widget'), 'class-');
 
 // Plugin admin classes
 if (is_admin()) {
-	_mpt_load_files(MPT_DIR . '/classes/admin/', array('main', 'post-type', 'taxonomy', 'settings-main', 'settings-pages', 'settings-security'), 'class-');
+	_mpt_load_files(MPT_DIR . 'classes/admin/', array('main', 'post-type', 'taxonomy', 'settings-main', 'settings-pages', 'settings-security'), 'class-');
 }
 
 // Plugin activate/desactive hooks
@@ -117,7 +116,7 @@ register_deactivation_hook(__FILE__, array('MPT_Plugin', 'deactivate'));
 add_action('plugins_loaded', 'init_mpt_plugin');
 function init_mpt_plugin() {
 	// Load translations
-	load_plugin_textdomain('mpt', false, basename(rtrim(MPT_DIR, '/')) . '/languages');
+	load_plugin_textdomain('mpt', false, basename(MPT_DIR) . '/languages');
 
 	// Client
 	new MPT_Main();
@@ -134,5 +133,5 @@ function init_mpt_plugin() {
 	}
 
 	// Widget
-	// add_action('widgets_init', create_function('', 'return register_widget("MPT_Widget");'));
+	add_action('widgets_init', create_function('', 'return register_widget("MPT_Widget");'));
 }

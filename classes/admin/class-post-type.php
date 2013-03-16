@@ -93,7 +93,7 @@ class MPT_Admin_Post_Type {
 		settings_errors( MPT_CPT_NAME.'-main' );
 
 		// Call Template
-		include( MPT_DIR . '/views/admin/metabox-main.php');
+		include( MPT_DIR . 'views/admin/metabox-main.php');
 	}
 
     /**
@@ -114,7 +114,7 @@ class MPT_Admin_Post_Type {
 		settings_errors( MPT_CPT_NAME.'-password' );
 		
 		// Call Template
-		include( MPT_DIR . '/views/admin/metabox-password.php');
+		include( MPT_DIR . 'views/admin/metabox-password.php');
 	}
 
     /**

@@ -44,7 +44,7 @@ class MPT_Admin_Main {
      */
 	public static function render_page_settings() {
 		$active_tab = (isset( $_GET['tab'] ) ) ? $_GET['tab'] : 'main';
-		include (MPT_DIR . '/views/admin/page-settings.php');
+		include (MPT_DIR . 'views/admin/page-settings.php');
 	}
 	
 }

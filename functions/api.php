@@ -9,6 +9,15 @@ function mpt_is_member_logged_in() {
 }
 
 /**
+ * Get curent user object
+ * 
+ * @return boolean False if disconnected, MPT_User object if connected
+ */
+function mpt_get_current_user() {
+	return MPT_User_Auth::get_current_user();
+}
+
+/**
  * Test email exists on DB
  * 
  * @param  string $email  [description]

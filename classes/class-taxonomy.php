@@ -51,6 +51,6 @@ class MPT_Taxonomy {
 			'update_count_callback'      => false
 		);
 
-		register_taxonomy( 'members-role', MPT_CPT_NAME, $args );
+		register_taxonomy( MPT_TAXO_NAME, MPT_CPT_NAME, $args );
 	}
 }

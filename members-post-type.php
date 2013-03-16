@@ -59,6 +59,7 @@
 // Plugin constants
 define('MPT_VERSION', '0.3');
 define('MPT_CPT_NAME', 'member');
+define('MPT_TAXO_NAME', 'members-role');
 
 // Plugin URL and PATH
 define('MPT_URL', plugin_dir_url ( __FILE__ ));

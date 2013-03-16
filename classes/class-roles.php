@@ -2,22 +2,12 @@
 /**
  * Members Post Type Roles.
  *
- * The role option is simple, the structure is organized by role name that store
- * the name in value of the 'name' key. The capabilities are stored as an array
- * in the value of the 'capability' key.
- *
- * <code>
- * array (
- *		'rolename' => array (
- *			'name' => 'rolename',
- *			'capabilities' => array()
- *		)
- * )
- * </code>
+ * The role feature is simple, the structure is organized in term on a specific taxonomy "members-role"
+ * The capabilities are stored as an array in a term meta values with 'capabilities' key.
  */
 class MPT_Roles {
 	/**
-	 * List of roles and capabilities.
+	 * List of roles (WP term objects).
 	 *
 	 * @access public
 	 * @var array
@@ -25,7 +15,7 @@ class MPT_Roles {
 	public $roles;
 
 	/**
-	 * List of the role objects.
+	 * List of the role objects. (MPT_Role objects)
 	 *
 	 * @access public
 	 * @var array
@@ -55,15 +45,15 @@ class MPT_Roles {
 	 * @access private
 	 */
 	private function _init () {
-		$this->roles = get_option( 'mpt-roles' );
+		$this->roles = $this->_get_roles();
 		if ( empty( $this->roles ) )
 			return false;
 
 		$this->role_objects = array();
 		$this->role_names =  array();
-		foreach ( array_keys( $this->roles ) as $role ) {
-			$this->role_objects[$role] = new MPT_Role( $role, $this->roles[$role]['capabilities'] );
-			$this->role_names[$role] = $this->roles[$role]['name'];
+		foreach ( $this->roles as $role ) {
+			$this->role_objects[$role->slug] = new MPT_Role( $role->slug, (array) get_term_taxonomy_meta( $role->term_taxonomy_id, 'capabilities', true) );
+			$this->role_names[$role->slug] = $role->name;
 		}
 
 		return true;
@@ -100,15 +90,24 @@ class MPT_Roles {
 		if ( isset( $this->roles[$role] ) )
 			return false;
 
-		$this->roles[$role] = array(
-			'name' => $display_name,
-			'capabilities' => $capabilities
-			);
+		// Try term insertion
+		$term_result = wp_insert_term( $display_name, MPT_TAXO_NAME, array('slug' => $role) );
+		if ( $term_result == false || is_wp_error($term_result) ) {
+			return false;
+		}
 
-		update_option( 'mpt-roles', $this->roles );
-		$this->role_objects[$role] = new MPT_Role( $role, $capabilities );
-		$this->role_names[$role] = $display_name;
-		return $this->role_objects[$role];
+		// Get new term data
+		$term = get_term($term_result['term_id'], MPT_TAXO_NAME);
+
+		// Update term meta with capabilities
+		update_term_taxonomy_meta( $term_result['term_taxonomy_id'], 'capabilities', $capabilities );
+
+		// Refresh values
+		$this->roles[$term->slug] = $term;
+		$this->role_objects[$term->slug] = new MPT_Role( $term->slug, $capabilities );
+		$this->role_names[$term->slug] = $display_name;
+
+		return $this->role_objects[$term->slug];
 	}
 
 	/**
@@ -126,7 +125,11 @@ class MPT_Roles {
 		unset( $this->role_names[$role] );
 		unset( $this->roles[$role] );
 
-		update_option( 'mpt-roles', $this->roles );
+		$term = get_term_by( 'slug', $role, MPT_TAXO_NAME );
+		if ( $term != false ) {
+			wp_delete_term( $term->term_id, MPT_TAXO_NAME );
+		}
+
 		return true;
 	}
 
@@ -143,8 +146,21 @@ class MPT_Roles {
 		if ( ! isset( $this->roles[$role] ) )
 			return false;
 
-		$this->roles[$role]['capabilities'][$cap] = $grant;
-		update_option( 'mpt-roles', $this->roles );
+		// Get current capabilities
+		$capabilities = get_term_taxonomy_meta( $this->roles[$role]->term_taxonomy_id, 'capabilities', true);
+		if ( $capabilities == false ) {
+			$capabilities = array();
+		}
+
+		// Add the new cap
+		$capabilities[$cap] = $grant;
+
+		// Save new capabilities
+		update_term_taxonomy_meta( $this->roles[$role]->term_taxonomy_id, 'capabilities', $capabilities );
+
+		// Refesh variable
+		$this->role_objects[$role] = new MPT_Role( $role, $capabilities );
+		
 		return true;
 	}
 
@@ -160,8 +176,21 @@ class MPT_Roles {
 		if ( ! isset( $this->roles[$role] ) )
 			return false;
 
-		unset( $this->roles[$role]['capabilities'][$cap] );
-		update_option( 'mpt-roles', $this->roles );
+		// Get current capabilities
+		$capabilities = get_term_taxonomy_meta( $this->roles[$role]->term_taxonomy_id, 'capabilities', true);
+		if ( $capabilities == false ) {
+			$capabilities = array();
+		}
+
+		// Remove the cap
+		unset($capabilities[$cap]);
+
+		// Save new capabilities
+		update_term_taxonomy_meta( $this->roles[$role]->term_taxonomy_id, 'capabilities', $capabilities );
+
+		// Refesh variable
+		$this->role_objects[$role] = new MPT_Role( $role, $capabilities );
+
 		return true;
 	}
 
@@ -201,5 +230,27 @@ class MPT_Roles {
 	 */
 	public function is_role( $role ) {
 		return isset( $this->role_names[$role] );
+	}
+
+    /**
+     * Wrap get terms into a method, that allow to build an array with term slug as index.
+     * 
+     * @param array $args Description.
+     *
+     * @access private
+     *
+     * @return array Value.
+     */
+	private function _get_roles( $args = array() ) {
+		// Parse vs defaults
+		$args = wp_parse_args( $args, array('hide_empty' => 0, '') );
+
+		$_terms = array();
+		$terms = get_terms( MPT_TAXO_NAME, $args );
+		foreach( (array) $terms as $term ) {
+			$_terms[$term->slug] = $term;
+		}
+
+		return $_terms;
 	}
 }

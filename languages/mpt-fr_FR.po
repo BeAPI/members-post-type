@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: MPT\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-03-16 22:13+0100\n"
-"PO-Revision-Date: 2013-03-16 22:43+0100\n"
+"PO-Revision-Date: 2013-03-16 22:53+0100\n"
 "Last-Translator: Benjamin Niess <bniess@beapi.fr>\n"
 "Language-Team: BeAPI <contact@beapi.fr>\n"
 "Language: French\n"
@@ -42,8 +42,8 @@ msgid ""
 "<strong>ERROR</strong>: Invalid email. <a href=\"%s\" title=\"Password Lost "
 "and Found\">Lost your password</a>?"
 msgstr ""
-"<strong>ERREUR</strong> : Adresse email invalide. <a href=\"%s\" title=\"Mot "
-"de passe oublié\">Mot de passe oublié</a>?"
+"<strong>ERREUR</strong> : Adresse email incorrecte. <a href=\"%s\" title="
+"\"Mot de passe oublié\">Mot de passe oublié</a>?"
 
 #: /Users/amaury/Github/members-post-type/classes/class-member-auth.php:167
 #, php-format
@@ -52,7 +52,7 @@ msgid ""
 "strong> is incorrect. <a href=\"%2$s\" title=\"Password Lost and Found"
 "\">Lost your password</a>?"
 msgstr ""
-"<strong>ERREUR</strong> : Le mot de passe que vous avez entré pour l'email "
+"<strong>ERREUR</strong> : Le mot de passe que vous avez saisi pour l'email "
 "<strong>%1$s</strong> est incorrect. <a href=\"%2$s\" title=\"Mot de passe "
 "oublié ?\">Mot de passe oublié ?</a>?"
 
@@ -76,32 +76,32 @@ msgid ""
 "%1$s</strong> is incorrect. <a href=\"%2$s\" title=\"Password Lost and Found"
 "\">Lost your password</a>?"
 msgstr ""
-"<strong>ERREUR</strong> : Le mot de passe que vous avez enté pour "
+"<strong>ERREUR</strong> : Le mot de passe que vous avez saisi pour "
 "l'identifiant %1$s est incorrect. <a href=\"%2$s\" title=\"Mot de passe "
 "oublié ?\">Mot de passe oublié ?</a>?"
 
 #: /Users/amaury/Github/members-post-type/classes/class-member-utility.php:68
 msgid "This email address is already registered."
-msgstr "Cet email est déjà enregistré"
+msgstr "Cet email est déjà enregistré."
 
 #: /Users/amaury/Github/members-post-type/classes/class-member-utility.php:88
 msgid "The member is invalid."
-msgstr "Cet utilisateur est invalide"
+msgstr "Cet utilisateur est invalide."
 
 #: /Users/amaury/Github/members-post-type/classes/class-member.php:181
 #, php-format
 msgid "Password Lost and Changed for member: %s"
-msgstr "Mot de passe perdu et changé pour le membre : %s"
+msgstr "Mot de passe perdu et modifié pour le membre : %s"
 
 #: /Users/amaury/Github/members-post-type/classes/class-member.php:185
 #, php-format
 msgid "[%s] Password Lost/Changed"
-msgstr "[%s] Mot de passe oublié/changé"
+msgstr "[%s] Mot de passe oublié/modifié"
 
 #: /Users/amaury/Github/members-post-type/classes/class-member.php:214
 #, php-format
 msgid "New member registration on your site %s:"
-msgstr "Nouvelle inscription sur le site %s : "
+msgstr "Nouvelle inscription de membre sur votre site %s : "
 
 #: /Users/amaury/Github/members-post-type/classes/class-member.php:215
 #: /Users/amaury/Github/members-post-type/classes/class-member.php:224
@@ -113,12 +113,12 @@ msgstr "Nom d'utilisateur : %s"
 #: /Users/amaury/Github/members-post-type/classes/class-member.php:216
 #, php-format
 msgid "E-mail: %s"
-msgstr "E-mail : %s"
+msgstr "Email : %s"
 
 #: /Users/amaury/Github/members-post-type/classes/class-member.php:218
 #, php-format
 msgid "[%s] New Member Registration"
-msgstr "[%s] Nouvelle inscription"
+msgstr "[%s] Nouvelle inscription de membre"
 
 #: /Users/amaury/Github/members-post-type/classes/class-member.php:225
 #, php-format
@@ -132,12 +132,12 @@ msgstr "[%s] Vos identifiants"
 
 #: /Users/amaury/Github/members-post-type/classes/class-member.php:283
 msgid "Password reset is not allowed for this member"
-msgstr "La regénération de mot de passe n'est pas autorisée pour ce membre"
+msgstr "La régénération de mot de passe n'est pas autorisée pour ce membre"
 
 #: /Users/amaury/Github/members-post-type/classes/class-member.php:307
 msgid "Someone requested that the password be reset for the following account:"
 msgstr ""
-"Quelqu'un a demandé une régénération de mot de passe pour le compte suivant :"
+"Quelqu'un a demandé la régénération du mot de passe pour le compte suivant :"
 
 #: /Users/amaury/Github/members-post-type/classes/class-member.php:310
 msgid "If this was a mistake, just ignore this email and nothing will happen."
@@ -145,12 +145,13 @@ msgstr "S'il s'agissait d'une erreur, ignorez simplement cet email."
 
 #: /Users/amaury/Github/members-post-type/classes/class-member.php:311
 msgid "To reset your password, visit the following address:"
-msgstr "Pour régénérer votre mot de passe, rendez-vous à l'adresse suivante : "
+msgstr ""
+"Pour réinitialiser votre mot de passe, rendez-vous à l'adresse suivante : "
 
 #: /Users/amaury/Github/members-post-type/classes/class-member.php:315
 #, php-format
 msgid "[%s] Password Reset"
-msgstr "[%s] Régénération de mot de passe"
+msgstr "[%s] Réinitialisation de mot de passe"
 
 #: /Users/amaury/Github/members-post-type/classes/class-member.php:322
 msgid "The e-mail could not be sent."
@@ -159,7 +160,7 @@ msgstr "Cet e-mail n'a pas pu être envoyé."
 #: /Users/amaury/Github/members-post-type/classes/class-member.php:322
 msgid "Possible reason: your host may have disabled the mail() function..."
 msgstr ""
-"Raison possible : votre hébergeur a peut-être désactivé la fonction mail()..."
+"Raison possible : votre hébergeur a peut-être désactivé la fonction mail()…"
 
 #: /Users/amaury/Github/members-post-type/classes/class-plugin.php:14
 msgid "Members Manager"
@@ -205,7 +206,7 @@ msgstr "Nouveau membre"
 # @ acf
 #: /Users/amaury/Github/members-post-type/classes/class-post-type.php:32
 msgid "Edit Member"
-msgstr "Editer le membre"
+msgstr "Modifier le membre"
 
 # @ acf
 #: /Users/amaury/Github/members-post-type/classes/class-post-type.php:33
@@ -215,7 +216,7 @@ msgstr "Mettre à jour le membre"
 # @ default
 #: /Users/amaury/Github/members-post-type/classes/class-post-type.php:34
 msgid "Search members"
-msgstr "Rechercher une membre"
+msgstr "Chercher une membre"
 
 # @ default
 #: /Users/amaury/Github/members-post-type/classes/class-post-type.php:35
@@ -273,7 +274,7 @@ msgstr "Ajouter un nouveau rôle"
 # @ acf
 #: /Users/amaury/Github/members-post-type/classes/class-taxonomy.php:32
 msgid "Edit Role "
-msgstr "Editer le rôle"
+msgstr "Modifier le rôle"
 
 # @ acf
 #: /Users/amaury/Github/members-post-type/classes/class-taxonomy.php:33
@@ -312,7 +313,7 @@ msgstr ""
 
 #: /Users/amaury/Github/members-post-type/classes/admin/class-post-type.php:43
 msgid "Password and confirmation must be the same."
-msgstr "Les deux mots de passe que vous avez entrés ne correspondent pas."
+msgstr "Les deux mots de passe que vous avez saisi ne correspondent pas."
 
 #: /Users/amaury/Github/members-post-type/classes/admin/class-post-type.php:46
 msgid "The email is already in use. Back to initial value."
@@ -320,12 +321,12 @@ msgstr "Cet email est déjà utilisé. Retour à la valeur initiale."
 
 #: /Users/amaury/Github/members-post-type/classes/admin/class-post-type.php:68
 msgid "Main information"
-msgstr "Information principales"
+msgstr "Informations principales"
 
 #: /Users/amaury/Github/members-post-type/classes/admin/class-post-type.php:69
 #: /Users/amaury/Github/members-post-type/classes/admin/class-settings-pages.php:31
 msgid "Change password"
-msgstr "Modifier son mot de passe"
+msgstr "Modifier le mot de passe"
 
 #: /Users/amaury/Github/members-post-type/classes/admin/class-settings-main.php:26
 msgid "General features"
@@ -389,7 +390,7 @@ msgid ""
 "different features (login, registration, etc)."
 msgstr ""
 "Vous devez définir les pages qui contiennent des shortcodes (connexion, "
-"inscription etc...)"
+"inscription etc…)"
 
 #: /Users/amaury/Github/members-post-type/classes/admin/class-settings-pages.php:78
 msgid "Please choose a page"
@@ -424,18 +425,18 @@ msgstr "Elément sélectionné"
 
 #: /Users/amaury/Github/members-post-type/classes/admin/class-settings-security.php:48
 msgid "Provides examples of the five basic element types."
-msgstr "Fournit des exemples sur les cinq élements types basiques."
+msgstr "Fournit des exemples sur les cinq éléments types basiques."
 
 #: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-change-password.php:18
 msgid "You can't change your password, if you aren't logged-in."
 msgstr ""
-"Vous ne pouvez pas régénérer votre mot de passe si vous n'êtes pas connécté"
+"Vous ne pouvez pas régénérer votre mot de passe si vous n'êtes pas connecté"
 "(e)"
 
 #: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-change-password.php:45
 #: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-lost-password.php:133
 msgid "The two passwords you entered don't match."
-msgstr "Les deux mots de passe que vous avez entrés ne coïncient pas"
+msgstr "Les deux mots de passe que vous avez saisi ne coïncient pas"
 
 #: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-change-password.php:51
 #: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-lost-password.php:139
@@ -456,21 +457,22 @@ msgid ""
 "Please enter your username or email address. You will receive a link to "
 "create a new password via email."
 msgstr ""
-"Merci d'entrer votre nom d'utilisateur ou adresse email. Vous recevrez par E-"
-"mail un lien pour regénérer votre mot de passe."
+"Merci d'entrer votre nom d'utilisateur ou adresse email. Vous recevrez par "
+"email un lien pour réinitialiser votre mot de passe."
 
 #: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-lost-password.php:62
 msgid "Invalid username or e-mail."
-msgstr "Nom d'utilisateur ou E-mail invalide."
+msgstr "Nom d'utilisateur ou email invalide."
 
 #: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-lost-password.php:78
 msgid "No member with this value."
-msgstr "Aucun utilisateur ne correspond à ces informations"
+msgstr "Aucun membre ne correspond à ces informations."
 
 #: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-lost-password.php:85
 msgid "You are going to receive an email with a reset link."
 msgstr ""
-"Vous allez recevoir un email avec un lien pour régénérer votre mot de passe."
+"Vous allez recevoir un email avec un lien pour réinitialiser votre mot de "
+"passe."
 
 #: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-lost-password.php:103
 msgid ""
@@ -487,7 +489,7 @@ msgstr "Alors on triche ?"
 
 #: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-registration.php:64
 msgid "The two password you filled doesn't match"
-msgstr "Les deux mots de passe que vous avez entrés ne correspondent pas"
+msgstr "Les deux mots de passe que vous avez saisi ne correspondent pas"
 
 #: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-registration.php:69
 msgid "You need to fill the two password fields"
@@ -505,7 +507,7 @@ msgstr "Cette adresse email est déjà utilisée"
 msgid "Your account has beed created. You can now log-in with your access"
 msgstr ""
 "Votre compte a bien été créé. Vous pouvez désormais vous connecter avec vos "
-"accès"
+"identifiants"
 
 #: /Users/amaury/Github/members-post-type/views/admin/metabox-main.php:4
 #: /Users/amaury/Github/members-post-type/views/client/member-registration.tpl.php:15
@@ -541,7 +543,7 @@ msgid ""
 "If you would like to change the password type a new one. Otherwise leave "
 "this blank."
 msgstr ""
-"Si vous souhaitez changer de mot de passen entrez-en un nouveau. Le cas "
+"Si vous souhaitez changer de mot de passe entrez-en un nouveau. Le cas "
 "échéant, laissez ce champ vide"
 
 #: /Users/amaury/Github/members-post-type/views/admin/metabox-password.php:11
@@ -641,7 +643,7 @@ msgstr "Inscription"
 
 #: /Users/amaury/Github/members-post-type/views/client/member-lost-password-step-1.tpl.php:4
 msgid "Username or E-mail"
-msgstr "Identifiant ou E-mail"
+msgstr "Identifiant ou email"
 
 #: /Users/amaury/Github/members-post-type/views/client/member-registration.tpl.php:9
 msgid "Firstname"

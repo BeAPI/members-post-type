@@ -392,7 +392,7 @@ class MPT_Member {
 		// Filter out caps that are not role names and assign to $this->roles
 		if ( is_array( $this->caps ) )
 			$this->roles = array_filter( array_keys( $this->caps ), array( $mpt_roles, 'is_role' ) );
-
+		
 		// Build $allcaps from role caps, overlay member's $caps
 		$this->allcaps = array();
 		foreach ( (array) $this->roles as $role ) {
@@ -468,6 +468,34 @@ class MPT_Member {
 		return true;
 	}
 
+	/**
+	 * Whether member has capability or role name.
+	 *
+	 * This is useful for looking up whether the member has a specific role
+	 * assigned to the member. The second optional parameter can also be used to
+	 * check for capabilities against a specific object, such as a post or member.
+	 *
+	 * @access public
+	 *
+	 * @param string|int $cap Capability or role name to search.
+	 * @return bool True, if member has capability; false, if member does not have capability.
+	 */
+	function has_cap( $cap ) {
+		$args = array_slice( func_get_args(), 1 );
+		$args = array_merge( array( $cap, $this->id ), $args );
+		$caps = call_user_func_array( 'map_meta_cap', $args ); // TODO, keep it ?
+
+		// Must have ALL requested caps
+		$capabilities = apply_filters( 'member_has_cap', $this->allcaps, $caps, $args );
+		$capabilities['exist'] = true; // Everyone is allowed to exist
+		foreach ( (array) $caps as $cap ) {
+			if ( empty( $capabilities[ $cap ] ) )
+				return false;
+		}
+
+		return true;
+	}
+
     /**
      * _refresh_term_associations
      * 
@@ -486,6 +514,6 @@ class MPT_Member {
 		}
 
 		// Set relation
-		wp_set_object_terms( $this->id, $relation_ids, MPT_TAXO_NAME );
+		wp_set_object_terms( $this->id, $relation_ids, MPT_TAXO_NAME, false );
 	}
 }

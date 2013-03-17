@@ -106,7 +106,7 @@ class MPT_Roles {
 		$this->roles[$term->slug] = $term;
 		$this->role_objects[$term->slug] = new MPT_Role( $term->slug, $capabilities );
 		$this->role_names[$term->slug] = $display_name;
-
+		
 		return $this->role_objects[$term->slug];
 	}
 

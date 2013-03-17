@@ -76,7 +76,7 @@ function current_member_can( $capability ) {
  */
 function member_can( $member, $capability ) {
 	if ( ! is_object( $member ) )
-		$member = MPT_User( $member );
+		$member = MPT_Member( $member );
 
 	if ( ! $member || ! $member->exists() )
 		return false;
@@ -84,7 +84,7 @@ function member_can( $member, $capability ) {
 	$args = array_slice( func_get_args(), 2 );
 	$args = array_merge( array( $capability ), $args );
 
-	return call_user_func_array( array( $user, 'has_cap' ), $args );
+	return call_user_func_array( array( $member, 'has_cap' ), $args );
 }
 
 /**

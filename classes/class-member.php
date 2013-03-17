@@ -468,6 +468,13 @@ class MPT_Member {
 		return true;
 	}
 
+    /**
+     * _refresh_term_associations
+     * 
+     * @access private
+     *
+     * @return mixed Value.
+     */
 	private function _refresh_term_associations() {
 		// Loop on role, find term data, set relation
 		$relation_ids = array();

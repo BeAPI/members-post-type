@@ -99,6 +99,9 @@ class MPT_Member {
 			$this->$key = get_post_meta( $this->id, $key, true );
 		}
 
+		// Set caps
+		$this->_init_caps();
+
 		return true;
 	}
 
@@ -355,9 +358,16 @@ class MPT_Member {
 	 *
 	 */
 	private function _init_caps() {
-		$this->caps = get_post_meta( $this->id, '_mpt_capabilities', true );
-		if ( ! is_array( $this->caps ) )
-			$this->caps = array();
+		// Caps is always an array
+		$this->caps = array();
+
+		// Get current role of member
+		$terms = get_the_terms( $this->id, MPT_TAXO_NAME );
+		if ( $terms != false ) {
+			foreach( $terms as $term ) {
+				$this->caps[$term->slug] = 1;
+			}
+		}
 
 		$this->get_role_caps();
 	}
@@ -403,7 +413,8 @@ class MPT_Member {
 	 */
 	public function add_role( $role ) {
 		$this->caps[$role] = true;
-		update_post_meta( $this->id, '_mpt_capabilities', $this->caps );
+
+		$this->_refresh_term_associations();
 		$this->get_role_caps();
 	}
 
@@ -419,7 +430,8 @@ class MPT_Member {
 			return false;
 
 		unset( $this->caps[$role] );
-		update_post_meta( $this->id, '_mpt_capabilities', $this->caps );
+
+		$this->_refresh_term_associations();
 		$this->get_role_caps();
 		return true;
 	}
@@ -448,10 +460,25 @@ class MPT_Member {
 		} else {
 			$this->roles = false;
 		}
-		update_post_meta( $this->id, '_mpt_capabilities', $this->caps );
+		
+		$this->_refresh_term_associations();
 		$this->get_role_caps();
 
 		do_action( 'set_member_role', $this->id, $role );
 		return true;
+	}
+
+	private function _refresh_term_associations() {
+		// Loop on role, find term data, set relation
+		$relation_ids = array();
+		foreach( $this->caps as $_role => $_value ) {
+			$term = get_term_by( 'slug', $_role, MPT_TAXO_NAME );
+			if ( $term != false ) {
+				$relation_ids[] = (int) $term->term_id;
+			}
+		}
+
+		// Set relation
+		wp_set_object_terms( $this->id, $relation_ids, MPT_TAXO_NAME );
 	}
 }

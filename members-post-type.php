@@ -12,10 +12,8 @@
 
  TODO:
  	Custom Role API
- 		Builtin taxonomy
- 		Capabilities
  		Custom metabox for taxonomy
- 
+
  	Custom Post Status
  		Pending
  		Unconfirmed

@@ -195,6 +195,27 @@ class MPT_Roles {
 	}
 
 	/**
+	 * Remove all capabilities for role.
+	 *
+	 * @access public
+	 *
+	 * @param string $role Role name.
+	 * @param string $cap Capability name.
+	 */
+	public function remove_all_caps( $role ) {
+		if ( ! isset( $this->roles[$role] ) )
+			return false;
+
+		// Save new
+		update_term_taxonomy_meta( $this->roles[$role]->term_taxonomy_id, 'capabilities', array() );
+
+		// Refesh variable
+		$this->role_objects[$role] = new MPT_Role( $role, array() );
+
+		return true;
+	}
+
+	/**
 	 * Retrieve role object by name.
 	 *
 	 * @access public

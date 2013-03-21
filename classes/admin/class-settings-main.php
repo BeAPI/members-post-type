@@ -51,7 +51,7 @@ class MPT_Admin_Settings_Main {
 		$html = '<input type="checkbox" id="'.esc_attr( $args['id'] ).'" name="'.esc_attr( $args['name'] ) . '[' . esc_attr( $args['id'] ) . ']" value="1"' . checked( 1, (int) $options[$args['id']], false ) . '/>';
 		$html .= '&nbsp;';
 		$html .= '<label for="'.esc_attr( $args['id'] ).'">'.$args['label'].'</label>';
-		if ( isset($args['description']) ) {
+		if ( isset($args['description']) && !empty($args['description']) ) {
 			$html .= '<p class="description">'.$args['description'].'</p>';
 		}
 		

@@ -35,6 +35,8 @@
 			Enforcment
 			Renew
 
+	Content restriction via roles
+
  ----
 
  Copyright 2013 Amaury Balmer (amaury@beapi.fr)

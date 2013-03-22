@@ -363,7 +363,7 @@ class MPT_Member {
 
 		// Get current role of member
 		$terms = get_the_terms( $this->id, MPT_TAXO_NAME );
-		if ( $terms != false ) {
+		if ( $terms != false && is_array($terms) && !is_wp_error($terms) ) {
 			foreach( $terms as $term ) {
 				$this->caps[$term->slug] = 1;
 			}

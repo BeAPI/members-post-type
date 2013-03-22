@@ -113,7 +113,7 @@ function init_mpt_plugin() {
 	load_plugin_textdomain('mpt', false, basename(MPT_DIR) . '/languages');
 
 	// Load builtin plugin "meta for taxo", if not already installed and actived
-	if ( !function_exists('add_term_taxonomy_meta') ) {
+	if ( !function_exists('get_term_taxonomy_meta') ) {
 		require_once(MPT_DIR.'libraries/meta-for-taxonomies/meta-for-taxonomies.php');
 	}
 

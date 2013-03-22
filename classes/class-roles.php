@@ -268,8 +268,10 @@ class MPT_Roles {
 
 		$_terms = array();
 		$terms = get_terms( MPT_TAXO_NAME, $args );
-		foreach( (array) $terms as $term ) {
-			$_terms[$term->slug] = $term;
+		if ( $terms != false && is_array($terms) && !is_wp_error($terms) ) {
+			foreach( (array) $terms as $term ) {
+				$_terms[$term->slug] = $term;
+			}
 		}
 
 		return $_terms;

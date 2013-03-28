@@ -61,7 +61,7 @@ class MPT_Post_Type {
 			'capability_type'     => 'member' // Let's WP do their job
 		);
 
-		register_post_type( MPT_CPT_NAME, $args );
+		register_post_type( MPT_CPT_NAME, apply_filters( 'mpt_register_post_type', $args, MPT_CPT_NAME ) );
 	}
 
     /**

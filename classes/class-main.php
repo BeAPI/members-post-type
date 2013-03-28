@@ -9,6 +9,7 @@ class MPT_Main {
      */
 	public function __construct( ) {
 		add_action( 'init', array( __CLASS__, 'init' ) );
+		add_action( 'body_class', array( __CLASS__, 'body_class' ) );
 		add_action( 'mpt_login', array( __CLASS__, 'mpt_login' ), 10, 2 );
 		add_action( 'switch_blog', array( __CLASS__, 'switch_blog' ), 10, 2 );
 	}
@@ -36,6 +37,24 @@ class MPT_Main {
 			wp_redirect( $redirect_to );
 			exit( );
 		}
+	}
+
+    /**
+     * Add class to HTML body
+     * 
+     * @param array $classes Array with body classes.
+     *
+     * @access public
+     * @static
+     *
+     * @return array.
+     */
+	public static function body_class( $classes ) {
+		if ( MPT_Member_Auth::is_logged_in( ) ) {
+			$classes[] = 'mpt-logged-in';
+		}
+		
+		return $classes;
 	}
 
     /**

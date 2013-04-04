@@ -94,7 +94,7 @@ class MPT_Member_Utility {
 		}
 
 		// Set core fields
-		foreach ( $member::$core_fields as $field ) {
+		foreach ( MPT_Member::$core_fields as $field ) {
 			if ( !isset($memberdata[$field]) ) {
 				continue;
 			}

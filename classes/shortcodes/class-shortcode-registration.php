@@ -79,6 +79,8 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 				parent::set_message( 'email', __('This email address is already taken', 'mpt'), 'error' );
 			}
 			
+			do_action( 'mpt_check_user_subscription' );
+			
 			// Have messages ?
 			$messages = parent::get_messages( 'raw' );
 			

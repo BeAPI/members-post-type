@@ -9,6 +9,7 @@ class MPT_Main {
      */
 	public function __construct( ) {
 		add_action( 'init', array( __CLASS__, 'init' ) );
+		add_action( 'template_redirect', array( __CLASS__, 'template_redirect' ) );
 		add_action( 'body_class', array( __CLASS__, 'body_class' ) );
 		add_action( 'mpt_login', array( __CLASS__, 'mpt_login' ), 10, 2 );
 		add_action( 'switch_blog', array( __CLASS__, 'switch_blog' ), 10, 2 );
@@ -36,6 +37,29 @@ class MPT_Main {
 
 			wp_redirect( $redirect_to );
 			exit( );
+		}
+	}
+	
+	/**
+     * Redirect Lost Password Page of Member Logged to home
+     *
+     * @access public
+     * @static
+     *
+     * @return void.
+     */
+	public static function template_redirect( ){
+		if( !MPT_Member_Auth::is_logged_in() ){
+			return false;
+		}	
+		
+		$mpt_pages = get_option( 'mpt-pages' );
+		if( isset( $mpt_pages['page-lost-password'] ) && !empty( $mpt_pages['page-lost-password'] ) ) {
+			if( is_page( $mpt_pages['page-lost-password'] ) ){
+				
+				wp_redirect( home_url() );
+				exit( );
+			}
 		}
 	}
 

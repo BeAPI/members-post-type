@@ -48,7 +48,7 @@ class MPT_Shortcode_Change_Password extends MPT_Shortcode {
 			
 			// Check password complexity
 			if( strlen($_POST['mptchangepwd']['new']) < 6 ) { // TODO: Hooks and function for test password security
-				parent::set_message( 'new', __('You password need to be at least 6 characters long', 'mpt'), 'error' );
+				parent::set_message( 'new_security', __('You password need to be at least 6 characters long', 'mpt'), 'error' );
 				return false;
 			}
 			
@@ -60,7 +60,7 @@ class MPT_Shortcode_Change_Password extends MPT_Shortcode {
 			
 			// result sign-on are error ?
 			if ( is_wp_error($result) ) {
-				parent::set_message( 'old', __('You old password is incorrect.', 'mpt'), 'error' );
+				parent::set_message( 'old_incorrect', __('You old password is incorrect.', 'mpt'), 'error' );
 				return false;
 			}
 			
@@ -82,7 +82,7 @@ class MPT_Shortcode_Change_Password extends MPT_Shortcode {
 				return false;
 			}
 			
-			parent::set_message( 'old', __('Password updated with success.', 'mpt'), 'updated' );
+			parent::set_message( 'change_password_success', __('Password updated with success.', 'mpt'), 'updated' );
 			return true;
 		}
 		

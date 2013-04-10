@@ -57,8 +57,10 @@ class MPT_Shortcode {
 		if ( !isset($mpt_messages) ) {
 			$mpt_messages = array();
 		}
+
+		$mpt_messages = apply_filters( 'mpt_get_messages', $mpt_messages, $format );
 		
-		if ( $format == 'display' ) {
+		if ( $format == 'display' && !empty($mpt_messages) ) {
 			$output = '';
 			foreach( $mpt_messages as $field => $message ) {
 				$output .= '<div class="field-target-' . esc_attr($field) . ' ' . esc_attr($message['status']) . '">' . stripslashes($message['message']) . '</div>';
@@ -86,7 +88,7 @@ class MPT_Shortcode {
 			$mpt_messages = array();
 		}
 		
-		$mpt_messages[$field] = array('status' => $status, 'message' => $message);
+		$mpt_messages[$field] = apply_filters( 'mpt_set_message', array('status' => $status, 'message' => $message), $field );
 		return true;
 	}
 }

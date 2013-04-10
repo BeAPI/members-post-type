@@ -75,14 +75,14 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 
 			// No response for email and username, go out
 			if ( !$member->exists( ) ) {
-				parent::set_message( 'check_step_1', __( 'No member with this value.', 'mpt' ), 'error' );
+				parent::set_message( 'step_1_error', __( 'No member with this value.', 'mpt' ), 'error' );
 				return false;
 			}
 
 			// Send reset link
 			$member->reset_password_link( );
 
-			parent::set_message( 'check_step_1', __( "You are going to receive an email with a reset link.", 'mpt' ), 'success' );
+			parent::set_message( 'step_1_sucess', __( "You are going to receive an email with a reset link.", 'mpt' ), 'success' );
 			return true;
 		}
 

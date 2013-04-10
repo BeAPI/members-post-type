@@ -19,11 +19,6 @@ class MPT_Admin_Post_Type {
 
 		// Add param on URL redirect
 		add_filter('redirect_post_location', array(__CLASS__, 'redirect_post_location'), 10, 2 );
-		
-		// Register settings tabs
-		new MPT_Admin_Settings_Main();
-		new MPT_Admin_Settings_Pages();
-		new MPT_Admin_Settings_Security();
 	}
 	
 

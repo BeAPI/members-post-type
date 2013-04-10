@@ -35,8 +35,11 @@
 			Enforcment
 			Renew
 
-	Content restriction via roles
 
+	Content restriction via roles
++	Reset all password
++	New random password (https://github.com/soulseekah/Random-New-User-Passwords-for-WordPress)
++	Password meter on admin/front
  ----
 
  Copyright 2013 Amaury Balmer (amaury@beapi.fr)
@@ -102,7 +105,12 @@ _mpt_load_files(MPT_DIR . 'classes/', array('main', 'plugin', 'post-type', 'role
 
 // Plugin admin classes
 if (is_admin()) {
-	_mpt_load_files(MPT_DIR . 'classes/admin/', array('main', 'post-type', 'taxonomy', 'settings-main', 'settings-pages', 'settings-security'), 'class-');
+	_mpt_load_files(MPT_DIR . 'classes/admin/', array('main', 'post-type', 'taxonomy', 'settings-main'), 'class-');
+
+	// Load class for API settings
+	if ( !class_exists('WeDevs_Settings_API') ) {
+		require_once(MPT_DIR.'libraries/wordpress-settings-api-class/class.settings-api.php');
+	}
 }
 
 // Plugin activate/desactive hooks

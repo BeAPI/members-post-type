@@ -1,5 +1,6 @@
 <?php
 class MPT_Admin_Settings_Main {
+	static $settings_api;
 	static $id = 'mpt-main';
 	
 	/**
@@ -10,7 +11,27 @@ class MPT_Admin_Settings_Main {
      * @return mixed Value.
      */
 	public function __construct( ) {
+		self::$settings_api = new WeDevs_Settings_API();
+
+		add_action( 'admin_menu', array( __CLASS__, 'admin_menu' ) );
 		add_action( 'admin_init', array( __CLASS__, 'admin_init' ) );
+	}
+
+
+	public static function admin_menu( ) {
+		add_options_page( __('Members', 'mpt'), __('Members', 'mpt'), 'manage_options', 'mpt-settings', array( __CLASS__, 'render_page_settings' ) );
+	}
+
+    /**
+     * render_page_settings
+     * 
+     * @access public
+     * @static
+     *
+     * @return mixed Value.
+     */
+	public static function render_page_settings() {
+		include (MPT_DIR . 'views/admin/page-settings.php');
 	}
 
     /**
@@ -22,74 +43,181 @@ class MPT_Admin_Settings_Main {
      * @return mixed Value.
      */
 	public static function admin_init( ) {
-		// Section
-		add_settings_section( self::$id . '-section', __( 'General features', 'mpt' ), array(__CLASS__, 'pages_section_callback'), self::$id );
+        //set the settings
+        self::$settings_api->set_sections( self::get_settings_sections() );
+        self::$settings_api->set_fields( self::get_settings_fields() );
 
-		// Fields
-		add_settings_field( 'allow-signon-email', __( 'Sign-on method', 'mpt' ), array(__CLASS__, 'checkbox_element_callback'), self::$id, self::$id . '-section', array( 'name' => self::$id, 'id' => 'allow-signon-email', 'label' =>  __( 'Allow email sign-on ?', 'mpt'), 'description' => __('Do not change this value if you have already members! At the risk of breaking your site!', 'mpt' ) ) );
-		add_settings_field( 'unique-email', __( 'Email constraint', 'mpt' ), array(__CLASS__, 'checkbox_element_callback'), self::$id, self::$id . '-section', array( 'name' => self::$id, 'id' => 'unique-email', 'label' =>  __( 'Email must be unique ?', 'mpt'), 'description' => __('Do not change this value if you have already members! At the risk of breaking your site! This option is automatically enabled when you allow email sign-on.', 'mpt' ) ) );
-
-		// DB options
-		register_setting( self::$id, self::$id, array(__CLASS__, 'validate_input') );
+        //initialize settings
+        self::$settings_api->admin_init();
 	}
-	
+
+    public static function get_settings_sections() {
+        $sections = array(
+            array(
+                'id' => 'mpt-main',
+                'title' => __( 'General features', 'mpt' ),
+                'desc' => false,
+            ),
+            array(
+                'id' => 'mpt-pages',
+                'title' => __( 'Feature Pages', 'mpt' ),
+                'desc' => __( 'You must define here the pages containing the WordPress shortcodes for different features (login, registration, etc).', 'mpt' ),
+            ),
+            array(
+                'id' => 'mpt-security',
+                'title' => __( 'Security', 'wpuf' ),
+                'desc' => __('Enforce a specific password strength for your members.', 'mpt'),
+            )
+        );
+        return $sections;
+    }
 
     /**
-     * checkbox_element_callback
-     * 
-     * @param mixed $args Description.
+     * Returns all the settings fields
      *
-     * @access public
-     * @static
-     *
-     * @return mixed Value.
+     * @return array settings fields
      */
-	public static function checkbox_element_callback( $args ) {
-		$options = get_option( self::$id );
-		$options = wp_parse_args( $options, self::get_default_options() );
-		
-		$html = '<input type="checkbox" id="'.esc_attr( $args['id'] ).'" name="'.esc_attr( $args['name'] ) . '[' . esc_attr( $args['id'] ) . ']" value="1"' . checked( 1, (int) $options[$args['id']], false ) . '/>';
-		$html .= '&nbsp;';
-		$html .= '<label for="'.esc_attr( $args['id'] ).'">'.$args['label'].'</label>';
-		if ( isset($args['description']) && !empty($args['description']) ) {
-			$html .= '<p class="description">'.$args['description'].'</p>';
-		}
-		
-		echo $html;
-	}
-	
-    /**
-     * Get description for section
-     * 
-     * @access public
-     * @static
-     *
-     * @return mixed Value.
-     */
-	public static function pages_section_callback() {
-		//echo '<p>' . __( 'General description.', 'mpt' ) . '</p>';
-	}
+    public static function get_settings_fields() {
+        $settings_fields = array(
+            'mpt-main' => array(
+                array(
+                    'name' => 'allow-signon-email',
+                    'label' => __( 'Sign-on method', 'mpt' ),
+                    'desc' => __( 'Allow email sign-on ?', 'mpt' ),
+                    'type' => 'checkbox',
+                    'default' => 1
+                    // __('Do not change this value if you have already members! At the risk of breaking your site!', 'mpt' )
+                ),
+                array(
+                    'name' => 'unique-email',
+                    'label' => __( 'Email constraint', 'mpt' ),
+                    'desc' => __( 'Email must be unique ?', 'mpt' ),
+                    // Do not change this value if you have already members! At the risk of breaking your site! This option is automatically enabled when you allow email sign-on.
+                    'type' => 'checkbox',
+                    'default' => 1
+                ),
+            ),
+            'mpt-pages' => array(
+                array(
+                    'name' => 'page-registration',
+                    'label' => __( 'Registration', 'mpt' ),
+                    //'desc' => __( 'Dropdown', 'mpt' ),
+                    'type' => 'select',
+                    'options' => self::_get_pages()
+                ),
+                array(
+                    'name' => 'page-login',
+                    'label' => __( 'Login/logout', 'mpt' ),
+                    //'desc' => __( 'Dropdown', 'mpt' ),
+                    'type' => 'select',
+                    'options' => self::_get_pages()
+                ),
+                array(
+                    'name' => 'page-change-password',
+                    'label' => __( 'Change password', 'mpt' ),
+                    //'desc' => __( 'Dropdown', 'mpt' ),
+                    'type' => 'select',
+                    'options' => self::_get_pages()
+                ),
+                array(
+                    'name' => 'page-lost-password',
+                    'label' => __( 'Lost password', 'mpt' ),
+                    //'desc' => __( 'Dropdown', 'mpt' ),
+                    'type' => 'select',
+                    'options' => self::_get_pages()
+                ),
+            ),
+            'mpt-security' => array(
+                array(
+                    'name' => 'minimum-length',
+                    'label' => __( 'Minimum length', 'mpt' ),
+                    'desc' => __( 'Tip: password longer than 6 characters is highly recommended!', 'mpt' ),
+                    'type' => 'text',
+                    'default' => 6
+                ),
+                array(
+                    'name' => 'username-password',
+                    'label' => __( 'Username on password', 'mpt' ),
+                    'desc' => __( 'Prohibit the presence of the username in the password', 'mpt' ),
+                    'type' => 'checkbox',
+                    'default' => 0
+                ),
+                array(
+                    'name' => 'uppercase-character',
+                    'label' => __( 'Uppercase character', 'mpt' ),
+                    'desc' => __( 'Forces the presence of an uppercase character in the password', 'mpt' ),
+                    'type' => 'checkbox',
+                    'default' => 0
+                ),
+                array(
+                    'name' => 'lowercase-character',
+                    'label' => __( 'Lowercase character', 'mpt' ),
+                    'desc' => __( 'Forces the presence of an lowercase character in the password', 'mpt' ),
+                    'type' => 'checkbox',
+                    'default' => 0
+                ),
+                array(
+                    'name' => 'number-character',
+                    'label' => __( 'Number character', 'mpt' ),
+                    'desc' => __( 'Forces the presence of an number character in the password', 'mpt' ),
+                    'type' => 'checkbox',
+                    'default' => 0
+                ),
+                array(
+                    'name' => 'special-character',
+                    'label' => __( 'Special character', 'mpt' ),
+                    'desc' => __( 'Forces the presence of an special character in the password', 'mpt' ),
+                    'type' => 'checkbox',
+                    'default' => 0
+                    // Special characters are often assimilated to punctuation character. (?!&")
+                ),
+                array(
+                    'name' => 'blacklist-keywords',
+                    'label' => __( 'Blacklist keywords', 'mpt' ),
+                    'desc' => __( 'You must separate blacklist words with commas. These words can not be contained in the passwords of your members.', 'mpt' ),
+                    'type' => 'text',
+                    'default' => ''
+                ),
+                array(
+                    'name' => 'force-refresh-login',
+                    'label' => __( 'Force refresh login', 'mpt' ),
+                    'desc' => __( 'When changing your password policy, this option forces members to change their password once they are logged in! If it does not meet your criteria of course!', 'mpt' ),
+                    'type' => 'checkbox',
+                    'default' => 0
+                ),
+                array(
+                    'name' => 'timeout',
+                    'label' => __( 'Timeout', 'mpt' ),
+                    'desc' => __( 'Value in days. Enter zero for the password never expires.', 'mpt' ),
+                    'type' => 'text',
+                    'default' => 0
+                    // TODO: History password saved, how long time password is forbide
+                ),
+            )
+        );
+
+        return $settings_fields;
+    }
 
     /**
-     * Default values for options
-     * 
-     * @access public
-     * @static
+     * Get all the pages
      *
-     * @return mixed Value.
+     * @return array page names with key value pairs
      */
-	public static function get_default_options() {
-		$defaults = array(
-			'allow-signon-email' => '1',
-			'unique-email' => '1'
-		);
-		
-		return apply_filters( 'mpt_get_default_options', $defaults, self::$id );
-	}
-	
+    private static function _get_pages() {
+        $pages = get_pages();
+        $pages_options = array();
+        if ( $pages ) {
+            foreach ($pages as $page) {
+                $pages_options[$page->ID] = $page->post_title;
+            }
+        }
+
+        return $pages_options;
+    }
 
     /**
-     * validate_input
+     * TODO: Keep logic
      * 
      * @param mixed $input Description.
      *

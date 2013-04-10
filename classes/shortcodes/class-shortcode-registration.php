@@ -81,6 +81,8 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 
 			do_action( 'mpt_shortcode_check_registration', $mptr );
 			
+			do_action( 'mpt_check_user_subscription', $mptr );
+			
 			// Have messages ?
 			$messages = parent::get_messages( 'raw' );
 			

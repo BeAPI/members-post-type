@@ -148,6 +148,11 @@ class MPT_Member {
 		if ( empty($password) ) { // Valid password ?
 			return false;
 		}
+		
+		$stop = apply_filters_ref_array('mpt_set_password', array(false, $password, &$this) );
+		if ( $stop === true ) {
+			return $stop;
+		}
 
 		$hash = wp_hash_password($password);
 
@@ -198,8 +203,8 @@ class MPT_Member {
 		}
 		
 		$stop = apply_filters_ref_array('mpt_password_change_notification', array(false, &$this) );
-		if ( $stop == true ) {
-			return false;
+		if ( $stop === true ) {
+			return $stop;
 		}
 		
 		// send a copy of password change notification to the admin
@@ -227,7 +232,7 @@ class MPT_Member {
 		}
 		
 		$stop = apply_filters_ref_array('mpt_register_notification', array(false, &$this, $plaintext_pass) );
-		if ( $stop == true ) {
+		if ( $stop === true ) {
 			return false;
 		}
 		
@@ -326,7 +331,7 @@ class MPT_Member {
 		}
 		
 		$stop = apply_filters_ref_array('mpt_reset_password_notification', array(false, &$this, $key) );
-		if ( $stop == true ) {
+		if ( $stop === true ) {
 			return false;
 		}
 		

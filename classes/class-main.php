@@ -152,7 +152,7 @@ class MPT_Main {
      *
      * @return mixed Value.
      */
-	function switch_blog( $new_blog_id, $prev_blog_id ) {
+	public static function switch_blog( $new_blog_id, $prev_blog_id ) {
 		global $mpt_roles;
 
 		if ( did_action( 'init' ) ) {

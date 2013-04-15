@@ -19,7 +19,7 @@ class MPT_Admin_Settings_Main {
 
 
 	public static function admin_menu( ) {
-		add_options_page( __('Members', 'mpt'), __('Members', 'mpt'), 'manage_options', 'mpt-settings', array( __CLASS__, 'render_page_settings' ) );
+		add_options_page( __('Members Post Type', 'mpt'), __('Members Post Type', 'mpt'), 'manage_options', 'mpt-settings', array( __CLASS__, 'render_page_settings' ) );
 	}
 
     /**
@@ -55,17 +55,20 @@ class MPT_Admin_Settings_Main {
         $sections = array(
             array(
                 'id' => 'mpt-main',
+				'tab_label' => __( 'General', 'mpt' ),
                 'title' => __( 'General features', 'mpt' ),
                 'desc' => false,
             ),
             array(
                 'id' => 'mpt-pages',
+				'tab_label' => __( 'Feature Pages', 'mpt' ),
                 'title' => __( 'Feature Pages', 'mpt' ),
                 'desc' => __( 'You must define here the pages containing the WordPress shortcodes for different features (login, registration, etc).', 'mpt' ),
             ),
             array(
                 'id' => 'mpt-security',
-                'title' => __( 'Security', 'wpuf' ),
+				'tab_label' => __( 'Security', 'mpt' ),
+                'title' => __( 'Password strength', 'mpt' ),
                 'desc' => __('Enforce a specific password strength for your members.', 'mpt'),
             )
         );

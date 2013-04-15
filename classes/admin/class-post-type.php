@@ -37,7 +37,8 @@ class MPT_Admin_Post_Type {
 		global $post;
 
 		if ( in_array( $hook, array( 'edit.php', 'post-new.php' ) ) && isset( $_GET['post_type'] ) && $_GET['post_type'] == MPT_CPT_NAME || in_array( $hook, array( 'post.php' ) ) && isset( $post ) && $post->post_type == MPT_CPT_NAME ) {
-			wp_enqueue_style( MPT_CPT_NAME . '-admin', MPT_URL . '/assets/css/admin.css', array( ), MPT_VERSION, 'all' );
+			wp_enqueue_style ( MPT_CPT_NAME . '-post', MPT_URL . 'assets/css/admin-post.css', array( ), MPT_VERSION, 'all' );
+			wp_enqueue_script( MPT_CPT_NAME . '-post', MPT_URL . 'assets/js/admin-post.js', array('jquery', 'password-strength-meter'), MPT_VERSION, true );
 		}
 	}
 
@@ -54,10 +55,10 @@ class MPT_Admin_Post_Type {
 			$message_codes = explode(',', $_GET['mpt-message']);
 
 			if ( in_array('1', $message_codes) ) {
-				add_settings_error( MPT_CPT_NAME.'-password', MPT_CPT_NAME.'-password', __('Password and confirmation must be the same.', 'mpt'), 'error' );
+				add_settings_error( MPT_CPT_NAME.'-postbox-password', MPT_CPT_NAME.'-postbox-password', __('Password and confirmation must be the same.', 'mpt'), 'error' );
 			}
 			if ( in_array('2', $message_codes) ) {
-				add_settings_error( MPT_CPT_NAME.'-main', MPT_CPT_NAME.'-main', __('The email is already in use. Back to initial value.', 'mpt'), 'error' );
+				add_settings_error( MPT_CPT_NAME.'-postbox-main', MPT_CPT_NAME.'-postbox-main', __('The email is already in use. Back to initial value.', 'mpt'), 'error' );
 			}
 		}
 	}
@@ -87,8 +88,8 @@ class MPT_Admin_Post_Type {
      * @return void.
      */
 	public static function add_meta_boxes( ) {
-		add_meta_box( MPT_CPT_NAME.'-main', __('Main information', 'mpt'), array( __CLASS__, 'metabox_main' ), MPT_CPT_NAME, 'normal', 'high' );
-		add_meta_box( MPT_CPT_NAME.'-password', __('Change password', 'mpt'), array( __CLASS__, 'metabox_password' ), MPT_CPT_NAME, 'normal', 'high' );
+		add_meta_box( MPT_CPT_NAME.'-postbox-main', __('Main information', 'mpt'), array( __CLASS__, 'metabox_main' ), MPT_CPT_NAME, 'normal', 'high' );
+		add_meta_box( MPT_CPT_NAME.'-postbox-password', __('Change password', 'mpt'), array( __CLASS__, 'metabox_password' ), MPT_CPT_NAME, 'normal', 'high' );
 	}
 
     /**
@@ -103,7 +104,7 @@ class MPT_Admin_Post_Type {
      */
 	public static function metabox_main( $post ) {
 		// Use nonce for verification
-		wp_nonce_field( plugin_basename( __FILE__ ), MPT_CPT_NAME.'-main' );
+		wp_nonce_field( plugin_basename( __FILE__ ), MPT_CPT_NAME.'-postbox-main' );
 
 		// Get values from DB
 		$member = array();
@@ -112,7 +113,7 @@ class MPT_Admin_Post_Type {
 		}
 
 		// Show error messages
-		settings_errors( MPT_CPT_NAME.'-main' );
+		settings_errors( MPT_CPT_NAME.'-postbox-main' );
 
 		// Call Template
 		include( MPT_DIR . 'views/admin/metabox-main.php');
@@ -130,10 +131,10 @@ class MPT_Admin_Post_Type {
      */
 	public static function metabox_password( $post ) {
 		// Use nonce for verification
-		wp_nonce_field( plugin_basename( __FILE__ ), MPT_CPT_NAME.'-password' );
+		wp_nonce_field( plugin_basename( __FILE__ ), MPT_CPT_NAME.'-postbox-password' );
 		
 		// Show error messages
-		settings_errors( MPT_CPT_NAME.'-password' );
+		settings_errors( MPT_CPT_NAME.'-postbox-password' );
 		
 		// Call Template
 		include( MPT_DIR . 'views/admin/metabox-password.php');
@@ -174,7 +175,7 @@ class MPT_Admin_Post_Type {
      * @return mixed Value.
      */
 	public static function save_metabox_main( $post_id ) {
-		if ( !isset( $_POST[MPT_CPT_NAME.'-main'] ) || !wp_verify_nonce( $_POST[MPT_CPT_NAME.'-main'], plugin_basename( __FILE__ ) ) ) {
+		if ( !isset( $_POST[MPT_CPT_NAME.'-postbox-main'] ) || !wp_verify_nonce( $_POST[MPT_CPT_NAME.'-postbox-main'], plugin_basename( __FILE__ ) ) ) {
 			return false;
 		}
 
@@ -227,7 +228,7 @@ class MPT_Admin_Post_Type {
      * @return mixed Value.
      */
 	public static function save_metabox_password( $post_id ) {
-		if ( !isset( $_POST[MPT_CPT_NAME.'-password'] ) || !wp_verify_nonce( $_POST[MPT_CPT_NAME.'-password'], plugin_basename( __FILE__ ) ) ) {
+		if ( !isset( $_POST[MPT_CPT_NAME.'-postbox-password'] ) || !wp_verify_nonce( $_POST[MPT_CPT_NAME.'-postbox-password'], plugin_basename( __FILE__ ) ) ) {
 			return false;
 		}
 		

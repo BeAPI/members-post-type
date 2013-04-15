@@ -31,7 +31,7 @@ class MPT_Admin_Settings_Main {
      */
 	public static function admin_enqueue_scripts( $hook ) {
 		if ( $hook == 'settings_page_' . 'mpt-settings' ) {
-			wp_enqueue_script( MPT_CPT_NAME . '-admin-settings', MPT_URL . '/assets/js/admin-settings.js', array('jquery'), MPT_VERSION, true );
+			wp_enqueue_script( MPT_CPT_NAME . '-admin-settings', MPT_URL . 'assets/js/admin-settings.js', array('jquery'), MPT_VERSION, true );
 		}
 	}
 

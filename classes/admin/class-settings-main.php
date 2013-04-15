@@ -15,9 +15,36 @@ class MPT_Admin_Settings_Main {
 
 		add_action( 'admin_menu', array( __CLASS__, 'admin_menu' ) );
 		add_action( 'admin_init', array( __CLASS__, 'admin_init' ) );
+		
+		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_enqueue_scripts' ), 10, 1 );
 	}
 
+	/**
+     * admin_enqueue_scripts
+     * 
+     * @param mixed $hook Description.
+     *
+     * @access public
+     * @static
+     *
+     * @return mixed Value.
+     */
+	public static function admin_enqueue_scripts( $hook ) {
+		if ( $hook == 'settings_page_' . 'mpt-settings' ) {
+			wp_enqueue_script( MPT_CPT_NAME . '-admin-settings', MPT_URL . '/assets/js/admin-settings.js', array('jquery'), MPT_VERSION, true );
+		}
+	}
 
+	/**
+     * admin_menu
+     * 
+     * @param mixed $hook Description.
+     *
+     * @access public
+     * @static
+     *
+     * @return mixed Value.
+     */
 	public static function admin_menu( ) {
 		add_options_page( __('Members Post Type', 'mpt'), __('Members Post Type', 'mpt'), 'manage_options', 'mpt-settings', array( __CLASS__, 'render_page_settings' ) );
 	}

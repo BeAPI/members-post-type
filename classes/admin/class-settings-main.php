@@ -131,17 +131,62 @@ class MPT_Admin_Settings_Main {
                 ),
             ),
             'mpt-security' => array(
+				array(
+                    'name' => 'mode',
+                    'label' => __( 'Mode', 'mpt' ),
+                    'desc' => __( 'You can apply one of three modes for password security, no constraint, automatic cloned from WordPress JS meter and full manual mode', 'mpt' ),
+                    'type' => 'radio',
+                    'default' => 'none',
+					'options' => array(
+						'none'		=> __('Disabled', 'mpt'),
+						'auto'		=> __('Auto', 'mpt'),
+						'custom'	=> __('Custom', 'mpt'),
+					)
+                ),
+                array(
+                    'name' => 'force-refresh-login',
+                    'label' => __( 'Force refresh login', 'mpt' ),
+                    'desc' => __( 'When changing your password policy, this option forces members to change their password once they are logged in! If it does not meet your criteria of course!', 'mpt' ),
+                    'type' => 'checkbox',
+                    'default' => 0,
+					'sanitize_callback' => 'intval'
+                ),
+				array(
+                    'name' => 'auto-mode',
+                    'label' => __( 'Password strength - auto mode', 'mpt' ),
+                    'desc' => __( 'WordPress offers a interactive password meter (with JS) when editing passwords. This indicator score passwords on 4 levels: 1 = very weak; 2 = weak; 3 = medium; 4 = strong', 'mpt' ),
+                    'type' => 'metabox',
+                ),
+				array(
+                    'name' => 'auto-mode-level',
+                    'label' => __( 'Level required', 'mpt' ),
+                    'type' => 'radio',
+                    'default' => 'none',
+					'options' => array(
+						'1'	=> __('Very weak', 'mpt'),
+						'2'	=> __('Weak', 'mpt'),
+						'3'	=> __('Medium', 'mpt'),
+						'4'	=> __('Strong', 'mpt'),
+					)
+                ),
+				array(
+                    'name' => 'custom-mode',
+                    'label' => __( 'Password strength - Custom mode', 'mpt' ),
+                    'desc' => __( 'This mode allows you to fine tune the security policy password', 'mpt' ),
+                    'type' => 'metabox',
+                ),
                 array(
                     'name' => 'minimum-length',
                     'label' => __( 'Minimum length', 'mpt' ),
                     'desc' => __( 'Tip: password longer than 6 characters is highly recommended!', 'mpt' ),
                     'type' => 'text',
-                    'default' => 6
+                    'default' => 6,
+					'sanitize_callback' => 'intval'
                 ),
                 array(
-                    'name' => 'username-password',
-                    'label' => __( 'Username on password', 'mpt' ),
-                    'desc' => __( 'Prohibit the presence of the username in the password', 'mpt' ),
+                    'name' => 'user-data-password',
+                    'label' => __( 'User data on password', 'mpt' ),
+                    'desc' => __( 'Prohibit the presence of the username, email, first name, last name in the password', 'mpt' ),
                     'type' => 'checkbox',
                     'default' => 0
                 ),
@@ -181,20 +226,35 @@ class MPT_Admin_Settings_Main {
                     'type' => 'text',
                     'default' => ''
                 ),
-                array(
-                    'name' => 'force-refresh-login',
-                    'label' => __( 'Force refresh login', 'mpt' ),
-                    'desc' => __( 'When changing your password policy, this option forces members to change their password once they are logged in! If it does not meet your criteria of course!', 'mpt' ),
-                    'type' => 'checkbox',
-                    'default' => 0
+				array(
+                    'name' => 'password-history',
+                    'label' => __( 'Password Policies', 'mpt' ),
+                    'desc' => __( 'A password policy is a set of rules designed to enhance security by encouraging users to employ strong passwords and use them properly', 'mpt' ),
+                    'type' => 'metabox',
                 ),
                 array(
-                    'name' => 'timeout',
-                    'label' => __( 'Timeout', 'mpt' ),
-                    'desc' => __( 'Value in days. Enter zero for the password never expires.', 'mpt' ),
+                    'name' => 'aging',
+                    'label' => __( 'Aging', 'mpt' ),
+                    'desc' => __( 'How many days old can a password be before requiring it be changed? Not recommended. 0 disables this feature. Default: 0.', 'mpt' ),
                     'type' => 'text',
-                    'default' => 0
-                    // TODO: History password saved, how long time password is forbide
+                    'default' => 0,
+					'sanitize_callback' => 'intval'
+                ),
+				array(
+                    'name' => 'grace_period',
+                    'label' => __( 'Grace Period', 'mpt' ),
+                    'desc' => __( 'How many minutes should a user have to change their password once they know it has expired? Must be >= 5. Default: 15.', 'mpt' ),
+                    'type' => 'text',
+                    'default' => 0,
+					'sanitize_callback' => 'intval'
+                ),
+				array(
+                    'name' => 'history',
+                    'label' => __( 'History', 'mpt' ),
+                    'desc' => __( 'How many passwords should be remembered? Prevents reuse of old passwords. 0 disables this feature. Default: 0.', 'mpt' ),
+                    'type' => 'text',
+                    'default' => 0,
+					'sanitize_callback' => 'intval'
                 ),
             )
         );

@@ -3,6 +3,12 @@ What is this?
 
 It's a PHP class wrapper for handling WordPress [Settings API](http://codex.wordpress.org/Settings_API). Gives a very handy way to build theme or plugins option panel.
 
+Version
+---------------
+
+Stable : 0.3
+
+
 Usage Example
 ---------------
 
@@ -28,3 +34,14 @@ Screenshots
 ----------------------
 
 ![Option Panel](https://github.com/tareq1988/wordpress-settings-api-class/raw/master/screenshot-1.png "The options panel build on the fly using the PHP Class")
+
+TODO
+----------------------
+
+ * More options for each fields
+ 	* Inspiration : https://github.com/devinsays/options-framework-theme/blob/master/options.php
+ * Preview for image upload
+ 	* Split files/images upload
+ 	* Allow to save ID
+ * Security
+ 	* wp_kses

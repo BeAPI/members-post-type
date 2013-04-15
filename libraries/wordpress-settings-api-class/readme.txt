@@ -1,10 +1,11 @@
-=== Settings API ===
-Contributors: tareq1988
+=== Settings API Class ===
+
+Contributors: tareq1988, momo360modena
 Donate link: http://tareq.wedevs.com/
 Tags: settings, options, admin, class, settings-api
-Requires at least: 3.3
-Tested up to: 3.3.2
-Stable tag: 0.1
+Requires at least: 3.5
+Tested up to: 3.5.1
+Stable tag: 0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,10 +53,16 @@ More about [Settings API](http://codex.wordpress.org/Settings_API).
 
 == Changelog ==
 
+= 0.3 =
+* Switch to classic tabs (remove JS)
+* Use WP 3.5 media gallery uploader
+* Allow to set label/description for checkbox
+* Add metabox/html fields
+* Cleanup code
+
 = 0.1 =
 * Initial release
 
-
 == Upgrade Notice ==
 
-.
+Nothing for the moment.

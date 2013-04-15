@@ -56,6 +56,7 @@ More about [Settings API](http://codex.wordpress.org/Settings_API).
 = 0.4 =
 
 * Allow to specifiy custom title for tabs
+* Somes changes on metabox field, autofill ID for each metabox
 
 = 0.3 =
 

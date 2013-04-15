@@ -298,9 +298,9 @@ class WeDevs_Settings_API {
      */
     public function callback_metabox( $args ) {
         echo '</tbody></table>';
-        echo '</div></div>';
+        echo '</div>';
 
-        echo '<div class="metabox-holder"><div class="postbox" style="margin-bottom:0px;">';
+        echo '<div class="postbox" id="postbox-field-'.$args['id'].'">';
         if ( isset($args['name']) && !empty($args['name']) ) {
             echo '<h3>'.$args['name'].'</h3>';  
         }
@@ -503,7 +503,7 @@ class WeDevs_Settings_API {
         
         echo '<form method="post" action="options.php">' . PHP_EOL;
              echo '<div class="metabox-holder">' . PHP_EOL;
-                 echo '<div class="postbox" style="margin-bottom:0px;">' . PHP_EOL;
+                 echo '<div class="postbox" id="postbox-first-'.$form['id'].'">' . PHP_EOL;
                     do_action( 'wsa_form_top_' . $form['id'], $form );
                     settings_fields( $form['id'] );
                     $this->do_settings_sections( $form['id'] );
@@ -512,6 +512,8 @@ class WeDevs_Settings_API {
              echo '</div>' . PHP_EOL;
             submit_button();
         echo '</form>' . PHP_EOL;
+        
+        echo '<style type="text/css">.metabox-holder .postbox:last-child { margin-bottom:0px; }</style>' . PHP_EOL;
     }
 
     /**

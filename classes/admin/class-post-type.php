@@ -20,7 +20,6 @@ class MPT_Admin_Post_Type {
 		// Add param on URL redirect
 		add_filter('redirect_post_location', array(__CLASS__, 'redirect_post_location'), 10, 2 );
 	}
-	
 
     /**
      * admin_init
@@ -49,7 +48,7 @@ class MPT_Admin_Post_Type {
      * @access public
      * @static
      *
-     * @return mixed Value.
+     * @return void.
      */
 	public static function admin_head() {
 		echo '<style type="text/css" media="screen">';
@@ -58,7 +57,15 @@ class MPT_Admin_Post_Type {
 			echo '.icon32-posts-'.MPT_CPT_NAME.' {background: transparent url('.MPT_URL.'/assets/images/toilet.png) no-repeat 6px 12px !important;}';
 		echo '</style>';
 	}
-
+	
+    /**
+     * add_meta_boxes
+     * 
+     * @access public
+     * @static
+     *
+     * @return void.
+     */
 	public static function add_meta_boxes( ) {
 		add_meta_box( MPT_CPT_NAME.'-main', __('Main information', 'mpt'), array( __CLASS__, 'metabox_main' ), MPT_CPT_NAME, 'normal', 'high' );
 		add_meta_box( MPT_CPT_NAME.'-password', __('Change password', 'mpt'), array( __CLASS__, 'metabox_password' ), MPT_CPT_NAME, 'normal', 'high' );

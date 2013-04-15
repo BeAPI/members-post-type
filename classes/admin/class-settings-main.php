@@ -83,16 +83,16 @@ class MPT_Admin_Settings_Main {
                 array(
                     'name' => 'allow-signon-email',
                     'label' => __( 'Sign-on method', 'mpt' ),
-                    'desc' => __( 'Allow email sign-on ?', 'mpt' ),
+                    'options' => __( 'Allow email sign-on ?', 'mpt' ),
                     'type' => 'checkbox',
-                    'default' => 1
-                    // __('Do not change this value if you have already members! At the risk of breaking your site!', 'mpt' )
+                    'default' => 1,
+                    'desc' => __('Do not change this value if you have already members! At the risk of breaking your site!', 'mpt' )
                 ),
                 array(
                     'name' => 'unique-email',
                     'label' => __( 'Email constraint', 'mpt' ),
-                    'desc' => __( 'Email must be unique ?', 'mpt' ),
-                    // Do not change this value if you have already members! At the risk of breaking your site! This option is automatically enabled when you allow email sign-on.
+                    'options' => __( 'Email must be unique ?', 'mpt' ),
+                    'desc' => __('Do not change this value if you have already members! At the risk of breaking your site! This option is automatically enabled when you allow email sign-on.', 'mpt'),
                     'type' => 'checkbox',
                     'default' => 1
                 ),
@@ -166,10 +166,10 @@ class MPT_Admin_Settings_Main {
                 array(
                     'name' => 'special-character',
                     'label' => __( 'Special character', 'mpt' ),
-                    'desc' => __( 'Forces the presence of an special character in the password', 'mpt' ),
+                    'options' => __( 'Forces the presence of an special character in the password', 'mpt' ),
                     'type' => 'checkbox',
-                    'default' => 0
-                    // Special characters are often assimilated to punctuation character. (?!&")
+                    'default' => 0,
+                    'desc' => __('Special characters are often assimilated to punctuation character. (?!&")', 'mpt')
                 ),
                 array(
                     'name' => 'blacklist-keywords',

@@ -2,7 +2,7 @@
 /**
  * weDevs Settings API wrapper class
  *
- * @version 0.3
+ * @version 0.4
  * @author Tareq Hasan <tareq@weDevs.com>
  * @link http://tareq.weDevs.com Tareq's Planet
  * @example settings-api.php How to use the class
@@ -460,7 +460,9 @@ class WeDevs_Settings_API {
                 $i++;
 
                 $class = ( $current_tab == $section['id'] || ($current_tab == '' && $i == 1) ) ? 'nav-tab-active' : '';
-                $html .= sprintf( '<a href="%1$s" class="nav-tab %2$s" id="%3$s-tab">%4$s</a>' . PHP_EOL, esc_url(add_query_arg( array('tab' => $section['id'] ) )), $class, $section['id'], $section['title'] );
+                $title = (isset($section['tab_label']) && !empty($section['tab_label']) ) ? $section['tab_label'] : $section['title'];
+
+                $html .= sprintf( '<a href="%1$s" class="nav-tab %2$s" id="%3$s-tab">%4$s</a>' . PHP_EOL, esc_url(add_query_arg( array('tab' => $section['id'] ) )), $class, $section['id'], $title );
             }
         $html .= '</h2>' . PHP_EOL;
 

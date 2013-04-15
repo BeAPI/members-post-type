@@ -53,7 +53,12 @@ More about [Settings API](http://codex.wordpress.org/Settings_API).
 
 == Changelog ==
 
+= 0.4 =
+
+* Allow to specifiy custom title for tabs
+
 = 0.3 =
+
 * Switch to classic tabs (remove JS)
 * Use WP 3.5 media gallery uploader
 * Allow to set label/description for checkbox
@@ -61,6 +66,7 @@ More about [Settings API](http://codex.wordpress.org/Settings_API).
 * Cleanup code
 
 = 0.1 =
+
 * Initial release
 
 == Upgrade Notice ==

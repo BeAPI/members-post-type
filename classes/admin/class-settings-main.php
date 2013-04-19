@@ -188,7 +188,7 @@ class MPT_Admin_Settings_Main {
                     'name' => 'auto-mode-level',
                     'label' => __( 'Level required', 'mpt' ),
                     'type' => 'radio',
-                    'default' => 'none',
+                    'default' => '1',
 					'options' => array(
 						'1'	=> __('Very weak', 'mpt'),
 						'2'	=> __('Weak', 'mpt'),

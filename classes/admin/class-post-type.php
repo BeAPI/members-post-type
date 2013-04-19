@@ -53,10 +53,16 @@ class MPT_Admin_Post_Type {
 	public static function admin_init() {
 		if ( isset($_GET['mpt-message']) ) {
 			$message_codes = explode(',', $_GET['mpt-message']);
-
+			
+			// Password metabox
 			if ( in_array('1', $message_codes) ) {
 				add_settings_error( MPT_CPT_NAME.'-postbox-password', MPT_CPT_NAME.'-postbox-password', __('Password and confirmation must be the same.', 'mpt'), 'error' );
 			}
+			if ( in_array('3', $message_codes) ) {
+				add_settings_error( MPT_CPT_NAME.'-postbox-password', MPT_CPT_NAME.'-postbox-password', __('This password is not secure enough.', 'mpt'), 'error' );
+			}
+			
+			// Main metabox
 			if ( in_array('2', $message_codes) ) {
 				add_settings_error( MPT_CPT_NAME.'-postbox-main', MPT_CPT_NAME.'-postbox-main', __('The email is already in use. Back to initial value.', 'mpt'), 'error' );
 			}
@@ -244,7 +250,16 @@ class MPT_Admin_Post_Type {
 
 		// Instanciate member
 		$member = new MPT_Member( $post_id );
-		$member->set_password( $_POST['memberpwd']['password'] );
+		
+		// Change password
+		$result = $member->set_password( $_POST['memberpwd']['password'] );
+		
+		// An error ?
+		if ( is_wp_error($result) ) {
+			self::$errors[] = 3;
+			return false;
+		}
+	
 		
 		return true;
 	}

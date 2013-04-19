@@ -57,7 +57,6 @@ class MPT_Main {
 		$current_options = get_option('mpt-pages');
 		if (isset($current_options['page-lost-password']) && !empty($current_options['page-lost-password'])) {
 			if (is_page($current_options['page-lost-password'])) {
-
 				wp_redirect(home_url('/'));
 				exit();
 			}
@@ -146,14 +145,14 @@ class MPT_Main {
 	/**
 	 * switch_blog
 	 * 
-	 * @param mixed $new_blog_id  Description.
-	 * @param mixed $prev_blog_id Description.
+	 * @param integer $new_blog_id  Description.
+	 * @param integer $prev_blog_id Description.
 	 *
 	 * @access public
 	 *
-	 * @return mixed Value.
+	 * @return void.
 	 */
-	public static function switch_blog($new_blog_id, $prev_blog_id) {
+	public static function switch_blog($new_blog_id = 0, $prev_blog_id = 0) {
 		global $mpt_roles;
 
 		if (did_action('init')) {
@@ -162,5 +161,4 @@ class MPT_Main {
 			}
 		}
 	}
-
 }

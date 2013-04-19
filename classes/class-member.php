@@ -150,7 +150,7 @@ class MPT_Member {
 		}
 		
 		$stop = apply_filters_ref_array('mpt_set_password', array(false, $password, &$this) );
-		if ( $stop === true ) {
+		if ( $stop !== false ) {
 			return $stop;
 		}
 

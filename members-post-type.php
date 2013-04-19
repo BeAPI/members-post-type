@@ -101,7 +101,7 @@ function _mpt_load_files($dir, $files, $prefix = '') {
 _mpt_load_files(MPT_DIR . 'functions/', array('api', 'template'));
 
 // Plugin client classes
-_mpt_load_files(MPT_DIR . 'classes/', array('main', 'plugin', 'post-type', 'roles', 'role', 'shortcode', 'taxonomy', 'member', 'member-auth', 'member-utility', 'widget'), 'class-');
+_mpt_load_files(MPT_DIR . 'classes/', array('main', 'plugin', 'post-type', 'roles', 'role', 'shortcode', 'taxonomy', 'member', 'member-auth', 'member-utility', 'widget', 'security'), 'class-');
 
 // Plugin admin classes
 if (is_admin()) {
@@ -132,6 +132,7 @@ function init_mpt_plugin() {
 	new MPT_Post_Type();
 	new MPT_Taxonomy();
 	new MPT_Shortcode();
+	new MPT_Security();
 
 	// Admin
 	if (is_admin()) {

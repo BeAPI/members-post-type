@@ -67,7 +67,7 @@ class MPT_Shortcode {
 			}
 			return $output;
 		} else {
-			return $mpt_messages;
+			return ( $format == 'display' ) && empty( $mpt_messages ) ? '' : $mpt_messages;
 		}
 	}
 	

@@ -61,6 +61,9 @@ class MPT_Admin_Post_Type {
 			if ( in_array('3', $message_codes) ) {
 				add_settings_error( MPT_CPT_NAME.'-postbox-password', MPT_CPT_NAME.'-postbox-password', __('The password does not meet the criteria required by the security policy.', 'mpt'), 'error' );
 			}
+			if ( in_array('4', $message_codes) ) {
+				add_settings_error( MPT_CPT_NAME.'-postbox-password', MPT_CPT_NAME.'-postbox-password', __('The password is the same as that already active. No changes will be made to that member.', 'mpt'), 'error' );
+			}
 			
 			// Main metabox
 			if ( in_array('2', $message_codes) ) {
@@ -247,14 +250,21 @@ class MPT_Admin_Post_Type {
 			self::$errors[] = 1;
 			return false;
 		}
-
+		
 		// Instanciate member
 		$member = new MPT_Member( $post_id );
+		
+		// The password was really changed? 
+		$result = MPT_Member_Auth::authenticate( $member->username, $pmp['password'] );
+		if ( !is_wp_error($result) ) {
+			self::$errors[] = 4;
+			return false;
+		}
 		
 		// Change password
 		$result = $member->set_password( $_POST['memberpwd']['password'] );
 		
-		// An error ?
+		// Not true ? Hook !
 		if ( $result !== true ) {
 			self::$errors[] = 3;
 			return false;

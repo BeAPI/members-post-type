@@ -140,22 +140,22 @@ class MPT_Member {
 	 *
 	 * @param string $password The plaintext new member password
 	 */
-	public function set_password( $password = '' ) {
+	public function set_password( $new_password = '' ) {
 		if ( !$this->exists() ) { // Valid instance member ?
 			return false;
 		}
 
-		if ( empty($password) ) { // Valid password ?
+		if ( empty($new_password) ) { // Valid password ?
 			return false;
 		}
 		
-		$stop = apply_filters_ref_array('mpt_set_password_check', array(false, $password, &$this) );
+		$stop = apply_filters_ref_array('mpt_set_password_check', array(false, $new_password, &$this) );
 		if ( $stop !== false ) {
 			return $stop;
 		}
 		
 		$old_hash = $this->password;
-		$new_hash = wp_hash_password($password);
+		$new_hash = wp_hash_password($new_password);
 
 		update_post_meta( $this->id, 'password', $new_hash );
 		do_action_ref_array('mpt_set_password', array($new_hash, $new_password, $old_hash, &$this) );

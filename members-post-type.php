@@ -1,7 +1,7 @@
 <?php
 /*
  Plugin Name: Members post type
- Version: 0.3
+ Version: 0.4
  Plugin URI: https://github.com/herewithme/members-post-type
  Description: Manage members on WordPress as post type. Implement: post type, authentification, role, clone from WP.
  Author: Amaury Balmer
@@ -30,16 +30,11 @@
 	Security
 		Login lock
 		Force HTTPs ?
-		Password strategy
-			Minimum character
-			Enforcment
-			Renew
-
 
 	Content restriction via roles
 +	Reset all password
 +	New random password (https://github.com/soulseekah/Random-New-User-Passwords-for-WordPress)
-+	Password meter on admin/front
++	Password meter on front
  ----
 
  Copyright 2013 Amaury Balmer (amaury@beapi.fr)
@@ -60,7 +55,7 @@
  */
 
 // Plugin constants
-define('MPT_VERSION', '0.3');
+define('MPT_VERSION', '0.4');
 define('MPT_CPT_NAME', 'member');
 define('MPT_TAXO_NAME', 'members-role');
 

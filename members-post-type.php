@@ -22,19 +22,16 @@
  		AJAX Mode
 	
 	Social integration
-		Facebook
-		Twitter
-		Google +
-		+ hooks
+		Facebook / Twitter / Google+
 	
 	Security
-		Login lock
+		Login lock (http://plugins.svn.wordpress.org/simple-login-lockdown/trunk/)
 		Force HTTPs ?
-
+	+	Reset all password
+	+	New random password (https://github.com/soulseekah/Random-New-User-Passwords-for-WordPress)
+	
 	Content restriction via roles
-+	Reset all password
-+	New random password (https://github.com/soulseekah/Random-New-User-Passwords-for-WordPress)
-+	Password meter on front
+
  ----
 
  Copyright 2013 Amaury Balmer (amaury@beapi.fr)

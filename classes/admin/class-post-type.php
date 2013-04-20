@@ -59,7 +59,7 @@ class MPT_Admin_Post_Type {
 				add_settings_error( MPT_CPT_NAME.'-postbox-password', MPT_CPT_NAME.'-postbox-password', __('Password and confirmation must be the same.', 'mpt'), 'error' );
 			}
 			if ( in_array('3', $message_codes) ) {
-				add_settings_error( MPT_CPT_NAME.'-postbox-password', MPT_CPT_NAME.'-postbox-password', __('This password is not secure enough.', 'mpt'), 'error' );
+				add_settings_error( MPT_CPT_NAME.'-postbox-password', MPT_CPT_NAME.'-postbox-password', __('The password does not meet the criteria required by the security policy.', 'mpt'), 'error' );
 			}
 			
 			// Main metabox
@@ -255,7 +255,7 @@ class MPT_Admin_Post_Type {
 		$result = $member->set_password( $_POST['memberpwd']['password'] );
 		
 		// An error ?
-		if ( is_wp_error($result) ) {
+		if ( $result !== true ) {
 			self::$errors[] = 3;
 			return false;
 		}

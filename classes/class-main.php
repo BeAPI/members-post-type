@@ -9,8 +9,8 @@ class MPT_Main {
 	 * @return void.
 	 */
 	public function __construct() {
-		add_action('init', array(__CLASS__, 'init'));
-		add_action('template_redirect', array(__CLASS__, 'template_redirect'));
+		add_action('init', array(__CLASS__, 'init'), 10);
+		add_action('template_redirect', array(__CLASS__, 'template_redirect'), 10 );
 		add_action('body_class', array(__CLASS__, 'body_class'));
 		add_action('mpt_login', array(__CLASS__, 'mpt_login'), 10, 2);
 		add_action('switch_blog', array(__CLASS__, 'switch_blog'), 10, 2);
@@ -128,14 +128,14 @@ class MPT_Main {
 				if (isset($current_options['page-' . $action]) && absint($current_options['page-' . $action]) > 0) {
 					$return_url = get_permalink($current_options['page-' . $action]);
 				} else {
-					$return_url = '#no-page-id-for-this-action';
+					$return_url = home_url('/#no-page-id-for-'.$action);
 				}
 				break;
 			case 'logout' :
 				$return_url = home_url('/?mpt-action=logout');
 				break;
 			default :
-				$return_url = '#no-known-action';
+				$return_url = home_url('/#no-known-action');
 				break;
 		}
 

@@ -65,7 +65,26 @@ class MPT_Shortcode_Change_Password extends MPT_Shortcode {
 			}
 			
 			// Set new password
-			$current_member->set_password($_POST['mptchangepwd']['new']);
+			$result = $current_member->set_password($_POST['mptchangepwd']['new']);
+			if ( $result !== true ) {
+				if ( is_wp_error($result) ) {
+					parent::set_message( $result->get_error_code(), $result->get_error_message(), 'error' );
+				} elseif( is_array($result) ) {
+					foreach ( $result as $_result ) {
+						if ( is_wp_error($_result) ) {
+							parent::set_message( $_result->get_error_code(), $_result->get_error_message(), 'error' );
+						}
+					}
+				}
+				
+				// Have messages ? If empty, set generic error password
+				$messages = parent::get_messages( 'raw' );
+				if ( !empty($messages) ) {
+					parent::set_message( 'change_password_generic_error', __('An error occurred, password has not been changed.', 'mpt'), 'error' );
+				}
+				
+				return true;
+			}
 			
 			// Force logout
 			MPT_Member_Auth::logout();

@@ -11,11 +11,70 @@ class MPT_Security {
 			return false;
 		}
 		
-		if ( $current_options['mode'] == 'auto' ) {
-			add_filter('mpt_set_password', array(__CLASS__, 'mpt_set_password' . '_auto_mode'), 10, 3 );
-		} elseif( $current_options['mode'] == 'custom' ) {
-			add_filter('mpt_set_password', array(__CLASS__, 'mpt_set_password' . '_custom_mode'), 10, 3 );
+		// Password policy
+		if ( (int) $current_options['aging'] > 0 ) {
+			add_filter('mpt_set_password', array(__CLASS__, 'mpt_set_password' . '_aging'), 9, 4 );
 		}
+		if ( (int) $current_options['history'] > 0 ) {
+			add_filter('mpt_set_password_check', array(__CLASS__, 'mpt_set_password_check' . '_history'), 10, 3 );
+			add_filter('mpt_set_password', array(__CLASS__, 'mpt_set_password' . '_history'), 9, 4 );
+		}
+		
+		// Password strengh
+		if ( $current_options['mode'] == 'auto' ) {
+			add_filter('mpt_set_password_check', array(__CLASS__, 'mpt_set_password_check' . '_auto_mode'), 10, 3 );
+		} elseif( $current_options['mode'] == 'custom' ) {
+			add_filter('mpt_set_password_check', array(__CLASS__, 'mpt_set_password_check' . '_custom_mode'), 10, 3 );
+		}
+	}
+	
+	public static function mpt_set_password_aging( $new_hash = '', $new_password = '', $old_hash = '', $member_data = null ) {
+		update_post_meta( $member_data->id, '_password_last_updated_date', time() );
+	}
+	
+	public static function mpt_set_password_history( $new_hash = '', $new_password = '', $old_hash = '', $member_data = null ) {
+		$current_options = get_option( 'mpt-security' );
+		
+		// Get current password history
+		$passwords_history = get_post_meta( $member_data->id, '_passwords_history', true );
+		if ( $passwords_history == false ) {
+			$passwords_history = array();
+		}
+		
+		// If the size of the history has already been reached, the oldest word password is removed.
+		if ( count($passwords_history) >= (int) $current_options['history'] ) {
+			array_shift($passwords_history);
+		}
+		
+		// Add current password on array
+		array_push($passwords_history, $old_hash);
+		
+		// Save meta
+		update_post_meta( $member_data->id, '_passwords_history', $passwords_history );
+
+		return $flag;
+	}
+	
+	public static function mpt_set_password_check_history( $flag = false, $password = '', $member_data = null ) {
+		$current_options = get_option( 'mpt-security' );
+		
+		// Get current password history
+		$passwords_history = get_post_meta( $member_data->id, '_passwords_history', true );
+		if ( $passwords_history == false ) {
+			$passwords_history = array();
+		}
+		
+		if ( empty($passwords_history) ) {
+			return $flag;
+		}
+		
+		foreach( $passwords_history as $password_hash ) {
+			if ( wp_check_password($password, $password_hash, false) ) {
+				return new WP_Error( 'password_auto_mode', __('You can not use this password because of the defined security policy and the fact that you\'ve used in the past.', 'mpt') ); 
+			}
+		}
+		
+		return $flag;
 	}
 	
 	/**
@@ -26,7 +85,7 @@ class MPT_Security {
 	 * @param MPT_Member $member_data
 	 * @return boolean|WP_Error
 	 */
-	public static function mpt_set_password_auto_mode( $flag = false, $password = '', $member_data = null ) {
+	public static function mpt_set_password_check_auto_mode( $flag = false, $password = '', $member_data = null ) {
 			// Get WP scoring for password
 			$scoring = (int) self::check_wp_password_strength( $password, $member_data );
 			
@@ -47,7 +106,7 @@ class MPT_Security {
 	 * @param MPT_Member $member_data
 	 * @return boolean|WP_Error
 	 */
-	public static function mpt_set_password_custom_mode( $flag = false, $password = '', $member_data = null ) {
+	public static function mpt_set_password_check_custom_mode( $flag = false, $password = '', $member_data = null ) {
 		$current_options = get_option( 'mpt-security' );
 		if ( $current_options == false ) {
 			return $flag;

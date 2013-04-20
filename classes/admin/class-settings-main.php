@@ -268,14 +268,6 @@ class MPT_Admin_Settings_Main {
 					'sanitize_callback' => 'intval'
                 ),
 				array(
-                    'name' => 'grace_period',
-                    'label' => __( 'Grace Period', 'mpt' ),
-                    'desc' => __( 'How many minutes should a user have to change their password once they know it has expired? Must be >= 5. Default: 15.', 'mpt' ),
-                    'type' => 'text',
-                    'default' => 0,
-					'sanitize_callback' => 'intval'
-                ),
-				array(
                     'name' => 'history',
                     'label' => __( 'History', 'mpt' ),
                     'desc' => __( 'How many passwords should be remembered? Prevents reuse of old passwords. 0 disables this feature. Default: 0.', 'mpt' ),

@@ -13,11 +13,12 @@ class MPT_Security {
 		
 		// Password policy
 		if ( (int) $current_options['aging'] > 0 ) {
-			add_filter('mpt_set_password', array(__CLASS__, 'mpt_set_password' . '_aging'), 9, 4 );
+			add_action('template_redirect', array(__CLASS__, 'template_redirect'.'_aging'), 9 );
+			add_action('mpt_set_password', array(__CLASS__, 'mpt_set_password' . '_aging'), 9, 4 );
 		}
 		if ( (int) $current_options['history'] > 0 ) {
 			add_filter('mpt_set_password_check', array(__CLASS__, 'mpt_set_password_check' . '_history'), 10, 3 );
-			add_filter('mpt_set_password', array(__CLASS__, 'mpt_set_password' . '_history'), 9, 4 );
+			add_action('mpt_set_password', array(__CLASS__, 'mpt_set_password' . '_history'), 10, 4 );
 		}
 		
 		// Password strengh
@@ -26,6 +27,36 @@ class MPT_Security {
 		} elseif( $current_options['mode'] == 'custom' ) {
 			add_filter('mpt_set_password_check', array(__CLASS__, 'mpt_set_password_check' . '_custom_mode'), 10, 3 );
 		}
+	}
+	
+	public static function template_redirect_aging() {
+		if ( !mpt_is_member_logged_in() ) {
+			return false;
+		}
+		
+		$member_data = mpt_get_current_member();
+		$last_updated_date = get_post_meta( $member_data->id, '_password_last_updated_date', true );
+		if ( $last_updated_date == false ) {
+			return false;
+		}
+		
+		$current_options = get_option( 'mpt-security' );
+		
+		// Calcul date of expiration
+		$expiration_date = $last_updated_date + ((int) $current_options['aging'] * DAY_IN_SECONDS);
+		
+		// Expiration date < to current date, force permanent redirect to change password form
+		if ( $expiration_date < time()  ) {
+			if( !isset($_GET['mpt-action']) || $_GET['mpt-action'] != 'force-change-password' ) {
+				wp_redirect( add_query_arg( 'mpt-action', 'force-change-password', mpt_get_change_password_permalink()) );
+				exit();
+			}
+		} elseif( isset($_GET['mpt-action']) && $_GET['mpt-action'] == 'force-change-password' ) {
+			wp_redirect( remove_query_arg('mpt-action') );
+			exit();
+		}
+		
+		return true;
 	}
 	
 	public static function mpt_set_password_aging( $new_hash = '', $new_password = '', $old_hash = '', $member_data = null ) {

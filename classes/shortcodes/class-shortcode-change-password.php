@@ -13,6 +13,10 @@ class MPT_Shortcode_Change_Password extends MPT_Shortcode {
 	 * @return string HTML of shortcode
 	 */
 	public static function shortcode() {
+		if( isset($_GET['mpt-action']) && $_GET['mpt-action'] == 'force-change-password' ) {
+			parent::set_message( 'force_change_password', __('Your password has expired. You must change before continuing your visit.', 'mpt') );
+		}
+		
 		// Member logged-in ?
 		if ( !mpt_is_member_logged_in() ) {
 			return __('You can\'t change your password, if you aren\'t logged-in.', 'mpt');
@@ -46,12 +50,6 @@ class MPT_Shortcode_Change_Password extends MPT_Shortcode {
 				return false;
 			}
 			
-			// Check password complexity
-			if( strlen($_POST['mptchangepwd']['new']) < 6 ) { // TODO: Hooks and function for test password security
-				parent::set_message( 'new_security', __('You password need to be at least 6 characters long', 'mpt'), 'error' );
-				return false;
-			}
-			
 			// Get current member info
 			$current_member = MPT_Member_Auth::get_current_member();
 			
@@ -79,7 +77,7 @@ class MPT_Shortcode_Change_Password extends MPT_Shortcode {
 				
 				// Have messages ? If empty, set generic error password
 				$messages = parent::get_messages( 'raw' );
-				if ( !empty($messages) ) {
+				if ( empty($messages) ) {
 					parent::set_message( 'change_password_generic_error', __('An error occurred, password has not been changed.', 'mpt'), 'error' );
 				}
 				

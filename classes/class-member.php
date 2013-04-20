@@ -149,14 +149,17 @@ class MPT_Member {
 			return false;
 		}
 		
-		$stop = apply_filters_ref_array('mpt_set_password', array(false, $password, &$this) );
+		$stop = apply_filters_ref_array('mpt_set_password_check', array(false, $password, &$this) );
 		if ( $stop !== false ) {
 			return $stop;
 		}
+		
+		$old_hash = $this->password;
+		$new_hash = wp_hash_password($password);
 
-		$hash = wp_hash_password($password);
-
-		update_post_meta( $this->id, 'password', $hash );
+		update_post_meta( $this->id, 'password', $new_hash );
+		do_action_ref_array('mpt_set_password', array($new_hash, $new_password, $old_hash, &$this) );
+		
 		delete_post_meta( $this->id, 'activation_key' );
 
 		return true;

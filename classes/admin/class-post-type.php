@@ -16,7 +16,7 @@ class MPT_Admin_Post_Type {
 		add_action( 'admin_head', array(__CLASS__, 'admin_head') );
 
 		// Metabox member
-		add_action( 'add_meta_boxes', array( __CLASS__, 'add_meta_boxes' ) );
+		add_action( 'add_meta_boxes', array( __CLASS__, 'add_meta_boxes' ), 11 );
 		add_action( 'save_post', array( __CLASS__, 'save_post' ) );
 
 		// Add param on URL redirect
@@ -97,6 +97,10 @@ class MPT_Admin_Post_Type {
      * @return void.
      */
 	public static function add_meta_boxes( ) {
+		// Remove metabox from "Members" plugins
+		remove_meta_box( 'content-permissions-meta-box', MPT_CPT_NAME, 'advanced' );
+		
+		// Add main info, password metaboxes
 		add_meta_box( MPT_CPT_NAME.'-postbox-main', __('Main information', 'mpt'), array( __CLASS__, 'metabox_main' ), MPT_CPT_NAME, 'normal', 'high' );
 		add_meta_box( MPT_CPT_NAME.'-postbox-password', __('Change password', 'mpt'), array( __CLASS__, 'metabox_password' ), MPT_CPT_NAME, 'normal', 'high' );
 	}

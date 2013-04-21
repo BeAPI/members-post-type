@@ -200,6 +200,39 @@ class MPT_Roles {
 
 		return true;
 	}
+	
+	/**
+	 * Retrieve all roles. (WP_Term object)
+	 *
+	 * @access public
+	 *
+	 * @return array array with WP_Term objects
+	 */
+	public static function get_roles() {
+		return self::$roles;
+	}
+	
+	/**
+	 * Retrieve all roles (MPT_Role object)
+	 *
+	 * @access public
+	 *
+	 * @return array Array with MPT_Role objects
+	 */
+	public static function get_roles_objects() {
+		return self::$role_objects;
+	}
+	
+	/**
+	 * Retrieve all roles names.
+	 *
+	 * @access public
+	 *
+	 * @return array Array with role names
+	 */
+	public static function get_roles_names() {
+		return self::$role_names;
+	}
 
 	/**
 	 * Retrieve role object by name.

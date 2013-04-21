@@ -43,13 +43,18 @@ class MPT_Taxonomy {
 			'hierarchical'               => false,
 			'public'                     => true,
 			'query_var'                  => false,
-			'show_ui'                    => true,
-			'show_admin_column'          => true,
+			'show_ui'                    => false,
+			'show_admin_column'          => false,
 			'show_in_nav_menus'          => false,
 			'show_tagcloud'              => false,
 			'rewrite'                    => false,
 			'update_count_callback'      => false
 		);
+		
+		$options = (array) get_option( 'mpt-main' );
+		if ( isset($options['features']) && isset($options['features']['role-manager']) ) {
+			$args['show_ui'] = $args['show_admin_column'] = true;
+		}
 
 		register_taxonomy( MPT_TAXO_NAME, MPT_CPT_NAME, apply_filters( 'mpt_register_taxonomy', $args, MPT_TAXO_NAME, MPT_CPT_NAME )  );
 	}

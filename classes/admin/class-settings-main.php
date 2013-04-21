@@ -83,7 +83,7 @@ class MPT_Admin_Settings_Main {
             array(
                 'id' => 'mpt-main',
 				'tab_label' => __( 'General', 'mpt' ),
-                'title' => __( 'General features', 'mpt' ),
+                'title' => __( 'Features available', 'mpt' ),
                 'desc' => false,
             ),
             array(
@@ -110,6 +110,23 @@ class MPT_Admin_Settings_Main {
     public static function get_settings_fields() {
         $settings_fields = array(
             'mpt-main' => array(
+				array(
+                    'name' => 'features',
+                    'label' => __( 'Features', 'mpt' ),
+                    'options' => array(
+						'role-manager' => __('Role manager', 'mpt'),
+						'content-permissions' => __('Content permissions', 'mpt'),
+						'private-website' => __('Private website', 'mpt')
+					),
+                    'type' => 'multicheck',
+                    'desc' => __('Do not change this value if you have already members! At the risk of breaking your site!', 'mpt' )
+                ),
+				array(
+                    'name' => 'authentification',
+                    'label' => __( 'Authentification settings', 'mpt' ),
+                    'desc' => __( 'You can adjust the way your members connect to the site.', 'mpt' ),
+                    'type' => 'metabox',
+                ),
                 array(
                     'name' => 'allow-signon-email',
                     'label' => __( 'Sign-on method', 'mpt' ),
@@ -125,6 +142,60 @@ class MPT_Admin_Settings_Main {
                     'desc' => __('Do not change this value if you have already members! At the risk of breaking your site! This option is automatically enabled when you allow email sign-on.', 'mpt'),
                     'type' => 'checkbox',
                     'default' => 1
+                ),
+				array(
+                    'name' => 'role-manager',
+                    'label' => __( 'Role manager', 'mpt' ),
+                    'desc' => __( 'Create roles, permissions, such as WordPress.', 'mpt' ),
+                    'type' => 'metabox',
+                ),
+				array(
+                    'name' => 'default-role',
+                    'label' => __( 'Default role', 'mpt' ),
+                    'desc' => __( 'You can choose to set as a default role or not during membership registration.', 'mpt' ),
+                    'type' => 'select',
+					'options' => self::_get_roles(),
+					'default' => 'none'
+                ),
+				array(
+                    'name' => 'content-permissions',
+                    'label' => __( 'Content permissions', 'mpt' ),
+                    'desc' => __( 'You can restrict access to your content only for your members.', 'mpt' ),
+                    'type' => 'metabox',
+                ),
+				array(
+                    'name' => 'default-post-error-message',
+                    'label' => __( 'Default post error message:', 'mpt' ),
+                    'desc' => __( 'You can use HTML and/or shortcodes to create a custom error message for users that don\'t have permission to view posts.', 'mpt' ),
+                    'type' => 'textarea',
+					'default' => __('<p class="restricted">Sorry, but you do not have permission to view this content.</p>', 'mpt')
+                ),
+				array(
+                    'name' => 'private-website',
+                    'label' => __( 'Private website', 'mpt' ),
+                    'desc' => __( 'You can restrict access to your site only for your members.', 'mpt' ),
+                    'type' => 'metabox',
+                ),
+                array(
+                    'name' => 'redirect-logged-out-users',
+                    'label' => __( 'Redirect ?', 'mpt' ),
+                    'options' => __( 'Redirect all logged-out users to the login page before allowing them to view the site.', 'mpt' ),
+                    'type' => 'checkbox',
+                    'default' => 0
+                ),
+				array(
+                    'name' => 'error-feed',
+                    'label' => __( 'Allow feed ?', 'mpt' ),
+                    'options' => __( 'Show error message for feed items.', 'mpt' ),
+                    'type' => 'checkbox',
+                    'default' => 0
+                ),
+				array(
+                    'name' => 'feed-error-message',
+                    'label' => __( 'Feed error message:', 'mpt' ),
+                    'desc' => __( 'You can use HTML and/or shortcodes to create a custom error message to display instead of feed item content.', 'mpt' ),
+                    'type' => 'textarea',
+					'default' => __('<p class="restricted">You must be logged into the site to view this content.</p>', 'mpt')
                 ),
             ),
             'mpt-pages' => array(
@@ -318,7 +389,7 @@ class MPT_Admin_Settings_Main {
 		// Loop through each of the incoming options
 		foreach( self::get_default_options() as $key => $value ) {
 			if( isset( $input[$key] ) ) {
-				$output[$key] = strip_tags( $input[ $key ] );
+				$output[$key] = strip_tags( $input[ $key ] ); // TODO : Remove striptags depending fields
 			} else {
 				$output[$key] = 0;
 			}
@@ -331,5 +402,20 @@ class MPT_Admin_Settings_Main {
 		
 		// Return the array processing any additional functions filtered by this action
 		return apply_filters( 'mpt_settings_validate_input', $output, $input, self::$id );
+	}
+	
+	private static function _get_roles() {
+		$roles = array();
+		
+		// Add no default role
+		$roles['none'] = __('No default role', 'mpt');
+		
+		// Add registered roles
+		$terms = MPT_Roles::get_roles();
+		foreach ( $terms as $term ) {
+			$roles[$term->slug] = $term->name;
+		}
+		
+		return $roles;
 	}
 }

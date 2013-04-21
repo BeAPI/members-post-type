@@ -12,7 +12,7 @@ class MPT_Roles {
 	 * @access public
 	 * @var array
 	 */
-	public $roles;
+	public static $roles;
 
 	/**
 	 * List of the role objects. (MPT_Role objects)
@@ -20,7 +20,7 @@ class MPT_Roles {
 	 * @access public
 	 * @var array
 	 */
-	public $role_objects = array();
+	public static $role_objects = array();
 
 	/**
 	 * List of role names.
@@ -28,47 +28,33 @@ class MPT_Roles {
 	 * @access public
 	 * @var array
 	 */
-	public $role_names = array();
+	public static $role_names = array();
 
 	/**
 	 * Constructor
 	 *
 	 *
 	 */
-	public function __construct() {
-		return $this->_init();
-	}
+	public function __construct() {}
 
 	/**
 	 * Set up the object properties.
 	 *
 	 * @access private
 	 */
-	private function _init () {
-		$this->roles = $this->_get_roles();
-		if ( empty( $this->roles ) )
+	public static function init () {
+		self::$roles = self::_get_roles();
+		if ( empty( self::$roles ) )
 			return false;
 
-		$this->role_objects = array();
-		$this->role_names =  array();
-		foreach ( $this->roles as $role ) {
-			$this->role_objects[$role->slug] = new MPT_Role( $role->slug, (array) get_term_taxonomy_meta( $role->term_taxonomy_id, 'capabilities', true) );
-			$this->role_names[$role->slug] = $role->name;
+		self::$role_objects = array();
+		self::$role_names =  array();
+		foreach ( self::$roles as $role ) {
+			self::$role_objects[$role->slug] = new MPT_Role( $role->slug, (array) get_term_taxonomy_meta( $role->term_taxonomy_id, 'capabilities', true) );
+			self::$role_names[$role->slug] = $role->name;
 		}
 
 		return true;
-	}
-
-	/**
-	 * Reinitialize the object
-	 *
-	 * Recreates the role objects. This is typically called only by switch_to_blog()
-	 * after switching wpdb to a new blog ID.
-	 *
-	 * @access public
-	 */
-	public function reinit() {
-		return $this->_init();
 	}
 
 	/**
@@ -86,8 +72,8 @@ class MPT_Roles {
 	 * @param array $capabilities List of role capabilities in the above format.
 	 * @return null|MPT_Role MPT_Role object if role is added, null if already exists.
 	 */
-	public function add_role( $role, $display_name, $capabilities = array() ) {
-		if ( isset( $this->roles[$role] ) )
+	public static function add_role( $role, $display_name, $capabilities = array() ) {
+		if ( isset( self::$roles[$role] ) )
 			return false;
 
 		// Try term insertion
@@ -103,11 +89,11 @@ class MPT_Roles {
 		update_term_taxonomy_meta( $term_result['term_taxonomy_id'], 'capabilities', $capabilities );
 
 		// Refresh values
-		$this->roles[$term->slug] = $term;
-		$this->role_objects[$term->slug] = new MPT_Role( $term->slug, $capabilities );
-		$this->role_names[$term->slug] = $display_name;
+		self::$roles[$term->slug] = $term;
+		self::$role_objects[$term->slug] = new MPT_Role( $term->slug, $capabilities );
+		self::$role_names[$term->slug] = $display_name;
 		
-		return $this->role_objects[$term->slug];
+		return self::$role_objects[$term->slug];
 	}
 
 	/**
@@ -117,13 +103,13 @@ class MPT_Roles {
 	 *
 	 * @param string $role Role name.
 	 */
-	public function remove_role( $role ) {
-		if ( ! isset( $this->role_objects[$role] ) )
+	public static function remove_role( $role ) {
+		if ( ! isset( self::$role_objects[$role] ) )
 			return false;
 
-		unset( $this->role_objects[$role] );
-		unset( $this->role_names[$role] );
-		unset( $this->roles[$role] );
+		unset( self::$role_objects[$role] );
+		unset( self::$role_names[$role] );
+		unset( self::$roles[$role] );
 
 		$term = get_term_by( 'slug', $role, MPT_TAXO_NAME );
 		if ( $term != false ) {
@@ -142,12 +128,12 @@ class MPT_Roles {
 	 * @param string $cap Capability name.
 	 * @param bool $grant Optional, default is true. Whether role is capable of performing capability.
 	 */
-	public function add_cap( $role, $cap, $grant = true ) {
-		if ( ! isset( $this->roles[$role] ) )
+	public static function add_cap( $role, $cap, $grant = true ) {
+		if ( ! isset( self::$roles[$role] ) )
 			return false;
 
 		// Get current capabilities
-		$capabilities = get_term_taxonomy_meta( $this->roles[$role]->term_taxonomy_id, 'capabilities', true);
+		$capabilities = get_term_taxonomy_meta( self::$roles[$role]->term_taxonomy_id, 'capabilities', true);
 		if ( $capabilities == false ) {
 			$capabilities = array();
 		}
@@ -156,10 +142,10 @@ class MPT_Roles {
 		$capabilities[$cap] = $grant;
 
 		// Save new capabilities
-		update_term_taxonomy_meta( $this->roles[$role]->term_taxonomy_id, 'capabilities', $capabilities );
+		update_term_taxonomy_meta( self::$roles[$role]->term_taxonomy_id, 'capabilities', $capabilities );
 
 		// Refesh variable
-		$this->role_objects[$role] = new MPT_Role( $role, $capabilities );
+		self::$role_objects[$role] = new MPT_Role( $role, $capabilities );
 		
 		return true;
 	}
@@ -172,12 +158,12 @@ class MPT_Roles {
 	 * @param string $role Role name.
 	 * @param string $cap Capability name.
 	 */
-	public function remove_cap( $role, $cap ) {
-		if ( ! isset( $this->roles[$role] ) )
+	public static function remove_cap( $role, $cap ) {
+		if ( ! isset( self::$roles[$role] ) )
 			return false;
 
 		// Get current capabilities
-		$capabilities = get_term_taxonomy_meta( $this->roles[$role]->term_taxonomy_id, 'capabilities', true);
+		$capabilities = get_term_taxonomy_meta( self::$roles[$role]->term_taxonomy_id, 'capabilities', true);
 		if ( $capabilities == false ) {
 			$capabilities = array();
 		}
@@ -186,10 +172,10 @@ class MPT_Roles {
 		unset($capabilities[$cap]);
 
 		// Save new capabilities
-		update_term_taxonomy_meta( $this->roles[$role]->term_taxonomy_id, 'capabilities', $capabilities );
+		update_term_taxonomy_meta( self::$roles[$role]->term_taxonomy_id, 'capabilities', $capabilities );
 
 		// Refesh variable
-		$this->role_objects[$role] = new MPT_Role( $role, $capabilities );
+		self::$role_objects[$role] = new MPT_Role( $role, $capabilities );
 
 		return true;
 	}
@@ -202,15 +188,15 @@ class MPT_Roles {
 	 * @param string $role Role name.
 	 * @param string $cap Capability name.
 	 */
-	public function remove_all_caps( $role ) {
-		if ( ! isset( $this->roles[$role] ) )
+	public static function remove_all_caps( $role ) {
+		if ( ! isset( self::$roles[$role] ) )
 			return false;
 
 		// Save new
-		update_term_taxonomy_meta( $this->roles[$role]->term_taxonomy_id, 'capabilities', array() );
+		update_term_taxonomy_meta( self::$roles[$role]->term_taxonomy_id, 'capabilities', array() );
 
 		// Refesh variable
-		$this->role_objects[$role] = new MPT_Role( $role, array() );
+		self::$role_objects[$role] = new MPT_Role( $role, array() );
 
 		return true;
 	}
@@ -223,9 +209,9 @@ class MPT_Roles {
 	 * @param string $role Role name.
 	 * @return object|null Null, if role does not exist. MPT_Role object, if found.
 	 */
-	public function get_role( $role ) {
-		if ( isset( $this->role_objects[$role] ) )
-			return $this->role_objects[$role];
+	public static function get_role( $role ) {
+		if ( isset( self::$role_objects[$role] ) )
+			return self::$role_objects[$role];
 		else
 			return null;
 	}
@@ -237,8 +223,8 @@ class MPT_Roles {
 	 *
 	 * @return array List of role names.
 	 */
-	public function get_names() {
-		return $this->role_names;
+	public static function get_names() {
+		return self::$role_names;
 	}
 
 	/**
@@ -249,8 +235,8 @@ class MPT_Roles {
 	 * @param string $role Role name to look up.
 	 * @return bool
 	 */
-	public function is_role( $role ) {
-		return isset( $this->role_names[$role] );
+	public static function is_role( $role ) {
+		return isset( self::$role_names[$role] );
 	}
 
     /**
@@ -262,9 +248,11 @@ class MPT_Roles {
      *
      * @return array Value.
      */
-	private function _get_roles( $args = array() ) {
+	private static function _get_roles( $args = array() ) {
+		global $wpdb;
+		
 		// Parse vs defaults
-		$args = wp_parse_args( $args, array('hide_empty' => 0, '') );
+		$args = wp_parse_args( $args, array('hide_empty' => 0) );
 
 		$_terms = array();
 		$terms = get_terms( MPT_TAXO_NAME, $args );
@@ -273,7 +261,7 @@ class MPT_Roles {
 				$_terms[$term->slug] = $term;
 			}
 		}
-
+		
 		return $_terms;
 	}
 }

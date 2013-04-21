@@ -388,23 +388,17 @@ class MPT_Member {
 	 * specific roles that their role might have, but the specific member isn't
 	 * granted permission to.
 	 *
-	 * @uses $mpt_roles
 	 * @access public
 	 */
 	public function get_role_caps() {
-		global $mpt_roles;
-
-		if ( ! isset( $mpt_roles ) )
-			$mpt_roles = new MPT_Roles();
-
 		// Filter out caps that are not role names and assign to $this->roles
 		if ( is_array( $this->caps ) )
-			$this->roles = array_filter( array_keys( $this->caps ), array( $mpt_roles, 'is_role' ) );
+			$this->roles = array_filter( array_keys( $this->caps ), array( 'MPT_Roles', 'is_role' ) );
 		
 		// Build $allcaps from role caps, overlay member's $caps
 		$this->allcaps = array();
 		foreach ( (array) $this->roles as $role ) {
-			$the_role = $mpt_roles->get_role( $role );
+			$the_role = MPT_Roles::get_role( $role );
 			$this->allcaps = array_merge( (array) $this->allcaps, (array) $the_role->capabilities );
 		}
 		$this->allcaps = array_merge( (array) $this->allcaps, (array) $this->caps );

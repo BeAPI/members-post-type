@@ -355,7 +355,7 @@ class MPT_Member_Auth {
 
 		$pass_frag = substr($member->password, 8, 4);
 		
-		$key = wp_hash('member-'.$member->id . $pass_frag . '|' . $expiration, $scheme); // TODO use ID instead username ?
+		$key = wp_hash('member-'.$member->id . $pass_frag . '|' . $expiration, $scheme);
 		$hash = hash_hmac('md5', 'member-'.$member->id . '|' . $expiration, $key);
 
 		if ( $hmac != $hash ) {

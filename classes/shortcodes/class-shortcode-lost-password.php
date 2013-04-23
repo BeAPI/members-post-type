@@ -134,12 +134,6 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 				return false;
 			}
 			
-			// Check password complexity
-			if( strlen($_POST['mptlostpwd_s2']['password']) < 6 ) { // TODO: Hooks and function for test password security
-				parent::set_message( 'check_step_2', __('You password need to be at least 6 characters long', 'mpt'), 'error' );
-				return false;
-			}
-			
 			// Try load member with this activation_key
 			$member = new MPT_Member( );
 			$member->fill_by( 'activation_key', $_GET['key'] );
@@ -147,8 +141,27 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 				wp_die(__('Cheatin&#8217; uh?', 'mpt'));
 			}
 			
-			// reset the member password
-			$member->set_password($_POST['mptlostpwd_s2']['password']);
+			// Set new password
+			$result = $member->set_password($_POST['mptlostpwd_s2']['password']);
+			if ( $result !== true ) {
+				if ( is_wp_error($result) ) {
+					parent::set_message( $result->get_error_code(), $result->get_error_message(), 'error' );
+				} elseif( is_array($result) ) {
+					foreach ( $result as $_result ) {
+						if ( is_wp_error($_result) ) {
+							parent::set_message( $_result->get_error_code(), $_result->get_error_message(), 'error' );
+						}
+					}
+				}
+				
+				// Have messages ? If empty, set generic error password
+				$messages = parent::get_messages( 'raw' );
+				if ( empty($messages) ) {
+					parent::set_message( 'change_password_generic_error', __('An error occurred, password has not been changed.', 'mpt'), 'error' );
+				}
+				
+				return true;
+			}
 			
 			// Try to get the login page, otherwise get home link
 			$location = wp_validate_redirect( mpt_get_login_permalink(), home_url('/') );

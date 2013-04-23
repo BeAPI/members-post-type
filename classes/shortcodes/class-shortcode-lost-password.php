@@ -157,7 +157,7 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 				// Have messages ? If empty, set generic error password
 				$messages = parent::get_messages( 'raw' );
 				if ( empty($messages) ) {
-					parent::set_message( 'change_password_generic_error', __('An error occurred, password has not been changed.', 'mpt'), 'error' );
+					parent::set_message( 'lost_password_generic_error', __('An error occurred, password has not been changed.', 'mpt'), 'error' );
 				}
 				
 				return true;

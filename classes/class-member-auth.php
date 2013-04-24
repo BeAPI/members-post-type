@@ -89,7 +89,7 @@ class MPT_Member_Auth {
 			}	
 			
 			if ( !empty($_COOKIE[$auth_cookie]) ) {
-				return new WP_Error('expired_session', __('Please log in again.'));
+				return new WP_Error('expired_session', __('Please log in again.', 'mpt'));
 			}
 			
 			// If the cookie is not set, be silent.
@@ -118,7 +118,7 @@ class MPT_Member_Auth {
 		$member = apply_filters('mpt_authenticate', null, $username, $password);
 		if ( $member == null ) {
 			// Only needed if all authentication handlers fail to return anything.
-			$member = new WP_Error('authentication_failed', __('<strong>ERROR</strong>: Invalid username or incorrect password.'));
+			$member = new WP_Error('authentication_failed', __('<strong>ERROR</strong>: Invalid username or incorrect password.', 'mpt'));
 		}
 	
 		$ignore_codes = array('empty_username', 'empty_password');
@@ -142,10 +142,10 @@ class MPT_Member_Auth {
 			$error = new WP_Error();
 	
 			if ( empty($email) ) {
-				$error->add('empty_email', __('<strong>ERROR</strong>: The email field is empty.'));
+				$error->add('empty_email', __('<strong>ERROR</strong>: The email field is empty.', 'mpt'));
 			}
 			if ( empty($password) ) {
-				$error->add('empty_password', __('<strong>ERROR</strong>: The password field is empty.'));
+				$error->add('empty_password', __('<strong>ERROR</strong>: The password field is empty.', 'mpt'));
 			}
 			
 			return $error;
@@ -155,7 +155,7 @@ class MPT_Member_Auth {
 		$member->fill_by( 'email', $email );
 		
 		if ( !$member->exists() ) {
-			return new WP_Error('invalid_email', sprintf(__('<strong>ERROR</strong>: Invalid email. <a href="%s" title="Password Lost and Found">Lost your password</a>?'), mpt_get_lost_password_permalink() ) );
+			return new WP_Error('invalid_email', sprintf(__('<strong>ERROR</strong>: Invalid email. <a href="%s" title="Password Lost and Found">Lost your password</a>?', 'mpt'), mpt_get_lost_password_permalink() ) );
 		}
 		
 		$member = apply_filters('mpt_authenticate_member', $member, $password);
@@ -164,7 +164,7 @@ class MPT_Member_Auth {
 		}
 	
 		if ( !wp_check_password($password, $member->password, false) ) {
-			return new WP_Error( 'incorrect_password', sprintf( __( '<strong>ERROR</strong>: The password you entered for the email <strong>%1$s</strong> is incorrect. <a href="%2$s" title="Password Lost and Found">Lost your password</a>?' ),
+			return new WP_Error( 'incorrect_password', sprintf( __( '<strong>ERROR</strong>: The password you entered for the email <strong>%1$s</strong> is incorrect. <a href="%2$s" title="Password Lost and Found">Lost your password</a>?', 'mpt' ),
 			$email, mpt_get_lost_password_permalink() ) );
 		}
 	

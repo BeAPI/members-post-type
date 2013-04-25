@@ -359,7 +359,7 @@ class MPT_Admin_Settings_Main {
      */
     private static function _get_pages() {
         $pages = get_pages();
-        $pages_options = array();
+        $pages_options = array( 0 => __('Select a page', 'mpt') );
         if ( $pages ) {
             foreach ($pages as $page) {
                 $pages_options[$page->ID] = $page->post_title;

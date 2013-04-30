@@ -301,8 +301,11 @@ class MPT_Member {
 			$this->fill_by('id', $this->id);
 		}
 		
+		// Get display name
+		$display_name = $this->get_display_name();
+		
 		// update DB
-		$wpdb->update( $wpdb->posts, array('post_title' => $this->get_display_name()), array('ID' => $this->id) );
+		$wpdb->update( $wpdb->posts, array('post_title' => $display_name, 'post_name' => sanitize_title($display_name)), array('ID' => $this->id) );
 		
 		// Refresh cache
 		clean_post_cache($this->id);

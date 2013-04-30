@@ -31,7 +31,7 @@
 	+	New random password (https://github.com/soulseekah/Random-New-User-Passwords-for-WordPress)
 	
 	Content restriction via roles
-
+	Browse as
  ----
 
  Copyright 2013 Amaury Balmer (amaury@beapi.fr)

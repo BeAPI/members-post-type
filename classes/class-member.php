@@ -249,8 +249,13 @@ class MPT_Member {
 		$message  = sprintf(__('New member registration on your site %s:', 'mpt'), $blogname) . "\r\n\r\n";
 		$message .= sprintf(__('Username: %s', 'mpt'), $username) . "\r\n\r\n";
 		$message .= sprintf(__('E-mail: %s', 'mpt'), $email) . "\r\n";
+		
+		// Allow plugins hooks
+		$subject = apply_filters('mpt_register_admin_notification_subject', sprintf(__('[%s] New Member Registration', 'mpt'), $blogname), $this);
+		$message = apply_filters('mpt_register_admin_notification_message', $message, $this);
 
-		@wp_mail(get_option('admin_email'), sprintf(__('[%s] New Member Registration', 'mpt'), $blogname), $message);
+		// Send mail to admin
+		@wp_mail(get_option('admin_email'), $subject, $message);
 
 		if ( empty($plaintext_pass) ) {
 			return false;
@@ -260,7 +265,11 @@ class MPT_Member {
 		$message .= sprintf(__('Password: %s', 'mpt'), $plaintext_pass) . "\r\n";
 		$message .= mpt_get_login_permalink() . "\r\n";
 		
-		return wp_mail($email, sprintf(__('[%s] Your username and password', 'mpt'), $blogname), $message);
+		// Allow plugins hooks
+		$subject = apply_filters('mpt_register_notification_subject', sprintf(__('[%s] Your username and password', 'mpt'), $blogname), $this);
+		$message = apply_filters('mpt_register_notification_message', $message, $plaintext_pass, $this);
+		
+		return wp_mail($email, $subject, $message);
 	}
 	
 	/**
@@ -268,7 +277,7 @@ class MPT_Member {
 	 */
 	function get_display_name() {
 		if ( !$this->exists() ) { // Valid instance member ?
-			return false;
+			return '';
 		}
 		
 		// Build post title
@@ -283,7 +292,7 @@ class MPT_Member {
 			$display_name = $this->id;
 		}
 		
-		return $display_name;
+		return apply_filters('mpt_get_display_name', $display_name, $this);
 	}
 	
 	/**
@@ -303,6 +312,9 @@ class MPT_Member {
 		
 		// Get display name
 		$display_name = $this->get_display_name();
+		
+		// Allow plugin change display name
+		$display_name = apply_filters('mpt_regenerate_post_title', $display_name, $this);
 		
 		// update DB
 		$wpdb->update( $wpdb->posts, array('post_title' => $display_name, 'post_name' => sanitize_title($display_name)), array('ID' => $this->id) );

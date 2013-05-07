@@ -1,1 +1,18 @@
 #post-body-content { display:none; }
+
+/* Import page styles */
+.import-success {
+	padding: 5px;
+	width: 400px;
+	background: #DCFAE0;
+	border: 1px solid green;
+	border-radius: 3px;
+}
+
+.import-error {
+	padding: 5px;
+	width: 400px;
+	background: #FADCDC;
+	border: 1px solid red;
+	border-radius: 3px;
+}

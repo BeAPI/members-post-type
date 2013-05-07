@@ -102,7 +102,7 @@ _mpt_load_files(MPT_DIR . 'classes/', array('main', 'plugin', 'post-type', 'role
 
 // Plugin admin classes
 if (is_admin()) {
-	_mpt_load_files(MPT_DIR . 'classes/admin/', array('main', 'post-type', 'taxonomy', 'settings-main', 'settings-pages', 'settings-security'), 'class-');
+	_mpt_load_files(MPT_DIR . 'classes/admin/', array('main', 'post-type', 'taxonomy', 'import', 'settings-main', 'settings-pages', 'settings-security'), 'class-');
 }
 
 // Plugin activate/desactive hooks

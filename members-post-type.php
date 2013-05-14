@@ -97,12 +97,16 @@ _mpt_load_files(MPT_DIR . 'classes/', array('main', 'plugin', 'post-type', 'role
 
 // Plugin admin classes
 if (is_admin()) {
+<<<<<<< HEAD
 	_mpt_load_files(MPT_DIR . 'classes/admin/', array('main', 'post-type', 'taxonomy', 'settings-main'), 'class-');
 
 	// Load class for API settings
 	if ( !class_exists('WeDevs_Settings_API') ) {
 		require_once(MPT_DIR.'libraries/wordpress-settings-api-class/class.settings-api.php');
 	}
+=======
+	_mpt_load_files(MPT_DIR . 'classes/admin/', array('main', 'post-type', 'taxonomy', 'import', 'settings-main', 'settings-pages', 'settings-security'), 'class-');
+>>>>>>> 3a6a5659a3c080c835dd961a2d3c8c7d5acb95bb
 }
 
 // Plugin activate/desactive hooks

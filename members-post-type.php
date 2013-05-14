@@ -132,6 +132,7 @@ function init_mpt_plugin() {
 		new MPT_Admin_Main();
 		new MPT_Admin_Post_Type();
 		new MPT_Admin_Taxonomy();
+		new MPT_Admin_Import();
 	}
 
 	// Widget

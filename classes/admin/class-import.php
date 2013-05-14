@@ -4,24 +4,24 @@ class MPT_Admin_Import {
 	private static $option_name = "mpt_last_import_report";
 	
 	public function __construct() {
-		add_action( 'admin_menu', array( __CLASS__ , 'add_import_page' ) );
-		add_action( 'init', array( __CLASS__ , 'add_ressources' ) );
-		add_action( 'admin_init', array( __CLASS__ , 'check_import' ) );
+		add_action( 'admin_menu', array( __CLASS__ , 'admin_menu' ) );
+		add_action( 'admin_init', array( __CLASS__ , 'admin_init' ) );
 	}
 	
-	public static function add_import_page() {
-		add_submenu_page('edit.php?post_type=member', 'Import members', 'Import members', 'manage_options', 'member-import', array( __CLASS__, 'render_member_import_page' ));
+	public static function admin_menu() {
+		$hook = add_submenu_page('edit.php?post_type=member', 'Import members', 'Import members', 'manage_options', 'member-import', array( __CLASS__, 'page' ));
+		add_action( 'admin_head-'.$hook, array( __CLASS__ , 'admin_head' ) );
 	}
 	
-	public static function add_ressources() {
+	public static function admin_head() {
 		wp_enqueue_style ( MPT_CPT_NAME . '-post', MPT_URL . 'assets/css/admin.css', array( ), MPT_VERSION, 'all' );
 	}
 	
-	public static function render_member_import_page() {
+	public static function page() {
 		include (MPT_DIR . 'views/admin/page-import.php');
 	}
 	
-	public static function check_import() {
+	public static function admin_init() {
 		// Check the nonce
 		self::_check_nonce( 'import-members' );
 		

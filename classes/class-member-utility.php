@@ -7,7 +7,7 @@ class MPT_Member_Utility {
 	 */
 	public static function is_allowed_email_signon() {
 		$options = (array) get_option( 'mpt-main' );
-		if ( isset($options['allow-signon-email']) && (int) $options['allow-signon-email'] == 'on' ) {
+		if ( isset($options['allow-signon-email']) && $options['allow-signon-email'] == 'on' ) {
 			return true;
 		}
 		
@@ -19,7 +19,7 @@ class MPT_Member_Utility {
 	 */
 	public static function is_unique_email() {
 		$options = (array) get_option( 'mpt-main' );
-		if ( isset($options['unique-email']) && (int) $options['unique-email'] == 'on' ) {
+		if ( isset($options['unique-email']) && $options['unique-email'] == 'on' ) {
 			return true;
 		}
 		

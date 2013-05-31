@@ -317,7 +317,7 @@ class MPT_Member {
 		$display_name = apply_filters('mpt_regenerate_post_title', $display_name, $this);
 		
 		// update DB
-		$wpdb->update( $wpdb->posts, array('post_title' => $display_name, 'post_name' => wp_unique_post_slug( sanitize_title( $display_name ), $this->id, $this->post_status, MPT_CPT_NAME, $this->post_parent ) ), array('ID' => $this->id) );
+		$wpdb->update( $wpdb->posts, array('post_title' => $display_name, 'post_name' => wp_unique_post_slug( sanitize_title( $display_name ), $this->id, $this->_object->post_status, MPT_CPT_NAME, $this->_object->post_parent ) ), array('ID' => $this->id) );
 		
 		// Refresh cache
 		clean_post_cache($this->id);

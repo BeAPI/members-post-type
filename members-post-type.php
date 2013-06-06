@@ -32,6 +32,9 @@
 	
 	Content restriction via roles
 	Browse as
+	
+	Emails Notifications
+ 		Get defaut values in $settings_fields array if empty in backoffice
  ----
 
  Copyright 2013 Amaury Balmer (amaury@beapi.fr)

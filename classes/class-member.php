@@ -210,14 +210,31 @@ class MPT_Member {
 			return $stop;
 		}
 		
+		$contents = get_option('mpt-emails');
+		if( empty( $contents['recipient_admin_email_lost_pwd'] ) ){
+			$recipient = get_option('admin_email');
+		}else{
+			$recipient = stripslashes( $contents['recipient_admin_email_lost_pwd']);
+		}
 		// send a copy of password change notification to the admin
 		// but check to see if it's the admin whose password we're changing, and skip this
-		if ( $this->email != get_option('admin_email') ) {
-			$message = sprintf(__('Password Lost and Changed for member: %s'), $this->username) . "\r\n";
+		if ( $this->email != $recipient ) {
 			// The blogname option is escaped with esc_html on the way into the database in sanitize_option
 			// we want to reverse this for the plain text arena of emails.
 			$blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
-			wp_mail(get_option('admin_email'), sprintf(__('[%s] Password Lost/Changed'), $blogname), $message);
+			
+			$subject = $contents['admin_lost_pwd_subject_email'];
+			$message = $contents['admin_lost_pwd_content_email']; 
+			
+			// TODO Add default value and not return false
+			if( empty($subject) && empty($message) ){
+				return false;
+			}
+			
+			$subject = str_replace( '%%blog_name%%', $blogname, $subject );
+			$message = str_replace( '%%username%%' , $this->username , $message);
+
+			wp_mail( $recipient , $subject, $message);
 			return true;
 		}
 		
@@ -239,34 +256,58 @@ class MPT_Member {
 			return false;
 		}
 		
-		$username = stripslashes($this->username);
+		$username = stripslashes($this->get_display_name());
 		$email = stripslashes($this->email);
 
 		// The blogname option is escaped with esc_html on the way into the database in sanitize_option
 		// we want to reverse this for the plain text arena of emails.
+		
 		$blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
-
-		$message  = sprintf(__('New member registration on your site %s:', 'mpt'), $blogname) . "\r\n\r\n";
-		$message .= sprintf(__('Username: %s', 'mpt'), $username) . "\r\n\r\n";
-		$message .= sprintf(__('E-mail: %s', 'mpt'), $email) . "\r\n";
+		
+		$contents = get_option('mpt-emails');
+		// Get all options for admin notification email.
+		$message = $contents['content_admin_email'];
+		$subject = $contents[ 'subject_admin_email'];
+		$admin_recipient = $contents['recipient_admin_email'];
+		
+		//No message ? No object ? No recipient ? Go OUT !!!
+		// TODO Add default value and not return false
+		if( empty($message) && empty($object) ){
+			return false;
+		}
+		if( empty($admin_recipient) ){
+			$admin_recipient = get_option( 'admin_email' );
+		}
+		
+		$subject = str_replace( '%%blog_name%%', $blogname, $subject );
+		$message = str_replace( '%%blog_name%%' , $blogname , $message);
+		$message = str_replace( '%%username%%' , $username , $message);
+		$message = str_replace( '%%user_email%%' , $email , $message);
 		
 		// Allow plugins hooks
-		$subject = apply_filters('mpt_register_admin_notification_subject', sprintf(__('[%s] New Member Registration', 'mpt'), $blogname), $this);
+		$subject = apply_filters('mpt_register_admin_notification_subject', $subject, $this);
 		$message = apply_filters('mpt_register_admin_notification_message', $message, $this);
 
 		// Send mail to admin
-		@wp_mail(get_option('admin_email'), $subject, $message);
+		@wp_mail( stripslashes($admin_recipient), $subject, $message);
 
 		if ( empty($plaintext_pass) ) {
 			return false;
 		}
+		$message = $contents['member_register_content_email'];
+		$subject = $contents[ 'member_register_subject_email'];
 		
-		$message  = sprintf(__('Username: %s', 'mpt'), $username) . "\r\n";
-		$message .= sprintf(__('Password: %s', 'mpt'), $plaintext_pass) . "\r\n";
-		$message .= mpt_get_login_permalink() . "\r\n";
+		if( empty($message) && empty($object) ){
+			return false;
+		}
+		
+		$subject = str_replace( '%%blog_name%%', $blogname, $subject );
+		$message = str_replace( '%%username%%' , $username , $message);
+		$message = str_replace( '%%password%%' , $plaintext_pass , $message);
+		$message = str_replace( '%%login_url%%' , mpt_get_login_permalink() , $message);
 		
 		// Allow plugins hooks
-		$subject = apply_filters('mpt_register_notification_subject', sprintf(__('[%s] Your username and password', 'mpt'), $blogname), $this);
+		$subject = apply_filters('mpt_register_notification_subject', $subject, $this);
 		$message = apply_filters('mpt_register_notification_message', $message, $plaintext_pass, $this);
 		
 		return wp_mail($email, $subject, $message);
@@ -315,7 +356,7 @@ class MPT_Member {
 		
 		// Allow plugin change display name
 		$display_name = apply_filters('mpt_regenerate_post_title', $display_name, $this);
-		
+
 		// update DB
 		$wpdb->update( $wpdb->posts, array('post_title' => $display_name, 'post_name' => wp_unique_post_slug( sanitize_title( $display_name ), $this->id, $this->_object->post_status, MPT_CPT_NAME, $this->_object->post_parent ) ), array('ID' => $this->id) );
 		
@@ -353,22 +394,30 @@ class MPT_Member {
 			return false;
 		}
 		
-		// Build message text
-		$message = __('Someone requested that the password be reset for the following account:') . "\r\n\r\n";
-		$message .= network_site_url() . "\r\n\r\n";
-		$message .= sprintf(__('Username: %s'), $this->get_display_name()) . "\r\n\r\n";
-		$message .= __('If this was a mistake, just ignore this email and nothing will happen.') . "\r\n\r\n";
-		$message .= __('To reset your password, visit the following address:') . "\r\n\r\n";
-		$message .= '<' . add_query_arg( array('mpt-action' => 'lost-password', 'key' => $key, 'id' => $this->id), mpt_get_lost_password_permalink()) . ">\r\n";
+		$contents = get_option('mpt-emails');
+		// Get all options for admin notification email.
+		$message = $contents['member_lost_pwd_content_email'];
+		$subject = $contents[ 'member_lost_pwd_subject_email'];
+		
+		//No message ? No object ? Go OUT !!! 
+		// TODO Add default value and not return false
+		if( empty($message) && empty($object) ){
+			return false;
+		}
 		
 		// Build title
-		$title = sprintf( __('[%s] Password Reset'), wp_specialchars_decode(get_option('blogname'), ENT_QUOTES) );
+		$subject = str_replace( '%%blog_name%%', wp_specialchars_decode(get_option('blogname'), ENT_QUOTES) , $subject );
+		
+		// Build message text
+		$message = str_replace( '%%site_url%%', network_site_url(), $message );
+		$message = str_replace( '%%username%%', $this->get_display_name(), $message );
+		$message = str_replace( '%%reset_pwd_link%%', '<' . add_query_arg( array('mpt-action' => 'lost-password', 'key' => $key, 'id' => $this->id), mpt_get_lost_password_permalink() ) . '>', $message );
 		
 		// Allow plugins hooks
-		$title = apply_filters('mpt_retrieve_password_title', $title);
+		$subject = apply_filters('mpt_retrieve_password_title', $subject);
 		$message = apply_filters('mpt_retrieve_password_message', $message, $key);
 		
-		if ( $message && !wp_mail($this->email, $title, $message) )
+		if ( $message && !wp_mail($this->email, $subject, $message) )
 			wp_die( __('The e-mail could not be sent.') . "<br />\n" . __('Possible reason: your host may have disabled the mail() function...') );
 		
 		return true;

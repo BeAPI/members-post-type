@@ -1,7 +1,7 @@
 <?php
 /*
  Plugin Name: Members post type
- Version: 0.3
+ Version: 0.5.2
  Plugin URI: https://github.com/herewithme/members-post-type
  Description: Manage members on WordPress as post type. Implement: post type, authentification, role, clone from WP.
  Author: Amaury Balmer
@@ -22,21 +22,16 @@
  		AJAX Mode
 	
 	Social integration
-		Facebook
-		Twitter
-		Google +
-		+ hooks
+		Facebook / Twitter / Google+
 	
 	Security
-		Login lock
+		Login lock (http://plugins.svn.wordpress.org/simple-login-lockdown/trunk/)
 		Force HTTPs ?
-		Password strategy
-			Minimum character
-			Enforcment
-			Renew
-
+	+	Reset all password
+	+	New random password (https://github.com/soulseekah/Random-New-User-Passwords-for-WordPress)
+	
 	Content restriction via roles
-
+	Browse as
  ----
 
  Copyright 2013 Amaury Balmer (amaury@beapi.fr)
@@ -57,7 +52,7 @@
  */
 
 // Plugin constants
-define('MPT_VERSION', '0.3');
+define('MPT_VERSION', '0.5.2');
 define('MPT_CPT_NAME', 'member');
 define('MPT_TAXO_NAME', 'members-role');
 
@@ -98,11 +93,16 @@ function _mpt_load_files($dir, $files, $prefix = '') {
 _mpt_load_files(MPT_DIR . 'functions/', array('api', 'template'));
 
 // Plugin client classes
-_mpt_load_files(MPT_DIR . 'classes/', array('main', 'plugin', 'post-type', 'roles', 'role', 'shortcode', 'taxonomy', 'member', 'member-auth', 'member-utility', 'widget'), 'class-');
+_mpt_load_files(MPT_DIR . 'classes/', array('main', 'plugin', 'post-type', 'roles', 'role', 'shortcode', 'taxonomy', 'member', 'member-auth', 'member-utility', 'widget', 'security'), 'class-');
 
 // Plugin admin classes
 if (is_admin()) {
-	_mpt_load_files(MPT_DIR . 'classes/admin/', array('main', 'post-type', 'taxonomy', 'settings-main', 'settings-pages', 'settings-security'), 'class-');
+	_mpt_load_files(MPT_DIR . 'classes/admin/', array('main', 'post-type', 'taxonomy', 'import', 'settings-main'), 'class-');
+
+	// Load class for API settings
+	if ( !class_exists('WeDevs_Settings_API') ) {
+		require_once(MPT_DIR.'libraries/wordpress-settings-api-class/class.settings-api.php');
+	}
 }
 
 // Plugin activate/desactive hooks
@@ -124,6 +124,7 @@ function init_mpt_plugin() {
 	new MPT_Post_Type();
 	new MPT_Taxonomy();
 	new MPT_Shortcode();
+	new MPT_Security();
 
 	// Admin
 	if (is_admin()) {
@@ -131,6 +132,7 @@ function init_mpt_plugin() {
 		new MPT_Admin_Main();
 		new MPT_Admin_Post_Type();
 		new MPT_Admin_Taxonomy();
+		new MPT_Admin_Import();
 	}
 
 	// Widget

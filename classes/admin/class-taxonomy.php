@@ -48,12 +48,9 @@ class MPT_Admin_Taxonomy {
     }
 
     public static function edit_form($term, $taxonomy) {
-        // Get MPT_Roles object
-        $mpt_roles = new MPT_Roles();
-
         // Get role
-        $role = $mpt_roles->get_role( $term->slug );
-
+        $role = MPT_Roles::get_role( $term->slug );
+		
         $term->capabilities = array_keys($role->capabilities);
 
         // Call Template
@@ -64,23 +61,20 @@ class MPT_Admin_Taxonomy {
         if ( isset($_POST['mpt-capabilities']) ) {
             // Take caps form _POST
             $caps = ( !isset($_POST['caps']) ) ? array() : (array) $_POST['caps'];
-
+			
             // Filter array for remove empty values
             $caps = array_filter( $caps, 'strlen' );
 
             // Get term data
             $term = get_term( $term_id, MPT_TAXO_NAME );
-
-            // Get MPT_Roles object
-            $mpt_roles = new MPT_Roles();
-            
+			
             // IF empty, drop meta
             if ( empty($caps) ) {
-                $mpt_roles->remove_all_caps( $term->slug );
+                MPT_Roles::remove_all_caps( $term->slug );
             } else {
-                $mpt_roles->remove_all_caps( $term->slug );
+                MPT_Roles::remove_all_caps( $term->slug );
                 foreach( $caps as $cap ) {
-                    $mpt_roles->add_cap( $term->slug, $cap, true );
+                    MPT_Roles::add_cap( $term->slug, $cap, true );
                 }
             }
         }

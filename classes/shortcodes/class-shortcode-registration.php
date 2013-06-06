@@ -63,7 +63,7 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 				if ( $mptr['password'] != $mptr['password_repeat'] ) { // password is the same ?
 					parent::set_message( 'password_repeat', __('The two password you filled doesn\'t match', 'mpt'), 'error' );
 				} elseif( strlen($mptr['password']) < 6 ) { // TODO: Hooks and function for test password security
-					parent::set_message( 'password', __('You password need to be at least 6 characters long', 'mpt'), 'error' );
+					parent::set_message( 'password_security', __('You password need to be at least 6 characters long', 'mpt'), 'error' );
 				}
 			} else {
 				parent::set_message( 'password', __('You need to fill the two password fields', 'mpt'), 'error' );
@@ -71,13 +71,15 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 			
 			// Email valid ?
 			if ( !is_email($mptr['email']) ) {
-				parent::set_message( 'email', __('You need to enter a valid email address', 'mpt'), 'error' );
+				parent::set_message( 'email_invalid', __('You need to enter a valid email address', 'mpt'), 'error' );
 			}
 			
 			// Email exists
 			if ( mpt_is_unique_email() && mpt_email_exists($mptr['email']) ) {
-				parent::set_message( 'email', __('This email address is already taken', 'mpt'), 'error' );
+				parent::set_message( 'email_exists', __('This email address is already taken', 'mpt'), 'error' );
 			}
+
+			do_action( 'mpt_shortcode_check_registration', $mptr );
 			
 			// Have messages ?
 			$messages = parent::get_messages( 'raw' );
@@ -110,7 +112,7 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 				unset($_POST['mptregistration']);
 				
 				// Set success message
-				parent::set_message( 'mptregistration', __( 'Your account has beed created. You can now log-in with your access', 'mpt' ), 'success' );
+				parent::set_message( 'mptregistration', __( 'Your account has been created. You can now log-in with your access', 'mpt' ), 'success' );
 			}
 		}
 		

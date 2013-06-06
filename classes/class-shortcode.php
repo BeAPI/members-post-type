@@ -57,22 +57,26 @@ class MPT_Shortcode {
 		if ( !isset($mpt_messages) ) {
 			$mpt_messages = array();
 		}
+
+		$mpt_messages = apply_filters( 'mpt_get_messages', $mpt_messages, $format );
 		
-		if ( $format == 'display' ) {
+		if ( $format == 'display' && !empty($mpt_messages) ) {
 			$output = '';
 			foreach( $mpt_messages as $field => $message ) {
 				$output .= '<div class="field-target-' . esc_attr($field) . ' ' . esc_attr($message['status']) . '">' . stripslashes($message['message']) . '</div>';
 			}
 			return $output;
 		} else {
-			return $mpt_messages;
+			return ( $format == 'display' ) && empty( $mpt_messages ) ? '' : $mpt_messages;
 		}
 	}
 	
 	/**
 	 * Set message success/error global messages
 	 * 
-	 * @param format the return format. 'display' for having the div container, 'raw' for having an array
+	 * @param string $field the key of the message in the global messages
+	 * @param string $message the message
+	 * @param string $status the message status
 	 * @author Benjamin Niess
 	 */
 	public static function set_message( $field = '', $message = '', $status = 'error' ) {
@@ -86,7 +90,28 @@ class MPT_Shortcode {
 			$mpt_messages = array();
 		}
 		
-		$mpt_messages[$field] = array('status' => $status, 'message' => $message);
+		$mpt_messages[$field] = apply_filters( 'mpt_set_message', array('status' => $status, 'message' => $message), $field );
+		return true;
+	}
+	
+	/**
+	 * Remove a succes/error message from global messages
+	 * 
+	 * @params string $field the field of the message to be removed
+	 */
+	public static function remove_message( $field ) {
+		global $mpt_messages;
+		
+		if ( !isset($mpt_messages) ) {
+			return false;
+		}
+		
+		if ( !isset($mpt_messages[$field]) ) {
+			return false;
+		}
+		
+		unset( $mpt_messages[$field] );
+		
 		return true;
 	}
 }

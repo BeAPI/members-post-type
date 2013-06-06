@@ -49,13 +49,8 @@ class MPT_Role {
      * @param bool $grant Whether role has capability privilege.
      */
     public function add_cap( $cap, $grant = true ) {
-        global $mpt_roles;
-
-        if ( ! isset( $mpt_roles ) )
-            $mpt_roles = new MPT_Roles();
-
         $this->capabilities[$cap] = $grant;
-        $mpt_roles->add_cap( $this->name, $cap, $grant );
+        MPT_Roles::add_cap( $this->name, $cap, $grant );
     }
 
     /**
@@ -72,13 +67,8 @@ class MPT_Role {
      * @param string $cap Capability name.
      */
     public function remove_cap( $cap ) {
-        global $mpt_roles;
-
-        if ( ! isset( $mpt_roles ) )
-            $mpt_roles = new MPT_Roles();
-
         unset( $this->capabilities[$cap] );
-        $mpt_roles->remove_cap( $this->name, $cap );
+        MPT_Roles::remove_cap( $this->name, $cap );
     }
 
     /**

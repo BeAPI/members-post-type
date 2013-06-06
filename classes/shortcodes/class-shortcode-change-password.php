@@ -13,6 +13,10 @@ class MPT_Shortcode_Change_Password extends MPT_Shortcode {
 	 * @return string HTML of shortcode
 	 */
 	public static function shortcode() {
+		if( isset($_GET['mpt-action']) && $_GET['mpt-action'] == 'force-change-password' ) {
+			parent::set_message( 'force_change_password', __('Your password has expired. You must change before continuing your visit.', 'mpt') );
+		}
+		
 		// Member logged-in ?
 		if ( !mpt_is_member_logged_in() ) {
 			return __('You can\'t change your password, if you aren\'t logged-in.', 'mpt');
@@ -46,12 +50,6 @@ class MPT_Shortcode_Change_Password extends MPT_Shortcode {
 				return false;
 			}
 			
-			// Check password complexity
-			if( strlen($_POST['mptchangepwd']['new']) < 6 ) { // TODO: Hooks and function for test password security
-				parent::set_message( 'new', __('You password need to be at least 6 characters long', 'mpt'), 'error' );
-				return false;
-			}
-			
 			// Get current member info
 			$current_member = MPT_Member_Auth::get_current_member();
 			
@@ -60,12 +58,31 @@ class MPT_Shortcode_Change_Password extends MPT_Shortcode {
 			
 			// result sign-on are error ?
 			if ( is_wp_error($result) ) {
-				parent::set_message( 'old', __('You old password is incorrect.', 'mpt'), 'error' );
+				parent::set_message( 'old_incorrect', __('You old password is incorrect.', 'mpt'), 'error' );
 				return false;
 			}
 			
 			// Set new password
-			$current_member->set_password($_POST['mptchangepwd']['new']);
+			$result = $current_member->set_password($_POST['mptchangepwd']['new']);
+			if ( $result !== true ) {
+				if ( is_wp_error($result) ) {
+					parent::set_message( $result->get_error_code(), $result->get_error_message(), 'error' );
+				} elseif( is_array($result) ) {
+					foreach ( $result as $_result ) {
+						if ( is_wp_error($_result) ) {
+							parent::set_message( $_result->get_error_code(), $_result->get_error_message(), 'error' );
+						}
+					}
+				}
+				
+				// Have messages ? If empty, set generic error password
+				$messages = parent::get_messages( 'raw' );
+				if ( empty($messages) ) {
+					parent::set_message( 'change_password_generic_error', __('An error occurred, password has not been changed.', 'mpt'), 'error' );
+				}
+				
+				return true;
+			}
 			
 			// Force logout
 			MPT_Member_Auth::logout();
@@ -82,7 +99,7 @@ class MPT_Shortcode_Change_Password extends MPT_Shortcode {
 				return false;
 			}
 			
-			parent::set_message( 'old', __('Password updated with success.', 'mpt'), 'updated' );
+			parent::set_message( 'change_password_success', __('Password updated with success.', 'mpt'), 'updated' );
 			return true;
 		}
 		

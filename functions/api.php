@@ -96,12 +96,7 @@ function member_can( $member, $capability ) {
  * @return object
  */
 function mpt_get_role( $role ) {
-	global $mpt_roles;
-
-	if ( ! isset( $mpt_roles ) )
-		$mpt_roles = new MPT_Roles();
-
-	return $mpt_roles->get_role( $role );
+	return MPT_Roles::get_role( $role );
 }
 
 /**
@@ -115,12 +110,7 @@ function mpt_get_role( $role ) {
  * @return null|MPT_Role MPT_Role object if role is added, null if already exists.
  */
 function mpt_add_role( $role, $display_name, $capabilities = array() ) {
-	global $mpt_roles;
-
-	if ( ! isset( $mpt_roles ) )
-		$mpt_roles = new MPT_Roles();
-
-	return $mpt_roles->add_role( $role, $display_name, $capabilities );
+	return MPT_Roles::add_role( $role, $display_name, $capabilities );
 }
 
 /**
@@ -132,10 +122,5 @@ function mpt_add_role( $role, $display_name, $capabilities = array() ) {
  * @return null
  */
 function mpt_remove_role( $role ) {
-	global $mpt_roles;
-
-	if ( ! isset( $mpt_roles ) )
-		$mpt_roles = new MPT_Roles();
-
-	return $mpt_roles->remove_role( $role );
+	return MPT_Roles::remove_role( $role );
 }

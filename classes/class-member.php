@@ -140,18 +140,26 @@ class MPT_Member {
 	 *
 	 * @param string $password The plaintext new member password
 	 */
-	public function set_password( $password = '' ) {
+	public function set_password( $new_password = '' ) {
 		if ( !$this->exists() ) { // Valid instance member ?
 			return false;
 		}
 
-		if ( empty($password) ) { // Valid password ?
+		if ( empty($new_password) ) { // Valid password ?
 			return false;
 		}
+		
+		$stop = apply_filters_ref_array('mpt_set_password_check', array(false, $new_password, &$this) );
+		if ( $stop !== false ) {
+			return $stop;
+		}
+		
+		$old_hash = $this->password;
+		$new_hash = wp_hash_password($new_password);
 
-		$hash = wp_hash_password($password);
-
-		update_post_meta( $this->id, 'password', $hash );
+		update_post_meta( $this->id, 'password', $new_hash );
+		do_action_ref_array('mpt_set_password', array($new_hash, $new_password, $old_hash, &$this) );
+		
 		delete_post_meta( $this->id, 'activation_key' );
 
 		return true;
@@ -198,8 +206,8 @@ class MPT_Member {
 		}
 		
 		$stop = apply_filters_ref_array('mpt_password_change_notification', array(false, &$this) );
-		if ( $stop == true ) {
-			return false;
+		if ( $stop === true ) {
+			return $stop;
 		}
 		
 		// send a copy of password change notification to the admin
@@ -227,7 +235,7 @@ class MPT_Member {
 		}
 		
 		$stop = apply_filters_ref_array('mpt_register_notification', array(false, &$this, $plaintext_pass) );
-		if ( $stop == true ) {
+		if ( $stop === true ) {
 			return false;
 		}
 		
@@ -241,8 +249,13 @@ class MPT_Member {
 		$message  = sprintf(__('New member registration on your site %s:', 'mpt'), $blogname) . "\r\n\r\n";
 		$message .= sprintf(__('Username: %s', 'mpt'), $username) . "\r\n\r\n";
 		$message .= sprintf(__('E-mail: %s', 'mpt'), $email) . "\r\n";
+		
+		// Allow plugins hooks
+		$subject = apply_filters('mpt_register_admin_notification_subject', sprintf(__('[%s] New Member Registration', 'mpt'), $blogname), $this);
+		$message = apply_filters('mpt_register_admin_notification_message', $message, $this);
 
-		@wp_mail(get_option('admin_email'), sprintf(__('[%s] New Member Registration', 'mpt'), $blogname), $message);
+		// Send mail to admin
+		@wp_mail(get_option('admin_email'), $subject, $message);
 
 		if ( empty($plaintext_pass) ) {
 			return false;
@@ -252,7 +265,11 @@ class MPT_Member {
 		$message .= sprintf(__('Password: %s', 'mpt'), $plaintext_pass) . "\r\n";
 		$message .= mpt_get_login_permalink() . "\r\n";
 		
-		return wp_mail($email, sprintf(__('[%s] Your username and password', 'mpt'), $blogname), $message);
+		// Allow plugins hooks
+		$subject = apply_filters('mpt_register_notification_subject', sprintf(__('[%s] Your username and password', 'mpt'), $blogname), $this);
+		$message = apply_filters('mpt_register_notification_message', $message, $plaintext_pass, $this);
+		
+		return wp_mail($email, $subject, $message);
 	}
 	
 	/**
@@ -260,7 +277,7 @@ class MPT_Member {
 	 */
 	function get_display_name() {
 		if ( !$this->exists() ) { // Valid instance member ?
-			return false;
+			return '';
 		}
 		
 		// Build post title
@@ -275,7 +292,7 @@ class MPT_Member {
 			$display_name = $this->id;
 		}
 		
-		return $display_name;
+		return apply_filters('mpt_get_display_name', $display_name, $this);
 	}
 	
 	/**
@@ -293,8 +310,14 @@ class MPT_Member {
 			$this->fill_by('id', $this->id);
 		}
 		
+		// Get display name
+		$display_name = $this->get_display_name();
+		
+		// Allow plugin change display name
+		$display_name = apply_filters('mpt_regenerate_post_title', $display_name, $this);
+		
 		// update DB
-		$wpdb->update( $wpdb->posts, array('post_title' => $this->get_display_name()), array('ID' => $this->id) );
+		$wpdb->update( $wpdb->posts, array('post_title' => $display_name, 'post_name' => wp_unique_post_slug( sanitize_title( $display_name ), $this->id, $this->_object->post_status, MPT_CPT_NAME, $this->_object->post_parent ) ), array('ID' => $this->id) );
 		
 		// Refresh cache
 		clean_post_cache($this->id);
@@ -326,7 +349,7 @@ class MPT_Member {
 		}
 		
 		$stop = apply_filters_ref_array('mpt_reset_password_notification', array(false, &$this, $key) );
-		if ( $stop == true ) {
+		if ( $stop === true ) {
 			return false;
 		}
 		
@@ -380,23 +403,17 @@ class MPT_Member {
 	 * specific roles that their role might have, but the specific member isn't
 	 * granted permission to.
 	 *
-	 * @uses $mpt_roles
 	 * @access public
 	 */
 	public function get_role_caps() {
-		global $mpt_roles;
-
-		if ( ! isset( $mpt_roles ) )
-			$mpt_roles = new MPT_Roles();
-
 		// Filter out caps that are not role names and assign to $this->roles
 		if ( is_array( $this->caps ) )
-			$this->roles = array_filter( array_keys( $this->caps ), array( $mpt_roles, 'is_role' ) );
+			$this->roles = array_filter( array_keys( $this->caps ), array( 'MPT_Roles', 'is_role' ) );
 		
 		// Build $allcaps from role caps, overlay member's $caps
 		$this->allcaps = array();
 		foreach ( (array) $this->roles as $role ) {
-			$the_role = $mpt_roles->get_role( $role );
+			$the_role = MPT_Roles::get_role( $role );
 			$this->allcaps = array_merge( (array) $this->allcaps, (array) $the_role->capabilities );
 		}
 		$this->allcaps = array_merge( (array) $this->allcaps, (array) $this->caps );

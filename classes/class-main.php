@@ -65,9 +65,9 @@ class MPT_Main {
 			return false;
 		}
 
-		$current_options = get_option('mpt-pages');
-		if (isset($current_options['page-lost-password']) && !empty($current_options['page-lost-password'])) {
-			if (is_page($current_options['page-lost-password'])) {
+		$page_lost_password = mpt_get_option_value( 'mpt-pages', 'page-lost-password' );
+		if ( !empty($page_lost_password) ) {
+			if (is_page($page_lost_password)) {
 				wp_redirect(home_url('/'));
 				exit();
 			}
@@ -125,7 +125,7 @@ class MPT_Main {
 	 */
 	public static function get_action_permalink($action = '') {
 		// Get page ids from options
-		$current_options = (array) get_option('mpt-pages');
+		$current_options = (array) MPT_Options::get_option('mpt-pages');
 
 		// URL
 		$return_url = '';

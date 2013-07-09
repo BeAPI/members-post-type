@@ -235,7 +235,7 @@ class MPT_Member {
 			return $stop;
 		}
 
-		$recipient = (array)MPT_Options::get_option_value( 'mpt-emails', 'lost_password_admin_mail' );
+		$recipient = (array) mpt_get_option_value( 'mpt-emails', 'lost_password_admin_mail' );
 		foreach( array_map( 'trim', $recipient ) as $mail ) {
 			// send a copy of password change notification to the admin
 			// but check to see if it's the admin whose password we're changing, and skip this
@@ -244,8 +244,8 @@ class MPT_Member {
 				// we want to reverse this for the plain text arena of emails.
 				$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
 
-				$subject = MPT_Options::get_option_value( 'mpt-emails', 'lost_password_admin_subject' );
-				$content = MPT_Options::get_option_value( 'mpt-emails', 'lost_password_admin_content' );
+				$subject = mpt_get_option_value( 'mpt-emails', 'lost_password_admin_subject', true  );
+				$content = mpt_get_option_value( 'mpt-emails', 'lost_password_admin_content', true  );
 
 				//Empty subject ? Empty content ? go out.
 				if( empty( $subject ) && empty( $message ) ) {
@@ -287,9 +287,9 @@ class MPT_Member {
 		$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
 
 		// Get all options for admin notification email.
-		$message = MPT_Options::get_option_value( 'mpt-emails', 'registration_member_admin_content' );
-		$subject = MPT_Options::get_option_value( 'mpt-emails', 'registration_member_admin_subject' );
-		$admin_recipient = (array)MPT_Options::get_option_value( 'mpt-emails', 'registration_member_admin_mail' );
+		$message = mpt_get_option_value( 'mpt-emails', 'registration_member_admin_content', true );
+		$subject = mpt_get_option_value( 'mpt-emails', 'registration_member_admin_subject', true  );
+		$admin_recipient = (array) mpt_get_option_value( 'mpt-emails', 'registration_member_admin_mail' );
 		
 		//No message ? No object ? No recipient ? Go OUT !!!
 		if( empty( $message ) && empty( $object ) ) {
@@ -301,16 +301,17 @@ class MPT_Member {
 		$message = str_replace( '%%username%%', $username, $message );
 		$message = str_replace( '%%user_email%%', $email, $message );
 
-		foreach( array_map( 'trim', $admin_recipient ) as $mail ) {
+		foreach( $admin_recipient as $mail ) {
 			// Send mail to admin
-			@wp_mail( stripslashes( $mail ), $subject, $message );
+			@wp_mail( stripslashes( trim($mail) ), $subject, $message );
 		}
 
 		if( empty( $plaintext_pass ) ) {
 			return false;
 		}
-		$message = MPT_Options::get_option_value( 'mpt-emails', 'register_member_content' );
-		$subject = MPT_Options::get_option_value( 'mpt-emails', 'register_member_subject' );
+		
+		$message = mpt_get_option_value( 'mpt-emails', 'register_member_content', true  );
+		$subject = mpt_get_option_value( 'mpt-emails', 'register_member_subject', true  );
 		
 		if( empty( $message ) && empty( $object ) ) {
 			return false;
@@ -413,8 +414,8 @@ class MPT_Member {
 		}
 
 		// Get all options for admin notification email.
-		$message = MPT_Options::get_option_value( 'mpt-emails', 'lost_password_member_content' );
-		$subject = MPT_Options::get_option_value( 'mpt-emails', 'lost_password_member_subject' );
+		$message = mpt_get_option_value( 'mpt-emails', 'lost_password_member_content', true  );
+		$subject = mpt_get_option_value( 'mpt-emails', 'lost_password_member_subject', true  );
 
 		//No message ? No object ? Go OUT !!!
 		if( empty( $message ) && empty( $object ) ) {

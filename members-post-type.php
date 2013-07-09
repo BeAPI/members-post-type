@@ -1,7 +1,7 @@
 <?php
 /*
  Plugin Name: Members post type
- Version: 0.5.2
+ Version: 0.5.3
  Plugin URI: https://github.com/herewithme/members-post-type
  Description: Manage members on WordPress as post type. Implement: post type, authentification, role, clone from WP.
  Author: Amaury Balmer
@@ -32,6 +32,9 @@
 	
 	Content restriction via roles
 	Browse as
+	
+	Optimisations
+ 		Replace get_option by MPT_Options::get_option();
  ----
 
  Copyright 2013 Amaury Balmer (amaury@beapi.fr)
@@ -93,7 +96,7 @@ function _mpt_load_files($dir, $files, $prefix = '') {
 _mpt_load_files(MPT_DIR . 'functions/', array('api', 'template'));
 
 // Plugin client classes
-_mpt_load_files(MPT_DIR . 'classes/', array('main', 'plugin', 'post-type', 'roles', 'role', 'shortcode', 'taxonomy', 'member', 'member-auth', 'member-utility', 'widget', 'security'), 'class-');
+_mpt_load_files(MPT_DIR . 'classes/', array('main', 'plugin', 'post-type', 'roles', 'role', 'shortcode', 'taxonomy', 'member', 'member-auth', 'member-utility','options', 'widget', 'security'), 'class-');
 
 // Plugin admin classes
 if (is_admin()) {

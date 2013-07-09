@@ -91,4 +91,39 @@ class MPT_Plugin {
 
 		return array_merge($capabilities['post_type'], $capabilities['taxonomy']);
 	}
+
+	public static function _get_roles( ) {
+		$roles = array( );
+
+		// Add no default role
+		$roles['none'] = __( 'No default role', 'mpt' );
+
+		// Add registered roles
+		$terms = MPT_Roles::get_roles( );
+		if(empty($terms)){
+			return false;
+		}
+		foreach( $terms as $term ) {
+			$roles[$term->slug] = $term->name;
+		}
+
+		return $roles;
+	}
+
+	/**
+	 * Get all the pages
+	 *
+	 * @return array page names with key value pairs
+	 */
+	public static function _get_pages( ) {
+		$pages = get_pages( );
+		$pages_options = array( 0 => __( 'Select a page', 'mpt' ) );
+		if( $pages ) {
+			foreach( $pages as $page ) {
+				$pages_options[$page->ID] = $page->post_title;
+			}
+		}
+
+		return $pages_options;
+	}
 }

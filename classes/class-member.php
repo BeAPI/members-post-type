@@ -111,6 +111,22 @@ class MPT_Member {
 
 		return true;
 	}
+	
+	/**
+	 * Retrieve member info by a given meta key/values
+	 *
+	 * @param string $field The field (meta_kye) to retrieve the member
+	 * @param int|string $value A value for $field.  A meta value
+	 * @return bool False on failure, True on success
+	 */
+	public function fill_by_meta( $field, $value ) {
+		$id = self::get_id_from_key_value( $field, $value );
+		if( $id == 0 ) {
+			return false;
+		}
+		
+		return $this->fill_by( 'id', $id );
+	}
 
 	/**
 	 * Update post meta value of members

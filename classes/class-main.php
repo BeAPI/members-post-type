@@ -1,4 +1,5 @@
 <?php
+
 class MPT_Main {
 
 	/**
@@ -11,20 +12,38 @@ class MPT_Main {
 	public function __construct() {
 		// Init once MPT roles
 		add_action('init', array(__CLASS__, 'init_roles'), 12);
-		
+
+		// Init AJAX hook
+		add_action('init', array(__CLASS__, 'init_ajax_hooks'), 15);
+
 		// Manage redirections
 		add_action('init', array(__CLASS__, 'init'), 10);
-		add_action('template_redirect', array(__CLASS__, 'template_redirect'), 10 );
-		
+		add_action('template_redirect', array(__CLASS__, 'template_redirect'), 10);
+
 		// Bodyclass for theme
 		add_action('body_class', array(__CLASS__, 'body_class'));
-		
+
 		// Counter/date connection
 		add_action('mpt_login', array(__CLASS__, 'mpt_login'), 10, 2);
 	}
-	
+
+	/**
+	 * Init MPT Roles
+	 */
 	public static function init_roles() {
 		MPT_Roles::init();
+	}
+
+	/**
+	 * Implement hooks for AJAX call
+	 * Clone wp_ajax_ and wp_ajax_nopriv_
+	 */
+	public static function init_ajax_hooks() {
+		if ( mpt_is_member_logged_in() ) {
+			do_action('mpt_ajax_' . $_REQUEST['action']); // Authenticated actions
+		} else {
+			do_action('mpt_ajax_nopriv_' . $_REQUEST['action']); // Non-member actions
+		}
 	}
 
 	/**
@@ -65,8 +84,8 @@ class MPT_Main {
 			return false;
 		}
 
-		$page_lost_password = mpt_get_option_value( 'mpt-pages', 'page-lost-password' );
-		if ( !empty($page_lost_password) ) {
+		$page_lost_password = mpt_get_option_value('mpt-pages', 'page-lost-password');
+		if (!empty($page_lost_password)) {
 			if (is_page($page_lost_password)) {
 				wp_redirect(home_url('/'));
 				exit();
@@ -139,7 +158,7 @@ class MPT_Main {
 				if (isset($current_options['page-' . $action]) && absint($current_options['page-' . $action]) > 0) {
 					$return_url = get_permalink($current_options['page-' . $action]);
 				} else {
-					$return_url = home_url('/#no-page-id-for-'.$action);
+					$return_url = home_url('/#no-page-id-for-' . $action);
 				}
 				break;
 			case 'logout' :
@@ -152,4 +171,5 @@ class MPT_Main {
 
 		return apply_filters('mpt_action_permalink', $return_url, $action);
 	}
+
 }

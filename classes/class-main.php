@@ -44,7 +44,7 @@ class MPT_Main {
 		}
 		
 		// Require an action mptaction
-		if ( !isset($_REQUEST['action']) || empty( $_REQUEST['mptaction'] ) ) {
+		if ( !isset($_REQUEST['mptaction']) || empty( $_REQUEST['mptaction'] ) ) {
 			die( '0' );
 		}
 		

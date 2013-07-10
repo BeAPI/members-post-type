@@ -39,7 +39,7 @@ class MPT_Options {
 			return self::get_default_value_from_default_options( $option_name, $key ); 
 		}
 		
-		return self::$options[$key];
+		return self::$options[$option_name][$key];
 	}
 
 	public static function get_field_from_default_options( $option_name, $field ) {

@@ -235,8 +235,9 @@ class MPT_Member {
 			return $stop;
 		}
 
-		$recipient = (array) mpt_get_option_value( 'mpt-emails', 'lost_password_admin_mail' );
-		foreach( array_map( 'trim', $recipient ) as $mail ) {
+		$recipients = explode(',' , mpt_get_option_value( 'mpt-emails', 'lost_password_admin_mail' ) );
+		$recipients = array_map( 'trim', $recipients );
+		foreach( $recipients as $mail ) {
 			// send a copy of password change notification to the admin
 			// but check to see if it's the admin whose password we're changing, and skip this
 			if( $this->email != $mail ) {
@@ -251,6 +252,7 @@ class MPT_Member {
 				if( empty( $subject ) && empty( $message ) ) {
 					return false;
 				}
+				
 				// Replace with good values
 				$subject = str_replace( '%%blog_name%%', $blogname, $subject );
 				$content = str_replace( '%%username%%', $this->username, $content );
@@ -289,7 +291,8 @@ class MPT_Member {
 		// Get all options for admin notification email.
 		$message = mpt_get_option_value( 'mpt-emails', 'registration_member_admin_content', true );
 		$subject = mpt_get_option_value( 'mpt-emails', 'registration_member_admin_subject', true  );
-		$admin_recipient = (array) mpt_get_option_value( 'mpt-emails', 'registration_member_admin_mail' );
+		$recipients = explode(',' , mpt_get_option_value( 'mpt-emails', 'registration_member_admin_mail' ) );
+		$recipients = array_map( 'trim', $recipients );
 		
 		//No message ? No object ? No recipient ? Go OUT !!!
 		if( empty( $message ) && empty( $object ) ) {
@@ -301,9 +304,9 @@ class MPT_Member {
 		$message = str_replace( '%%username%%', $username, $message );
 		$message = str_replace( '%%user_email%%', $email, $message );
 
-		foreach( $admin_recipient as $mail ) {
+		foreach( $recipients as $mail ) {
 			// Send mail to admin
-			@wp_mail( stripslashes( trim($mail) ), $subject, $message );
+			@wp_mail( stripslashes( $mail ), $subject, $message );
 		}
 
 		if( empty( $plaintext_pass ) ) {

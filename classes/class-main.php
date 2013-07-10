@@ -43,10 +43,32 @@ class MPT_Main {
 			return false;
 		}
 		
-		if ( mpt_is_member_logged_in() && isset($_REQUEST['action']) ) {
-			do_action('mpt_ajax_' . $_REQUEST['action']); // Authenticated actions
-		} elseif( isset($_REQUEST['action'])  ) {
-			do_action('mpt_ajax_nopriv_' . $_REQUEST['action']); // Non-member actions
+		// Require an action mptaction
+		if ( !isset($_REQUEST['action']) || empty( $_REQUEST['mptaction'] ) ) {
+			die( '0' );
+		}
+		
+		/** Allow for cross-domain requests (from the frontend). */
+		send_origin_headers();
+
+		/** Load WordPress Administration APIs */
+		require_once( ABSPATH . 'wp-admin/includes/admin.php' );
+
+		/** Load Ajax Handlers for WordPress Core */
+		require_once( ABSPATH . 'wp-admin/includes/ajax-actions.php' );
+
+		@header( 'Content-Type: text/html; charset=' . get_option( 'blog_charset' ) );
+		@header( 'X-Robots-Tag: noindex' );
+
+		send_nosniff_header();
+		nocache_headers();
+
+		do_action( 'admin_init' );
+		
+		if ( mpt_is_member_logged_in()   ) {
+			do_action('mpt_ajax_' . $_REQUEST['mptaction']); // Authenticated actions
+		} else {
+			do_action('mpt_ajax_nopriv_' . $_REQUEST['mptaction']); // Non-member actions
 		}
 		
 		die( '0' );

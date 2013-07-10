@@ -39,11 +39,17 @@ class MPT_Main {
 	 * Clone wp_ajax_ and wp_ajax_nopriv_
 	 */
 	public static function init_ajax_hooks() {
-		if ( mpt_is_member_logged_in() ) {
+		if ( !defined('DOING_AJAX') ) {
+			return false;
+		}
+		
+		if ( mpt_is_member_logged_in() && isset($_REQUEST['action']) ) {
 			do_action('mpt_ajax_' . $_REQUEST['action']); // Authenticated actions
-		} else {
+		} elseif( isset($_REQUEST['action'])  ) {
 			do_action('mpt_ajax_nopriv_' . $_REQUEST['action']); // Non-member actions
 		}
+		
+		die( '0' );
 	}
 
 	/**

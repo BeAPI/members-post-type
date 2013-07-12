@@ -176,6 +176,8 @@ class MPT_Member {
 
 		$stop = apply_filters_ref_array( 'mpt_set_password_check', array( false, $new_password, &$this ) );
 		if( $stop !== false ) {
+			return new WP_Error( 'no_password_change', __( 'Password change is not allowed for this member' ) );
+		} elseif( is_wp_error( $stop ) ) {
 			return $stop;
 		}
 
@@ -570,8 +572,7 @@ class MPT_Member {
 	function has_cap( $cap ) {
 		$args = array_slice( func_get_args( ), 1 );
 		$args = array_merge( array( $cap, $this->id ), $args );
-		$caps = call_user_func_array( 'map_meta_cap', $args );
-		// TODO, keep it ?
+		// $caps = call_user_func_array( 'map_meta_cap', $args );
 
 		// Must have ALL requested caps
 		$capabilities = apply_filters( 'member_has_cap', $this->allcaps, $caps, $args );

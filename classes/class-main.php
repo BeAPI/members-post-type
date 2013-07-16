@@ -45,7 +45,7 @@ class MPT_Main {
 		
 		// Require an action mptaction
 		if ( !isset($_REQUEST['mptaction']) || empty( $_REQUEST['mptaction'] ) ) {
-			die( '0' );
+			return false;
 		}
 		
 		/** Allow for cross-domain requests (from the frontend). */

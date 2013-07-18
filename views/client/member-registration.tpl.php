@@ -1,4 +1,10 @@
-<?php echo MPT_Shortcode::get_messages(); ?>
+<?php
+// don't load directly
+if ( !defined('ABSPATH') )
+	die('-1');
+
+echo MPT_Shortcode::get_messages();
+?>
 
 <form method="post">
 	<?php if ( !mpt_is_allowed_email_signon() ) : ?>

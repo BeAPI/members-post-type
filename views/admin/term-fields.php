@@ -1,3 +1,8 @@
+<?php
+// don't load directly
+if ( !defined('ABSPATH') )
+	die('-1');
+?>
 <tr class="form-field">
 	<th scope="row" valign="top"><label for="capabilities"><?php _ex('Capabilities', 'Taxonomy Capabilities', 'mpt'); ?></label></th>
 	<td>
@@ -19,4 +24,3 @@
 		<span class="description"><?php _e('Each role is allowed to perform a set of tasks called Capabilities.', 'mpt'); ?></span>
 	</td>
 </tr>
-

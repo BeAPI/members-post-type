@@ -1,3 +1,8 @@
+<?php
+// don't load directly
+if ( !defined('ABSPATH') )
+	die('-1');
+?>
 <!-- This file is used to markup the administration form of the widget. -->
 <p>
 	<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'mpt' ) ?></label>

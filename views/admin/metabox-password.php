@@ -1,3 +1,8 @@
+<?php
+// don't load directly
+if ( !defined('ABSPATH') )
+	die('-1');
+?>
 <table class="form-table">
 	<tbody>
 		<tr valign="top">

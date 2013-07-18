@@ -9,7 +9,7 @@ class MPT_Admin_Import {
 	}
 	
 	public static function admin_menu() {
-		$hook = add_submenu_page('edit.php?post_type=member', 'Import members', 'Import members', 'manage_options', 'member-import', array( __CLASS__, 'page' ));
+		$hook = add_submenu_page('edit.php?post_type=member', 'Import / Export members', 'Import / Export members', 'manage_options', 'member-import-export', array( __CLASS__, 'page' ));
 		add_action( 'admin_head-'.$hook, array( __CLASS__ , 'admin_head' ) );
 	}
 	
@@ -18,10 +18,18 @@ class MPT_Admin_Import {
 	}
 	
 	public static function page() {
-		include (MPT_DIR . 'views/admin/page-import.php');
+		include (MPT_DIR . 'views/admin/page-import-export.php');
 	}
 	
-	public static function admin_init() {
+	public static function admin_init( ) {
+		if( isset( $_POST['mpt_action'] ) && $_POST['mpt_action'] == 'mpt_import_action' ) {
+			self::admin_init_import( );
+		}
+		
+		return false;
+	}
+	
+	public static function admin_init_import() {
 		// Check the nonce
 		self::_check_nonce( 'import-members' );
 		
@@ -74,6 +82,8 @@ class MPT_Admin_Import {
 				'lastname' => utf8_encode($tmp[1]),
 				'firstname' => utf8_encode($tmp[2]),
 				'username' => utf8_encode($tmp[3]),
+				'counter' => utf8_encode($tmp[4]),
+				'lastvisit' => utf8_encode($tmp[5]),
 			);
 			
 			$current_line++;
@@ -103,6 +113,8 @@ class MPT_Admin_Import {
 				$tmp_member->set_meta_value('last_name', $member['lastname']);
 				$tmp_member->set_meta_value('first_name', $member['firstname']);
 				$tmp_member->set_meta_value('username', $member['username']);
+				$tmp_member->set_meta_value('_counter_sign_on', $member['counter']);
+				$tmp_member->set_meta_value('_last_sign_on_date', $member['lastvisit']);
 				$tmp_member->regenerate_post_title();
 				
 				self::$rapport_arr['import_status'][] = array( 'member' => $member['email'], 'operation' => 'updated', 'status' => 'success' );

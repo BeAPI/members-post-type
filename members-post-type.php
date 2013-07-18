@@ -32,9 +32,6 @@
 	
 	Content restriction via roles
 	Browse as
-	
-	Optimisations
- 		Replace get_option by MPT_Options::get_option();
  ----
 
  Copyright 2013 Amaury Balmer (amaury@beapi.fr)

@@ -22,7 +22,12 @@ class MPT_Shortcode_Login extends MPT_Shortcode {
 		$member_data = ( !isset($_POST['mptlogin']) ) ? array() : $_POST['mptlogin'];
 		
 		// Parse vs defaults
-		$member_data = wp_parse_args( $member_data, array('username' => '', 'rememberme' => '', 'redirect_to' => '0') );
+		$member_data = wp_parse_args( $member_data, array('username' => '', 'rememberme' => '', 'redirect_to' => '') );
+		
+		// If no redirect on POST, try to get it on $_GET
+		if ( isset($_GET['redirect_to']) && !empty($_GET['redirect_to']) ) {
+			$member_data['redirect_to'] = stripslashes($_GET['redirect_to']);
+		}
 		
 		return parent::load_template( 'member-login', $member_data );
 	}

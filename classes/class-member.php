@@ -111,6 +111,22 @@ class MPT_Member {
 
 		return true;
 	}
+	
+	/**
+	 * Retrieve member info by a given meta key/values
+	 *
+	 * @param string $field The field (meta_kye) to retrieve the member
+	 * @param int|string $value A value for $field.  A meta value
+	 * @return bool False on failure, True on success
+	 */
+	public function fill_by_meta( $field, $value ) {
+		$id = self::get_id_from_key_value( $field, $value );
+		if( $id == 0 ) {
+			return false;
+		}
+		
+		return $this->fill_by( 'id', $id );
+	}
 
 	/**
 	 * Update post meta value of members
@@ -160,6 +176,8 @@ class MPT_Member {
 
 		$stop = apply_filters_ref_array( 'mpt_set_password_check', array( false, $new_password, &$this ) );
 		if( $stop !== false ) {
+			return new WP_Error( 'no_password_change', __( 'Password change is not allowed for this member' ) );
+		} elseif( is_wp_error( $stop ) ) {
 			return $stop;
 		}
 
@@ -219,8 +237,9 @@ class MPT_Member {
 			return $stop;
 		}
 
-		$recipient = (array)MPT_Options::get_option_value( 'mpt-emails', 'lost_password_admin_mail' );
-		foreach( array_map( 'trim', $recipient ) as $mail ) {
+		$recipients = explode(',' , mpt_get_option_value( 'mpt-emails', 'lost_password_admin_mail' ) );
+		$recipients = array_map( 'trim', $recipients );
+		foreach( $recipients as $mail ) {
 			// send a copy of password change notification to the admin
 			// but check to see if it's the admin whose password we're changing, and skip this
 			if( $this->email != $mail ) {
@@ -228,13 +247,14 @@ class MPT_Member {
 				// we want to reverse this for the plain text arena of emails.
 				$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
 
-				$subject = MPT_Options::get_option_value( 'mpt-emails', 'lost_password_admin_subject' );
-				$content = MPT_Options::get_option_value( 'mpt-emails', 'lost_password_admin_content' );
+				$subject = mpt_get_option_value( 'mpt-emails', 'lost_password_admin_subject', true  );
+				$content = mpt_get_option_value( 'mpt-emails', 'lost_password_admin_content', true  );
 
 				//Empty subject ? Empty content ? go out.
 				if( empty( $subject ) && empty( $message ) ) {
 					return false;
 				}
+				
 				// Replace with good values
 				$subject = str_replace( '%%blog_name%%', $blogname, $subject );
 				$content = str_replace( '%%username%%', $this->username, $content );
@@ -271,9 +291,10 @@ class MPT_Member {
 		$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
 
 		// Get all options for admin notification email.
-		$message = MPT_Options::get_option_value( 'mpt-emails', 'registration_member_admin_content' );
-		$subject = MPT_Options::get_option_value( 'mpt-emails', 'registration_member_admin_subject' );
-		$admin_recipient = (array)MPT_Options::get_option_value( 'mpt-emails', 'registration_member_admin_mail' );
+		$message = mpt_get_option_value( 'mpt-emails', 'registration_member_admin_content', true );
+		$subject = mpt_get_option_value( 'mpt-emails', 'registration_member_admin_subject', true  );
+		$recipients = explode(',' , mpt_get_option_value( 'mpt-emails', 'registration_member_admin_mail' ) );
+		$recipients = array_map( 'trim', $recipients );
 		
 		//No message ? No object ? No recipient ? Go OUT !!!
 		if( empty( $message ) && empty( $object ) ) {
@@ -285,7 +306,7 @@ class MPT_Member {
 		$message = str_replace( '%%username%%', $username, $message );
 		$message = str_replace( '%%user_email%%', $email, $message );
 
-		foreach( array_map( 'trim', $admin_recipient ) as $mail ) {
+		foreach( $recipients as $mail ) {
 			// Send mail to admin
 			@wp_mail( stripslashes( $mail ), $subject, $message );
 		}
@@ -293,8 +314,9 @@ class MPT_Member {
 		if( empty( $plaintext_pass ) ) {
 			return false;
 		}
-		$message = MPT_Options::get_option_value( 'mpt-emails', 'register_member_content' );
-		$subject = MPT_Options::get_option_value( 'mpt-emails', 'register_member_subject' );
+		
+		$message = mpt_get_option_value( 'mpt-emails', 'register_member_content', true  );
+		$subject = mpt_get_option_value( 'mpt-emails', 'register_member_subject', true  );
 		
 		if( empty( $message ) && empty( $object ) ) {
 			return false;
@@ -397,8 +419,8 @@ class MPT_Member {
 		}
 
 		// Get all options for admin notification email.
-		$message = MPT_Options::get_option_value( 'mpt-emails', 'lost_password_member_content' );
-		$subject = MPT_Options::get_option_value( 'mpt-emails', 'lost_password_member_subject' );
+		$message = mpt_get_option_value( 'mpt-emails', 'lost_password_member_content', true  );
+		$subject = mpt_get_option_value( 'mpt-emails', 'lost_password_member_subject', true  );
 
 		//No message ? No object ? Go OUT !!!
 		if( empty( $message ) && empty( $object ) ) {
@@ -550,8 +572,7 @@ class MPT_Member {
 	function has_cap( $cap ) {
 		$args = array_slice( func_get_args( ), 1 );
 		$args = array_merge( array( $cap, $this->id ), $args );
-		$caps = call_user_func_array( 'map_meta_cap', $args );
-		// TODO, keep it ?
+		// $caps = call_user_func_array( 'map_meta_cap', $args );
 
 		// Must have ALL requested caps
 		$capabilities = apply_filters( 'member_has_cap', $this->allcaps, $caps, $args );

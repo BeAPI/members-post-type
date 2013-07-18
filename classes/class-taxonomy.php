@@ -51,7 +51,7 @@ class MPT_Taxonomy {
 			'update_count_callback'      => false
 		);
 		
-		$options = (array) get_option( 'mpt-main' );
+		$options = (array) MPT_Options::get_option( 'mpt-main' );
 		if ( isset($options['features']) && isset($options['features']['role-manager']) ) {
 			$args['show_ui'] = $args['show_admin_column'] = true;
 		}

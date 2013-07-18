@@ -124,3 +124,10 @@ function mpt_add_role( $role, $display_name, $capabilities = array() ) {
 function mpt_remove_role( $role ) {
 	return MPT_Roles::remove_role( $role );
 }
+
+/**
+ * Shortlink for MPT_Options::get_option_value method
+ */
+function mpt_get_option_value( $option_name, $field, $failback_default = false ) {
+	return MPT_Options::get_option_value( $option_name, $field, $failback_default );
+}

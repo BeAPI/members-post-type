@@ -6,7 +6,7 @@ class MPT_Security {
 	 * @return boolean
 	 */
 	public function __construct() {
-		$current_options = get_option( 'mpt-security' );
+		$current_options = MPT_Options::get_option( 'mpt-security' );
 		if ( $current_options == false ) {
 			return false;
 		}
@@ -40,10 +40,8 @@ class MPT_Security {
 			return false;
 		}
 		
-		$current_options = get_option( 'mpt-security' );
-		
 		// Calcul date of expiration
-		$expiration_date = $last_updated_date + ((int) $current_options['aging'] * DAY_IN_SECONDS);
+		$expiration_date = $last_updated_date + ((int) mpt_get_option_value( 'mpt-security', 'aging' ) * DAY_IN_SECONDS);
 		
 		// Expiration date < to current date, force permanent redirect to change password form
 		if ( $expiration_date < time()  ) {
@@ -64,8 +62,6 @@ class MPT_Security {
 	}
 	
 	public static function mpt_set_password_history( $new_hash = '', $new_password = '', $old_hash = '', $member_data = null ) {
-		$current_options = get_option( 'mpt-security' );
-		
 		// Get current password history
 		$passwords_history = get_post_meta( $member_data->id, '_passwords_history', true );
 		if ( $passwords_history == false ) {
@@ -73,7 +69,7 @@ class MPT_Security {
 		}
 		
 		// If the size of the history has already been reached, the oldest word password is removed.
-		if ( count($passwords_history) >= (int) $current_options['history'] ) {
+		if ( count($passwords_history) >= (int) mpt_get_option_value( 'mpt-security', 'history' ) ) {
 			array_shift($passwords_history);
 		}
 		
@@ -87,8 +83,6 @@ class MPT_Security {
 	}
 	
 	public static function mpt_set_password_check_history( $flag = false, $password = '', $member_data = null ) {
-		$current_options = get_option( 'mpt-security' );
-		
 		// Get current password history
 		$passwords_history = get_post_meta( $member_data->id, '_passwords_history', true );
 		if ( $passwords_history == false ) {
@@ -121,8 +115,7 @@ class MPT_Security {
 			$scoring = (int) self::check_wp_password_strength( $password, $member_data );
 			
 			// Compare scoring with minimum required level
-			$current_options = get_option( 'mpt-security' );
-			if( $scoring >= (int) $current_options['auto-mode-level'] ) {
+			if( $scoring >= (int) mpt_get_option_value( 'mpt-security', 'auto-mode-level' ) ) {
 					return $flag;
 			}
 			
@@ -138,7 +131,7 @@ class MPT_Security {
 	 * @return boolean|WP_Error
 	 */
 	public static function mpt_set_password_check_custom_mode( $flag = false, $password = '', $member_data = null ) {
-		$current_options = get_option( 'mpt-security' );
+		$current_options = MPT_Options::get_option( 'mpt-security' );
 		if ( $current_options == false ) {
 			return $flag;
 		}

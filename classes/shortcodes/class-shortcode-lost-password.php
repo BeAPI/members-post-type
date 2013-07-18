@@ -1,23 +1,24 @@
 <?php
 class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
+
 	/**
 	 * Constructor, register hooks
 	 */
-	public function __construct( ) {
+	public function __construct() {
 		add_shortcode( 'member-lost-password', array( __CLASS__, 'shortcode' ) );
 		add_action( 'init', array( __CLASS__, 'init' ), 12 );
 	}
-	
+
 	/**
 	 * Render shortcode, use local or theme template
 	 * @return string HTML of shortcode
 	 */
-	public static function shortcode( ) {
+	public static function shortcode() {
 		// Member logged-in ?
 		if ( mpt_is_member_logged_in() ) {
 			return '<!-- Members logged-in, impossible to reset password. -->';
 		}
-		
+
 		if ( isset( $_GET['mpt-action'] ) && $_GET['mpt-action'] == 'lost-password' ) {
 			return parent::load_template( 'member-lost-password-step-2' );
 		} else {
@@ -30,13 +31,13 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 		}
 	}
 
-	public static function init( ) {
+	public static function init() {
 		// Ask link reset
-		self::check_step_1( );
+		self::check_step_1();
 
 		// Check link reset and form new password
-		self::check_step_2_url( );
-		self::check_step_2_form( );
+		self::check_step_2_url();
+		self::check_step_2_form();
 	}
 
 	/**
@@ -45,11 +46,11 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 	 * @return void
 	 * @author Benjamin Niess
 	 */
-	public static function check_step_1( ) {
+	public static function check_step_1() {
 		if ( isset( $_POST['mptlostpwd_s1'] ) ) {
 			// Cleanup data
 			$_POST['mptlostpwd_s1'] = stripslashes_deep( $_POST['mptlostpwd_s1'] );
-			
+
 			// Check _NONCE
 			$nonce = isset( $_POST['_wpnonce'] ) ? $_POST['_wpnonce'] : '';
 			if ( !wp_verify_nonce( $nonce, 'mptlostpwd_s1' ) ) {
@@ -74,14 +75,18 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 			}
 
 			// No response for email and username, go out
-			if ( !$member->exists( ) ) {
+			if ( !$member->exists() ) {
 				parent::set_message( 'step_1_error', __( 'No member with this value.', 'mpt' ), 'error' );
 				return false;
 			}
 
 			// Send reset link
-			$member->reset_password_link( );
-
+			$result = $member->reset_password_link();
+			if ( is_wp_error( $result ) ) {
+				parent::set_message( $result->get_error_code(), $result->get_error_message(), 'error' );
+				return false;
+			}
+			
 			parent::set_message( 'step_1_sucess', __( "You are going to receive an email with a reset link.", 'mpt' ), 'success' );
 			return true;
 		}
@@ -94,32 +99,32 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 	 *
 	 * @author Benjamin Niess
 	 */
-	public static function check_step_2_url( ) {
+	public static function check_step_2_url() {
 		if ( !isset( $_GET['mpt-action'] ) || $_GET['mpt-action'] != 'lost-password' ) {
 			return false;
 		}
-		
+
 		if ( !isset( $_GET['id'] ) || !isset( $_GET['key'] ) || empty( $_GET['id'] ) || empty( $_GET['key'] ) ) {
 			wp_die( __( 'The link you clicked seems to be broken. Please contact the administrator of the site', 'mpt' ) );
 		}
-		
+
 		// Format key
-		$_GET['key'] = preg_replace('/[^a-z0-9]/i', '', $_GET['key']);
-		
+		$_GET['key'] = preg_replace( '/[^a-z0-9]/i', '', $_GET['key'] );
+
 		// Try load member with this activation_key
 		$member = new MPT_Member( );
 		$member->fill_by( 'activation_key', $_GET['key'] );
 		if ( !$member->exists() || ($member->exists() && $member->id != $_GET['id']) ) {
-			wp_die(__('Cheatin&#8217; uh?', 'mpt'));
+			wp_die( __( 'Cheatin&#8217; uh?', 'mpt' ) );
 		}
-		
+
 		return true;
 	}
-	
+
 	/**
 	 * Check form new password
 	 */
-	public static function check_step_2_form( ) {
+	public static function check_step_2_form() {
 		if ( isset( $_POST['mptlostpwd_s2'] ) ) {
 			// Check _NONCE
 			$nonce = isset( $_POST['_wpnonce'] ) ? $_POST['_wpnonce'] : '';
@@ -127,50 +132,50 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 				parent::set_message( 'check-nonce', 'Security check failed', 'error' );
 				return false;
 			}
-			
+
 			// Check if passwords are the same
 			if ( $_POST['mptlostpwd_s2']['password'] != $_POST['mptlostpwd_s2']['password_confirmation'] ) {
 				parent::set_message( 'check_step_2', __( 'The two passwords you entered don\'t match.', 'mpt' ), 'error' );
 				return false;
 			}
-			
+
 			// Try load member with this activation_key
 			$member = new MPT_Member( );
 			$member->fill_by( 'activation_key', $_GET['key'] );
 			if ( !$member->exists() || ($member->exists() && $member->id != $_GET['id']) ) {
-				wp_die(__('Cheatin&#8217; uh?', 'mpt'));
+				wp_die( __( 'Cheatin&#8217; uh?', 'mpt' ) );
 			}
-			
+
 			// Set new password
-			$result = $member->set_password($_POST['mptlostpwd_s2']['password']);
+			$result = $member->set_password( $_POST['mptlostpwd_s2']['password'] );
 			if ( $result !== true ) {
-				if ( is_wp_error($result) ) {
+				if ( is_wp_error( $result ) ) {
 					parent::set_message( $result->get_error_code(), $result->get_error_message(), 'error' );
-				} elseif( is_array($result) ) {
+				} elseif ( is_array( $result ) ) {
 					foreach ( $result as $_result ) {
-						if ( is_wp_error($_result) ) {
+						if ( is_wp_error( $_result ) ) {
 							parent::set_message( $_result->get_error_code(), $_result->get_error_message(), 'error' );
 						}
 					}
 				}
-				
+
 				// Have messages ? If empty, set generic error password
 				$messages = parent::get_messages( 'raw' );
-				if ( empty($messages) ) {
-					parent::set_message( 'lost_password_generic_error', __('An error occurred, password has not been changed.', 'mpt'), 'error' );
+				if ( empty( $messages ) ) {
+					parent::set_message( 'lost_password_generic_error', __( 'An error occurred, password has not been changed.', 'mpt' ), 'error' );
 				}
-				
+
 				return true;
 			}
-			
+
 			// Try to get the login page, otherwise get home link
-			$location = wp_validate_redirect( mpt_get_login_permalink(), home_url('/') );
-			
+			$location = wp_validate_redirect( mpt_get_login_permalink(), home_url( '/' ) );
+
 			// Redirect
 			wp_redirect( $location );
 			exit();
 		}
-		
+
 		return false;
 	}
 

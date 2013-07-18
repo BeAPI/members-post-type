@@ -1,4 +1,5 @@
 <?php
+
 class MPT_Main {
 
 	/**
@@ -11,20 +12,66 @@ class MPT_Main {
 	public function __construct() {
 		// Init once MPT roles
 		add_action('init', array(__CLASS__, 'init_roles'), 12);
-		
+
+		// Init AJAX hook
+		add_action('init', array(__CLASS__, 'init_ajax_hooks'), 15);
+
 		// Manage redirections
 		add_action('init', array(__CLASS__, 'init'), 10);
-		add_action('template_redirect', array(__CLASS__, 'template_redirect'), 10 );
-		
+		add_action('template_redirect', array(__CLASS__, 'template_redirect'), 10);
+
 		// Bodyclass for theme
 		add_action('body_class', array(__CLASS__, 'body_class'));
-		
+
 		// Counter/date connection
 		add_action('mpt_login', array(__CLASS__, 'mpt_login'), 10, 2);
 	}
-	
+
+	/**
+	 * Init MPT Roles
+	 */
 	public static function init_roles() {
 		MPT_Roles::init();
+	}
+
+	/**
+	 * Implement hooks for AJAX call
+	 * Clone wp_ajax_ and wp_ajax_nopriv_
+	 */
+	public static function init_ajax_hooks() {
+		if ( !defined('DOING_AJAX') ) {
+			return false;
+		}
+		
+		// Require an action mptaction
+		if ( !isset($_REQUEST['mptaction']) || empty( $_REQUEST['mptaction'] ) ) {
+			return false;
+		}
+		
+		/** Allow for cross-domain requests (from the frontend). */
+		send_origin_headers();
+
+		/** Load WordPress Administration APIs */
+		require_once( ABSPATH . 'wp-admin/includes/admin.php' );
+
+		/** Load Ajax Handlers for WordPress Core */
+		require_once( ABSPATH . 'wp-admin/includes/ajax-actions.php' );
+
+		@header( 'Content-Type: text/html; charset=' . get_option( 'blog_charset' ) );
+		@header( 'X-Robots-Tag: noindex' );
+
+		send_nosniff_header();
+		nocache_headers();
+
+		do_action( 'admin_init' );
+		
+		if ( mpt_is_member_logged_in()   ) {
+			do_action('mpt_ajax_' . $_REQUEST['mptaction']); // Authenticated actions
+		} else {
+			do_action('mpt_ajax_nopriv_' . $_REQUEST['mptaction']); // Non-member actions
+		}
+		
+		die( '0' );
 	}
 
 	/**
@@ -65,9 +112,9 @@ class MPT_Main {
 			return false;
 		}
 
-		$current_options = get_option('mpt-pages');
-		if (isset($current_options['page-lost-password']) && !empty($current_options['page-lost-password'])) {
-			if (is_page($current_options['page-lost-password'])) {
+		$page_lost_password = mpt_get_option_value('mpt-pages', 'page-lost-password');
+		if (!empty($page_lost_password)) {
+			if (is_page($page_lost_password)) {
 				wp_redirect(home_url('/'));
 				exit();
 			}
@@ -125,7 +172,7 @@ class MPT_Main {
 	 */
 	public static function get_action_permalink($action = '') {
 		// Get page ids from options
-		$current_options = (array) get_option('mpt-pages');
+		$current_options = (array) MPT_Options::get_option('mpt-pages');
 
 		// URL
 		$return_url = '';
@@ -139,7 +186,7 @@ class MPT_Main {
 				if (isset($current_options['page-' . $action]) && absint($current_options['page-' . $action]) > 0) {
 					$return_url = get_permalink($current_options['page-' . $action]);
 				} else {
-					$return_url = home_url('/#no-page-id-for-'.$action);
+					$return_url = home_url('/#no-page-id-for-' . $action);
 				}
 				break;
 			case 'logout' :
@@ -152,4 +199,5 @@ class MPT_Main {
 
 		return apply_filters('mpt_action_permalink', $return_url, $action);
 	}
+
 }

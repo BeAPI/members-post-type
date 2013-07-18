@@ -6,8 +6,7 @@ class MPT_Member_Utility {
 	 * Is allow to sign-on member with mail
 	 */
 	public static function is_allowed_email_signon() {
-		$options = (array) get_option( 'mpt-main' );
-		if ( isset($options['allow-signon-email']) && $options['allow-signon-email'] == 'on' ) {
+		if ( mpt_get_option_value( 'mpt-main', 'allow-signon-email' ) == 'on' ) {
 			return true;
 		}
 		
@@ -18,8 +17,7 @@ class MPT_Member_Utility {
 	 * Is unique email constraint on DB
 	 */
 	public static function is_unique_email() {
-		$options = (array) get_option( 'mpt-main' );
-		if ( isset($options['unique-email']) && $options['unique-email'] == 'on' ) {
+		if ( mpt_get_option_value( 'mpt-main', 'unique-email' ) == 'on' ) {
 			return true;
 		}
 		

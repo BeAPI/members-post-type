@@ -216,7 +216,7 @@ class MPT_Member {
 
 		// Add SQL exclusion if IDs is filled
 		if( !empty( $exclude_ids ) ) {
-			$query .= " AND post_id NOT IN ('".implode( "', '", $term_ids )."')";
+			$query .= " AND post_id NOT IN ('".implode( "', '", $exclude_ids )."')";
 		}
 
 		return (int)$wpdb->get_var( $query );
@@ -251,7 +251,7 @@ class MPT_Member {
 				$content = mpt_get_option_value( 'mpt-emails', 'lost_password_admin_content', true  );
 
 				//Empty subject ? Empty content ? go out.
-				if( empty( $subject ) && empty( $message ) ) {
+				if( empty( $subject ) && empty( $content ) ) {
 					return false;
 				}
 				
@@ -297,7 +297,7 @@ class MPT_Member {
 		$recipients = array_map( 'trim', $recipients );
 		
 		//No message ? No object ? No recipient ? Go OUT !!!
-		if( empty( $message ) && empty( $object ) ) {
+		if( empty( $message ) && empty( $subject ) ) {
 			return false;
 		}
 
@@ -318,7 +318,7 @@ class MPT_Member {
 		$message = mpt_get_option_value( 'mpt-emails', 'register_member_content', true  );
 		$subject = mpt_get_option_value( 'mpt-emails', 'register_member_subject', true  );
 		
-		if( empty( $message ) && empty( $object ) ) {
+		if( empty( $message ) && empty( $subject ) ) {
 			return false;
 		}
 
@@ -423,7 +423,7 @@ class MPT_Member {
 		$subject = mpt_get_option_value( 'mpt-emails', 'lost_password_member_subject', true  );
 
 		//No message ? No object ? Go OUT !!!
-		if( empty( $message ) && empty( $object ) ) {
+		if( empty( $message ) && empty( $subject ) ) {
 			return false;
 		}
 
@@ -572,7 +572,7 @@ class MPT_Member {
 	function has_cap( $cap ) {
 		$args = array_slice( func_get_args( ), 1 );
 		$args = array_merge( array( $cap, $this->id ), $args );
-		// $caps = call_user_func_array( 'map_meta_cap', $args );
+		$caps = call_user_func_array( 'map_meta_cap', $args );
 
 		// Must have ALL requested caps
 		$capabilities = apply_filters( 'member_has_cap', $this->allcaps, $caps, $args );

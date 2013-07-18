@@ -60,8 +60,6 @@ class MPT_Member_Utility {
 	 * @return int|WP_Error The newly created member's ID or a WP_Error object if the member could not be created.
 	 */
 	public static function insert_member($memberdata) {
-		global $wpdb;
-		
 		if ( mpt_is_unique_email() && mpt_email_exists($memberdata['email']) ) {
 			return new WP_Error('existing_member_email', __('This email address is already registered.') );
 		}

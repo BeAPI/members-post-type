@@ -1,7 +1,7 @@
 <?php
 class MPT_Admin_Import {
-	static $rapport_arr = array();
-	private static $option_name = "mpt_last_import_report";
+	private static $_rapport_arr = array();
+	const option_name = "mpt_last_import_report";
 	
 	public function __construct() {
 		add_action( 'admin_menu', array( __CLASS__ , 'admin_menu' ) );
@@ -18,6 +18,8 @@ class MPT_Admin_Import {
 	}
 	
 	public static function page() {
+		$report = get_option( self::option_name );
+		
 		include (MPT_DIR . 'views/admin/page-import-export.php');
 	}
 	
@@ -31,14 +33,14 @@ class MPT_Admin_Import {
 	
 	public static function admin_init_import() {
 		// Check the nonce
-		self::_check_nonce( 'import-members' );
+		check_admin_referer('import-members');
 		
 		// If we have a file
 		if( !isset( $_FILES['csv-file'] ) ) {
 			return false;
 		}
 		
-		self::$rapport_arr = array(
+		self::$_rapport_arr = array(
 			'report_date' => time(),
 			'ignore_line' => array(),
 			'import_status' => array(),
@@ -47,7 +49,7 @@ class MPT_Admin_Import {
 		self::insert_members($csv);
 		
 		// Save last report
-		update_option( self::$option_name, self::$rapport_arr );
+		return update_option( self::option_name, self::$_rapport_arr );
 	}
 	
 	/**
@@ -72,7 +74,7 @@ class MPT_Admin_Import {
 			
 			// If the email of the username are empty, abord and continue with the next line.
 			if( empty($tmp[0]) || empty($tmp[3]) ) {
-				self::$rapport_arr['ignore_line'][] = array( 'line' => $current_line, 'content' => utf8_encode($data[0]), 'operation' => __('missing email and/or username', 'mpt'), 'status' => 'error' );
+				self::$_rapport_arr['ignore_line'][] = array( 'line' => $current_line, 'content' => utf8_encode($data[0]), 'operation' => __('missing email and/or username', 'mpt'), 'status' => 'error' );
 				$current_line++;
 				continue;
 			}
@@ -103,7 +105,6 @@ class MPT_Admin_Import {
 			return false;
 		}
 		
-		$tmp_member = null;
 		foreach( $csv as $member ) {
 			
 			$tmp_member = new MPT_Member();
@@ -117,7 +118,7 @@ class MPT_Admin_Import {
 				$tmp_member->set_meta_value('_last_sign_on_date', $member['lastvisit']);
 				$tmp_member->regenerate_post_title();
 				
-				self::$rapport_arr['import_status'][] = array( 'member' => $member['email'], 'operation' => 'updated', 'status' => 'success' );
+				self::$_rapport_arr['import_status'][] = array( 'member' => $member['email'], 'operation' => 'updated', 'status' => 'success' );
 			} else {
 				$args = array();
 				$args['password'] 	= wp_generate_password( 8 );
@@ -141,24 +142,13 @@ class MPT_Admin_Import {
 					$message .= mpt_get_login_permalink() . "\r\n";
 					@wp_mail($args['email'], sprintf(__('[%s] Your username and password', 'mpt'), get_bloginfo( 'name' )), $message);
 					
-					self::$rapport_arr['import_status'][] = array( 'member' => $member['email'], 'operation' => 'created', 'status' => 'success' );
+					self::$_rapport_arr['import_status'][] = array( 'member' => $member['email'], 'operation' => 'created', 'status' => 'success' );
 				} else {
-					self::$rapport_arr['import_status'][] = array( 'member' => $member['email'], 'operation' => 'created', 'status' => 'error' );
+					self::$_rapport_arr['import_status'][] = array( 'member' => $member['email'], 'operation' => 'created', 'status' => 'error' );
 				}
 			}
 		}
-	}
-	
-	/**
-	 * Check the nonce.
-	 * 
-	 * @param string $slug text to verify the nonce.
-	 * @return bool TRUE on success, FALSE on failure.
-	 */
-	private static function _check_nonce( $slug = '' ) {
-		if ( !isset( $_POST['wp_nonce'] ) || !wp_verify_nonce( $_POST['wp_nonce'], $slug ) ) {
-			return false;
-		}
+		
 		return true;
 	}
-}	
+}

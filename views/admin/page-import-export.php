@@ -15,10 +15,11 @@ if ( !defined('ABSPATH') )
 		<input type="file" name="csv-file" />
 		<p class="submit">
 			<input type="submit" name="import_members" class="button-primary export" value="<?php esc_attr_e( 'Import', 'mpt' ); ?>" />
-			<input type="hidden" name="wp_nonce" value="<?php esc_attr_e( wp_create_nonce( 'import-members' ) ); ?>" />
+			
+			<?php wp_nonce_field( 'import-members' ); ?>
 			<input type="hidden" name="mpt_action" value="mpt_import_action" />
 		</p>
-		<?php $report = get_option('mpt_last_import_report'); ?>
+		
 		<div class="report">
 			<?php if( $report != false ) : ?>
 				<p><strong><?php echo sprintf( __( 'Last import : %s', 'mpt'), date('d/m/Y H\hi', $report['report_date']) ); ?></strong></p>
@@ -44,7 +45,8 @@ if ( !defined('ABSPATH') )
 	<form action="" method="post" id="export-diag">
 		<p class="submit">
 			<input type="submit" name="export_members" class="button-primary export" value="<?php esc_attr_e( 'Export', 'mpt' ); ?>" />
-			<input type="hidden" name="wp_nonce" value="<?php esc_attr_e( wp_create_nonce( 'export-members' ) ); ?>" />
+			
+			<?php wp_nonce_field( 'export-members' ); ?>
 			<input type="hidden" name="mpt_action" value="mpt_export_action" />
 		</p>
 	</form>

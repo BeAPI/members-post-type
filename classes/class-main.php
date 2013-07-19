@@ -14,7 +14,7 @@ class MPT_Main {
 		add_action('init', array(__CLASS__, 'init_roles'), 12);
 
 		// Init AJAX hook
-		add_action('init', array(__CLASS__, 'init_ajax_hooks'), 15);
+		add_action('wp_loaded', array(__CLASS__, 'init_ajax_hooks'), 15);
 
 		// Manage redirections
 		add_action('init', array(__CLASS__, 'init'), 10);

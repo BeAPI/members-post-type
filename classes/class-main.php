@@ -14,7 +14,7 @@ class MPT_Main {
 		add_action('init', array(__CLASS__, 'init_roles'), 12);
 
 		// Init AJAX hook
-		add_action('wp_loaded', array(__CLASS__, 'init_ajax_hooks'), 15);
+		add_action('wp_loaded', array(__CLASS__, 'wp_loaded'), 15);
 
 		// Manage redirections
 		add_action('init', array(__CLASS__, 'init'), 10);
@@ -38,7 +38,7 @@ class MPT_Main {
 	 * Implement hooks for AJAX call
 	 * Clone wp_ajax_ and wp_ajax_nopriv_
 	 */
-	public static function init_ajax_hooks() {
+	public static function wp_loaded() {
 		if ( !defined('DOING_AJAX') ) {
 			return false;
 		}

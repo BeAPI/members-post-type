@@ -11,7 +11,7 @@ class MPT_Main {
 	 */
 	public function __construct() {
 		// Init once MPT roles
-		add_action('init', array(__CLASS__, 'init_roles'), 12);
+		add_action('init', array('MPT_Roles', 'init'), 12);
 
 		// Init AJAX hook
 		add_action('wp_loaded', array(__CLASS__, 'wp_loaded'), 15);
@@ -25,13 +25,6 @@ class MPT_Main {
 
 		// Counter/date connection
 		add_action('mpt_login', array(__CLASS__, 'mpt_login'), 10, 2);
-	}
-
-	/**
-	 * Init MPT Roles
-	 */
-	public static function init_roles() {
-		MPT_Roles::init();
 	}
 
 	/**
@@ -65,7 +58,7 @@ class MPT_Main {
 
 		do_action( 'admin_init' );
 		
-		if ( mpt_is_member_logged_in()   ) {
+		if ( mpt_is_member_logged_in() ) {
 			do_action('mpt_ajax_' . $_REQUEST['mptaction']); // Authenticated actions
 		} else {
 			do_action('mpt_ajax_nopriv_' . $_REQUEST['mptaction']); // Non-member actions
@@ -190,7 +183,7 @@ class MPT_Main {
 				}
 				break;
 			case 'logout' :
-				$return_url = home_url('/?mpt-action=logout');
+				$return_url = admin_url('/admin-ajax.php?mpt-action=logout');
 				break;
 			default :
 				$return_url = home_url('/#no-known-action');

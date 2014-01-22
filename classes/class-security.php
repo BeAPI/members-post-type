@@ -12,19 +12,19 @@ class MPT_Security {
 		}
 		
 		// Password policy
-		if ( (int) $current_options['aging'] > 0 ) {
+		if ( isset($current_options['aging']) && (int) $current_options['aging'] > 0 ) {
 			add_action('template_redirect', array(__CLASS__, 'template_redirect'.'_aging'), 9 );
 			add_action('mpt_set_password', array(__CLASS__, 'mpt_set_password' . '_aging'), 9, 4 );
 		}
-		if ( (int) $current_options['history'] > 0 ) {
+		if ( isset($current_options['history']) && (int) $current_options['history'] > 0 ) {
 			add_filter('mpt_set_password_check', array(__CLASS__, 'mpt_set_password_check' . '_history'), 10, 3 );
 			add_action('mpt_set_password', array(__CLASS__, 'mpt_set_password' . '_history'), 10, 4 );
 		}
 		
 		// Password strengh
-		if ( $current_options['mode'] == 'auto' ) {
+		if ( isset($current_options['mode']) && $current_options['mode'] == 'auto' ) {
 			add_filter('mpt_set_password_check', array(__CLASS__, 'mpt_set_password_check' . '_auto_mode'), 10, 3 );
-		} elseif( $current_options['mode'] == 'custom' ) {
+		} elseif( isset($current_options['mode']) && $current_options['mode'] == 'custom' ) {
 			add_filter('mpt_set_password_check', array(__CLASS__, 'mpt_set_password_check' . '_custom_mode'), 10, 3 );
 		}
 	}

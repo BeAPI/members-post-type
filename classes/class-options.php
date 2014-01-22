@@ -6,16 +6,24 @@ class MPT_Options {
 	private static function _load_option() {
 		// Get all options, for get all option_name
 		$sections = (array) include( MPT_DIR . 'classes/helpers/default-sections.php' );
+		$settings = (array) include( MPT_DIR . 'classes/helpers/default-settings.php' );
+		$defaults = array();
 		
 		// Merge all current DB option
 		$current_options = array();
 		
 		// Loop on each section
 		foreach( $sections as $section ) {
-			$current_options[$section['id']] = (array) get_option( $section['id'] );
+			$settings_names = wp_list_pluck( $settings[$section['id']], 'name' );
+			
+			foreach( $settings_names as $index => $name ) {
+				$defaults[$section['id']][$name] = isset( $settings[$section['id']][$index]['default'] ) ? $settings[$section['id']][$index]['default'] : '' ;
+			}
+			
+			$current_options[$section['id']] = wp_parse_args( (array) get_option( $section['id'] ), $defaults[$section['id']] );
 		}
 		
-		self::$options = wp_parse_args( $current_options, (array) include( MPT_DIR . 'classes/helpers/default-settings.php' ) );
+		self::$options = $current_options;
 	}
 	
 	private static function _load_default_option() {

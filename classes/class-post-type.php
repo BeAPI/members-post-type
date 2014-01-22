@@ -73,7 +73,7 @@ class MPT_Post_Type {
      *
      * @return array $messages.
      */
-	function post_updated_messages( $messages ) {
+	public static function post_updated_messages( $messages ) {
 		global $post, $post_ID;
 
 		$messages[MPT_CPT_NAME] = array(

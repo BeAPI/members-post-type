@@ -9,7 +9,7 @@ class MPT_Plugin {
      *
      * @return void.
      */
-	public static function activate() {		
+	public static function activate() {	
 		// Add role "Members Manager"
 		add_role( 'members-manager', __('Members Manager', 'mpt') );
 

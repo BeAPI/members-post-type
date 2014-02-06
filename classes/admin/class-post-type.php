@@ -98,7 +98,7 @@ class MPT_Admin_Post_Type {
 	}
 	
     /**
-     * add_meta_boxes
+     * Add main info, password metaboxes
      * 
      * @access public
      * @static
@@ -106,10 +106,6 @@ class MPT_Admin_Post_Type {
      * @return void.
      */
 	public static function add_meta_boxes( ) {
-		// Remove metabox from "Members" plugins
-		remove_meta_box( 'content-permissions-meta-box', MPT_CPT_NAME, 'advanced' );
-		
-		// Add main info, password metaboxes
 		add_meta_box( MPT_CPT_NAME.'-postbox-main', __('Main information', 'mpt'), array( __CLASS__, 'metabox_main' ), MPT_CPT_NAME, 'normal', 'high' );
 		add_meta_box( MPT_CPT_NAME.'-postbox-password', __('Change password', 'mpt'), array( __CLASS__, 'metabox_password' ), MPT_CPT_NAME, 'normal', 'high' );
 	}

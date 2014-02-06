@@ -5,8 +5,8 @@ class MPT_Options {
 	
 	private static function _load_option() {
 		// Get all options, for get all option_name
-		$sections = (array) include( MPT_DIR . 'classes/helpers/default-sections.php' );
-		$settings = (array) include( MPT_DIR . 'classes/helpers/default-settings.php' );
+		$sections = MPT_Plugin::get_default_settings_sections();
+		$settings = MPT_Plugin::get_default_settings_fields();
 		$defaults = array();
 		
 		// Merge all current DB option
@@ -27,7 +27,7 @@ class MPT_Options {
 	}
 	
 	private static function _load_default_option() {
-		self::$default_options = (array) include( MPT_DIR . 'classes/helpers/default-settings.php' );	
+		self::$default_options = MPT_Plugin::get_default_settings_sections();
 	}
 
 	public static function get_option( $option_name  ) {

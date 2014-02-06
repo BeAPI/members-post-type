@@ -5,7 +5,9 @@ class MPT_Member {
 		'username',
 		'first_name',
 		'last_name',
-		'password'
+		'password',
+		'connection_type',
+		'social_id'
 	);
 
 	// Core public fields
@@ -15,6 +17,8 @@ class MPT_Member {
 	public $first_name = null;
 	public $last_name = null;
 	public $password = null;
+	public $connection_type = null;
+	public $social_id = null;
 
 	/**
 	 * The individual capabilities the member has been given.
@@ -333,11 +337,52 @@ class MPT_Member {
 		
 		return wp_mail( $email, $subject, $message );
 	}
+	
+	/**
+	 * Send notification with confirmation link to member
+	 *
+	 * @access public
+	 *
+	 * @return mixed Value.
+	 */
+	public function register_validation_notification( $key ) {
+		if( !$this->exists( ) ) {// Valid instance member ?
+			return false;
+		}
+		
+		$stop = apply_filters_ref_array( 'mpt_register_validation_notification', array( false, &$this, $key ) );
+		if( $stop === true ) {
+			return false;
+		}
+		$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
+		
+		$username = stripslashes( $this->get_display_name( ) );
+		$email = stripslashes( $this->email );
+		
+		// Get all options for admin notification email.
+		$message = mpt_get_option_value( 'mpt-emails', 'register_member_validation_content', true  );
+		$subject = mpt_get_option_value( 'mpt-emails', 'register_member_validation_subject', true  );
 
+		if( empty( $message ) && empty( $subject ) ) {
+			return false;
+		}
+		
+		// Build message text
+		$subject = str_replace( '%%blog_name%%', $blogname, $subject );
+		$message = str_replace( '%%site_url%%', network_site_url( ), $message );
+		$message = str_replace( '%%confirm_register_link%%', ''.add_query_arg( array( 'mpt-action' => 'validation-member-registration', 'ID' => $this->id, 'key' => $key ), mpt_get_registration_permalink() ). '' , $message );
+		
+		
+		// Allow plugins hooks
+		$subject = apply_filters( 'mpt_register_validation_notification_subject', $subject, $this );
+		$message = apply_filters( 'mpt_register_validation_notification_message', $message, $key, $this );
+		
+		return wp_mail( $email, $subject, $message );
+	}
 	/**
 	 * Get better display name, first name, last name, username, email or id...
 	 */
-	function get_display_name( ) {
+	public function get_display_name( ) {
 		if( !$this->exists( ) ) {// Valid instance member ?
 			return '';
 		}
@@ -389,7 +434,14 @@ class MPT_Member {
 
 		return true;
 	}
-
+	
+	/**
+	 * Send member email with reset password link
+	 *
+	 * @access public
+	 *
+	 * @return mixed Value.
+	 */
 	public function reset_password_link( ) {
 		do_action( 'mpt_retrieve_password', $this->id );
 
@@ -606,5 +658,17 @@ class MPT_Member {
 		// Set relation
 		wp_set_object_terms( $this->id, $relation_ids, MPT_TAXO_NAME, false );
 	}
-
+	
+	public function is_pending_member(){
+		if( !$this->exists( ) ) {// Valid instance member ?
+			return false;
+		}
+		
+		if( $this->_object->post_status === 'pending' ){
+			return true;
+		}
+		
+		return false;
+	}
+	
 }

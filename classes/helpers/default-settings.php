@@ -35,6 +35,14 @@ return array(
 			'default' => 1
 		),
 		array(
+			'name' => 'subscription-member-validation',
+			'label' => __( 'Member validation subscription', 'mpt' ),
+			'options' => __( 'Member validate his registration by an email ?', 'mpt' ),
+			'desc' => __( 'If you check this box, members can not connect until they have not validated their account.', 'mpt' ),
+			'type' => 'checkbox',
+			'default' => 1
+		),
+		array(
 			'name' => 'role-manager',
 			'label' => __( 'Role manager', 'mpt' ),
 			'desc' => __( 'Create roles, permissions, such as WordPress.', 'mpt' ),
@@ -93,6 +101,13 @@ return array(
 		array(
 			'name' => 'page-registration',
 			'label' => __( 'Registration', 'mpt' ),
+			//'desc' => __( 'Dropdown', 'mpt' ),
+			'type' => 'select',
+			'options' => MPT_Plugin::_get_pages( )
+		),
+		array(
+			'name' => 'page-registration-step-2',
+			'label' => __( 'Registration step 2', 'mpt' ),
 			//'desc' => __( 'Dropdown', 'mpt' ),
 			'type' => 'select',
 			'options' => MPT_Plugin::_get_pages( )
@@ -277,6 +292,26 @@ return array(
 			'label' => __( 'Content mail', 'mpt' ),
 			'type' => 'textarea',
 			'default' => __( "Username: %%username%%\nPassword: %%password%%\n\n%%login_url%%", 'mpt' ),
+			'desc' => __( 'Values ​"​%% %%" will be replaced dynamically sending mail.', 'mpt' ),
+			'sanitize_callback' => 'strip_tags'
+		),
+		array(
+			'name' => 'register_member_validation_mail',
+			'label' => __( 'Member registration email validation', 'mpt' ),
+			'desc' => __( 'Registration confirmation email with link validation counted', 'mpt' ),
+			'type' => 'metabox',
+		),
+		array(
+			'name' => 'register_member_validation_subject',
+			'label' => __( 'Subject mail', 'mpt' ),
+			'type' => 'text',
+			'default' => __( '[%%blog_name%%] Validate your registration', 'mpt' ),
+		),
+		array(
+			'name' => 'register_member_validation_content',
+			'label' => __( 'Content mail', 'mpt' ),
+			'type' => 'textarea',
+			'default' => __( "Thank you for registering on the site:\n\n%%site_url%%\n\nTo validate your account and complete the registration please click on the following link:\n\n%%confirm_register_link%%", 'mpt' ),
 			'desc' => __( 'Values ​"​%% %%" will be replaced dynamically sending mail.', 'mpt' ),
 			'sanitize_callback' => 'strip_tags'
 		),

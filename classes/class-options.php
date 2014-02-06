@@ -30,7 +30,7 @@ class MPT_Options {
 		self::$default_options = (array) include( MPT_DIR . 'classes/helpers/default-settings.php' );	
 	}
 
-	public static function get_option( $option_name  ) {		
+	public static function get_option( $option_name  ) {
 		if ( self::$options === null ) {
 			self::_load_option();
 		}

@@ -79,7 +79,12 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 				parent::set_message( 'step_1_error', __( 'No member with this value.', 'mpt' ), 'error' );
 				return false;
 			}
-
+			
+			if( $member->is_pending_member() ){
+				parent::set_message( 'step_1_pending_member', __( 'You have not verified your account. You can not renew your password.', 'mpt' ), 'error' );
+				return false;
+			}
+			
 			// Send reset link
 			$result = $member->reset_password_link();
 			if ( is_wp_error( $result ) ) {

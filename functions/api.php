@@ -131,3 +131,13 @@ function mpt_remove_role( $role ) {
 function mpt_get_option_value( $option_name, $field, $failback_default = false ) {
 	return MPT_Options::get_option_value( $option_name, $field, $failback_default );
 }
+/*
+ * Check if is a member validation registration
+ */
+function mpt_registration_with_member_validation(){
+	$option = MPT_Options::get_option_value( 'mpt-main', 'subscription-member-validation' );
+	if( $option === 1 ){
+		return 'off';
+	}
+	return $option;
+}

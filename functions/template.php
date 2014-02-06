@@ -36,6 +36,15 @@ function mpt_get_registration_permalink() {
 }
 
 /**
+ * Return register step 2 page link (clone as mpt_get_register_permalink)
+ * 
+ * @return string
+ */
+function mpt_get_registration_step_2_permalink() {
+	return MPT_Main::get_action_permalink( 'registration-step-2' );
+}
+
+/**
  * Return lost password page link
  * 
  * @return string

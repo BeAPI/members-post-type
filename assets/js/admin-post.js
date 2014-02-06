@@ -1,40 +1,53 @@
 jQuery(document).ready(function($) {
-    $('#member-password').val('').keyup(mpt_check_pass_strength);
-    $('#member-confirm_password').val('').keyup(mpt_check_pass_strength);
-    $('#pass-strength-result').show();
+	$('#member-password').val('').keyup(mpt_check_pass_strength);
+	$('#member-confirm_password').val('').keyup(mpt_check_pass_strength);
+	$('#pass-strength-result').show();
 
-    function mpt_check_pass_strength() {
-        var pass1 = $('#member-password').val(), pass2 = $('#member-confirm_password').val(), strength;
+	var member_social_id = $('#member-social_id'), connection_type = $('#member-connection_type');
 
-        if ($('#member-username').size() > 0) {
-            var user = $('#member-username').val();
-        } else {
-            var user = $('#member-email').val();
-        }
+	connection_type.on('change', mpt_check_connection_type);
+	function mpt_check_connection_type() {
+		if (connection_type.val() === 'default') {
+			member_social_id.closest('tr').hide();
+		} else {
+			member_social_id.closest('tr').show();
+		}
+	}
 
-        $('#pass-strength-result').removeClass('short bad good strong');
-        if (!pass1) {
-            $('#pass-strength-result').html(pwsL10n.empty);
-            return;
-        }
+	function mpt_check_pass_strength() {
+		var pass1 = $('#member-password').val(), pass2 = $('#member-confirm_password').val(), strength;
 
-        strength = passwordStrength(pass1, user, pass2);
+		if ($('#member-username').size() > 0) {
+			var user = $('#member-username').val();
+		} else {
+			var user = $('#member-email').val();
+		}
 
-        switch (strength) {
-            case 2:
-                $('#pass-strength-result').addClass('bad').html(pwsL10n['bad']);
-                break;
-            case 3:
-                $('#pass-strength-result').addClass('good').html(pwsL10n['good']);
-                break;
-            case 4:
-                $('#pass-strength-result').addClass('strong').html(pwsL10n['strong']);
-                break;
-            case 5:
-                $('#pass-strength-result').addClass('short').html(pwsL10n['mismatch']);
-                break;
-            default:
-                $('#pass-strength-result').addClass('short').html(pwsL10n['short']);
-        }
-    }
+		$('#pass-strength-result').removeClass('short bad good strong');
+		if (!pass1) {
+			$('#pass-strength-result').html(pwsL10n.empty);
+			return;
+		}
+
+		strength = passwordStrength(pass1, user, pass2);
+
+		switch (strength) {
+			case 2:
+				$('#pass-strength-result').addClass('bad').html(pwsL10n['bad']);
+				break;
+			case 3:
+				$('#pass-strength-result').addClass('good').html(pwsL10n['good']);
+				break;
+			case 4:
+				$('#pass-strength-result').addClass('strong').html(pwsL10n['strong']);
+				break;
+			case 5:
+				$('#pass-strength-result').addClass('short').html(pwsL10n['mismatch']);
+				break;
+			default:
+				$('#pass-strength-result').addClass('short').html(pwsL10n['short']);
+		}
+	}
+
+	mpt_check_connection_type();
 });

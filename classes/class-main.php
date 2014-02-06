@@ -173,6 +173,7 @@ class MPT_Main {
 		// Different action possible
 		switch ($action) {
 			case 'registration' :
+			case 'registration-step-2' :
 			case 'login' :
 			case 'change-password' :
 			case 'lost-password' :

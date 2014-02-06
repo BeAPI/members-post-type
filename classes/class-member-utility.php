@@ -64,13 +64,18 @@ class MPT_Member_Utility {
 			return new WP_Error('existing_member_email', __('This email address is already registered.') );
 		}
 		
-		if ( !isset($memberdata['member_registered']) || empty($memberdata['member_registered']) )
+		if ( !isset($memberdata['member_registered']) || empty($memberdata['member_registered']) ){
 			$memberdata['member_registered'] = gmdate('Y-m-d H:i:s');
-
+		}
+		
+		if( !isset($memberdata['post_status']) || empty($memberdata['post_status']) ){
+			$memberdata['post_status'] = 'publish';
+		}
+		
 		$member_id = wp_insert_post( array(
 			'post_title' => 'tmp',
 			'post_type' => MPT_CPT_NAME,
-			'post_status' => 'publish',
+			'post_status' => $memberdata['post_status'],
 			'post_date' => $memberdata['member_registered']
 		) );
 

@@ -21,13 +21,17 @@ class MPT_Shortcode {
 	 * 
 	 * @param string $template the template name without extension and path
 	 * @param array $member_data variable to passe to template for display _POST values
-	 * @return string the file content | bool false
+	 * @return string $default_path the plugin path
 	 * 
 	 * @author Benjamin Niess
 	 */
-	public static function load_template( $template = '', $member_data = array() ) {
+	public static function load_template( $template = '', $member_data = array(), $default_path = '' ) {
 		if ( empty( $template ) ) {
 			return false;
+		}
+		
+		if( empty( $default_path ) ){
+			$default_path = MPT_DIR;
 		}
 		
 		ob_start();
@@ -35,8 +39,8 @@ class MPT_Shortcode {
 			include( STYLESHEETPATH . '/shortcodes/mpt-' . $template . '.tpl.php' );
 		} elseif ( is_file( TEMPLATEPATH . '/shortcodes/mpt-' . $template . '.tpl.php' ) ) {
 			include( TEMPLATEPATH . '/shortcodes/mpt-' . $template . '.tpl.php' );
-		} elseif ( is_file( MPT_DIR . 'views/client/' . $template . '.tpl.php' ) ) {
-			include( MPT_DIR . 'views/client/' . $template . '.tpl.php' );
+		} elseif ( is_file( $default_path . 'views/client/' . $template . '.tpl.php' ) ) {
+			include( $default_path . 'views/client/' . $template . '.tpl.php' );
 		} else {
 			ob_end_clean();
 			return false;

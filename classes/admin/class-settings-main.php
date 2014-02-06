@@ -71,8 +71,8 @@ class MPT_Admin_Settings_Main {
 	 */
 	public static function admin_init( ) {
 		//set the settings
-		self::$settings_api->set_sections( MPT_Plugin::get_settings_sections( ) );
-		self::$settings_api->set_fields( MPT_Plugin::get_settings_fields( ) );
+		self::$settings_api->set_sections( MPT_Plugin::get_default_settings_sections( ) );
+		self::$settings_api->set_fields( MPT_Plugin::get_default_settings_fields( ) );
 
 		//initialize settings
 		self::$settings_api->admin_init( );

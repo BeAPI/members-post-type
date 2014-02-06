@@ -305,4 +305,8 @@ class MPT_Admin_Post_Type {
 
 		return $location;
 	}
+	
+	public static function get_connection_type(){
+		return apply_filters( 'mpt_connection_type', array( 'default' => __( 'Username / Mail', 'mpt' ) ) );
+	}
 }

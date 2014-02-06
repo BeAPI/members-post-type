@@ -71,31 +71,13 @@ class MPT_Admin_Settings_Main {
 	 */
 	public static function admin_init( ) {
 		//set the settings
-		self::$settings_api->set_sections( self::get_settings_sections( ) );
-		self::$settings_api->set_fields( self::get_settings_fields( ) );
+		self::$settings_api->set_sections( MPT_Plugin::get_settings_sections( ) );
+		self::$settings_api->set_fields( MPT_Plugin::get_settings_fields( ) );
 
 		//initialize settings
 		self::$settings_api->admin_init( );
 	}
-
-	/**
-	 * Returns all the settings section
-	 * 
-	 * @return array
-	 */
-	public static function get_settings_sections( ) {
-		return (array) include( MPT_DIR . 'classes/helpers/default-sections.php' );
-	}
-
-	/**
-	 * Returns all the settings fields
-	 *
-	 * @return array settings fields
-	 */
-	public static function get_settings_fields( ) {
-		return (array) include( MPT_DIR . 'classes/helpers/default-settings.php' );
-	}
-
+	
 	/**
 	 * TODO: Keep logic
 	 *

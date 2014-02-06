@@ -126,4 +126,22 @@ class MPT_Plugin {
 
 		return $pages_options;
 	}
+	
+	/**
+	 * Returns all the settings section
+	 * 
+	 * @return array
+	 */
+	public static function get_default_settings_sections( ) {
+		return apply_filters( 'mpt_default_options_sections', (array) include( MPT_DIR . 'classes/helpers/default-sections.php' ) );
+	}
+
+	/**
+	 * Returns all the settings fields
+	 *
+	 * @return array settings fields
+	 */
+	public static function get_default_settings_fields( ) {
+		return apply_filters( 'mpt_default_options_settings' , (array) include( MPT_DIR . 'classes/helpers/default-settings.php' ) );
+	}
 }

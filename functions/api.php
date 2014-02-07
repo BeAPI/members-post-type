@@ -58,9 +58,10 @@ function mpt_is_unique_email() {
  */
 function current_member_can( $capability ) {
 	$current_member = mpt_get_current_member();
-	if ( empty( $current_member ) )
+	if ( empty( $current_member ) ) {
 		return false;
-
+	}
+	
 	$args = array_slice( func_get_args(), 1 );
 	$args = array_merge( array( $capability ), $args );
 

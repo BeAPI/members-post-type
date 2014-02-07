@@ -97,7 +97,7 @@ function _mpt_load_files($dir, $files, $prefix = '') {
 _mpt_load_files(MPT_DIR . 'functions/', array('api', 'template'));
 
 // Plugin client classes
-_mpt_load_files(MPT_DIR . 'classes/', array('main', 'plugin', 'post-type', 'security', 'shortcode', 'taxonomy', 'widget'), 'class-');
+_mpt_load_files(MPT_DIR . 'classes/', array('main', 'plugin', 'content-permissions', 'post-type', 'security', 'shortcode', 'taxonomy', 'widget'), 'class-');
 
 // Plugin helper classes
 _mpt_load_files(MPT_DIR . 'classes/helpers/', array('member-auth', 'member-utility','options'), 'class-');
@@ -105,10 +105,9 @@ _mpt_load_files(MPT_DIR . 'classes/helpers/', array('member-auth', 'member-utili
 // Plugin model classes
 _mpt_load_files(MPT_DIR . 'classes/models/', array('member', 'roles', 'role'), 'class-');
 
-
 // Plugin admin classes
 if (is_admin()) {
-	_mpt_load_files(MPT_DIR . 'classes/admin/', array( 'export', 'main', 'post-type', 'taxonomy', 'import', 'settings-main'), 'class-');
+	_mpt_load_files(MPT_DIR . 'classes/admin/', array( 'content-permissions', 'export', 'main', 'post-type', 'taxonomy', 'import', 'settings-main'), 'class-');
 
 	// Load class for API settings
 	if ( !class_exists('WeDevs_Settings_API') ) {
@@ -134,12 +133,14 @@ function init_mpt_plugin() {
 	new MPT_Main();
 	new MPT_Post_Type();
 	new MPT_Taxonomy();
+	new MPT_Content_Permissions();
 	new MPT_Shortcode();
 	new MPT_Security();
 
 	// Admin
 	if (is_admin()) {
 		// Class admin
+		new MPT_Admin_Content_Permissions();
 		new MPT_Admin_Main();
 		new MPT_Admin_Post_Type();
 		new MPT_Admin_Taxonomy();

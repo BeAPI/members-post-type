@@ -97,7 +97,7 @@ function _mpt_load_files($dir, $files, $prefix = '') {
 _mpt_load_files(MPT_DIR . 'functions/', array('api', 'template'));
 
 // Plugin client classes
-_mpt_load_files(MPT_DIR . 'classes/', array('main', 'plugin', 'content-permissions', 'post-type', 'security', 'shortcode', 'taxonomy', 'widget'), 'class-');
+_mpt_load_files(MPT_DIR . 'classes/', array('main', 'plugin', 'content-permissions', 'post-type', 'private-website', 'security', 'shortcode', 'taxonomy', 'widget'), 'class-');
 
 // Plugin helper classes
 _mpt_load_files(MPT_DIR . 'classes/helpers/', array('member-auth', 'member-utility','options'), 'class-');
@@ -134,6 +134,7 @@ function init_mpt_plugin() {
 	new MPT_Post_Type();
 	new MPT_Taxonomy();
 	new MPT_Content_Permissions();
+	new MPT_Private_Website();
 	new MPT_Shortcode();
 	new MPT_Security();
 

@@ -101,7 +101,7 @@ class MPT_Plugin {
 		// Add registered roles
 		$terms = MPT_Roles::get_roles( );
 		if(empty($terms)){
-			return false;
+			return $roles;
 		}
 		foreach( $terms as $term ) {
 			$roles[$term->slug] = $term->name;

@@ -193,5 +193,65 @@ class MPT_Main {
 
 		return apply_filters('mpt_action_permalink', $return_url, $action);
 	}
+	
+	/**
+	 * Get page id for MPT actions
+	 * 
+	 * @param string $action action ask by developper.
+	 *
+	 * @access public
+	 * @static
+	 *
+	 * @return integer id of asked page
+	 */
+	public static function get_action_page_id($action = '') {
+		// Get page ids from options
+		$current_options = (array) MPT_Options::get_option('mpt-pages');
 
+		// Default id
+		$page_id = 0;
+
+		// Different action possible
+		switch ($action) {
+			case 'registration' :
+			case 'registration-step-2' :
+			case 'login' :
+			case 'change-password' :
+			case 'lost-password' :
+				if (isset($current_options['page-' . $action]) && absint($current_options['page-' . $action]) > 0) {
+					$page_id = $current_options['page-' . $action];
+				}
+				break;
+			case 'logout' :
+			default :
+				break;
+		}
+
+		return apply_filters('mpt_action_page_id', $page_id, $action);
+	}
+
+	
+	public static function is_action_page() {
+		// Is page ?
+		if ( !is_page() ) {
+			return false;
+		}
+		
+		// Get page ids from options
+		$current_options = (array) MPT_Options::get_option('mpt-pages');
+
+		// Get current page ID asked
+		$current_page_id = get_queried_object_id();
+		if ( (int) $current_page_id == 0 ) {
+			return false;
+		}
+
+		foreach( $current_options as $option_name => $option_page_id ) {
+			if ( $current_page_id == $option_page_id ) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }

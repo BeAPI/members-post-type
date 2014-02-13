@@ -257,7 +257,7 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 					wp_die( $update_member->get_error_message() , $update_member->get_error_code() );
 				}
 				
-				$member->set_password( sanitize_email( $_POST['mptregistration_s2']['password'] ) );
+				$member->set_password( $_POST['mptregistration_s2']['password'] );
 				if( isset($_POST['mptregistration_s2']['username']) && !empty( $_POST['mptregistration_s2']['username'] ) ){
 					$member->set_meta_value( 'username', sanitize_text_field( $_POST['mptregistration_s2']['username'] ) );
 				}

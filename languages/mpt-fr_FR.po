@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MPT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-04 11:56+0100\n"
-"PO-Revision-Date: 2014-02-04 14:48+0100\n"
+"POT-Creation-Date: 2014-02-14 18:13+0100\n"
+"PO-Revision-Date: 2014-02-14 18:15+0100\n"
 "Last-Translator: \n"
 "Language-Team: BeAPI <contact@beapi.fr>\n"
 "Language: fr\n"
@@ -16,93 +16,119 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Textdomain-Support: yes\n"
 "X-Poedit-Basepath: .\n"
-"X-Generator: Poedit 1.6.3\n"
+"X-Generator: Poedit 1.6.4\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../classes/class-member-auth.php:92
-msgid "Please log in again."
-msgstr "Merci de vous connecter à nouveau."
+#: ../classes/admin/class-content-permissions.php:45
+#, fuzzy
+msgid "Content permissions (for MPT)"
+msgstr "Contenu de l'email."
 
-#: ../classes/class-member-auth.php:121
-msgid "<strong>ERROR</strong>: Invalid username or incorrect password."
-msgstr "<strong>ERREUR</strong> : Nom d'utilisateur ou mot de passe incorrect."
+#: ../classes/admin/class-export.php:19 ../views/admin/metabox-main.php:9
+#: ../views/client/member-registration.tpl.php:30
+msgid "Email"
+msgstr "Email"
 
-#: ../classes/class-member-auth.php:145
-msgid "<strong>ERROR</strong>: The email field is empty."
-msgstr "<strong>ERREUR</strong> : Le champ email est vide."
+#: ../classes/admin/class-export.php:19
+msgid "Lastname"
+msgstr "Nom"
 
-#: ../classes/class-member-auth.php:148 ../classes/class-member-auth.php:189
-msgid "<strong>ERROR</strong>: The password field is empty."
-msgstr "<strong>ERREUR</strong> : Le champ mot de passe est vide."
+#: ../classes/admin/class-export.php:19
+#: ../views/client/member-registration-step-2.tpl.php:15
+#: ../views/client/member-registration.tpl.php:17
+msgid "Firstname"
+msgstr "Prénom"
 
-#: ../classes/class-member-auth.php:158
+#: ../classes/admin/class-export.php:19 ../views/admin/metabox-main.php:14
+#: ../views/client/member-login.tpl.php:10
+#: ../views/client/member-registration-step-2.tpl.php:11
+#: ../views/client/member-registration.tpl.php:11
+#: ../views/client/widget-mpt-unconnected.php:17
+msgid "Username"
+msgstr "Nom d'utilisateur"
+
+#: ../classes/admin/class-export.php:19
+#, fuzzy
+msgid "Counter Sign On"
+msgstr "Méthode de connexion"
+
+#: ../classes/admin/class-export.php:19
+#, fuzzy
+msgid "Last Sign On Date"
+msgstr "Nom"
+
+#: ../classes/admin/class-import.php:77
+msgid "missing email and/or username"
+msgstr ""
+
+#: ../classes/admin/class-import.php:138
 #, php-format
-msgid ""
-"<strong>ERROR</strong>: Invalid email. <a href=\"%s\" title=\"Password Lost "
-"and Found\">Lost your password</a>?"
-msgstr ""
-"<strong>ERREUR</strong> : Adresse email incorrecte. <a href=\"%s\" title="
-"\"Mot de passe oublié\">Mot de passe oublié</a>?"
+msgid "Account creation for [%s] :"
+msgstr "Création de compte pour [%s] :"
 
-#: ../classes/class-member-auth.php:167
+#: ../classes/admin/class-import.php:139
 #, php-format
-msgid ""
-"<strong>ERROR</strong>: The password you entered for the email <strong>%1$s</"
-"strong> is incorrect. <a href=\"%2$s\" title=\"Password Lost and Found"
-"\">Lost your password</a>?"
-msgstr ""
-"<strong>ERREUR</strong> : Le mot de passe que vous avez saisi pour l'email "
-"<strong>%1$s</strong> est incorrect. <a href=\"%2$s\" title=\"Mot de passe "
-"oublié ?\">Mot de passe oublié ?</a>?"
+msgid "Name: %s %s"
+msgstr "Nom: %s %s"
 
-#: ../classes/class-member-auth.php:186
-msgid "<strong>ERROR</strong>: The username field is empty."
-msgstr "<strong>ERREUR</strong> : Le champ utilisateur est vide."
-
-#: ../classes/class-member-auth.php:199
+#: ../classes/admin/class-import.php:140
 #, php-format
-msgid ""
-"<strong>ERROR</strong>: Invalid username. <a href=\"%s\" title=\"Password "
-"Lost and Found\">Lost your password</a>?"
-msgstr ""
-"<strong>ERREUR</strong> : Nom d'utilisateur invalide. <a href=\"%s\" title="
-"\"Mot de passe oublié\">Mot de passe oublié</a>?"
+msgid "Username: %s"
+msgstr "Nom d'utilisateur : %s"
 
-#: ../classes/class-member-auth.php:208
+#: ../classes/admin/class-import.php:141
 #, php-format
+msgid "Password: %s"
+msgstr "Mot de passe : %s"
+
+#: ../classes/admin/class-import.php:143
+#, php-format
+msgid "[%s] Your username and password"
+msgstr "[%s] Vos identifiants"
+
+#: ../classes/admin/class-post-type.php:59
+msgid "Password and confirmation must be the same."
+msgstr "Les deux mots de passe que vous avez saisi ne correspondent pas."
+
+#: ../classes/admin/class-post-type.php:62 ../classes/class-security.php:122
 msgid ""
-"<strong>ERROR</strong>: The password you entered for the username <strong>"
-"%1$s</strong> is incorrect. <a href=\"%2$s\" title=\"Password Lost and Found"
-"\">Lost your password</a>?"
+"The password does not meet the criteria required by the security policy."
 msgstr ""
-"<strong>ERREUR</strong> : Le mot de passe que vous avez saisi pour "
-"l'identifiant %1$s est incorrect. <a href=\"%2$s\" title=\"Mot de passe "
-"oublié ?\">Mot de passe oublié ?</a>?"
 
-#: ../classes/class-member-utility.php:64
-msgid "This email address is already registered."
-msgstr "Cet email est déjà enregistré."
-
-#: ../classes/class-member-utility.php:89
-msgid "The member is invalid."
-msgstr "Cet utilisateur est invalide."
-
-#: ../classes/class-member.php:183
-msgid "Password change is not allowed for this member"
-msgstr "Le changement de mot de passe n'est pas autorisé pour ce membre"
-
-#: ../classes/class-member.php:450
-msgid "Password reset is not allowed for this member"
-msgstr "La régénération de mot de passe n'est pas autorisée pour ce membre"
-
-#: ../classes/class-member.php:495
-msgid "The e-mail could not be sent."
-msgstr "Cet e-mail n'a pas pu être envoyé."
-
-#: ../classes/class-member.php:495
-msgid "Possible reason: your host may have disabled the mail() function..."
+#: ../classes/admin/class-post-type.php:65
+msgid ""
+"The password is the same as that already active. No changes will be made to "
+"that member."
 msgstr ""
-"Raison possible : votre hébergeur a peut-être désactivé la fonction mail()…"
+"Le mot de passe est le même que l'actuel. Aucun changement ne sera fait pour "
+"ce membre."
+
+#: ../classes/admin/class-post-type.php:70
+msgid "The email is already in use. Back to initial value."
+msgstr "Cet email est déjà utilisé. Retour à la valeur initiale."
+
+#: ../classes/admin/class-post-type.php:109
+msgid "Main information"
+msgstr "Informations principales"
+
+#: ../classes/admin/class-post-type.php:110
+#: ../classes/helpers/default-settings.php:124
+msgid "Change password"
+msgstr "Modifier le mot de passe"
+
+#: ../classes/admin/class-post-type.php:306
+msgid "Username / Mail"
+msgstr "Nom d'utilisateur/Email"
+
+#: ../classes/admin/class-settings-main.php:49
+#, fuzzy
+msgid "Members Post Type"
+msgstr "Type de contenu membres"
+
+#: ../classes/admin/class-taxonomy.php:38 ../views/admin/term-fields.php:15
+#, fuzzy
+msgid "Remove capability"
+msgstr "Ajouter une nouvelle permission"
 
 #: ../classes/class-plugin.php:14
 msgid "Members Manager"
@@ -186,8 +212,9 @@ msgid "Member updated. <a href=\"%s\">View member</a>"
 msgstr "Membre mis à jour. <a href=\"%s\">Voir le membre</a>"
 
 #: ../classes/class-post-type.php:82
+#, fuzzy
 msgid "Custom field updated."
-msgstr ""
+msgstr "Membre mis à jour."
 
 #: ../classes/class-post-type.php:83
 msgid "Custom field deleted."
@@ -230,20 +257,21 @@ msgid "M j, Y @ G:i"
 msgstr ""
 
 #: ../classes/class-post-type.php:93
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "Member draft updated. <a target=\"_blank\" href=\"%s\">Preview member</a>"
+msgstr "Membre soumis. <a target=\"_blank\" href=\"%s\">Voir le membre</a>"
+
+#: ../classes/class-private-website.php:42
+msgid ""
+"You must be logged in to access the site, but could not find the login page. "
+"Contact the webmaster."
 msgstr ""
 
 #: ../classes/class-security.php:98
 msgid ""
 "You can not use this password because of the defined security policy and the "
 "fact that you've used in the past."
-msgstr ""
-
-#: ../classes/class-security.php:122 ../classes/admin/class-post-type.php:62
-msgid ""
-"The password does not meet the criteria required by the security policy."
 msgstr ""
 
 #: ../classes/class-security.php:141
@@ -357,104 +385,74 @@ msgstr ""
 "Ce formulaire autorise les membres à se connecter et se déconnecter. Il "
 "affiche également les liens d'inscription et de mot de passe oublié."
 
-#: ../classes/admin/class-export.php:19 ../views/admin/metabox-main.php:9
-#: ../views/client/member-registration.tpl.php:30
-msgid "Email"
-msgstr "Email"
+#: ../classes/helpers/class-member-auth.php:92
+msgid "Please log in again."
+msgstr "Merci de vous connecter à nouveau."
 
-#: ../classes/admin/class-export.php:19
-msgid "Lastname"
-msgstr "Nom"
+#: ../classes/helpers/class-member-auth.php:121
+msgid "<strong>ERROR</strong>: Invalid username or incorrect password."
+msgstr "<strong>ERREUR</strong> : Nom d'utilisateur ou mot de passe incorrect."
 
-#: ../classes/admin/class-export.php:19
-#: ../views/client/member-registration-step-2.tpl.php:15
-#: ../views/client/member-registration.tpl.php:17
-msgid "Firstname"
-msgstr "Prénom"
+#: ../classes/helpers/class-member-auth.php:145
+msgid "<strong>ERROR</strong>: The email field is empty."
+msgstr "<strong>ERREUR</strong> : Le champ email est vide."
 
-#: ../classes/admin/class-export.php:19 ../views/admin/metabox-main.php:14
-#: ../views/client/member-login.tpl.php:10
-#: ../views/client/member-registration-step-2.tpl.php:11
-#: ../views/client/member-registration.tpl.php:11
-#: ../views/client/widget-mpt-unconnected.php:17
-msgid "Username"
-msgstr "Nom d'utilisateur"
+#: ../classes/helpers/class-member-auth.php:148
+#: ../classes/helpers/class-member-auth.php:189
+msgid "<strong>ERROR</strong>: The password field is empty."
+msgstr "<strong>ERREUR</strong> : Le champ mot de passe est vide."
 
-#: ../classes/admin/class-export.php:19
-#, fuzzy
-msgid "Counter Sign On"
-msgstr "Méthode de connexion"
-
-#: ../classes/admin/class-export.php:19
-#, fuzzy
-msgid "Last Sign On Date"
-msgstr "Nom"
-
-#: ../classes/admin/class-import.php:77
-msgid "missing email and/or username"
-msgstr ""
-
-#: ../classes/admin/class-import.php:138
+#: ../classes/helpers/class-member-auth.php:158
 #, php-format
-msgid "Account creation for [%s] :"
-msgstr "Création de compte pour [%s] :"
-
-#: ../classes/admin/class-import.php:139
-#, php-format
-msgid "Name: %s %s"
-msgstr "Nom: %s %s"
-
-#: ../classes/admin/class-import.php:140
-#, php-format
-msgid "Username: %s"
-msgstr "Nom d'utilisateur : %s"
-
-#: ../classes/admin/class-import.php:141
-#, php-format
-msgid "Password: %s"
-msgstr "Mot de passe : %s"
-
-#: ../classes/admin/class-import.php:143
-#, php-format
-msgid "[%s] Your username and password"
-msgstr "[%s] Vos identifiants"
-
-#: ../classes/admin/class-post-type.php:59
-msgid "Password and confirmation must be the same."
-msgstr "Les deux mots de passe que vous avez saisi ne correspondent pas."
-
-#: ../classes/admin/class-post-type.php:65
 msgid ""
-"The password is the same as that already active. No changes will be made to "
-"that member."
+"<strong>ERROR</strong>: Invalid email. <a href=\"%s\" title=\"Password Lost "
+"and Found\">Lost your password</a>?"
 msgstr ""
-"Le mot de passe est le même que l'actuel. Aucun changement ne sera fait pour "
-"ce membre."
+"<strong>ERREUR</strong> : Adresse email incorrecte. <a href=\"%s\" title="
+"\"Mot de passe oublié\">Mot de passe oublié</a>?"
 
-#: ../classes/admin/class-post-type.php:70
-msgid "The email is already in use. Back to initial value."
-msgstr "Cet email est déjà utilisé. Retour à la valeur initiale."
-
-#: ../classes/admin/class-post-type.php:113
-msgid "Main information"
-msgstr "Informations principales"
-
-#: ../classes/admin/class-post-type.php:114
-#: ../classes/helpers/default-settings.php:124
-msgid "Change password"
-msgstr "Modifier le mot de passe"
-
-#: ../classes/admin/class-post-type.php:310
-msgid "Username / Mail"
-msgstr "Nom d'utilisateur/Email"
-
-#: ../classes/admin/class-settings-main.php:49
-msgid "Members Post Type"
+#: ../classes/helpers/class-member-auth.php:167
+#, php-format
+msgid ""
+"<strong>ERROR</strong>: The password you entered for the email <strong>%1$s</"
+"strong> is incorrect. <a href=\"%2$s\" title=\"Password Lost and Found"
+"\">Lost your password</a>?"
 msgstr ""
+"<strong>ERREUR</strong> : Le mot de passe que vous avez saisi pour l'email "
+"<strong>%1$s</strong> est incorrect. <a href=\"%2$s\" title=\"Mot de passe "
+"oublié ?\">Mot de passe oublié ?</a>?"
 
-#: ../classes/admin/class-taxonomy.php:38 ../views/admin/term-fields.php:15
-msgid "Remove capability"
+#: ../classes/helpers/class-member-auth.php:186
+msgid "<strong>ERROR</strong>: The username field is empty."
+msgstr "<strong>ERREUR</strong> : Le champ utilisateur est vide."
+
+#: ../classes/helpers/class-member-auth.php:199
+#, php-format
+msgid ""
+"<strong>ERROR</strong>: Invalid username. <a href=\"%s\" title=\"Password "
+"Lost and Found\">Lost your password</a>?"
 msgstr ""
+"<strong>ERREUR</strong> : Nom d'utilisateur invalide. <a href=\"%s\" title="
+"\"Mot de passe oublié\">Mot de passe oublié</a>?"
+
+#: ../classes/helpers/class-member-auth.php:208
+#, php-format
+msgid ""
+"<strong>ERROR</strong>: The password you entered for the username <strong>"
+"%1$s</strong> is incorrect. <a href=\"%2$s\" title=\"Password Lost and Found"
+"\">Lost your password</a>?"
+msgstr ""
+"<strong>ERREUR</strong> : Le mot de passe que vous avez saisi pour "
+"l'identifiant %1$s est incorrect. <a href=\"%2$s\" title=\"Mot de passe "
+"oublié ?\">Mot de passe oublié ?</a>?"
+
+#: ../classes/helpers/class-member-utility.php:64
+msgid "This email address is already registered."
+msgstr "Cet email est déjà enregistré."
+
+#: ../classes/helpers/class-member-utility.php:89
+msgid "The member is invalid."
+msgstr "Cet utilisateur est invalide."
 
 #: ../classes/helpers/default-sections.php:5
 #, fuzzy
@@ -504,7 +502,7 @@ msgstr ""
 #: ../classes/helpers/default-sections.php:24
 #, fuzzy
 msgid "Admin mail for Member registration"
-msgstr "Email mot de passe perdu d'un membre"
+msgstr "Email administrateur pour la perte d'un mot de passe membre"
 
 #: ../classes/helpers/default-sections.php:25
 #, fuzzy
@@ -534,7 +532,7 @@ msgstr "Modérateur des membres"
 #: ../classes/helpers/default-settings.php:61
 #, fuzzy
 msgid "Content permissions"
-msgstr "Supprimez le contenu des champs pour les supprimer."
+msgstr "Contenu de l'email."
 
 #: ../classes/helpers/default-settings.php:10
 #: ../classes/helpers/default-settings.php:74
@@ -598,7 +596,7 @@ msgstr "Email d'inscription d'un membre avec validation du compte"
 #: ../classes/helpers/default-settings.php:40
 #, fuzzy
 msgid "Member validate his registration by an email ?"
-msgstr "Email d'inscription d'un membre avec validation du compte"
+msgstr "Email d'inscription d'un membre"
 
 #: ../classes/helpers/default-settings.php:41
 msgid ""
@@ -1127,6 +1125,23 @@ msgstr ""
 "\n"
 "%%reset_pwd_link%%"
 
+#: ../classes/models/class-member.php:183
+msgid "Password change is not allowed for this member"
+msgstr "Le changement de mot de passe n'est pas autorisé pour ce membre"
+
+#: ../classes/models/class-member.php:450
+msgid "Password reset is not allowed for this member"
+msgstr "La régénération de mot de passe n'est pas autorisée pour ce membre"
+
+#: ../classes/models/class-member.php:495
+msgid "The e-mail could not be sent."
+msgstr "Cet e-mail n'a pas pu être envoyé."
+
+#: ../classes/models/class-member.php:495
+msgid "Possible reason: your host may have disabled the mail() function..."
+msgstr ""
+"Raison possible : votre hébergeur a peut-être désactivé la fonction mail()…"
+
 #: ../classes/shortcodes/class-shortcode-change-password.php:17
 msgid ""
 "Your password has expired. You must change before continuing your visit."
@@ -1235,10 +1250,13 @@ msgstr "Vous devez compléter les deux champs mot de passe"
 
 #: ../classes/shortcodes/class-shortcode-registration.php:189
 #: ../classes/shortcodes/class-shortcode-registration.php:292
-msgid "Your account has been created. You can now log-in with your access"
+#, php-format
+msgid ""
+"Your account has been created. You can now log-in with your access. <a href="
+"\"%s\">Click here</a> "
 msgstr ""
 "Votre compte a bien été créé. Vous pouvez désormais vous connecter avec vos "
-"accès"
+"accès. <a href=\"%s\">Cliquez ici</a> "
 
 #: ../classes/shortcodes/class-shortcode-registration.php:219
 msgid "Registration key is not valide for this member"
@@ -1251,6 +1269,30 @@ msgstr ""
 #: ../libraries/wordpress-settings-api-class/class.settings-api.php:501
 msgid "No section available"
 msgstr ""
+
+#: ../views/admin/metabox-content-permissions.php:8
+msgid "Limit access to this post's content to members of the selected roles."
+msgstr ""
+
+#: ../views/admin/metabox-content-permissions.php:21
+#, php-format
+msgid ""
+"If no roles are selected, everyone can view the content. The post author, "
+"any users who can edit this post, and users with the %s capability can view "
+"the content regardless of role."
+msgstr ""
+
+#: ../views/admin/metabox-content-permissions.php:25
+#, fuzzy
+msgid "Custom error messsage:"
+msgstr "Erreur durant la lecture du fichier"
+
+#: ../views/admin/metabox-content-permissions.php:28
+#, fuzzy
+msgid "Message shown to users that do no have permission to view the post."
+msgstr ""
+"Ne pas changer cette valeur si vous avez déjà des inscrits ! Vous risquez de "
+"casser votre site !"
 
 # @ acf
 #: ../views/admin/metabox-main.php:19

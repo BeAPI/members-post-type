@@ -186,7 +186,7 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 				unset( $_POST['mptregistration'] );
 
 				// Set success message
-				parent::set_message( 'mptregistration', __( 'Your account has been created. You can now log-in with your access', 'mpt' ), 'success' );
+				parent::set_message( 'mptregistration', sprintf( __( 'Your account has been created. You can now log-in with your access. <a href="%s">Click here</a> ', 'mpt' ), home_url('/') ), 'success' );
 				return true;
 			}
 		}
@@ -289,7 +289,7 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 					unset( $_POST['mptregistration_s2'] );
 
 					// Set success message
-					parent::set_message( 'mptregistration_s2', __( 'Your account has been created. You can now log-in with your access', 'mpt' ), 'success' );
+					parent::set_message( 'mptregistration_s2', sprintf( __( 'Your account has been created. You can now log-in with your access. <a href="%s">Click here</a> ', 'mpt' ), home_url('/') ), 'success' );
 					return true;
 				}
 			}

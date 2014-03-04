@@ -103,35 +103,35 @@ return array(
 			'label' => __( 'Registration', 'mpt' ),
 			//'desc' => __( 'Dropdown', 'mpt' ),
 			'type' => 'select',
-			'options' => MPT_Plugin::_get_pages( )
+			'options' => $all_pages
 		),
 		array(
 			'name' => 'page-registration-step-2',
 			'label' => __( 'Registration step 2', 'mpt' ),
 			//'desc' => __( 'Dropdown', 'mpt' ),
 			'type' => 'select',
-			'options' => MPT_Plugin::_get_pages( )
+			'options' => $all_pages
 		),
 		array(
 			'name' => 'page-login',
 			'label' => __( 'Login/logout', 'mpt' ),
 			//'desc' => __( 'Dropdown', 'mpt' ),
 			'type' => 'select',
-			'options' => MPT_Plugin::_get_pages( )
+			'options' => $all_pages
 		),
 		array(
 			'name' => 'page-change-password',
 			'label' => __( 'Change password', 'mpt' ),
 			//'desc' => __( 'Dropdown', 'mpt' ),
 			'type' => 'select',
-			'options' => MPT_Plugin::_get_pages( )
+			'options' => $all_pages
 		),
 		array(
 			'name' => 'page-lost-password',
 			'label' => __( 'Lost password', 'mpt' ),
 			//'desc' => __( 'Dropdown', 'mpt' ),
 			'type' => 'select',
-			'options' => MPT_Plugin::_get_pages( )
+			'options' => $all_pages
 		),
 	),
 	'mpt-security' => array(

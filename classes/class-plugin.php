@@ -154,6 +154,9 @@ class MPT_Plugin {
 	 * @return array settings fields
 	 */
 	public static function get_default_settings_fields( ) {
+		// Get pages for build settings with list page
+		$all_pages = MPT_Plugin::_get_pages( );
+		
 		return apply_filters( 'mpt_default_options_settings' , (array) include( MPT_DIR . 'classes/helpers/default-settings.php' ) );
 	}
 }

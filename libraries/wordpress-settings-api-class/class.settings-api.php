@@ -298,7 +298,8 @@ class WeDevs_Settings_API {
      */
     public function callback_metabox( $args ) {
         echo '</tbody></table>';
-        echo '</div>';
+        echo '</div><!-- closed inside -->';
+		echo '</div>';
 
         echo '<div class="postbox" id="postbox-field-'.$args['id'].'">';
         if ( isset($args['name']) && !empty($args['name']) ) {
@@ -308,6 +309,8 @@ class WeDevs_Settings_API {
         if ( isset($args['desc']) && !empty($args['desc']) ) {
             echo '<div class="inside">'.$args['desc'].'</div>';
         }
+		
+		echo '<div class="inside">';
         echo '<table class="form-table"><tbody>';
     }
 
@@ -544,9 +547,11 @@ class WeDevs_Settings_API {
 
             if ( ! isset( $wp_settings_fields ) || !isset( $wp_settings_fields[$page] ) || !isset( $wp_settings_fields[$page][$section['id']] ) )
                 continue;
-            echo '<table class="form-table">';
-            $this->do_settings_fields( $page, $section['id'] );
-            echo '</table>';
+            echo '<div class="inside">';
+				echo '<table class="form-table">';
+					$this->do_settings_fields( $page, $section['id'] );
+				echo '</table>';
+			echo '</div>';
         }
     }
 

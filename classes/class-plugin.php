@@ -116,14 +116,26 @@ class MPT_Plugin {
 	 * @return array page names with key value pairs
 	 */
 	public static function _get_pages( ) {
-		$pages = get_pages( );
-		$pages_options = array( 0 => __( 'Select a page', 'mpt' ) );
-		if( $pages ) {
-			foreach( $pages as $page ) {
-				$pages_options[$page->ID] = $page->post_title;
-			}
-		}
+		global $wpdb;
+		
+		$found = false;
+		$pages_options = wp_cache_get('_get_pages', 'members-post-type', false, $found);
+		if( !$found ) {
+			// Fix performances issues, use directly SQL
+			$pages = $wpdb->get_results( "SELECT ID, post_title FROM $wpdb->posts WHERE post_type = 'page' AND post_status = 'publish'" );
 
+			$pages_options = array( 0 => __( 'Select a page', 'mpt' ) );
+			if( !empty($pages) ) {
+				foreach( $pages as $page ) {
+					$pages_options[$page->ID] = $page->post_title;
+				}
+			}
+		
+			wp_cache_set('_get_pages', $pages_options, 'members-post-type');
+		}
+		
+
+		
 		return $pages_options;
 	}
 	

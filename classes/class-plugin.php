@@ -120,9 +120,9 @@ class MPT_Plugin {
 		
 		$found = false;
 		$pages_options = wp_cache_get('_get_pages', 'members-post-type', false, $found);
-		if( !$found ) {
+		if( $found == false ) {
 			// Fix performances issues, use directly SQL
-			$pages = $wpdb->get_results( "SELECT ID, post_title FROM $wpdb->posts WHERE post_type = 'page' AND post_status = 'publish'" );
+			$pages = $wpdb->get_results( "SELECT ID, post_title FROM $wpdb->posts WHERE post_type = 'page' AND post_status = 'publish' ORDER BY post_title ASC" );
 
 			$pages_options = array( 0 => __( 'Select a page', 'mpt' ) );
 			if( !empty($pages) ) {

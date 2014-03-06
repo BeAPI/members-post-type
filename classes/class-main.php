@@ -166,31 +166,20 @@ class MPT_Main {
 	public static function get_action_permalink($action = '') {
 		// Get page ids from options
 		$current_options = (array) MPT_Options::get_option('mpt-pages');
-
-		// URL
-		$return_url = '';
-
-		// Different action possible
-		switch ($action) {
-			case 'registration' :
-			case 'registration-step-2' :
-			case 'login' :
-			case 'change-password' :
-			case 'lost-password' :
-				if (isset($current_options['page-' . $action]) && absint($current_options['page-' . $action]) > 0) {
-					$return_url = get_permalink($current_options['page-' . $action]);
-				} else {
-					$return_url = home_url('/#no-page-id-for-' . $action);
-				}
-				break;
-			case 'logout' :
-				$return_url = admin_url('/admin-ajax.php?mpt-action=logout');
-				break;
-			default :
+		
+		// Build URL depending action
+		if ( $action == 'logout' ) {
+			$return_url = admin_url('/admin-ajax.php?mpt-action=logout');
+		} else {
+			if ( isset($current_options['page-' . $action]) && absint($current_options['page-' . $action]) > 0 ) {
+				$return_url = get_permalink($current_options['page-' . $action]);
+			} elseif ( isset($current_options['page-' . $action]) ) {
+				$return_url = home_url('/#no-page-id-for-' . $action);
+			} else {
 				$return_url = home_url('/#no-known-action');
-				break;
+			}
 		}
-
+		
 		return apply_filters('mpt_action_permalink', $return_url, $action);
 	}
 	

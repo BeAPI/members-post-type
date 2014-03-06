@@ -14,7 +14,7 @@ echo MPT_Shortcode::get_messages();
 	<input required="required" type="password" name="mptlogin[password]" value="" />
 	
 	<label>
-		<input name="mptlogin[rememberme]" type="checkbox" value="forever" <?php checked($member_data['rememberme']); ?> />
+		<input name="mptlogin[rememberme]" type="checkbox" value="forever" <?php checked($member_data['rememberme'], 'forever'); ?> />
 		<?php _e('Remember me', 'mpt'); ?>
 	</label>
 	

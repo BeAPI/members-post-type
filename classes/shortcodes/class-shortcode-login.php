@@ -22,7 +22,7 @@ class MPT_Shortcode_Login extends MPT_Shortcode {
 		$member_data = ( !isset($_POST['mptlogin']) ) ? array() : $_POST['mptlogin'];
 		
 		// Parse vs defaults
-		$member_data = wp_parse_args( $member_data, array('username' => '', 'rememberme' => '', 'redirect_to' => '') );
+		$member_data = wp_parse_args( $member_data, array('username' => '', 'rememberme' => '', 'redirect_to' => '', 'rememberme' => false) );
 		
 		// If no redirect on POST, try to get it on $_GET
 		if ( isset($_GET['redirect_to']) && !empty($_GET['redirect_to']) ) {
@@ -47,10 +47,14 @@ class MPT_Shortcode_Login extends MPT_Shortcode {
 				return false;
 			}
 			
+			// Parse vs defaults
+			$_POST['mptlogin'] = wp_parse_args( $_POST['mptlogin'], array('username' => '', 'rememberme' => '', 'redirect_to' => '', 'rememberme' => false) );
+			
 			// Try sign-on
 			$signon = MPT_Member_Auth::signon( array(
 				'm_login' => $_POST['mptlogin']['username'], 
-				'm_password' => $_POST['mptlogin']['password']
+				'm_password' => $_POST['mptlogin']['password'],
+				'remember' => $_POST['mptlogin']['rememberme']
 			) );
 			
 			// result sign-on are error ?

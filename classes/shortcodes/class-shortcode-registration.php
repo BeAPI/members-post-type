@@ -240,6 +240,9 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 			} else {
 				parent::set_message( 'password', __( 'You need to fill the two password fields', 'mpt' ), 'error' );
 			}
+			
+			do_action( 'mpt_shortcode_check_registration_step_2', $_POST['mptregistration_s2'] );
+			
 			// Have messages ?
 			$messages = parent::get_messages( 'raw' );
 
@@ -273,25 +276,20 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 				//Update connection type
 				update_post_meta( $member->id, 'connection_type', 'default' );
 				
-				do_action( 'mpt_shortcode_check_registration_step_2', $member->id, $_POST['mptregistration_s2'] );
+				do_action( 'mpt_shortcode_doing_registration_step_2', $member->id, $_POST['mptregistration_s2'] );
 				
-				// Have messages ?
-				$messages = parent::get_messages( 'raw' );
-				// All is fine ? start insertion
-				if ( empty( $messages ) ) {
-					//Send member notification
-					$member->register_notification( $_POST['mptregistration_s2']['password'] );
-					
-					// Delete registration key
-					delete_post_meta( $member->id, 'mpt_validation_registration_key');
+				//Send member notification
+				$member->register_notification( $_POST['mptregistration_s2']['password'] );
 
-					// Flush POST
-					unset( $_POST['mptregistration_s2'] );
+				// Delete registration key
+				delete_post_meta( $member->id, 'mpt_validation_registration_key');
 
-					// Set success message
-					parent::set_message( 'mptregistration_s2', sprintf( __( 'Your account has been created. You can now log-in with your access. <a href="%s">Click here</a> ', 'mpt' ), home_url('/') ), 'success' );
-					return true;
-				}
+				// Flush POST
+				unset( $_POST['mptregistration_s2'] );
+
+				// Set success message
+				parent::set_message( 'mptregistration_s2', sprintf( __( 'Your account has been created. You can now log-in with your access. <a href="%s">Click here</a> ', 'mpt' ), home_url('/') ), 'success' );
+				return true;
 			}
 			return false;
 		}

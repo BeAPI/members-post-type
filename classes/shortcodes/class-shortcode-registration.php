@@ -95,6 +95,11 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 				return false;
 			}
 			
+			// Fix username when exists
+			if ( mpt_is_allowed_email_signon() && empty($mptr['username']) ) {
+				$mptr['username'] = $mptr['email'];
+			}
+			
 			// Admin must validate member ?
 			$admin_validation = mpt_registration_with_member_validation();
 			if ( $admin_validation === 'on' ) {

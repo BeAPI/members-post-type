@@ -27,14 +27,14 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 		if ( mpt_is_member_logged_in() ) {
 			return '<!-- Members already logged-in. -->';
 		}
-		
+
 		if ( isset( $_GET['mpt-action'] ) && $_GET['mpt-action'] == 'validation-member-registration' ) {
 			// Get data from POST, cleanup it
 			$member_data = (!isset( $_POST['mptregistration_s2'] ) ) ? array() : $_POST['mptregistration_s2'];
 
 			// Parse vs defaults
 			$member_data = wp_parse_args( $member_data, self::$form_fields );
-			
+
 			return parent::load_template( 'member-registration-step-2', $member_data );
 		} else {
 			// Get data from POST, cleanup it
@@ -46,7 +46,7 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 			return parent::load_template( 'member-registration', $member_data );
 		}
 	}
-	
+
 	public static function init() {
 		// Ask link reset
 		self::check_step_1();
@@ -55,6 +55,7 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 		self::check_step_2_url();
 		self::check_step_2_form();
 	}
+
 	/**
 	 * Check POST data for creation member. Need for set_cookie function.
 	 *
@@ -62,7 +63,7 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 	 * @author Benjamin Niess
 	 * @access public
 	 */
-	public static function check_step_1(){
+	public static function check_step_1() {
 		if ( isset( $_POST['mptregistration'] ) ) {
 			// Cleanup data
 			$mptr = $_POST['mptregistration'] = stripslashes_deep( $_POST['mptregistration'] );
@@ -76,13 +77,13 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 				parent::set_message( 'check-nonce', 'Security check failed', 'error' );
 				return false;
 			}
-			
+
 			// Add filter for other plugins to stop process
 			$stop = apply_filters( 'mpt_shortcode_check_registration_start', false, $mptr );
 			if ( $stop === true ) {
 				return false;
 			}
-			
+
 			// Email valid ?
 			if ( !is_email( $mptr['email'] ) ) {
 				parent::set_message( 'email_invalid', __( 'You need to enter a valid email address', 'mpt' ), 'error' );
@@ -94,12 +95,12 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 				parent::set_message( 'email_exists', __( 'This email address is already taken', 'mpt' ), 'error' );
 				return false;
 			}
-			
+
 			// Fix username when exists
-			if ( mpt_is_allowed_email_signon() && empty($mptr['username']) ) {
+			if ( mpt_is_allowed_email_signon() && empty( $mptr['username'] ) ) {
 				$mptr['username'] = $mptr['email'];
 			}
-			
+
 			// Admin must validate member ?
 			$admin_validation = mpt_registration_with_member_validation();
 			if ( $admin_validation === 'on' ) {
@@ -123,21 +124,21 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 
 				// Add post meta key
 				add_post_meta( $member_id, 'mpt_validation_registration_key', $key, true );
-				
+
 				// Add filter for other plugins to stop process
 				$stop = apply_filters( 'mpt_admin_validation_registration', false, $member_id, $mptr );
 				if ( $stop === true ) {
 					return false;
 				}
-				
+
 				// Send reset link
 				$member = new MPT_Member( $member_id );
-				$result = $member->register_validation_notification( $key);
+				$result = $member->register_validation_notification( $key );
 				if ( is_wp_error( $result ) ) {
 					parent::set_message( $result->get_error_code(), $result->get_error_message(), 'error' );
 					return false;
 				}
-				
+
 				// Flush POST
 				unset( $_POST['mptregistration'] );
 
@@ -145,7 +146,7 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 				parent::set_message( 'mptregistration', __( 'Your account has been created. You just received an email to confirm your registration', 'mpt' ), 'success' );
 				return true;
 			}
-			
+
 			// Check password, confirmation, complexity
 			if ( !empty( $mptr['password'] ) && !empty( $mptr['password_repeat'] ) ) {
 				if ( $mptr['password'] != $mptr['password_repeat'] ) { // password is the same ?
@@ -156,7 +157,7 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 			} else {
 				parent::set_message( 'password', __( 'You need to fill the two password fields', 'mpt' ), 'error' );
 			}
-			
+
 			do_action( 'mpt_shortcode_check_registration', $mptr );
 
 			// Have messages ?
@@ -191,19 +192,20 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 				unset( $_POST['mptregistration'] );
 
 				// Set success message
-				parent::set_message( 'mptregistration', sprintf( __( 'Your account has been created. You can now log-in with your access. <a href="%s">Click here</a> ', 'mpt' ), home_url('/') ), 'success' );
+				parent::set_message( 'mptregistration', sprintf( __( 'Your account has been created. You can now log-in with your access. <a href="%s">Click here</a> ', 'mpt' ), home_url( '/' ) ), 'success' );
 				return true;
 			}
 		}
 		return false;
 	}
+
 	/**
 	 * Check if member click on validation link, verify key/email on DB
 	 *
 	 * @author Alexandre Sadowski
 	 */
-	public static function check_step_2_url(){
-		if( !isset($_GET['mpt-action']) || $_GET['mpt-action'] != 'validation-member-registration' ){
+	public static function check_step_2_url() {
+		if ( !isset( $_GET['mpt-action'] ) || $_GET['mpt-action'] != 'validation-member-registration' ) {
 			return false;
 		}
 
@@ -213,21 +215,21 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 
 		// Try load member with this activation_key
 		$member = new MPT_Member( );
-		$member->fill_by( 'id', (int)$_GET['ID'] );
+		$member->fill_by( 'id', (int) $_GET['ID'] );
 		if ( !$member->exists() || ($member->exists() && $member->id != $_GET['ID']) ) {
 			wp_die( __( 'Cheatin&#8217; uh?', 'mpt' ) );
 		}
-		
+
 		// Check valid key ?
-		$key = get_post_meta($member->id, 'mpt_validation_registration_key', true);
-		if( empty($key) ){
+		$key = get_post_meta( $member->id, 'mpt_validation_registration_key', true );
+		if ( empty( $key ) ) {
 			wp_die( __( 'Registration key is not valide for this member', 'mpt' ), 'Error registration key' );
 		}
-		
+
 		return true;
 	}
-	
-	public static function check_step_2_form(){
+
+	public static function check_step_2_form() {
 		if ( isset( $_POST['mptregistration_s2'] ) ) {
 			// Check _NONCE
 			$nonce = isset( $_POST['_wpnonce'] ) ? $_POST['_wpnonce'] : '';
@@ -245,9 +247,9 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 			} else {
 				parent::set_message( 'password', __( 'You need to fill the two password fields', 'mpt' ), 'error' );
 			}
-			
+
 			do_action( 'mpt_shortcode_check_registration_step_2', $_POST['mptregistration_s2'] );
-			
+
 			// Have messages ?
 			$messages = parent::get_messages( 'raw' );
 
@@ -255,48 +257,62 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 			if ( empty( $messages ) ) {
 				// Try load member with this ID
 				$member = new MPT_Member( );
-				$member->fill_by( 'id', (int)$_GET['ID'] );
+				$member->fill_by( 'id', (int) $_GET['ID'] );
 				if ( !$member->exists() || ($member->exists() && $member->id != $_GET['ID']) ) {
 					wp_die( __( 'Cheatin&#8217; uh?', 'mpt' ) );
 				}
-				
+
 				$update_member = wp_update_post( array( 'post_type' => MPT_CPT_NAME, 'ID' => $member->id, 'post_status' => 'publish' ) );
-				if( is_wp_error( $update_member ) ){
-					wp_die( $update_member->get_error_message() , $update_member->get_error_code() );
+				if ( is_wp_error( $update_member ) ) {
+					wp_die( $update_member->get_error_message(), $update_member->get_error_code() );
 				}
-				
+
+				// Set password
 				$member->set_password( $_POST['mptregistration_s2']['password'] );
-				if( isset($_POST['mptregistration_s2']['username']) && !empty( $_POST['mptregistration_s2']['username'] ) ){
+
+				// Fix username when exists
+				if ( mpt_is_allowed_email_signon() && empty( $_POST['mptregistration_s2']['username'] ) ) {
+					$_POST['mptregistration_s2']['username'] = $member->email;
+				}
+
+				// Set username
+				if ( isset( $_POST['mptregistration_s2']['username'] ) && !empty( $_POST['mptregistration_s2']['username'] ) ) {
 					$member->set_meta_value( 'username', sanitize_text_field( $_POST['mptregistration_s2']['username'] ) );
 				}
-				
-				if( isset($_POST['mptregistration_s2']['first_name']) && !empty( $_POST['mptregistration_s2']['first_name'] ) ){
+
+				// Set first name
+				if ( isset( $_POST['mptregistration_s2']['first_name'] ) && !empty( $_POST['mptregistration_s2']['first_name'] ) ) {
 					$member->set_meta_value( 'first_name', sanitize_text_field( $_POST['mptregistration_s2']['first_name'] ) );
 				}
-				
-				if( isset($_POST['mptregistration_s2']['last_name']) && !empty( $_POST['mptregistration_s2']['last_name'] ) ){
+
+				// Set last name
+				if ( isset( $_POST['mptregistration_s2']['last_name'] ) && !empty( $_POST['mptregistration_s2']['last_name'] ) ) {
 					$member->set_meta_value( 'last_name', sanitize_text_field( $_POST['mptregistration_s2']['last_name'] ) );
 				}
-				
+
 				//Update connection type
 				update_post_meta( $member->id, 'connection_type', 'default' );
-				
+
+				// Rebuild member post_title
+				$member->regenerate_post_title( true );
+
 				do_action( 'mpt_shortcode_doing_registration_step_2', $member->id, $_POST['mptregistration_s2'] );
-				
+
 				//Send member notification
 				$member->register_notification( $_POST['mptregistration_s2']['password'] );
 
 				// Delete registration key
-				delete_post_meta( $member->id, 'mpt_validation_registration_key');
+				delete_post_meta( $member->id, 'mpt_validation_registration_key' );
 
 				// Flush POST
 				unset( $_POST['mptregistration_s2'] );
 
 				// Set success message
-				parent::set_message( 'mptregistration_s2', sprintf( __( 'Your account has been created. You can now log-in with your access. <a href="%s">Click here</a> ', 'mpt' ), home_url('/') ), 'success' );
+				parent::set_message( 'mptregistration_s2', sprintf( __( 'Your account has been created. You can now log-in with your access. <a href="%s">Click here</a> ', 'mpt' ), home_url( '/' ) ), 'success' );
 				return true;
 			}
 			return false;
 		}
 	}
+
 }

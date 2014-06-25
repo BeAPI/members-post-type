@@ -219,7 +219,7 @@ class MPT_Member_Auth {
 	 */
 	public static function is_logged_in() {
 		$member = self::get_current_member();
-		if ( $member->id == 0 ) {
+		if ( empty( $member ) || $member->id == 0 ) {
 			return false;
 		}
 		

@@ -485,7 +485,7 @@ class MPT_Member {
 		// Build message text
 		$message = str_replace( '%%site_url%%', network_site_url( ), $message );
 		$message = str_replace( '%%username%%', $this->get_display_name( ), $message );
-		$message = str_replace( '%%reset_pwd_link%%', '<'.add_query_arg( array( 'mpt-action' => 'lost-password', 'key' => $key, 'id' => $this->id ), mpt_get_lost_password_permalink( ) ).'>', $message );
+		$message = str_replace( '%%reset_pwd_link%%', add_query_arg( array( 'mpt-action' => 'lost-password', 'key' => $key, 'id' => $this->id ), mpt_get_lost_password_permalink( ) ), $message );
 
 		// Allow plugins hooks
 		$subject = apply_filters( 'mpt_retrieve_password_title', $subject );

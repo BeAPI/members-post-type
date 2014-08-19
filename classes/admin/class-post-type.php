@@ -179,6 +179,9 @@ class MPT_Admin_Post_Type {
 
 		self::save_metabox_main( $post_id );
 		self::save_metabox_password( $post_id );
+		
+		do_action( 'mpt_send_mail_to_member', $post_id );
+		
 		return true;
 	}
 
@@ -251,27 +254,39 @@ class MPT_Admin_Post_Type {
 		}
 		
 		$pmp = $_POST['memberpwd'];
-		if ( empty($pmp['password']) && empty($pmp['confirm_password']) ) {
+
+		if (  empty($pmp['password']) && empty( $pmp['confirm_password'] ) && empty($pmp['password-generate']) ) {
 			return false;
 		}
 		
-		if ( empty($pmp['password']) || empty($pmp['confirm_password']) || $pmp['password'] != $pmp['confirm_password'] ) {
-			self::$errors[] = 1;
+		if ( ( empty($pmp['password']) || empty($pmp['confirm_password']) || $pmp['password'] != $pmp['confirm_password'] ) && empty( $pmp['password-generate'] ) ) {
+			self::$errors[] = 1; 
 			return false;
 		}
 		
 		// Instanciate member
 		$member = new MPT_Member( $post_id );
 		
+		$password = '';
+		
+		if ( !empty($pmp['password']) ) {
+			$password = $pmp['password'];
+		}
+		
+		if( !empty( $pmp['password-generate'] ) ){
+			$password = wp_generate_password( 12, false );
+			$_REQUEST['memberpwd']['password-generate'] = $password;
+		}
+		
 		// The password was really changed? 
-		$result = MPT_Member_Auth::authenticate( $member->username, $pmp['password'] );
+		$result = MPT_Member_Auth::authenticate( $member->username, $password);
 		if ( !is_wp_error($result) ) {
 			self::$errors[] = 4;
 			return false;
 		}
 		
 		// Change password
-		$result = $member->set_password( $_POST['memberpwd']['password'] );
+		$result = $member->set_password( $password );
 		
 		// Not true ? Hook !
 		if ( $result !== true ) {

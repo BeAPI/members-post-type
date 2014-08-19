@@ -2,7 +2,22 @@ jQuery(document).ready(function($) {
 	$('#member-password').val('').keyup(mpt_check_pass_strength);
 	$('#member-confirm_password').val('').keyup(mpt_check_pass_strength);
 	$('#pass-strength-result').show();
-
+	$('#member-password').prop('disabled', false);
+	$('#member-confirm_password').prop('disabled', false);
+	
+	
+	$('#member-password-generate').click(function(){
+		var pwd_generate = $('#member-password-generate:checked').val();
+		if( pwd_generate == 'on' ){
+			$('#member-password').prop('disabled', true);
+			$('#member-confirm_password').prop('disabled', true);
+		}else{
+			$('#member-password').prop('disabled', false);
+			$('#member-confirm_password').prop('disabled', false);
+		}
+	});
+	
+	
 	var member_social_id = $('#member-social_id'), connection_type = $('#member-connection_type');
 
 	connection_type.on('change', mpt_check_connection_type);
@@ -48,6 +63,6 @@ jQuery(document).ready(function($) {
 				$('#pass-strength-result').addClass('short').html(pwsL10n['short']);
 		}
 	}
-
+	
 	mpt_check_connection_type();
 });

@@ -279,14 +279,23 @@ class MPT_Member {
 		if( !$this->exists( ) ) {// Valid instance member ?
 			return false;
 		}
-
+		
+		$sign_on = mpt_is_allowed_email_signon();
+		if( empty( $sign_on ) ){
+			$sign_on = false;
+		}
+		
 		$stop = apply_filters_ref_array( 'mpt_register_notification', array( false, &$this, $plaintext_pass ) );
 		if( $stop === true ) {
 			return false;
 		}
 
-		$username = stripslashes( $this->get_display_name( ) );
+		$display_name = stripslashes( $this->get_display_name( ) );
 		$email = stripslashes( $this->email );
+		$username = $email;
+		if( $sign_on === false ){
+			$username = $this->username;
+		}
 
 		// The blogname option is escaped with esc_html on the way into the database in
 		// sanitize_option
@@ -307,7 +316,8 @@ class MPT_Member {
 
 		$subject = str_replace( '%%blog_name%%', $blogname, $subject );
 		$message = str_replace( '%%blog_name%%', $blogname, $message );
-		$message = str_replace( '%%username%%', $username, $message );
+		$message = str_replace( '%%display_name%%', $display_name, $message );
+		$message = str_replace( '%%user_name%%', $username, $message );
 		$message = str_replace( '%%user_email%%', $email, $message );
 
 		foreach( $recipients as $mail ) {
@@ -327,8 +337,10 @@ class MPT_Member {
 		}
 
 		$subject = str_replace( '%%blog_name%%', $blogname, $subject );
-		$message = str_replace( '%%username%%', $username, $message );
-		$message = str_replace( '%%password%%', $plaintext_pass, $message );
+		$message = str_replace( '%%display_name%%', $display_name, $message );
+		$message = str_replace( '%%user_name%%', $username, $message );
+		$message = str_replace( '%%user_email%%', $email, $message );
+		$message = str_replace( '%%user_password%%', $plaintext_pass, $message );
 		$message = str_replace( '%%login_url%%', mpt_get_login_permalink( ), $message );
 
 		// Allow plugins hooks

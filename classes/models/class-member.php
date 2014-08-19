@@ -56,6 +56,8 @@ class MPT_Member {
 		if( (int)$id > 0 ) {
 			$this->fill_by( 'id', $id );
 		}
+
+		self::$core_fields = apply_filters( 'mpt_core_fields', self::$core_fields );
 	}
 
 	/**

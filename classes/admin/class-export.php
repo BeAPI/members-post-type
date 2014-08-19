@@ -18,6 +18,13 @@ class MPT_Admin_Export {
 
 		$header_titles = array( __( 'Email', 'mpt' ), __( 'Lastname', 'mpt' ), __( 'Firstname', 'mpt' ), __( 'Username', 'mpt' ), __( 'Counter Sign On', 'mpt' ), __( 'Last Sign On Date', 'mpt' ) );
 
+		//Allow users to specify additionnal columns to export.
+		$header_meta = apply_filters( 'mpt_export_meta_headers', array() );
+		if( !empty( $header_meta ) ) {
+			$header_meta = array_map( array( __CLASS__, 'prefix_header_meta' ), $header_meta );
+			$header_titles = array_merge( $header_titles, $header_meta );
+		}
+
 		$member_query = new WP_Query( array(
 			'post_type' => MPT_CPT_NAME,
 			'post_status' => 'publish',
@@ -39,7 +46,7 @@ class MPT_Admin_Export {
 			$member_counter_sign_on = get_post_meta( $member_id, '_counter_sign_on', true );
 			$member_last_sign_on_date = get_post_meta( $member_id, '_last_sign_on_date', true );
 
-			$list[] = array(
+			$current_member = array(
 				$member_email,
 				$member_last_name,
 				$member_first_name,
@@ -47,6 +54,14 @@ class MPT_Admin_Export {
 				$member_counter_sign_on,
 				$member_last_sign_on_date
 			);
+
+			//Allow users to add meta value when exporting.
+			$current_member_meta = apply_filters( 'mpt_export_meta_values', array(), $member_id );
+			if( !empty( $current_member_meta ) ) {
+				$current_member = array_merge( $current_member, $current_member_meta );
+			}
+
+			$list[] = $current_member;
 		}
 
 		// csv header
@@ -71,4 +86,18 @@ class MPT_Admin_Export {
 		exit();
 	}
 
+	/**
+	 * Prefix the additionnal headers with "meta:".
+	 *
+	 * @param string $name the column name.
+	 *
+	 * @return string
+	 */
+	public static function prefix_header_meta( $name ) {
+		if( empty( $name ) ) {
+			return $name;
+		}
+
+		return 'meta:' . $name;
+	}
 }

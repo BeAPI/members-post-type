@@ -107,7 +107,7 @@ _mpt_load_files(MPT_DIR . 'classes/models/', array('member', 'roles', 'role'), '
 
 // Plugin admin classes
 if (is_admin()) {
-	_mpt_load_files(MPT_DIR . 'classes/admin/', array( 'content-permissions', 'export', 'main', 'post-type', 'taxonomy', 'import', 'settings-main', 'users-to-members'), 'class-');
+	_mpt_load_files(MPT_DIR . 'classes/admin/', array( 'content-permissions', 'export', 'main', 'post-type', 'taxonomy', 'import', 'settings-main', 'users-to-members', 'welcome-message' ), 'class-');
 
 	// Load class for API settings
 	if ( !class_exists('WeDevs_Settings_API') ) {
@@ -147,7 +147,8 @@ function init_mpt_plugin() {
 		new MPT_Admin_Taxonomy();
 		new MPT_Admin_Import();
 		new MPT_Admin_Export();
-		new MPT_Users_To_Members();
+		new MPT_Admin_Users_To_Members();
+		new MPT_Admin_Welcome_Message();
 	}
 
 	// Widget

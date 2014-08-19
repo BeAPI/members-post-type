@@ -2,6 +2,9 @@
 // don't load directly
 if ( !defined('ABSPATH') )
 	die('-1');
+
+$page = get_current_screen();
+
 ?>
 <table class="form-table">
 	<tbody>
@@ -25,5 +28,22 @@ if ( !defined('ABSPATH') )
 				<p class="description indicator-hint"><?php _e('Hint: The password should be at least seven characters long. To make it stronger, use upper and lower case letters, numbers and symbols like ! " ? $ % ^ &amp; ).'); ?></p>
 			</td>
 		</tr>
+		<?php if ($page->action == 'add') : ?>
+		<tr valign='top'>
+			<th scope="row"><label for="member-password-generate"><?php _e('Generate password', 'mpt'); ?></label></th>
+			<td>
+				<input type="checkbox" id="member-password-generate" name="memberpwd[password-generate]" />
+			</td>
+		</tr>
+		<?php /* TODO 
+		 * change passeword in next connections
+		 * */ ?>
+		<tr valign='top'>
+			<th scope="row"><label for="member-change-next"><?php _e('Need to change password next connect', 'mpt'); ?></label></th>
+			<td>
+				<input type="checkbox" id="member-change-next" name="memberpwd[change-password-next]" disabled />
+			</td>
+		</tr>
+		<?php endif; ?>
 	</tbody>
 </table>

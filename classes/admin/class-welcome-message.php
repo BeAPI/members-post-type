@@ -21,7 +21,7 @@ class MPT_Admin_Welcome_Message{
 		if ( $page->action != 'add' ){
 			return false;
 		}
-		if ( $_GET['post_type'] != MPT_CPT_NAME ){
+		if ( !isset($_GET['post_type']) || $_GET['post_type'] != MPT_CPT_NAME ){
 			return false;
 		}
 		add_meta_box( MPT_CPT_NAME.'-welcome-message', __( 'Welcome Message (for MPT)', 'mpt' ), array( __CLASS__, 'metabox' ), MPT_CPT_NAME, 'normal', 'high' );

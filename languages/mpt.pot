@@ -2,11 +2,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Members Post Type\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-16 23:00+0100\n"
-"PO-Revision-Date: 2013-03-16 23:00+0100\n"
-"Last-Translator: Benjamin Niess <bniess@beapi.fr>\n"
+"POT-Creation-Date: 2014-08-21 14:42+0100\n"
+"PO-Revision-Date: 2014-08-21 14:42+0100\n"
+"Last-Translator: Alexandre Sadowski <hello@alexandresadowski.com>\n"
 "Language-Team: BeAPI <contact@beapi.fr>\n"
-"Language: French\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,34 +16,397 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Textdomain-Support: yes\n"
 "X-Poedit-Basepath: .\n"
-"X-Generator: Poedit 1.5.5\n"
-"X-Poedit-SearchPath-0: /Users/amaury/Github/members-post-type\n"
+"X-Generator: Poedit 1.6.8\n"
+"X-Poedit-SearchPath-0: C:\\Users\\BeAPI\\NetbeansProjects\\members-post-"
+"type\n"
 
-#: /Users/amaury/Github/members-post-type/classes/class-member-auth.php:92
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/admin/class-content-permissions.php:45
+msgid "Content permissions (for MPT)"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/admin/class-export.php:19
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/metabox-main.php:9
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/member-registration.tpl.php:30
+msgid "Email"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/admin/class-export.php:19
+msgid "Lastname"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/admin/class-export.php:19
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/member-registration-step-2.tpl.php:15
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/member-registration.tpl.php:17
+msgid "Firstname"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/admin/class-export.php:19
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/metabox-main.php:14
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/member-login.tpl.php:10
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/member-registration-step-2.tpl.php:11
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/member-registration.tpl.php:11
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/widget-mpt-unconnected.php:17
+msgid "Username"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/admin/class-export.php:19
+msgid "Counter Sign On"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/admin/class-export.php:19
+msgid "Last Sign On Date"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/admin/class-import.php:84
+msgid "missing email and/or username"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/admin/class-import.php:160
+#, php-format
+msgid "Account creation for [%s] :"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/admin/class-import.php:161
+#, php-format
+msgid "Name: %s %s"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/admin/class-import.php:162
+#, php-format
+msgid "Username: %s"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/admin/class-import.php:163
+#, php-format
+msgid "Password: %s"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/admin/class-import.php:165
+#, php-format
+msgid "[%s] Your username and password"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/admin/class-post-type.php:59
+msgid "Password and confirmation must be the same."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/admin/class-post-type.php:62
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-security.php:122
+msgid ""
+"The password does not meet the criteria required by the security policy."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/admin/class-post-type.php:65
+msgid ""
+"The password is the same as that already active. No changes will be made to "
+"that member."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/admin/class-post-type.php:70
+msgid "The email is already in use. Back to initial value."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/admin/class-post-type.php:109
+msgid "Main information"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/admin/class-post-type.php:110
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:124
+msgid "Change password"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/admin/class-post-type.php:321
+msgid "Username / Mail"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/admin/class-settings-main.php:49
+msgid "Members Post Type"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/admin/class-taxonomy.php:38
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/term-fields.php:15
+msgid "Remove capability"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/admin/class-welcome-message.php:27
+msgid "Welcome Message (for MPT)"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-plugin.php:14
+msgid "Members Manager"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-plugin.php:99
+msgid "No default role"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-plugin.php:127
+msgid "Select a page"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-post-type.php:25
+msgctxt "Post Type General Name"
+msgid "Members"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-post-type.php:26
+msgctxt "Post Type Singular Name"
+msgid "Member"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-post-type.php:27
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-post-type.php:41
+msgid "Members"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-post-type.php:28
+msgid "Parent Member:"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-post-type.php:29
+msgid "All Members"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-post-type.php:30
+msgid "View Member"
+msgstr ""
+
+# @ acf
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-post-type.php:31
+msgid "Add New Member"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-post-type.php:32
+msgid "New Member"
+msgstr ""
+
+# @ acf
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-post-type.php:33
+msgid "Edit Member"
+msgstr ""
+
+# @ acf
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-post-type.php:34
+msgid "Update Member"
+msgstr ""
+
+# @ default
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-post-type.php:35
+msgid "Search members"
+msgstr ""
+
+# @ default
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-post-type.php:36
+msgid "No members found"
+msgstr ""
+
+# @ default
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-post-type.php:37
+msgid "No members found in Trash"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-post-type.php:43
+msgid "Members as post type"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-post-type.php:81
+#, php-format
+msgid "Member updated. <a href=\"%s\">View member</a>"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-post-type.php:82
+msgid "Custom field updated."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-post-type.php:83
+msgid "Custom field deleted."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-post-type.php:84
+msgid "Member updated."
+msgstr ""
+
+#. translators: %s: date and time of the revision
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-post-type.php:86
+#, php-format
+msgid "Member restored to revision from %s"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-post-type.php:87
+#, php-format
+msgid "Member published. <a href=\"%s\">View member</a>"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-post-type.php:88
+msgid "Member saved."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-post-type.php:89
+#, php-format
+msgid "Member submitted. <a target=\"_blank\" href=\"%s\">Preview member</a>"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-post-type.php:90
+#, php-format
+msgid ""
+"Member scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
+"\">Preview member</a>"
+msgstr ""
+
+#. translators: Publish box date format, see http://php.net/date
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-post-type.php:92
+msgid "M j, Y @ G:i"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-post-type.php:93
+#, php-format
+msgid ""
+"Member draft updated. <a target=\"_blank\" href=\"%s\">Preview member</a>"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-private-website.php:42
+msgid ""
+"You must be logged in to access the site, but could not find the login page. "
+"Contact the webmaster."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-security.php:98
+msgid ""
+"You can not use this password because of the defined security policy and the "
+"fact that you've used in the past."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-security.php:141
+msgid "Password too short."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-security.php:144
+msgid ""
+"Your password must not contain a word or phrase from your personal data."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-security.php:147
+msgid "Missing uppercase character."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-security.php:150
+msgid "Missing lowercase character."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-security.php:153
+msgid "Missing number character."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-security.php:156
+msgid "Missing special character."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-security.php:159
+msgid "Your password contains a word or phrase prohibited by administrator."
+msgstr ""
+
+# @ acf
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-taxonomy.php:24
+msgctxt "Taxonomy General Name"
+msgid "Roles"
+msgstr ""
+
+# @ acf
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-taxonomy.php:25
+msgctxt "Taxonomy Singular Name"
+msgid "Role"
+msgstr ""
+
+# @ acf
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-taxonomy.php:26
+msgid "Roles"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-taxonomy.php:27
+msgid "All Roles"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-taxonomy.php:28
+msgid "Parent Role"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-taxonomy.php:29
+msgid "Parent Role:"
+msgstr ""
+
+# @ acf
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-taxonomy.php:30
+msgid "New Role Name"
+msgstr ""
+
+# @ acf
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-taxonomy.php:31
+msgid "Add New Role "
+msgstr ""
+
+# @ acf
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-taxonomy.php:32
+msgid "Edit Role "
+msgstr ""
+
+# @ acf
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-taxonomy.php:33
+msgid "Update Role "
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-taxonomy.php:34
+msgid "Separate roles with commas"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-taxonomy.php:35
+msgid "Search roles"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-taxonomy.php:36
+msgid "Add or remove roles "
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-taxonomy.php:37
+msgid "Choose from the most used roles"
+msgstr ""
+
+# @ wp3i
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-widget.php:13
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-widget.php:94
+msgid "Members authentification"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/class-widget.php:16
+msgid ""
+"Form for allow members to login/logout. Display also lost password and "
+"registration links"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/class-member-auth.php:92
 msgid "Please log in again."
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/class-member-auth.php:121
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/class-member-auth.php:121
 msgid "<strong>ERROR</strong>: Invalid username or incorrect password."
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/class-member-auth.php:145
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/class-member-auth.php:145
 msgid "<strong>ERROR</strong>: The email field is empty."
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/class-member-auth.php:148
-#: /Users/amaury/Github/members-post-type/classes/class-member-auth.php:189
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/class-member-auth.php:148
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/class-member-auth.php:189
 msgid "<strong>ERROR</strong>: The password field is empty."
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/class-member-auth.php:158
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/class-member-auth.php:158
 #, php-format
 msgid ""
 "<strong>ERROR</strong>: Invalid email. <a href=\"%s\" title=\"Password Lost "
 "and Found\">Lost your password</a>?"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/class-member-auth.php:167
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/class-member-auth.php:167
 #, php-format
 msgid ""
 "<strong>ERROR</strong>: The password you entered for the email <strong>%1$s</"
@@ -51,18 +414,18 @@ msgid ""
 "\">Lost your password</a>?"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/class-member-auth.php:186
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/class-member-auth.php:186
 msgid "<strong>ERROR</strong>: The username field is empty."
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/class-member-auth.php:199
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/class-member-auth.php:199
 #, php-format
 msgid ""
 "<strong>ERROR</strong>: Invalid username. <a href=\"%s\" title=\"Password "
 "Lost and Found\">Lost your password</a>?"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/class-member-auth.php:208
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/class-member-auth.php:208
 #, php-format
 msgid ""
 "<strong>ERROR</strong>: The password you entered for the username <strong>"
@@ -70,614 +433,924 @@ msgid ""
 "\">Lost your password</a>?"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/class-member-utility.php:68
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/class-member-utility.php:64
 msgid "This email address is already registered."
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/class-member-utility.php:88
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/class-member-utility.php:89
 msgid "The member is invalid."
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/class-member.php:181
-#, php-format
-msgid "Password Lost and Changed for member: %s"
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-sections.php:5
+msgid "General"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/class-member.php:185
-#, php-format
-msgid "[%s] Password Lost/Changed"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-member.php:214
-#, php-format
-msgid "New member registration on your site %s:"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-member.php:215
-#: /Users/amaury/Github/members-post-type/classes/class-member.php:224
-#: /Users/amaury/Github/members-post-type/classes/class-member.php:309
-#, php-format
-msgid "Username: %s"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-member.php:216
-#, php-format
-msgid "E-mail: %s"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-member.php:218
-#, php-format
-msgid "[%s] New Member Registration"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-member.php:225
-#, php-format
-msgid "Password: %s"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-member.php:228
-#, php-format
-msgid "[%s] Your username and password"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-member.php:283
-msgid "Password reset is not allowed for this member"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-member.php:307
-msgid "Someone requested that the password be reset for the following account:"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-member.php:310
-msgid "If this was a mistake, just ignore this email and nothing will happen."
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-member.php:311
-msgid "To reset your password, visit the following address:"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-member.php:315
-#, php-format
-msgid "[%s] Password Reset"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-member.php:322
-msgid "The e-mail could not be sent."
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-member.php:322
-msgid "Possible reason: your host may have disabled the mail() function..."
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-plugin.php:14
-msgid "Members Manager"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:25
-msgctxt "Post Type General Name"
-msgid "Members"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:26
-msgctxt "Post Type Singular Name"
-msgid "Member"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:27
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:41
-#: /Users/amaury/Github/members-post-type/classes/admin/class-main.php:34
-msgid "Members"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:28
-msgid "Parent Member:"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:29
-msgid "All Members"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:30
-msgid "View Member"
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-sections.php:6
+msgid "Features available"
 msgstr ""
 
 # @ acf
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:31
-msgid "Add New Member"
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-sections.php:11
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-sections.php:12
+msgid "Feature Pages"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:32
-msgid "New Member"
-msgstr ""
-
-# @ acf
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:33
-msgid "Edit Member"
-msgstr ""
-
-# @ acf
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:34
-msgid "Update Member"
-msgstr ""
-
-# @ default
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:35
-msgid "Search members"
-msgstr ""
-
-# @ default
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:36
-msgid "No members found"
-msgstr ""
-
-# @ default
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:37
-msgid "No members found in Trash"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:43
-msgid "Members as post type"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:81
-#, php-format
-msgid "Member updated. <a href=\"%s\">View member</a>"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:82
-msgid "Custom field updated."
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:83
-msgid "Custom field deleted."
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:84
-msgid "Member updated."
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:86
-#, php-format
-msgid "Member restored to revision from %s"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:87
-#, php-format
-msgid "Member published. <a href=\"%s\">View member</a>"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:88
-msgid "Member saved."
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:89
-#, php-format
-msgid "Member submitted. <a target=\"_blank\" href=\"%s\">Preview member</a>"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:90
-#, php-format
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-sections.php:13
 msgid ""
-"Member scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
-"\">Preview member</a>"
+"You must define here the pages containing the WordPress shortcodes for "
+"different features (login, registration, etc)."
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:92
-msgid "M j, Y @ G:i"
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-sections.php:17
+msgid "Security"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/class-post-type.php:93
-#, php-format
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-sections.php:18
+msgid "Password strength"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-sections.php:19
+msgid "Enforce a specific password strength for your members."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-sections.php:23
+msgid "Mails"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-sections.php:24
+msgid "Admin mail for Member registration"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-sections.php:25
 msgid ""
-"Member draft updated. <a target=\"_blank\" href=\"%s\">Preview member</a>"
+"Management of mail notification to the site administrator when a new member "
+"joins the site."
 msgstr ""
 
-# @ acf
-#: /Users/amaury/Github/members-post-type/classes/class-taxonomy.php:24
-msgctxt "Taxonomy General Name"
-msgid "Roles"
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:6
+msgid "Features"
 msgstr ""
 
-# @ acf
-#: /Users/amaury/Github/members-post-type/classes/class-taxonomy.php:25
-msgctxt "Taxonomy Singular Name"
-msgid "Role"
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:8
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:47
+msgid "Role manager"
 msgstr ""
 
-# @ acf
-#: /Users/amaury/Github/members-post-type/classes/class-taxonomy.php:26
-msgid "Roles"
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:9
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:61
+msgid "Content permissions"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/class-taxonomy.php:27
-msgid "All Roles"
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:10
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:74
+msgid "Private website"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/class-taxonomy.php:28
-msgid "Parent Role"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-taxonomy.php:29
-msgid "Parent Role:"
-msgstr ""
-
-# @ acf
-#: /Users/amaury/Github/members-post-type/classes/class-taxonomy.php:30
-msgid "New Role Name"
-msgstr ""
-
-# @ acf
-#: /Users/amaury/Github/members-post-type/classes/class-taxonomy.php:31
-msgid "Add New Role "
-msgstr ""
-
-# @ acf
-#: /Users/amaury/Github/members-post-type/classes/class-taxonomy.php:32
-msgid "Edit Role "
-msgstr ""
-
-# @ acf
-#: /Users/amaury/Github/members-post-type/classes/class-taxonomy.php:33
-msgid "Update Role "
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-taxonomy.php:34
-msgid "Separate roles with commas"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-taxonomy.php:35
-msgid "Search roles"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-taxonomy.php:36
-msgid "Add or remove roles "
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-taxonomy.php:37
-msgid "Choose from the most used roles"
-msgstr ""
-
-# @ wp3i
-#: /Users/amaury/Github/members-post-type/classes/class-widget.php:13
-#: /Users/amaury/Github/members-post-type/classes/class-widget.php:94
-msgid "Members authentification"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/class-widget.php:16
-msgid ""
-"Form for allow members to login/logout. Display also lost password and "
-"registration links"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/admin/class-post-type.php:43
-msgid "Password and confirmation must be the same."
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/admin/class-post-type.php:46
-msgid "The email is already in use. Back to initial value."
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/admin/class-post-type.php:68
-msgid "Main information"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/admin/class-post-type.php:69
-#: /Users/amaury/Github/members-post-type/classes/admin/class-settings-pages.php:31
-msgid "Change password"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/admin/class-settings-main.php:26
-msgid "General features"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/admin/class-settings-main.php:29
-msgid "Sign-on method"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/admin/class-settings-main.php:29
-msgid "Allow email sign-on ?"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/admin/class-settings-main.php:29
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:13
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:27
 msgid ""
 "Do not change this value if you have already members! At the risk of "
 "breaking your site!"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/admin/class-settings-main.php:30
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:17
+msgid "Authentification settings"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:18
+msgid "You can adjust the way your members connect to the site."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:23
+msgid "Sign-on method"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:24
+msgid "Allow email sign-on ?"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:31
 msgid "Email constraint"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/admin/class-settings-main.php:30
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:32
 msgid "Email must be unique ?"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/admin/class-settings-main.php:30
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:33
 msgid ""
 "Do not change this value if you have already members! At the risk of "
 "breaking your site! This option is automatically enabled when you allow "
 "email sign-on."
 msgstr ""
 
-# @ acf
-#: /Users/amaury/Github/members-post-type/classes/admin/class-settings-pages.php:26
-msgid "Feature Pages"
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:39
+msgid "Member validation subscription"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:40
+msgid "Member validate his registration by an email ?"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:41
+msgid ""
+"If you check this box, members can not connect until they have not validated "
+"their account."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:48
+msgid "Create roles, permissions, such as WordPress."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:53
+msgid "Default role"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:54
+msgid ""
+"You can choose to set as a default role or not during membership "
+"registration."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:62
+msgid "You can restrict access to your content only for your members."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:67
+msgid "Default post error message:"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:68
+msgid ""
+"You can use HTML and/or shortcodes to create a custom error message for "
+"users that don't have permission to view posts."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:70
+msgid ""
+"<p class=\"restricted\">Sorry, but you do not have permission to view this "
+"content.</p>"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:75
+msgid "You can restrict access to your site only for your members."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:80
+msgid "Redirect ?"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:81
+msgid ""
+"Redirect all logged-out users to the login page before allowing them to view "
+"the site."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:87
+msgid "Allow feed ?"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:88
+msgid "Show error message for feed items."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:94
+msgid "Feed error message:"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:95
+msgid ""
+"You can use HTML and/or shortcodes to create a custom error message to "
+"display instead of feed item content."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:97
+msgid ""
+"<p class=\"restricted\">You must be logged into the site to view this "
+"content.</p>"
 msgstr ""
 
 # @ acf
-#: /Users/amaury/Github/members-post-type/classes/admin/class-settings-pages.php:29
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:103
 msgid "Registration"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/admin/class-settings-pages.php:30
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:110
+msgid "Registration step 2"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:117
 msgid "Login/logout"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/admin/class-settings-pages.php:32
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:131
 msgid "Lost password"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/admin/class-settings-pages.php:47
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:140
+msgid "Mode"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:141
 msgid ""
-"You must define here the pages containing the WordPress shortcodes for "
-"different features (login, registration, etc)."
+"You can apply one of three modes for password security, no constraint, "
+"automatic cloned from WordPress JS meter and full manual mode"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/admin/class-settings-pages.php:78
-msgid "Please choose a page"
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:145
+msgid "Disabled"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/admin/class-settings-security.php:26
-msgid "Input Examples"
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:146
+msgid "Auto"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/admin/class-settings-security.php:29
-msgid "Input Element"
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:147
+msgid "Custom"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/admin/class-settings-security.php:30
-msgid "Textarea Element"
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:152
+msgid "Force refresh login"
 msgstr ""
 
-# @ acf
-#: /Users/amaury/Github/members-post-type/classes/admin/class-settings-security.php:31
-msgid "Checkbox Element"
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:153
+msgid ""
+"When changing your password policy, this option forces members to change "
+"their password once they are logged in! If it does not meet your criteria of "
+"course!"
 msgstr ""
 
-# @ acf
-#: /Users/amaury/Github/members-post-type/classes/admin/class-settings-security.php:32
-msgid "Radio Button Elements"
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:160
+msgid "Password strength - auto mode"
 msgstr ""
 
-# @ acf
-#: /Users/amaury/Github/members-post-type/classes/admin/class-settings-security.php:33
-msgid "Select Element"
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:161
+msgid ""
+"WordPress offers a interactive password meter (with JS) when editing "
+"passwords. This indicator score passwords on 4 levels: 1 = very weak; 2 = "
+"weak; 3 = medium; 4 = strong"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/admin/class-settings-security.php:48
-msgid "Provides examples of the five basic element types."
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:166
+msgid "Level required"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-change-password.php:18
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:170
+msgid "Very weak"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:171
+msgid "Weak"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:172
+msgid "Medium"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:173
+msgid "Strong"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:178
+msgid "Password strength - Custom mode"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:179
+msgid "This mode allows you to fine tune the security policy password"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:184
+msgid "Minimum length"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:185
+msgid "Tip: password longer than 6 characters is highly recommended!"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:192
+msgid "User data on password"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:193
+msgid ""
+"Prohibit the presence of the username, email, first name, last name in the "
+"password"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:199
+msgid "Uppercase character"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:200
+msgid "Forces the presence of an uppercase character in the password"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:206
+msgid "Lowercase character"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:207
+msgid "Forces the presence of an lowercase character in the password"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:213
+msgid "Number character"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:214
+msgid "Forces the presence of an number character in the password"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:220
+msgid "Special character"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:221
+msgid "Forces the presence of an special character in the password"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:224
+msgid ""
+"Special characters are often assimilated to punctuation character. (?!&\")"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:228
+msgid "Blacklist keywords"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:229
+msgid ""
+"You must separate blacklist words with commas. These words can not be "
+"contained in the passwords of your members."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:235
+msgid "Password Policies"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:236
+msgid ""
+"A password policy is a set of rules designed to enhance security by "
+"encouraging users to employ strong passwords and use them properly"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:241
+msgid "Aging"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:242
+msgid ""
+"How many days old can a password be before requiring it be changed? Not "
+"recommended. 0 disables this feature. Default: 0."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:249
+msgid "History"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:250
+msgid ""
+"How many passwords should be remembered? Prevents reuse of old passwords. 0 "
+"disables this feature. Default: 0."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:259
+msgid "Recipient Mail"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:262
+msgid ""
+"By default this is the administrator's email of the site but you can change "
+"the recipient. You can add more recipients, separating them with a comma"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:266
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:286
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:306
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:333
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:353
+msgid "Subject mail"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:268
+#, php-format
+msgid "[%%blog_name%%] New Member Registration"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:272
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:292
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:312
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:339
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:359
+msgid "Content mail"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:274
+#, php-format
+msgid ""
+"New member registration on your site %%blog_name%% :\n"
+"\n"
+"Username: %%username%%\n"
+"Mail: %%user_email%%"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:275
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:295
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:315
+#, php-format
+msgid "Values ​\"​%% %%\" will be replaced dynamically sending mail."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:280
+msgid "Member registration email"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:281
+msgid "Management of notification's mail by a Member upon registration."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:288
+#, php-format
+msgid "[%%blog_name%%] Your username and password"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:294
+#, php-format
+msgid ""
+"Username: %%username%%\n"
+"Password: %%password%%\n"
+"\n"
+"%%login_url%%"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:300
+msgid "Member registration email validation"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:301
+msgid "Registration confirmation email with link validation counted"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:308
+#, php-format
+msgid "[%%blog_name%%] Validate your registration"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:314
+#, php-format
+msgid ""
+"Thank you for registering on the site:\n"
+"\n"
+"%%site_url%%\n"
+"\n"
+"To validate your account and complete the registration please click on the "
+"following link:\n"
+"\n"
+"%%confirm_register_link%%"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:320
+msgid "Admin mail for Member lost password"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:321
+msgid ""
+"Management of notification's mail to the administrator when a member has "
+"lost his password."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:326
+msgid "Recipient mail"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:329
+msgid ""
+"By default this is the administrator's mail of the site but you can change "
+"the recipient. You can add more recipients, separating them with a comma"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:335
+#, php-format
+msgid "[%%blog_name%%] Password Lost/Changed"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:341
+#, php-format
+msgid "Password Lost and Changed for member: %%username%%"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:342
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:362
+#, php-format
+msgid "Values ​\"​%% %%\" will be replaced dynamically sending email"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:347
+msgid "Member lost password mail"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:348
+msgid "Management of notification's mail by a Member lost his password."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:355
+#, php-format
+msgid "[%%blog_name%%] Password Reset"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/helpers/default-settings.php:361
+#, php-format
+msgid ""
+"Someone requested that the password be reset for the following account:\n"
+"\n"
+"%%site_url%%\n"
+"\n"
+"Username: %%username%%\n"
+"\n"
+"If this was a mistake, just ignore this email and nothing will happen.\n"
+"\n"
+"To reset your password, visit the following address:\n"
+"\n"
+"%%reset_pwd_link%%"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/models/class-member.php:185
+msgid "Password change is not allowed for this member"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/models/class-member.php:464
+msgid "Password reset is not allowed for this member"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/models/class-member.php:509
+msgid "The e-mail could not be sent."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/models/class-member.php:509
+msgid "Possible reason: your host may have disabled the mail() function..."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-change-password.php:17
+msgid ""
+"Your password has expired. You must change before continuing your visit."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-change-password.php:22
 msgid "You can't change your password, if you aren't logged-in."
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-change-password.php:45
-#: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-lost-password.php:133
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-change-password.php:49
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-lost-password.php:143
 msgid "The two passwords you entered don't match."
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-change-password.php:51
-#: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-lost-password.php:139
-#: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-registration.php:66
-msgid "You password need to be at least 6 characters long"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-change-password.php:63
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-change-password.php:61
 msgid "You old password is incorrect."
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-change-password.php:85
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-change-password.php:81
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-lost-password.php:170
+msgid "An error occurred, password has not been changed."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-change-password.php:102
 msgid "Password updated with success."
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-lost-password.php:26
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-lost-password.php:27
 msgid ""
 "Please enter your username or email address. You will receive a link to "
 "create a new password via email."
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-lost-password.php:62
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-lost-password.php:63
 msgid "Invalid username or e-mail."
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-lost-password.php:78
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-lost-password.php:79
 msgid "No member with this value."
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-lost-password.php:85
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-lost-password.php:84
+msgid "You have not verified your account. You can not renew your password."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-lost-password.php:95
 msgid "You are going to receive an email with a reset link."
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-lost-password.php:103
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-lost-password.php:113
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-registration.php:213
 msgid ""
 "The link you clicked seems to be broken. Please contact the administrator of "
 "the site"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-lost-password.php:113
-#: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-lost-password.php:147
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-lost-password.php:123
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-lost-password.php:151
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-registration.php:220
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-registration.php:262
 msgid "Cheatin&#8217; uh?"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-registration.php:64
-msgid "The two password you filled doesn't match"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-registration.php:69
-msgid "You need to fill the two password fields"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-registration.php:74
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-registration.php:89
 msgid "You need to enter a valid email address"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-registration.php:79
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-registration.php:95
 msgid "This email address is already taken"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/classes/shortcodes/class-shortcode-registration.php:113
-msgid "Your account has beed created. You can now log-in with your access"
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-registration.php:146
+msgid ""
+"Your account has been created. You just received an email to confirm your "
+"registration"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/views/admin/metabox-main.php:4
-#: /Users/amaury/Github/members-post-type/views/client/member-registration.tpl.php:15
-msgid "Email"
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-registration.php:153
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-registration.php:243
+msgid "The two password you filled doesn't match"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/views/admin/metabox-main.php:9
-#: /Users/amaury/Github/members-post-type/views/client/member-login.tpl.php:4
-#: /Users/amaury/Github/members-post-type/views/client/member-registration.tpl.php:5
-#: /Users/amaury/Github/members-post-type/views/client/widget-mpt-unconnected.php:13
-msgid "Username"
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-registration.php:155
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-registration.php:245
+msgid "You password need to be at least 6 characters long"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-registration.php:158
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-registration.php:248
+msgid "You need to fill the two password fields"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-registration.php:195
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-registration.php:311
+#, php-format
+msgid ""
+"Your account has been created. You can now log-in with your access. <a href="
+"\"%s\">Click here</a> "
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/classes/shortcodes/class-shortcode-registration.php:226
+msgid "Registration key is not valide for this member"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/libraries/wordpress-settings-api-class/class.settings-api.php:350
+msgid "Browse"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/libraries/wordpress-settings-api-class/class.settings-api.php:504
+msgid "No section available"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/metabox-content-permissions.php:8
+msgid "Limit access to this post's content to members of the selected roles."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/metabox-content-permissions.php:21
+#, php-format
+msgid ""
+"If no roles are selected, everyone can view the content. The post author, "
+"any users who can edit this post, and users with the %s capability can view "
+"the content regardless of role."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/metabox-content-permissions.php:25
+msgid "Custom error messsage:"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/metabox-content-permissions.php:28
+msgid "Message shown to users that do no have permission to view the post."
 msgstr ""
 
 # @ acf
-#: /Users/amaury/Github/members-post-type/views/admin/metabox-main.php:14
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/metabox-main.php:19
 msgid "First name"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/views/admin/metabox-main.php:18
-#: /Users/amaury/Github/members-post-type/views/client/member-registration.tpl.php:12
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/metabox-main.php:23
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/member-registration-step-2.tpl.php:18
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/member-registration.tpl.php:20
 msgid "Last name"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/views/admin/metabox-password.php:4
-#: /Users/amaury/Github/members-post-type/views/client/member-login.tpl.php:7
-#: /Users/amaury/Github/members-post-type/views/client/member-registration.tpl.php:18
-#: /Users/amaury/Github/members-post-type/views/client/widget-mpt-unconnected.php:16
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/metabox-main.php:27
+msgid "Connection type"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/metabox-main.php:37
+msgid "Social ID"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/metabox-password.php:12
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/member-login.tpl.php:13
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/member-registration-step-2.tpl.php:21
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/member-registration.tpl.php:23
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/widget-mpt-unconnected.php:20
 msgid "Password"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/views/admin/metabox-password.php:7
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/metabox-password.php:15
 msgid ""
 "If you would like to change the password type a new one. Otherwise leave "
 "this blank."
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/views/admin/metabox-password.php:11
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/metabox-password.php:19
 msgid "Confirm password"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/views/admin/metabox-password.php:14
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/metabox-password.php:22
 msgid "Type your new password again."
 msgstr ""
 
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/metabox-password.php:27
+msgid "Strength indicator"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/metabox-password.php:28
+msgid ""
+"Hint: The password should be at least seven characters long. To make it "
+"stronger, use upper and lower case letters, numbers and symbols like ! \" ? "
+"$ % ^ &amp; )."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/metabox-password.php:33
+msgid "Generate password"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/metabox-password.php:42
+msgid "Need to change password next connect"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/metabox-welcome-message.php:8
+msgid "Send welcome message to this new member "
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/metabox-welcome-message.php:11
+msgid "Yes "
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/metabox-welcome-message.php:13
+msgid "No "
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/page-import-export.php:9
+msgid "Import / Export Members"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/page-import-export.php:10
+msgid "Import CSV file"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/page-import-export.php:13
+msgid ""
+"Import members from a CSV file. The format for the CSV file is \"email; "
+"lastname; firstname; username\". The password is automaticaly generated when "
+"the user is created."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/page-import-export.php:14
+msgid "Select a CSV file."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/page-import-export.php:25
+#, php-format
+msgid "Last import : %s"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/page-import-export.php:27
+msgid "CSV formating error :"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/page-import-export.php:29
+#, php-format
+msgid "Line %s : \"%s\" %s (%s)"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/page-import-export.php:33
+msgid "Importing status :"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/page-import-export.php:35
+#, php-format
+msgid "%s) %s (%s) : %s"
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/page-import-export.php:39
+msgid "No report data available."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/page-import-export.php:44
+msgid "Export CSV file"
+msgstr ""
+
 # @ wp3i
-#: /Users/amaury/Github/members-post-type/views/admin/page-settings.php:4
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/page-settings.php:9
 msgid "Members - Settings"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/views/admin/page-settings.php:8
-msgid "Main"
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/term-fields.php:7
+msgctxt "Taxonomy Capabilities"
+msgid "Capabilities"
 msgstr ""
 
-# @ acf
-#: /Users/amaury/Github/members-post-type/views/admin/page-settings.php:9
-msgid "Pages"
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/term-fields.php:21
+msgid "Add new capability"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/views/admin/page-settings.php:10
-msgid "Security"
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/term-fields.php:23
+msgid "Delete content of fields to remove them."
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/views/admin/widget.php:3
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/term-fields.php:24
+msgid "Each role is allowed to perform a set of tasks called Capabilities."
+msgstr ""
+
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/widget.php:8
 msgid "Title:"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/views/admin/widget.php:10
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/widget.php:15
 msgid "Display lost password link ?"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/views/admin/widget.php:15
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/widget.php:20
 msgid "Display register link ?"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/views/admin/widget.php:19
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/widget.php:24
 msgid "Mode :"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/views/admin/widget.php:23
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/widget.php:28
 msgid "HTML"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/views/admin/widget.php:28
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/admin/widget.php:33
 msgid "AJAX"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/views/client/member-change-password.tpl.php:4
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/member-change-password.tpl.php:10
 msgid "Your old password"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/views/client/member-change-password.tpl.php:7
-#: /Users/amaury/Github/members-post-type/views/client/member-lost-password-step-2.tpl.php:4
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/member-change-password.tpl.php:13
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/member-lost-password-step-2.tpl.php:10
 msgid "Your new password"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/views/client/member-change-password.tpl.php:10
-#: /Users/amaury/Github/members-post-type/views/client/member-lost-password-step-2.tpl.php:7
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/member-change-password.tpl.php:16
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/member-lost-password-step-2.tpl.php:13
 msgid "Your new password (confirmation)"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/views/client/member-change-password.tpl.php:14
-#: /Users/amaury/Github/members-post-type/views/client/member-login.tpl.php:18
-#: /Users/amaury/Github/members-post-type/views/client/member-lost-password-step-1.tpl.php:8
-#: /Users/amaury/Github/members-post-type/views/client/member-lost-password-step-2.tpl.php:11
-#: /Users/amaury/Github/members-post-type/views/client/member-registration.tpl.php:25
-#: /Users/amaury/Github/members-post-type/views/client/widget-mpt-unconnected.php:27
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/member-change-password.tpl.php:20
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/member-login.tpl.php:24
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/member-lost-password-step-1.tpl.php:14
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/member-lost-password-step-2.tpl.php:17
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/member-registration-step-2.tpl.php:28
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/member-registration.tpl.php:34
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/widget-mpt-unconnected.php:31
 msgid "Submit"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/views/client/member-login.tpl.php:4
-#: /Users/amaury/Github/members-post-type/views/client/member-lost-password-step-1.tpl.php:4
-#: /Users/amaury/Github/members-post-type/views/client/widget-mpt-unconnected.php:13
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/member-login.tpl.php:10
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/member-lost-password-step-1.tpl.php:10
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/widget-mpt-unconnected.php:17
 msgid "E-mail"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/views/client/member-login.tpl.php:12
-#: /Users/amaury/Github/members-post-type/views/client/widget-mpt-unconnected.php:21
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/member-login.tpl.php:18
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/widget-mpt-unconnected.php:25
 msgid "Remember me"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/views/client/member-login.tpl.php:21
-#: /Users/amaury/Github/members-post-type/views/client/widget-mpt-unconnected.php:31
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/member-login.tpl.php:27
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/widget-mpt-unconnected.php:35
 msgid "Forgot password ?"
 msgstr ""
 
 # @ acf
-#: /Users/amaury/Github/members-post-type/views/client/member-login.tpl.php:22
-#: /Users/amaury/Github/members-post-type/views/client/widget-mpt-unconnected.php:35
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/member-login.tpl.php:28
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/widget-mpt-unconnected.php:39
 msgid "Register"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/views/client/member-lost-password-step-1.tpl.php:4
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/member-lost-password-step-1.tpl.php:10
 msgid "Username or E-mail"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/views/client/member-registration.tpl.php:9
-msgid "Firstname"
-msgstr ""
-
-#: /Users/amaury/Github/members-post-type/views/client/member-registration.tpl.php:21
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/member-registration-step-2.tpl.php:24
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/member-registration.tpl.php:26
 msgid "Password (confirmation)"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/views/client/widget-mpt-connected.php:14
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/widget-mpt-connected.php:18
 #, php-format
 msgid "Welcome %s! It's been long since we had not seen you!"
 msgstr ""
 
-#: /Users/amaury/Github/members-post-type/views/client/widget-mpt-connected.php:16
+#: C:\Users\BeAPI\NetbeansProjects\members-post-type/views/client/widget-mpt-connected.php:20
 #, php-format
 msgid "Do you want to <a href=\"%s\">log out</a> ?"
 msgstr ""

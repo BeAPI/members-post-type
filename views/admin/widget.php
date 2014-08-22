@@ -23,13 +23,13 @@ if ( !defined('ABSPATH') )
 <p>
 	<label><?php _e( 'Mode :', 'mpt' ) ?></label>
 	<br />
-	<label for="<?php echo $this->get_field_id( 'mode' ); ?>">
-		<input type="radio" value="html" <?php checked($instance['mode'], 'html'); ?> id="<?php echo $this->get_field_id( 'mode' ); ?>" name="<?php echo $this->get_field_name( 'mode' ); ?>" />
+	<label for="<?php echo $this->get_field_id( 'mode' ); ?>-html">
+		<input type="radio" value="html" <?php checked($instance['mode'], 'html'); ?> id="<?php echo $this->get_field_id( 'mode' ); ?>-html" name="<?php echo $this->get_field_name( 'mode' ); ?>" />
 		<?php _e( 'HTML', 'mpt' ) ?>
 	</label>
 
-	<label for="<?php echo $this->get_field_id( 'mode' ); ?>">
-		<input type="radio" value="ajax" <?php checked($instance['mode'], 'ajax'); ?> id="<?php echo $this->get_field_id( 'mode' ); ?>" name="<?php echo $this->get_field_name( 'mode' ); ?>" />
+	<label for="<?php echo $this->get_field_id( 'mode' ); ?>-ajax">
+		<input type="radio" value="ajax" <?php checked($instance['mode'], 'ajax'); ?> id="<?php echo $this->get_field_id( 'mode' ); ?>-ajax" name="<?php echo $this->get_field_name( 'mode' ); ?>" />
 		<?php _e( 'AJAX', 'mpt' ) ?>
 	</label>
 </p>

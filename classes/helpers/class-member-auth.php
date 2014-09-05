@@ -263,7 +263,7 @@ class MPT_Member_Auth {
 	
 		if ( !empty($name) ) {
 			$current_mpt_member = new MPT_Member();
-			$current_mpt_member = fill('username', $name);
+			$current_mpt_member = $current_mpt_member->fill_by('username', $name);
 		} else {
 			$current_mpt_member = new MPT_Member($id);
 		}

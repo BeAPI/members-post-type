@@ -281,16 +281,13 @@ class MPT_Member_Auth {
 	 * set the current member to 0, which is invalid and won't have any permissions.
 	 *
 	 * @uses $current_mpt_member Checks if the current member is set
-	 * @uses wp_validate_auth_cookie() Retrieves current logged in member.
+	 * @uses SELF::validate_auth_cookie() Retrieves current logged in member.
 	 *
-	 * @return bool|null False on XMLRPC Request and invalid auth cookie. Null when current member set
+	 * @return bool|null False on invalid auth cookie. Null when current member set
 	 */
 	public static function get_current_member_info() {
 		global $current_mpt_member;
-		
-		if ( defined('XMLRPC_REQUEST') && XMLRPC_REQUEST )
-			return false;
-	
+
 		if ( ! empty($current_mpt_member) )
 			return false;
 	

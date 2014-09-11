@@ -5,7 +5,7 @@ class MPT_Shortcode_Login extends MPT_Shortcode {
 	 */
 	public function __construct() {
 		add_shortcode( 'member-login' , array( __CLASS__, 'shortcode' ) );
-		add_action( 'init' , array( __CLASS__, 'init' ) );
+		add_action( 'init' , array( __CLASS__, 'init' ), 12 );
 	}
 	
 	/**

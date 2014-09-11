@@ -8,7 +8,7 @@ class MPT_Post_Type {
      * @return void.
      */
 	public function __construct() {
-		add_action('init', array(__CLASS__, 'init') );
+		add_action('init', array(__CLASS__, 'init'), 7 );
 		add_filter('post_updated_messages', array(__CLASS__, 'post_updated_messages') );
 	}
 

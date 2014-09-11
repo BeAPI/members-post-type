@@ -11,7 +11,7 @@ class MPT_Main {
 	 */
 	public function __construct() {
 		// Init once MPT roles
-		add_action('init', array('MPT_Roles', 'init'), 12);
+		add_action('init', array('MPT_Roles', 'init'), 9);
 
 		// Init AJAX hook
 		add_action('wp_loaded', array(__CLASS__, 'wp_loaded'), 15);

@@ -8,7 +8,7 @@ class MPT_Taxonomy {
      * @return mixed Value.
      */
 	public function __construct() {
-		add_action('init', array(__CLASS__, 'init'), 11 );
+		add_action('init', array(__CLASS__, 'init'), 8 );
 	}
 
     /**

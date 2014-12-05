@@ -9,7 +9,7 @@ class MPT_Admin_Import {
 	}
 	
 	public static function admin_menu() {
-		$hook = add_submenu_page('edit.php?post_type=member', 'Import / Export members', 'Import / Export members', 'manage_options', 'member-import-export', array( __CLASS__, 'page' ));
+		$hook = add_submenu_page('edit.php?post_type=member', __('Import / Export members', 'mpt'), __('Import / Export members', 'mpt'), 'manage_options', 'member-import-export', array( __CLASS__, 'page' ));
 		add_action( 'admin_head-'.$hook, array( __CLASS__ , 'admin_head' ) );
 	}
 	
@@ -40,13 +40,18 @@ class MPT_Admin_Import {
 			return false;
 		}
 		
+		// Setup new report
 		self::$_rapport_arr = array(
 			'report_date' => time(),
 			'ignore_line' => array(),
 			'import_status' => array(),
 		);
-		$csv = self::load_csv( $_FILES['csv-file']['tmp_name'], true );
-		self::insert_members( $csv );
+
+		// Load CSV
+		$rows = self::load_csv( $_FILES['csv-file']['tmp_name'], true );
+
+		// Insert members from CSV data
+		self::insert_members( $rows );
 		
 		// Save last report
 		return update_option( self::option_name, self::$_rapport_arr );
@@ -61,7 +66,7 @@ class MPT_Admin_Import {
 	 * @return array an array containing all the line.
 	 */
 	private static function load_csv( $file, $has_header = false ) {
-		$csv = array();
+		$rows = array();
 		$headers = array();
 		$current_line = 1; // use to track current line of the CSV file in case of error
 		
@@ -87,33 +92,32 @@ class MPT_Admin_Import {
 			}
 
 			$csv_line = array();
-
 			foreach( $headers as $header_name => $col_index ) {
 				$csv_line[ $header_name ] = utf8_encode( $tmp[ $col_index ] );
 			}
 			
-			$csv[] = $csv_line;
+			$rows[] = $csv_line;
 			
 			$current_line++;
 		}
 		fclose($handle);
 		
-		return $csv;
+		return $rows;
 	}
 	
 	/**
 	 * Insert/update the members.
 	 * 
-	 * @param array $csv an array containing the CSV line.
+	 * @param array $rows an array containing the CSV line.
 	 *
 	 * @return array
 	 */
-	public static function insert_members( $csv ) {
-		if( empty( $csv ) ) {
+	public static function insert_members( $rows ) {
+		if( empty( $rows ) ) {
 			return false;
 		}
 		
-		foreach( $csv as $member ) {
+		foreach( $rows as $member ) {
 			
 			$tmp_member = new MPT_Member();
 			$tmp_member->fill_by('email', $member['email']);
@@ -123,6 +127,7 @@ class MPT_Admin_Import {
 					if( 'email' == $meta_name || 'password' == $meta_name ) {
 						continue;
 					}
+
 					$tmp_member->set_meta_value( $meta_name, $meta_value );
 				}
 
@@ -155,14 +160,17 @@ class MPT_Admin_Import {
 							$tmp_member->set_meta_value( $meta_name, $meta_value );
 						}
 					}
+
+					//Send member notification
+					$tmp_member->register_notification( $args['password'] );
 					
 					// Send a mail to the new registered user.
-					$message  = sprintf(__('Account creation for [%s] :', 'mpt'), get_bloginfo( 'name' )) . "\r\n";
-					$message .= sprintf(__('Name: %s %s', 'mpt'), $args['last_name'], $args['first_name']) . "\r\n";
-					$message .= sprintf(__('Username: %s', 'mpt'), $args['username']) . "\r\n";
-					$message .= sprintf(__('Password: %s', 'mpt'), $args['password']) . "\r\n";
-					$message .= mpt_get_login_permalink() . "\r\n";
-					@wp_mail($args['email'], sprintf(__('[%s] Your username and password', 'mpt'), get_bloginfo( 'name' )), $message);
+					//$message  = sprintf(__('Account creation for [%s] :', 'mpt'), get_bloginfo( 'name' )) . "\r\n";
+					//$message .= sprintf(__('Name: %s %s', 'mpt'), $args['last_name'], $args['first_name']) . "\r\n";
+					//$message .= sprintf(__('Username: %s', 'mpt'), $args['username']) . "\r\n";
+					//$message .= sprintf(__('Password: %s', 'mpt'), $args['password']) . "\r\n";
+					//$message .= mpt_get_login_permalink() . "\r\n";
+					//@wp_mail($args['email'], sprintf(__('[%s] Your username and password', 'mpt'), get_bloginfo( 'name' )), $message);
 					
 					self::$_rapport_arr['import_status'][] = array( 'member' => $member['email'], 'operation' => 'created', 'status' => 'success' );
 				} else {

@@ -271,7 +271,7 @@ return array(
 			'name' => 'registration_member_admin_content',
 			'label' => __( 'Content mail', 'mpt' ),
 			'type' => 'textarea',
-			'default' => __( "New member registration on your site %%blog_name%% :\n\nUsername: %%username%%\nMail: %%user_email%%", 'mpt' ),
+			'default' => __( "New member registration on your site %%blog_name%% :\n\nUsername: %%user_name%%\nMail: %%user_email%%", 'mpt' ),
 			'desc' => __( 'Values ​"​%% %%" will be replaced dynamically sending mail.', 'mpt' ),
 			'sanitize_callback' => 'strip_tags'
 		),
@@ -291,7 +291,7 @@ return array(
 			'name' => 'register_member_content',
 			'label' => __( 'Content mail', 'mpt' ),
 			'type' => 'textarea',
-			'default' => __( "Username: %%username%%\nPassword: %%password%%\n\n%%login_url%%", 'mpt' ),
+			'default' => __( "Username: %%user_name%%\nPassword: %%password%%\n\n%%login_url%%", 'mpt' ),
 			'desc' => __( 'Values ​"​%% %%" will be replaced dynamically sending mail.', 'mpt' ),
 			'sanitize_callback' => 'strip_tags'
 		),
@@ -338,7 +338,7 @@ return array(
 			'name' => 'lost_password_admin_content',
 			'label' => __( 'Content mail', 'mpt' ),
 			'type' => 'textarea',
-			'default' => __( 'Password Lost and Changed for member: %%username%%', 'mpt' ),
+			'default' => __( 'Password Lost and Changed for member: %%user_name%%', 'mpt' ),
 			'desc' => __( 'Values ​"​%% %%" will be replaced dynamically sending email', 'mpt' ),
 			'sanitize_callback' => 'strip_tags'
 		),
@@ -358,7 +358,7 @@ return array(
 			'name' => 'lost_password_member_content',
 			'label' => __( 'Content mail', 'mpt' ),
 			'type' => 'textarea',
-			'default' => __( "Someone requested that the password be reset for the following account:\n\n%%site_url%%\n\nUsername: %%username%%\n\nIf this was a mistake, just ignore this email and nothing will happen.\n\nTo reset your password, visit the following address:\n\n%%reset_pwd_link%%", 'mpt' ),
+			'default' => __( "Someone requested that the password be reset for the following account:\n\n%%site_url%%\n\nUsername: %%user_name%%\n\nIf this was a mistake, just ignore this email and nothing will happen.\n\nTo reset your password, visit the following address:\n\n%%reset_pwd_link%%", 'mpt' ),
 			'desc' => __( 'Values ​"​%% %%" will be replaced dynamically sending email', 'mpt' ),
 			'sanitize_callback' => 'strip_tags'
 		),

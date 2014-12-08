@@ -263,7 +263,7 @@ class MPT_Member {
 				
 				// Replace with good values
 				$subject = str_replace( '%%blog_name%%', $blogname, $subject );
-				$content = str_replace( '%%username%%', $this->username, $content );
+				$content = str_replace( '%%user_name%%', $this->username, $content );
 
 				wp_mail( stripslashes( $mail ), $subject, $content );
 				return true;
@@ -498,7 +498,7 @@ class MPT_Member {
 
 		// Build message text
 		$message = str_replace( '%%site_url%%', network_site_url( ), $message );
-		$message = str_replace( '%%username%%', $this->get_display_name( ), $message );
+		$message = str_replace( '%%user_name%%', $this->get_display_name( ), $message );
 		$message = str_replace( '%%reset_pwd_link%%', add_query_arg( array( 'mpt-action' => 'lost-password', 'key' => $key, 'id' => $this->id ), mpt_get_lost_password_permalink( ) ), $message );
 
 		// Allow plugins hooks

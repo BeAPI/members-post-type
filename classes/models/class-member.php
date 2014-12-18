@@ -346,6 +346,7 @@ class MPT_Member {
 		$message = str_replace( '%%user_name%%', $username, $message );
 		$message = str_replace( '%%user_email%%', $email, $message );
 		$message = str_replace( '%%user_password%%', $plaintext_pass, $message );
+		$message = str_replace( '%%site_url%%', network_site_url( ), $message );
 		$message = str_replace( '%%login_url%%', mpt_get_login_permalink( ), $message );
 		$message = str_replace( '%%first_name%%', ( !empty( $this->first_name ) ) ? stripslashes( $this->first_name ) : "", $message );
 		$message = str_replace( '%%last_name%%', ( !empty( $this->last_name ) ) ? stripslashes( $this->last_name ) : "", $message );

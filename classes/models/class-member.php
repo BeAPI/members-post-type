@@ -322,6 +322,13 @@ class MPT_Member {
 		$message = str_replace( '%%user_name%%', $username, $message );
 		$message = str_replace( '%%user_email%%', $email, $message );
 
+		if( !empty( $this->first_name ) ) {
+			$message = str_replace( '%%first_name%%', stripslashes( $this->first_name ), $message );
+		}
+		if( !empty( $this->last_name ) ) {
+			$message = str_replace( '%%last_name%%', stripslashes( $this->last_name ), $message );
+		}
+
 		foreach( $recipients as $mail ) {
 			// Send mail to admin
 			@wp_mail( stripslashes( $mail ), $subject, $message );
@@ -339,11 +346,19 @@ class MPT_Member {
 		}
 
 		$subject = str_replace( '%%blog_name%%', $blogname, $subject );
+		$message = str_replace( '%%blog_name%%', $blogname, $message );
 		$message = str_replace( '%%display_name%%', $display_name, $message );
 		$message = str_replace( '%%user_name%%', $username, $message );
 		$message = str_replace( '%%user_email%%', $email, $message );
 		$message = str_replace( '%%user_password%%', $plaintext_pass, $message );
 		$message = str_replace( '%%login_url%%', mpt_get_login_permalink( ), $message );
+
+		if( !empty( $this->first_name ) ) {
+			$message = str_replace( '%%first_name%%', stripslashes( $this->first_name ), $message );
+		}
+		if( !empty( $this->last_name ) ) {
+			$message = str_replace( '%%last_name%%', stripslashes( $this->last_name ), $message );
+		}
 
 		// Allow plugins hooks
 		$subject = apply_filters( 'mpt_register_notification_subject', $subject, $this );
@@ -371,6 +386,7 @@ class MPT_Member {
 		$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
 		
 		$username = stripslashes( $this->get_display_name( ) );
+		$display_name = stripslashes( $this->get_display_name( ) );
 		$email = stripslashes( $this->email );
 		
 		// Get all options for admin notification email.
@@ -383,9 +399,18 @@ class MPT_Member {
 		
 		// Build message text
 		$subject = str_replace( '%%blog_name%%', $blogname, $subject );
+		$message = str_replace( '%%blog_name%%', $blogname, $message );
+		$message = str_replace( '%%display_name%%', $display_name, $message );
+		$message = str_replace( '%%user_name%%', $username, $message );
 		$message = str_replace( '%%site_url%%', network_site_url( ), $message );
 		$message = str_replace( '%%confirm_register_link%%', ''.add_query_arg( array( 'mpt-action' => 'validation-member-registration', 'ID' => $this->id, 'key' => $key ), mpt_get_registration_permalink() ). '' , $message );
-		
+
+		if( !empty( $this->first_name ) ) {
+			$message = str_replace( '%%first_name%%', stripslashes( $this->first_name ), $message );
+		}
+		if( !empty( $this->last_name ) ) {
+			$message = str_replace( '%%last_name%%', stripslashes( $this->last_name ), $message );
+		}
 		
 		// Allow plugins hooks
 		$subject = apply_filters( 'mpt_register_validation_notification_subject', $subject, $this );

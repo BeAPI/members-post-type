@@ -33,6 +33,8 @@ class MPT_Shortcode {
 		if( empty( $default_path ) ){
 			$default_path = MPT_DIR;
 		}
+
+		$member_data = apply_filters( 'mpt_shortcode_data', $member_data, $template );
 		
 		ob_start();
 		if ( is_file( STYLESHEETPATH . '/shortcodes/mpt-' . $template . '.tpl.php' ) ) {

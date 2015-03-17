@@ -15,7 +15,13 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 	 */
 	public function __construct() {
 		add_shortcode( 'member-registration', array( __CLASS__, 'shortcode' ) );
-		add_action( 'init', array( __CLASS__, 'init' ), 12 );
+		
+		// Ask link reset
+		add_action( 'init', array( __CLASS__, 'check_step_1' ), 12 );
+		
+		// Check link reset and form new password
+		add_action( 'init', array( __CLASS__, 'check_step_2_url' ), 13 );
+		add_action( 'init', array( __CLASS__, 'check_step_2_form' ), 14 );
 	}
 
 	/**
@@ -45,15 +51,6 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 
 			return parent::load_template( 'member-registration', $member_data );
 		}
-	}
-
-	public static function init() {
-		// Ask link reset
-		self::check_step_1();
-
-		// Check link reset and form new password
-		self::check_step_2_url();
-		self::check_step_2_form();
 	}
 
 	/**

@@ -24,6 +24,6 @@ echo MPT_Shortcode::get_messages();
 	<label><?php _e( 'Password (confirmation)', 'mpt' ) ; ?></label>
 	<input required="required" type="password" name="mptregistration_s2[password_repeat]" value="" />
 
-	<?php wp_nonce_field( 'mptregistration_s2' ); ?>
+	<?php mpt_nonce_field( 'mptregistration_s2' ); ?>
 	<input type="submit" value="<?php _e( 'Submit', 'mpt' ) ; ?>" />
 </form>

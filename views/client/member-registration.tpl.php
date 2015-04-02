@@ -30,6 +30,6 @@ echo MPT_Shortcode::get_messages();
 	<label><?php _e( 'Email', 'mpt' ) ; ?></label>
 	<input required="required" type="email" name="mptregistration[email]" value="<?php echo esc_attr($member_data['email']); ?>" />
 	
-	<?php wp_nonce_field( 'mptregistration' ); ?>
+	<?php mpt_nonce_field( 'mptregistration' ); ?>
 	<input type="submit" value="<?php _e( 'Submit', 'mpt' ) ; ?>" />
 </form>

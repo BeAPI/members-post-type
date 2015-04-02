@@ -9,9 +9,10 @@ function mpt_is_member_logged_in() {
 }
 
 /**
- * Get curent member object
- * 
- * @return boolean False if disconnected, MPT_Member object if connected
+ * Get current member object
+ *
+ * @return MPT_Member|false
+ * @author Nicolas Juen
  */
 function mpt_get_current_member() {
 	return MPT_Member_Auth::get_current_member();
@@ -141,4 +142,86 @@ function mpt_registration_with_member_validation(){
 		return 'off';
 	}
 	return $option;
+}
+
+/**
+ * Verify that correct nonce was used with time limit.
+ *
+ * The user is given an amount of time to use the token, so therefore, since the
+ * UID and $action remain the same, the independent variable is the time.
+ *
+ * @since 0.6.0
+ *
+ * @param string     $nonce  Nonce that was used in the form to verify
+ * @param string|int $action Should give context to what is taking place and be the same when nonce was created.
+ * @return bool Whether the nonce check passed or failed.
+ */
+function mpt_verify_nonce( $nonce, $action = -1 ) {
+	return MPT_Nonces::verify_nonce( $nonce, $action );
+}
+
+/**
+ * @param int $action
+ *
+ * @return string
+ * @author Nicolas Juen
+ */
+ function mpt_create_nonce($action = -1) {
+	return MPT_Nonces::create_nonce( $action );
+}
+
+/**
+ * Retrieve URL with nonce added to URL query.
+ *
+ * @since 0.6.0
+ *
+ * @param string     $actionurl URL to add nonce action.
+ * @param int|string $action    Optional. Nonce action name. Default -1.
+ * @param string     $name      Optional. Nonce name. Default '_mptnonce'.
+ * @return string Escaped URL with nonce action added.
+ */
+function mpt_nonce_url( $actionurl, $action = -1, $name = '_mptnonce' ) {
+	return MPT_Nonces::nonce_url( $actionurl, $action, $name );
+}
+
+/**
+ * Retrieve or display nonce hidden field for forms.
+ *
+ * The nonce field is used to validate that the contents of the form came from
+ * the location on the current site and not somewhere else. The nonce does not
+ * offer absolute protection, but should protect against most cases. It is very
+ * important to use nonce field in forms.
+ *
+ * The $action and $name are optional, but if you want to have better security,
+ * it is strongly suggested to set those two parameters. It is easier to just
+ * call the function without any parameters, because validation of the nonce
+ * doesn't require any parameters, but since crackers know what the default is
+ * it won't be difficult for them to find a way around your nonce and cause
+ * damage.
+ *
+ * The input name will be whatever $name value you gave. The input value will be
+ * the nonce creation value.
+ *
+ * @since 0.6.0
+ *
+ * @param int|string $action  Optional. Action name. Default -1.
+ * @param string     $name    Optional. Nonce name. Default '_mptnonce'.
+ * @param bool       $referrer Optional. Whether to set the referrer field for validation. Default true.
+ * @param bool       $echo    Optional. Whether to display or return hidden form field. Default true.
+ * @return string Nonce field HTML markup.
+ */
+function mpt_nonce_field( $action = -1, $name = "_mptnonce", $referrer = true , $echo = true ) {
+	return MPT_Nonces::nonce_field( $action, $name, $referrer, $echo );
+}
+
+/**
+ * Retrieve the current session token from the logged_in cookie.
+ *
+ * @since 0.6.0
+ *
+ * @return string Token.
+ * @author Nicolas Juen
+ */
+function mpt_get_session_token() {
+	return MPT_Nonces::get_session_token();
 }

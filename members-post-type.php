@@ -1,7 +1,7 @@
 <?php
 /*
  Plugin Name: Members post type
- Version: 0.5.8
+ Version: 0.6.0
  Plugin URI: https://github.com/herewithme/members-post-type
  Description: Manage members on WordPress as post type. Implement: post type, authentification, role, clone from WP.
  Author: Amaury Balmer
@@ -56,7 +56,7 @@ if ( !defined('ABSPATH') )
 	die('-1');
 
 // Plugin constants
-define('MPT_VERSION', '0.5.8');
+define('MPT_VERSION', '0.6.0');
 define('MPT_CPT_NAME', 'member');
 define('MPT_TAXO_NAME', 'members-role');
 
@@ -97,10 +97,10 @@ function _mpt_load_files($dir, $files, $prefix = '') {
 _mpt_load_files(MPT_DIR . 'functions/', array('api', 'template'));
 
 // Plugin client classes
-_mpt_load_files(MPT_DIR . 'classes/', array('main', 'plugin', 'content-permissions', 'post-type', 'private-website', 'security', 'shortcode', 'taxonomy', 'widget'), 'class-');
+_mpt_load_files(MPT_DIR . 'classes/', array('main', 'plugin', 'content-permissions', 'post-type', 'private-website', 'security', 'shortcode', 'taxonomy', 'widget' ), 'class-');
 
 // Plugin helper classes
-_mpt_load_files(MPT_DIR . 'classes/helpers/', array('member-auth', 'member-utility','options'), 'class-');
+_mpt_load_files(MPT_DIR . 'classes/helpers/', array('member-auth', 'member-utility','options', 'nonces'), 'class-');
 
 // Plugin model classes
 _mpt_load_files(MPT_DIR . 'classes/models/', array('member', 'roles', 'role'), 'class-');

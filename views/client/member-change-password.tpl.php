@@ -16,6 +16,6 @@ echo MPT_Shortcode::get_messages();
 	<label><?php _e( 'Your new password (confirmation)', 'mpt' ) ; ?></label>
 	<input required="required" type="password" name="mptchangepwd[new_confirmation]" />
 
-	<?php wp_nonce_field( 'mptchangepwd' ); ?>
+	<?php mpt_nonce_field( 'mptchangepwd' ); ?>
 	<input type="submit" value="<?php _e( 'Submit', 'mpt' ) ; ?>" />
 </form>

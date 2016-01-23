@@ -41,8 +41,8 @@ class MPT_Shortcode_Login extends MPT_Shortcode {
 			$_POST['mptlogin'] = stripslashes_deep($_POST['mptlogin']);
 			
 			// Check _NONCE
-			$nonce = isset($_POST['_wpnonce']) ? $_POST['_wpnonce'] : '';
-			if ( !wp_verify_nonce($nonce, 'mptlogin') ) {
+			$nonce = isset($_POST['_mptnonce']) ? $_POST['_mptnonce'] : '';
+			if ( !mpt_verify_nonce($nonce, 'mptlogin') ) {
 				parent::set_message( 'check-nonce', 'Security check failed', 'error' );
 				return false;
 			}

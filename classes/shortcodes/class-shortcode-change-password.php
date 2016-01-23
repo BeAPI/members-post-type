@@ -38,8 +38,8 @@ class MPT_Shortcode_Change_Password extends MPT_Shortcode {
 			$_POST['mptchangepwd'] = stripslashes_deep($_POST['mptchangepwd']);
 			
 			// Check _NONCE
-			$nonce = isset($_POST['_wpnonce']) ? $_POST['_wpnonce'] : '';
-			if ( !wp_verify_nonce($nonce, 'mptchangepwd') ) {
+			$nonce = isset($_POST['_mptnonce']) ? $_POST['_mptnonce'] : '';
+			if ( !mpt_verify_nonce($nonce, 'mptchangepwd') ) {
 				parent::set_message( 'check-nonce', 'Security check failed', 'error' );
 				return false;
 			}

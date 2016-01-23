@@ -27,7 +27,7 @@ else : // Otherwise == 'html'
 		
 		<input type="hidden" name="mptlogin[redirect_to]" value="<?php echo esc_attr($member_data['redirect_to']); ?>" />
 		
-		<?php wp_nonce_field( 'mptlogin' ); ?>
+		<?php mpt_nonce_field( 'mptlogin' ); ?>
 		<input type="submit" value="<?php _e( 'Submit', 'mpt' ) ; ?>" />
 	</form>
 

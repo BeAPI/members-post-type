@@ -43,7 +43,7 @@ if ( !defined('ABSPATH') )
 		</form>
 	<?php endif; ?>
 
-	<?php if( ! apply_filters( 'mpt_admin_hide_import', false ) ) : ?>
+	<?php if( ! apply_filters( 'mpt_admin_hide_export', false ) ) : ?>
 		<h3><?php _e( 'Export CSV file', 'mpt' ); ?></h3>
 		<form action="" method="post" id="export-diag">
 			<p class="submit">

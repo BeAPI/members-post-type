@@ -1,4 +1,5 @@
 <?php
+
 class MPT_Admin_Export {
 	public function __construct() {
 		add_action( 'admin_init', array( __CLASS__, 'admin_init' ) );
@@ -16,34 +17,41 @@ class MPT_Admin_Export {
 		// Check the nonce
 		check_admin_referer( 'export-members' );
 
-		$header_titles = array( __( 'Email', 'mpt' ), __( 'Lastname', 'mpt' ), __( 'Firstname', 'mpt' ), __( 'Username', 'mpt' ), __( 'Counter Sign On', 'mpt' ), __( 'Last Sign On Date', 'mpt' ) );
+		$header_titles = array(
+			__( 'Email', 'mpt' ),
+			__( 'Lastname', 'mpt' ),
+			__( 'Firstname', 'mpt' ),
+			__( 'Username', 'mpt' ),
+			__( 'Counter Sign On', 'mpt' ),
+			__( 'Last Sign On Date', 'mpt' )
+		);
 
 		//Allow users to specify additionnal columns to export.
 		$header_meta = apply_filters( 'mpt_export_meta_headers', array() );
-		if( !empty( $header_meta ) ) {
-			$header_meta = array_map( array( __CLASS__, 'prefix_header_meta' ), $header_meta );
+		if ( ! empty( $header_meta ) ) {
+			$header_meta   = array_map( array( __CLASS__, 'prefix_header_meta' ), $header_meta );
 			$header_titles = array_merge( $header_titles, $header_meta );
 		}
 
 		$member_query = new WP_Query( array(
-			'post_type' => MPT_CPT_NAME,
+			'post_type'   => MPT_CPT_NAME,
 			'post_status' => 'publish',
-			'nopaging' => true
-			) );
+			'nopaging'    => true
+		) );
 
-		if ( !$member_query->have_posts() ) {
+		if ( ! $member_query->have_posts() ) {
 			return false;
 		}
 
-		$list = array( );
+		$list = array();
 		while ( $member_query->have_posts() ) {
 			$member_query->the_post();
-			$member_id = get_the_ID();
-			$member_email = get_post_meta( $member_id, 'email', true );
-			$member_last_name = get_post_meta( $member_id, 'last_name', true );
-			$member_first_name = get_post_meta( $member_id, 'first_name', true );
-			$member_username = get_post_meta( $member_id, 'username', true );
-			$member_counter_sign_on = get_post_meta( $member_id, '_counter_sign_on', true );
+			$member_id                = get_the_ID();
+			$member_email             = get_post_meta( $member_id, 'email', true );
+			$member_last_name         = get_post_meta( $member_id, 'last_name', true );
+			$member_first_name        = get_post_meta( $member_id, 'first_name', true );
+			$member_username          = get_post_meta( $member_id, 'username', true );
+			$member_counter_sign_on   = get_post_meta( $member_id, '_counter_sign_on', true );
 			$member_last_sign_on_date = get_post_meta( $member_id, '_last_sign_on_date', true );
 
 			$current_member = array(
@@ -57,7 +65,7 @@ class MPT_Admin_Export {
 
 			//Allow users to add meta value when exporting.
 			$current_member_meta = apply_filters( 'mpt_export_meta_values', array(), $member_id );
-			if( !empty( $current_member_meta ) ) {
+			if ( ! empty( $current_member_meta ) ) {
 				$current_member = array_merge( $current_member, $current_member_meta );
 			}
 
@@ -73,15 +81,15 @@ class MPT_Admin_Export {
 		header( "Accept-Ranges: bytes" );
 
 		$outstream = fopen( "php://output", 'w' );
-		
+
 		//Put header titles
 		fputcsv( $outstream, array_map( 'utf8_decode', $header_titles ), ';' );
-		
+
 		// Put lines in csv file
 		foreach ( $list as $fields ) {
 			fputcsv( $outstream, array_map( 'utf8_decode', $fields ), ';' );
 		}
-		
+
 		fclose( $outstream );
 		exit();
 	}
@@ -94,7 +102,7 @@ class MPT_Admin_Export {
 	 * @return string
 	 */
 	public static function prefix_header_meta( $name ) {
-		if( empty( $name ) ) {
+		if ( empty( $name ) ) {
 			return $name;
 		}
 

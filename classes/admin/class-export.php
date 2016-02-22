@@ -1,8 +1,21 @@
-<?php
+<?php class MPT_Admin_Export {
 
-class MPT_Admin_Export {
 	public function __construct() {
+		add_action( 'admin_menu', array( __CLASS__, 'admin_menu' ) );
 		add_action( 'admin_init', array( __CLASS__, 'admin_init' ) );
+	}
+
+	public static function admin_menu() {
+		$hook = add_submenu_page( 'edit.php?post_type=member', self::get_page_title(), self::get_page_title(), 'manage_options', 'member-export', array( __CLASS__, 'page' ) );
+		add_action( 'admin_head-' . $hook, array( __CLASS__, 'admin_head' ) );
+	}
+
+	public static function admin_head() {
+		wp_enqueue_style( MPT_CPT_NAME . '-post', MPT_URL . 'assets/css/admin.css', array(), MPT_VERSION, 'all' );
+	}
+
+	public static function page() {
+		include( MPT_DIR . 'views/admin/page-export.php' );
 	}
 
 	public static function admin_init() {
@@ -107,5 +120,18 @@ class MPT_Admin_Export {
 		}
 
 		return 'meta:' . $name;
+	}
+
+	/**
+	 * Get the import page title
+	 *
+	 * @author Maxime CULEA
+	 *
+	 * @since 0.6.0
+	 *
+	 * @return string
+	 */
+	public static function get_page_title() {
+		return esc_html( __( 'Export members', 'mpt' ) );
 	}
 }

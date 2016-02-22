@@ -1,6 +1,4 @@
-<?php
-
-class MPT_Admin_Import {
+<?php class MPT_Admin_Import {
 	private static $_rapport_arr = array();
 	const option_name = "mpt_last_import_report";
 
@@ -10,10 +8,7 @@ class MPT_Admin_Import {
 	}
 
 	public static function admin_menu() {
-		$hook = add_submenu_page( 'edit.php?post_type=member', MPT_Admin_Post_Type::get_import_export_title_page(), MPT_Admin_Post_Type::get_import_export_title_page(), 'manage_options', 'member-import-export', array(
-			__CLASS__,
-			'page'
-		) );
+		$hook = add_submenu_page( 'edit.php?post_type=member', self::get_page_title(), self::get_page_title(), 'manage_options', 'member-import', array( __CLASS__, 'page' ) );
 		add_action( 'admin_head-' . $hook, array( __CLASS__, 'admin_head' ) );
 	}
 
@@ -24,7 +19,7 @@ class MPT_Admin_Import {
 	public static function page() {
 		$report = get_option( self::option_name );
 
-		include( MPT_DIR . 'views/admin/page-import-export.php' );
+		include( MPT_DIR . 'views/admin/page-import.php' );
 	}
 
 	public static function admin_init() {
@@ -199,7 +194,7 @@ class MPT_Admin_Import {
 				}
 			}
 		}
-		
+
 		return true;
 	}
 
@@ -245,5 +240,18 @@ class MPT_Admin_Import {
 		} else {
 			return $default_headers;
 		}
+	}
+
+	/**
+	 * Get the import page title
+	 *
+	 * @author Maxime CULEA
+	 *
+	 * @since 0.6.0
+	 *
+	 * @return string
+	 */
+	public static function get_page_title() {
+		return esc_html( __( 'Import members', 'mpt' ) );
 	}
 }

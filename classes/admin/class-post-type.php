@@ -320,27 +320,4 @@ class MPT_Admin_Post_Type {
 	public static function get_connection_type(){
 		return apply_filters( 'mpt_connection_type', array( 'default' => __( 'Username / Mail', 'mpt' ) ) );
 	}
-
-	/**
-	 * Get the import/export page title depending on which part is activated
-	 *
-	 * @author Maxime CULEA
-	 *
-	 * @since 0.5.10
-	 *
-	 * @return string
-	 */
-	public static function get_import_export_title_page() {
-		$title =  _x( 'members', 'Members title part on "Import / Export members" page', 'mpt' );
-
-		$title_parts = array();
-		if( ! apply_filters( 'mpt_admin_hide_import', false ) ) {
-			$title_parts[] = _x( 'Import', 'Import title part on "Import / Export members" page', 'mpt' );
-		}
-		if( ! apply_filters( 'mpt_admin_hide_export', false ) ) {
-			$title_parts[] = _x( 'Export', 'Export title part on "Import / Export members" page', 'mpt' );
-		}
-
-		return esc_html( ! empty( $title_parts ) ? implode( $title_parts, ' / ' ) . ' ' . $title : $title );
-	}
 }

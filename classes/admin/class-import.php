@@ -8,7 +8,7 @@
 	}
 
 	public static function admin_menu() {
-		$hook = add_submenu_page( 'edit.php?post_type=member', self::get_page_title(), self::get_page_title(), 'manage_options', 'member-import', array( __CLASS__, 'page' ) );
+		$hook = add_submenu_page( 'edit.php?post_type=' . MPT_CPT_NAME, self::get_page_title(), self::get_page_title(), 'manage_options', 'member-import', array( __CLASS__, 'page' ) );
 		add_action( 'admin_head-' . $hook, array( __CLASS__, 'admin_head' ) );
 	}
 

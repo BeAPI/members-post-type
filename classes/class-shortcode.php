@@ -8,7 +8,7 @@ class MPT_Shortcode {
      * @return mixed Value.
      */
 	public function __construct() {
-		_mpt_load_files(MPT_DIR . 'classes/shortcodes/', array('shortcode-registration', 'shortcode-login', 'shortcode-lost-password', 'shortcode-change-password'), 'class-');
+		_mpt_load_files( 'classes/shortcodes/', array('shortcode-registration', 'shortcode-login', 'shortcode-lost-password', 'shortcode-change-password'), 'class-');
 		
 		new MPT_Shortcode_Registration();
 		new MPT_Shortcode_Login();

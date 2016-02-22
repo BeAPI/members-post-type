@@ -89,48 +89,28 @@ if ( ! defined( 'MPT_LOGGED_IN_COOKIE' ) ) {
 // Function for easy load files
 function _mpt_load_files( $dir, $files, $prefix = '' ) {
 	foreach ( $files as $file ) {
-		if ( is_file( $dir . $prefix . $file . ".php" ) ) {
-			require_once( $dir . $prefix . $file . ".php" );
+		if ( is_file( MPT_DIR . $dir . $prefix . $file . ".php" ) ) {
+			require_once( MPT_DIR . $dir . $prefix . $file . ".php" );
 		}
 	}
 }
 
 // Plugin functions
-_mpt_load_files( MPT_DIR . 'functions/', array( 'api', 'template' ) );
+_mpt_load_files( 'functions/', array( 'api', 'template' ) );
 
 // Plugin client classes
-_mpt_load_files( MPT_DIR . 'classes/', array(
-	'main',
-	'plugin',
-	'content-permissions',
-	'post-type',
-	'private-website',
-	'security',
-	'shortcode',
-	'taxonomy',
-	'widget'
-), 'class-' );
+_mpt_load_files( 'classes/', array( 'main', 'plugin', 'content-permissions', 'post-type', 'private-website', 'security', 'shortcode', 'taxonomy', 'widget' ), 'class-' );
 
 // Plugin helper classes
-_mpt_load_files( MPT_DIR . 'classes/helpers/', array( 'member-auth', 'member-utility', 'options' ), 'class-' );
+_mpt_load_files( 'classes/helpers/', array( 'member-auth', 'member-utility', 'options' ), 'class-' );
 
 // Plugin model classes
-_mpt_load_files( MPT_DIR . 'classes/models/', array( 'member', 'roles', 'role' ), 'class-' );
+_mpt_load_files( 'classes/models/', array( 'member', 'roles', 'role' ), 'class-' );
 
 // Plugin admin classes
 if ( is_admin() ) {
-	_mpt_load_files( MPT_DIR . 'classes/admin/', array(
-		'content-permissions',
-		'export',
-		'main',
-		'post-type',
-		'taxonomy',
-		'import',
-		'settings-main',
-		'users-to-members',
-		'welcome-message'
-	), 'class-' );
-
+	_mpt_load_files( MPT_DIR . 'classes/admin/', array( 'content-permissions', 'export', 'main', 'post-type', 'taxonomy', 'import', 'settings-main', 'users-to-members', 'welcome-message' ), 'class-' );
+	
 	// Load class for API settings
 	if ( ! class_exists( 'WeDevs_Settings_API' ) ) {
 		require_once( MPT_DIR . 'libraries/wordpress-settings-api-class/class.settings-api.php' );

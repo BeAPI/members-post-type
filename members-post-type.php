@@ -152,6 +152,7 @@ function init_mpt_plugin() {
 	 * Handle import/export feature :
 	 * - mpt_admin_use_import
 	 * - mpt_admin_use_export
+	 * To deactivate feature, declare the hook in a mu-plugin to be before "plugins_loaded"
 	 *
 	 * @since 0.6.0
 	 * @author Maxime CULEA

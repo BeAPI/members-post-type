@@ -149,7 +149,9 @@ function init_mpt_plugin() {
 	new MPT_Admin_Welcome_Message();
 
 	/**
-	 * Handle import/export feature
+	 * Handle import/export feature :
+	 * - mpt_admin_use_import
+	 * - mpt_admin_use_export
 	 *
 	 * @since 0.6.0
 	 * @author Maxime CULEA

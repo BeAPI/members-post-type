@@ -6,7 +6,7 @@ if ( !defined('ABSPATH') )
 <!-- Create a header in the default WordPress 'wrap' container -->
 <div class="wrap">
 	<div id="icon-edit" class="icon32 icon32-posts-member"></div>
-	<h2><?php _e( 'Import / Export Members', 'mpt' ); ?></h2>
+	<h2><?php echo MPT_Admin_Post_Type::get_import_export_title_page(); ?></h2>
 
 	<?php if( ! apply_filters( 'mpt_admin_hide_import', false ) ) : ?>
 		<h3><?php _e( 'Import CSV file', 'mpt' ); ?></h3>

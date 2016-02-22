@@ -1,7 +1,7 @@
 <?php
 /*
  Plugin Name: Members post type
- Version: 0.5.9
+ Version: 0.5.10
  Plugin URI: https://github.com/herewithme/members-post-type
  Description: Manage members on WordPress as post type. Implement: post type, authentification, role, clone from WP.
  Author: Amaury Balmer
@@ -56,7 +56,7 @@ if ( !defined('ABSPATH') )
 	die('-1');
 
 // Plugin constants
-define('MPT_VERSION', '0.5.9');
+define('MPT_VERSION', '0.5.10');
 define('MPT_CPT_NAME', 'member');
 define('MPT_TAXO_NAME', 'members-role');
 

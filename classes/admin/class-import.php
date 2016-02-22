@@ -9,7 +9,7 @@ class MPT_Admin_Import {
 	}
 	
 	public static function admin_menu() {
-		$hook = add_submenu_page('edit.php?post_type=member', __('Import / Export members', 'mpt'), __('Import / Export members', 'mpt'), 'manage_options', 'member-import-export', array( __CLASS__, 'page' ));
+		$hook = add_submenu_page('edit.php?post_type=member', MPT_Admin_Post_Type::get_import_export_title_page(), MPT_Admin_Post_Type::get_import_export_title_page(), 'manage_options', 'member-import-export', array( __CLASS__, 'page' ));
 		add_action( 'admin_head-'.$hook, array( __CLASS__ , 'admin_head' ) );
 	}
 	

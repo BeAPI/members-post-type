@@ -109,8 +109,8 @@ _mpt_load_files( 'classes/models/', array( 'member', 'roles', 'role' ), 'class-'
 
 // Plugin admin classes
 if ( is_admin() ) {
-	_mpt_load_files( MPT_DIR . 'classes/admin/', array( 'content-permissions', 'export', 'main', 'post-type', 'taxonomy', 'import', 'settings-main', 'users-to-members', 'welcome-message' ), 'class-' );
-	
+	_mpt_load_files( 'classes/admin/', array( 'content-permissions', 'main', 'post-type', 'taxonomy', 'settings-main', 'users-to-members', 'welcome-message' ), 'class-' );
+
 	// Load class for API settings
 	if ( ! class_exists( 'WeDevs_Settings_API' ) ) {
 		require_once( MPT_DIR . 'libraries/wordpress-settings-api-class/class.settings-api.php' );
@@ -140,17 +140,28 @@ function init_mpt_plugin() {
 	new MPT_Shortcode();
 	new MPT_Security();
 
-	// Admin
-	if ( is_admin() ) {
-		// Class admin
-		new MPT_Admin_Content_Permissions();
-		new MPT_Admin_Main();
-		new MPT_Admin_Post_Type();
-		new MPT_Admin_Taxonomy();
-		new MPT_Admin_Import();
-		new MPT_Admin_Export();
-		new MPT_Admin_Users_To_Members();
-		new MPT_Admin_Welcome_Message();
+	// Class admin
+	new MPT_Admin_Content_Permissions();
+	new MPT_Admin_Main();
+	new MPT_Admin_Post_Type();
+	new MPT_Admin_Taxonomy();
+	new MPT_Admin_Users_To_Members();
+	new MPT_Admin_Welcome_Message();
+
+	/**
+	 * Handle import/export feature
+	 *
+	 * @since 0.6.0
+	 * @author Maxime CULEA
+	 */
+	foreach( array( 'import', 'export' ) as $feature ) {
+		if( ! apply_filters( 'mpt_admin_use_' . $feature, true ) ) {
+			continue;
+		}
+		_mpt_load_files( 'classes/admin/', array( $feature ), 'class-' );
+
+		$class = 'MPT_Admin_' . ucfirst( $feature );
+		new $class;
 	}
 
 	// Widget

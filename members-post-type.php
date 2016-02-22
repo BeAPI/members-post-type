@@ -1,7 +1,7 @@
 <?php
 /*
  Plugin Name: Members post type
- Version: 0.5.10
+ Version: 0.6.0
  Plugin URI: https://github.com/herewithme/members-post-type
  Description: Manage members on WordPress as post type. Implement: post type, authentification, role, clone from WP.
  Author: Amaury Balmer
@@ -52,81 +52,83 @@
  */
 
 // don't load directly
-if ( !defined('ABSPATH') )
-	die('-1');
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 
 // Plugin constants
-define('MPT_VERSION', '0.5.10');
-define('MPT_CPT_NAME', 'member');
-define('MPT_TAXO_NAME', 'members-role');
+define( 'MPT_VERSION', '0.6.0' );
+define( 'MPT_CPT_NAME', 'member' );
+define( 'MPT_TAXO_NAME', 'members-role' );
 
 // Plugin URL and PATH
-define('MPT_URL', plugin_dir_url ( __FILE__ ));
-define('MPT_DIR', plugin_dir_path( __FILE__ ));
+define( 'MPT_URL', plugin_dir_url( __FILE__ ) );
+define( 'MPT_DIR', plugin_dir_path( __FILE__ ) );
 
 // Used to guarantee unique hash cookies
-if ( !defined( 'COOKIEHASH' ) ) {
-	$siteurl = home_url('/');
-	if ( $siteurl )
+if ( ! defined( 'COOKIEHASH' ) ) {
+	$siteurl = home_url( '/' );
+	if ( $siteurl ) {
 		define( 'COOKIEHASH', md5( $siteurl ) );
-	else
+	} else {
 		define( 'COOKIEHASH', '' );
+	}
 }
 
 // Auth constants
-if ( !defined( 'MPT_AUTH_COOKIE' ) ) {
-	define('MPT_AUTH_COOKIE', 'mpt_wordpress_' . constant('COOKIEHASH'));
+if ( ! defined( 'MPT_AUTH_COOKIE' ) ) {
+	define( 'MPT_AUTH_COOKIE', 'mpt_wordpress_' . constant( 'COOKIEHASH' ) );
 }
-if ( !defined( 'MPT_SECURE_AUTH_COOKIE' ) ) {
-	define('MPT_SECURE_AUTH_COOKIE', 'mpt_wordpress_sec_' . constant('COOKIEHASH'));
+if ( ! defined( 'MPT_SECURE_AUTH_COOKIE' ) ) {
+	define( 'MPT_SECURE_AUTH_COOKIE', 'mpt_wordpress_sec_' . constant( 'COOKIEHASH' ) );
 }
-if ( !defined( 'MPT_LOGGED_IN_COOKIE' ) ) {
-	define('MPT_LOGGED_IN_COOKIE', 'mpt_wordpress_logged_in_' . constant('COOKIEHASH'));
+if ( ! defined( 'MPT_LOGGED_IN_COOKIE' ) ) {
+	define( 'MPT_LOGGED_IN_COOKIE', 'mpt_wordpress_logged_in_' . constant( 'COOKIEHASH' ) );
 }
 
 // Function for easy load files
-function _mpt_load_files($dir, $files, $prefix = '') {
-	foreach ($files as $file) {
-		if ( is_file($dir . $prefix . $file . ".php") ) {
-			require_once($dir . $prefix . $file . ".php");
+function _mpt_load_files( $dir, $files, $prefix = '' ) {
+	foreach ( $files as $file ) {
+		if ( is_file( MPT_DIR . $dir . $prefix . $file . ".php" ) ) {
+			require_once( MPT_DIR . $dir . $prefix . $file . ".php" );
 		}
-	}	
+	}
 }
 
 // Plugin functions
-_mpt_load_files(MPT_DIR . 'functions/', array('api', 'template'));
+_mpt_load_files( 'functions/', array( 'api', 'template' ) );
 
 // Plugin client classes
-_mpt_load_files(MPT_DIR . 'classes/', array('main', 'plugin', 'content-permissions', 'post-type', 'private-website', 'security', 'shortcode', 'taxonomy', 'widget'), 'class-');
+_mpt_load_files( 'classes/', array( 'main', 'plugin', 'content-permissions', 'post-type', 'private-website', 'security', 'shortcode', 'taxonomy', 'widget' ), 'class-' );
 
 // Plugin helper classes
-_mpt_load_files(MPT_DIR . 'classes/helpers/', array('member-auth', 'member-utility','options'), 'class-');
+_mpt_load_files( 'classes/helpers/', array( 'member-auth', 'member-utility', 'options' ), 'class-' );
 
 // Plugin model classes
-_mpt_load_files(MPT_DIR . 'classes/models/', array('member', 'roles', 'role'), 'class-');
+_mpt_load_files( 'classes/models/', array( 'member', 'roles', 'role' ), 'class-' );
 
 // Plugin admin classes
-if (is_admin()) {
-	_mpt_load_files(MPT_DIR . 'classes/admin/', array( 'content-permissions', 'export', 'main', 'post-type', 'taxonomy', 'import', 'settings-main', 'users-to-members', 'welcome-message' ), 'class-');
+if ( is_admin() ) {
+	_mpt_load_files( 'classes/admin/', array( 'content-permissions', 'main', 'post-type', 'taxonomy', 'settings-main', 'users-to-members', 'welcome-message' ), 'class-' );
 
 	// Load class for API settings
-	if ( !class_exists('WeDevs_Settings_API') ) {
-		require_once(MPT_DIR.'libraries/wordpress-settings-api-class/class.settings-api.php');
+	if ( ! class_exists( 'WeDevs_Settings_API' ) ) {
+		require_once( MPT_DIR . 'libraries/wordpress-settings-api-class/class.settings-api.php' );
 	}
 }
 
 // Plugin activate/desactive hooks
-register_activation_hook(__FILE__, array('MPT_Plugin', 'activate'));
-register_deactivation_hook(__FILE__, array('MPT_Plugin', 'deactivate'));
+register_activation_hook( __FILE__, array( 'MPT_Plugin', 'activate' ) );
+register_deactivation_hook( __FILE__, array( 'MPT_Plugin', 'deactivate' ) );
 
-add_action('plugins_loaded', 'init_mpt_plugin');
+add_action( 'plugins_loaded', 'init_mpt_plugin' );
 function init_mpt_plugin() {
 	// Load translations
-	load_plugin_textdomain('mpt', false, basename(MPT_DIR) . '/languages');
+	load_plugin_textdomain( 'mpt', false, basename( MPT_DIR ) . '/languages' );
 
 	// Load builtin plugin "meta for taxo", if not already installed and actived
-	if ( !function_exists('get_term_taxonomy_meta') ) {
-		require_once(MPT_DIR.'libraries/meta-for-taxonomies/meta-for-taxonomies.php');
+	if ( ! function_exists( 'get_term_taxonomy_meta' ) ) {
+		require_once( MPT_DIR . 'libraries/meta-for-taxonomies/meta-for-taxonomies.php' );
 	}
 
 	// Client
@@ -138,19 +140,33 @@ function init_mpt_plugin() {
 	new MPT_Shortcode();
 	new MPT_Security();
 
-	// Admin
-	if (is_admin()) {
-		// Class admin
-		new MPT_Admin_Content_Permissions();
-		new MPT_Admin_Main();
-		new MPT_Admin_Post_Type();
-		new MPT_Admin_Taxonomy();
-		new MPT_Admin_Import();
-		new MPT_Admin_Export();
-		new MPT_Admin_Users_To_Members();
-		new MPT_Admin_Welcome_Message();
+	// Class admin
+	new MPT_Admin_Content_Permissions();
+	new MPT_Admin_Main();
+	new MPT_Admin_Post_Type();
+	new MPT_Admin_Taxonomy();
+	new MPT_Admin_Users_To_Members();
+	new MPT_Admin_Welcome_Message();
+
+	/**
+	 * Handle import/export feature :
+	 * - mpt_admin_use_import
+	 * - mpt_admin_use_export
+	 * To deactivate feature, declare the hook in a mu-plugin to be before "plugins_loaded"
+	 *
+	 * @since 0.6.0
+	 * @author Maxime CULEA
+	 */
+	foreach( array( 'import', 'export' ) as $feature ) {
+		if( ! apply_filters( 'mpt_admin_use_' . $feature, true ) ) {
+			continue;
+		}
+		_mpt_load_files( 'classes/admin/', array( $feature ), 'class-' );
+
+		$class = 'MPT_Admin_' . ucfirst( $feature );
+		new $class;
 	}
 
 	// Widget
-	add_action('widgets_init', create_function('', 'return register_widget("MPT_Widget");'));
+	add_action( 'widgets_init', create_function( '', 'return register_widget("MPT_Widget");' ) );
 }

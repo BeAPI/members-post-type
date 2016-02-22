@@ -140,31 +140,34 @@ function init_mpt_plugin() {
 	new MPT_Shortcode();
 	new MPT_Security();
 
-	// Class admin
-	new MPT_Admin_Content_Permissions();
-	new MPT_Admin_Main();
-	new MPT_Admin_Post_Type();
-	new MPT_Admin_Taxonomy();
-	new MPT_Admin_Users_To_Members();
-	new MPT_Admin_Welcome_Message();
+	if( is_admin() ) {
 
-	/**
-	 * Handle import/export feature :
-	 * - mpt_admin_use_import
-	 * - mpt_admin_use_export
-	 * To deactivate feature, declare the hook in a mu-plugin to be before "plugins_loaded"
-	 *
-	 * @since 0.6.0
-	 * @author Maxime CULEA
-	 */
-	foreach( array( 'import', 'export' ) as $feature ) {
-		if( ! apply_filters( 'mpt_admin_use_' . $feature, true ) ) {
-			continue;
+		// Class admin
+		new MPT_Admin_Content_Permissions();
+		new MPT_Admin_Main();
+		new MPT_Admin_Post_Type();
+		new MPT_Admin_Taxonomy();
+		new MPT_Admin_Users_To_Members();
+		new MPT_Admin_Welcome_Message();
+
+		/**
+		 * Handle import/export feature :
+		 * - mpt_admin_use_import
+		 * - mpt_admin_use_export
+		 * To deactivate feature, declare the hook in a mu-plugin to be before "plugins_loaded"
+		 *
+		 * @since 0.6.0
+		 * @author Maxime CULEA
+		 */
+		foreach( array( 'import', 'export' ) as $feature ) {
+			if( ! apply_filters( 'mpt_admin_use_' . $feature, true ) ) {
+				continue;
+			}
+			_mpt_load_files( 'classes/admin/', array( $feature ), 'class-' );
+
+			$class = 'MPT_Admin_' . ucfirst( $feature );
+			new $class;
 		}
-		_mpt_load_files( 'classes/admin/', array( $feature ), 'class-' );
-
-		$class = 'MPT_Admin_' . ucfirst( $feature );
-		new $class;
 	}
 
 	// Widget

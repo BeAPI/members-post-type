@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MPT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-08 13:57+0100\n"
-"PO-Revision-Date: 2016-02-08 13:57+0100\n"
+"POT-Creation-Date: 2016-03-21 10:23+0100\n"
+"PO-Revision-Date: 2016-03-21 10:23+0100\n"
 "Last-Translator: Maxime CULEA <mculea@beapi.fr>\n"
 "Language-Team: BeAPI <contact@beapi.fr>\n"
 "Language: fr\n"
@@ -1135,9 +1135,13 @@ msgid "Possible reason: your host may have disabled the mail() function..."
 msgstr ""
 "Raison possible : votre hébergeur a peut-être désactivé la fonction mail()…"
 
-#: ../classes/admin/class-import.php:89
+#: ../classes/admin/class-import.php:91
 msgid "missing email and/or username"
 msgstr "Il manque l'email et/ou le pseudonyme"
+
+#: ../classes/admin/class-import.php:255
+msgid "Import members"
+msgstr "Import des membres"
 
 #: ../classes/admin/class-post-type.php:59
 msgid "Password and confirmation must be the same."
@@ -1163,42 +1167,27 @@ msgstr "Informations principales"
 msgid "Username / Mail"
 msgstr "Nom d'utilisateur/Email"
 
-#: ../classes/admin/class-post-type.php:334
-msgctxt "Members title part on \"Import / Export members\" page"
-msgid "members"
-msgstr "membres"
-
-#: ../classes/admin/class-post-type.php:338
-msgctxt "Import title part on \"Import / Export members\" page"
-msgid "Import"
-msgstr "Importer"
-
-#: ../classes/admin/class-post-type.php:341
-msgctxt "Export title part on \"Import / Export members\" page"
-msgid "Export"
-msgstr "Exporter"
-
 #: ../classes/admin/class-content-permissions.php:45
 msgid "Content permissions (for MPT)"
 msgstr "Permissions d'accès au contenu (pour MPT)"
 
-#: ../classes/admin/class-export.php:19
+#: ../classes/admin/class-export.php:34
 #: ../views/client/member-registration.tpl.php:30
 #: ../views/admin/metabox-main.php:9
 msgid "Email"
 msgstr "Email"
 
-#: ../classes/admin/class-export.php:19
+#: ../classes/admin/class-export.php:35
 msgid "Lastname"
 msgstr "Nom"
 
-#: ../classes/admin/class-export.php:19
+#: ../classes/admin/class-export.php:36
 #: ../views/client/member-registration-step-2.tpl.php:15
 #: ../views/client/member-registration.tpl.php:17
 msgid "Firstname"
 msgstr "Prénom"
 
-#: ../classes/admin/class-export.php:19
+#: ../classes/admin/class-export.php:37
 #: ../views/client/member-registration-step-2.tpl.php:11
 #: ../views/client/member-login.tpl.php:10
 #: ../views/client/member-registration.tpl.php:11
@@ -1207,13 +1196,17 @@ msgstr "Prénom"
 msgid "Username"
 msgstr "Nom d'utilisateur"
 
-#: ../classes/admin/class-export.php:19
+#: ../classes/admin/class-export.php:38
 msgid "Counter Sign On"
 msgstr "Compteur de connexion"
 
-#: ../classes/admin/class-export.php:19
+#: ../classes/admin/class-export.php:39
 msgid "Last Sign On Date"
 msgstr "Date de dernière connexion"
+
+#: ../classes/admin/class-export.php:135
+msgid "Export members"
+msgstr "Export des membres"
 
 #: ../classes/admin/class-taxonomy.php:38 ../views/admin/term-fields.php:15
 msgid "Remove capability"
@@ -1368,55 +1361,6 @@ msgstr "Générer un mot de passe"
 msgid "Need to change password next connect"
 msgstr "Forcer le changement de mot de passe à la prochaine connexion"
 
-#: ../views/admin/page-import-export.php:12
-msgid "Import CSV file"
-msgstr "Import fichier CSV"
-
-#: ../views/admin/page-import-export.php:14
-msgid ""
-"Import members from a CSV file. The format for the CSV file is \"email; "
-"lastname; firstname; username\". The password is automaticaly generated when "
-"the user is created."
-msgstr ""
-"Import de membres à partir d'un fichier CSV. Le format du fichier est  "
-"\"email; lastname; firstname; username\". Le mot de passe est automatique "
-"généré lors de la création du membre."
-
-#: ../views/admin/page-import-export.php:15
-msgid "Select a CSV file."
-msgstr "Sélectionner un fichier CSV."
-
-#: ../views/admin/page-import-export.php:26
-#, php-format
-msgid "Last import : %s"
-msgstr "Dernier import : %s"
-
-#: ../views/admin/page-import-export.php:28
-msgid "CSV formating error :"
-msgstr "CSV erreur de formatage :"
-
-#: ../views/admin/page-import-export.php:30
-#, php-format
-msgid "Line %s : \"%s\" %s (%s)"
-msgstr "Ligne %s : \"%s\" %s (%s)"
-
-#: ../views/admin/page-import-export.php:34
-msgid "Importing status :"
-msgstr "Statut d'import :"
-
-#: ../views/admin/page-import-export.php:36
-#, php-format
-msgid "%s) %s (%s) : %s"
-msgstr "%s) %s (%s) : %s"
-
-#: ../views/admin/page-import-export.php:40
-msgid "No report data available."
-msgstr "Pas de données de rapport disponibles."
-
-#: ../views/admin/page-import-export.php:47
-msgid "Export CSV file"
-msgstr "Exporter en CSV"
-
 # @ wp3i
 #: ../views/admin/page-settings.php:9
 msgid "Members - Settings"
@@ -1466,6 +1410,51 @@ msgstr ""
 "Chaque rôle est autorisé à effectuer un ensemble de tâches appelées "
 "Permissions."
 
+#: ../views/admin/page-import.php:11
+msgid "Import CSV file"
+msgstr "Import fichier CSV"
+
+#: ../views/admin/page-import.php:13
+msgid ""
+"Import members from a CSV file. The format for the CSV file is \"email; "
+"lastname; firstname; username\". The password is automaticaly generated when "
+"the user is created."
+msgstr ""
+"Import de membres à partir d'un fichier CSV. Le format du fichier est  "
+"\"email; lastname; firstname; username\". Le mot de passe est automatique "
+"généré lors de la création du membre."
+
+#: ../views/admin/page-import.php:14
+msgid "Select a CSV file."
+msgstr "Sélectionner un fichier CSV."
+
+#: ../views/admin/page-import.php:25
+#, php-format
+msgid "Last import : %s"
+msgstr "Dernier import : %s"
+
+#: ../views/admin/page-import.php:27
+msgid "CSV formating error :"
+msgstr "CSV erreur de formatage :"
+
+#: ../views/admin/page-import.php:29
+#, php-format
+msgid "Line %s : \"%s\" %s (%s)"
+msgstr "Ligne %s : \"%s\" %s (%s)"
+
+#: ../views/admin/page-import.php:33
+msgid "Importing status :"
+msgstr "Statut d'import :"
+
+#: ../views/admin/page-import.php:35
+#, php-format
+msgid "%s) %s (%s) : %s"
+msgstr "%s) %s (%s) : %s"
+
+#: ../views/admin/page-import.php:39
+msgid "No report data available."
+msgstr "Pas de données de rapport disponibles."
+
 #: ../views/admin/metabox-content-permissions.php:8
 msgid "Limit access to this post's content to members of the selected roles."
 msgstr "Limiter l'accès au contenu aux membres des rôles sélectionnés."
@@ -1492,6 +1481,22 @@ msgstr ""
 "Message affiché aux utilisateurs qui n'ont pas la permission d'accéder au "
 "contenu."
 
+#: ../views/admin/page-export.php:11
+msgid "Export CSV file"
+msgstr "Exporter en CSV"
+
+#~ msgctxt "Members title part on \"Import / Export members\" page"
+#~ msgid "members"
+#~ msgstr "membres"
+
+#~ msgctxt "Import title part on \"Import / Export members\" page"
+#~ msgid "Import"
+#~ msgstr "Importer"
+
+#~ msgctxt "Export title part on \"Import / Export members\" page"
+#~ msgid "Export"
+#~ msgstr "Exporter"
+
 #~ msgctxt "Members title part on \"Import / Export Members\" page"
 #~ msgid "Members"
 #~ msgstr "Membres"
@@ -1510,9 +1515,6 @@ msgstr ""
 
 #~ msgid "[%s] Your username and password"
 #~ msgstr "[%s] Vos identifiants"
-
-#~ msgid "Import / Export Members"
-#~ msgstr "Import / Export des Membres"
 
 #~ msgid "New member registration on your site %s:"
 #~ msgstr "Nouvelle inscription de membre sur votre site %s : "

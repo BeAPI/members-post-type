@@ -50,7 +50,7 @@ class MPT_Roles {
 		self::$role_objects = array();
 		self::$role_names =  array();
 		foreach ( self::$roles as $role ) {
-			self::$role_objects[$role->slug] = new MPT_Role( $role->slug, (array) get_term_taxonomy_meta( $role->term_taxonomy_id, 'capabilities', true) );
+			self::$role_objects[$role->slug] = new MPT_Role( $role->slug, (array) get_term_meta( $role->term_id, 'capabilities', true) );
 			self::$role_names[$role->slug] = $role->name;
 		}
 
@@ -86,7 +86,7 @@ class MPT_Roles {
 		$term = get_term($term_result['term_id'], MPT_TAXO_NAME);
 
 		// Update term meta with capabilities
-		update_term_taxonomy_meta( $term_result['term_taxonomy_id'], 'capabilities', $capabilities );
+		update_term_meta( $term->term_id, 'capabilities', $capabilities );
 
 		// Refresh values
 		self::$roles[$term->slug] = $term;
@@ -133,7 +133,7 @@ class MPT_Roles {
 			return false;
 
 		// Get current capabilities
-		$capabilities = get_term_taxonomy_meta( self::$roles[$role]->term_taxonomy_id, 'capabilities', true);
+		$capabilities = get_term_meta( self::$roles[$role]->term_id, 'capabilities', true);
 		if ( $capabilities == false ) {
 			$capabilities = array();
 		}
@@ -142,7 +142,7 @@ class MPT_Roles {
 		$capabilities[$cap] = $grant;
 
 		// Save new capabilities
-		update_term_taxonomy_meta( self::$roles[$role]->term_taxonomy_id, 'capabilities', $capabilities );
+		update_term_meta( self::$roles[$role]->term_id, 'capabilities', $capabilities );
 
 		// Refesh variable
 		self::$role_objects[$role] = new MPT_Role( $role, $capabilities );
@@ -163,7 +163,7 @@ class MPT_Roles {
 			return false;
 
 		// Get current capabilities
-		$capabilities = get_term_taxonomy_meta( self::$roles[$role]->term_taxonomy_id, 'capabilities', true);
+		$capabilities = get_term_meta( self::$roles[$role]->term_id, 'capabilities', true);
 		if ( $capabilities == false ) {
 			$capabilities = array();
 		}
@@ -172,7 +172,7 @@ class MPT_Roles {
 		unset($capabilities[$cap]);
 
 		// Save new capabilities
-		update_term_taxonomy_meta( self::$roles[$role]->term_taxonomy_id, 'capabilities', $capabilities );
+		update_term_meta( self::$roles[$role]->term_id, 'capabilities', $capabilities );
 
 		// Refesh variable
 		self::$role_objects[$role] = new MPT_Role( $role, $capabilities );
@@ -193,7 +193,7 @@ class MPT_Roles {
 			return false;
 
 		// Save new
-		update_term_taxonomy_meta( self::$roles[$role]->term_taxonomy_id, 'capabilities', array() );
+		update_term_meta( self::$roles[$role]->term_id, 'capabilities', array() );
 
 		// Refesh variable
 		self::$role_objects[$role] = new MPT_Role( $role, array() );

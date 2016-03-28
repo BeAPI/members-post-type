@@ -13,6 +13,9 @@ class MPT_Main {
 		// Init once MPT roles
 		add_action('init', array('MPT_Roles', 'init'), 9);
 
+		// load the textdomain
+		add_action('init', array( __CLASS__, 'init_textdomain'), 9);
+
 		// Init AJAX hook
 		add_action('wp_loaded', array(__CLASS__, 'wp_loaded'), 15);
 
@@ -90,6 +93,14 @@ class MPT_Main {
 			wp_redirect($redirect_to);
 			exit();
 		}
+	}
+
+	/**
+	 * Load the textdomain
+	 */
+	public static function init_textdomain() {
+		// Load translations
+		load_plugin_textdomain( 'mpt', false, basename( MPT_DIR ) . '/languages' );
 	}
 
 	/**

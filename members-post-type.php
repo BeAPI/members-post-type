@@ -1,7 +1,7 @@
 <?php
 /*
  Plugin Name: Members post type
- Version: 0.6.0
+ Version: 0.7.0
  Plugin URI: https://github.com/herewithme/members-post-type
  Description: Manage members on WordPress as post type. Implement: post type, authentification, role, clone from WP.
  Author: Amaury Balmer
@@ -57,7 +57,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin constants
-define('MPT_VERSION', '0.6.0');
+define('MPT_VERSION', '0.7.0');
 define('MPT_CPT_NAME', 'member');
 define('MPT_TAXO_NAME', 'members-role');
 
@@ -96,20 +96,47 @@ function _mpt_load_files( $dir, $files, $prefix = '' ) {
 }
 
 // Plugin functions
-_mpt_load_files( 'functions/', array( 'api', 'template' ) );
+_mpt_load_files( 'functions/', array(
+	'api',
+	'template' ) );
 
 // Plugin client classes
-_mpt_load_files( 'classes/', array('main', 'plugin', 'content-permissions', 'post-type', 'private-website', 'security', 'shortcode', 'taxonomy', 'widget' ), 'class-');
+_mpt_load_files( 'classes/', array(
+	'main',
+	'plugin',
+	'content-permissions',
+	'post-type', 'private-website',
+	'security', 'shortcode',
+	'taxonomy',
+	'widget'
+), 'class-');
 
 // Plugin helper classes
-_mpt_load_files( 'classes/helpers/', array('member-auth', 'member-utility','options', 'nonces'), 'class-');
+_mpt_load_files( 'classes/helpers/', array(
+	'member-auth',
+	'member-utility',
+	'options',
+	'nonces'
+), 'class-');
 
 // Plugin model classes
-_mpt_load_files( 'classes/models/', array( 'member', 'roles', 'role' ), 'class-' );
+_mpt_load_files( 'classes/models/', array(
+	'member',
+	'roles',
+	'role'
+), 'class-' );
 
 // Plugin admin classes
 if ( is_admin() ) {
-	_mpt_load_files( 'classes/admin/', array( 'content-permissions', 'main', 'post-type', 'taxonomy', 'settings-main', 'users-to-members', 'welcome-message' ), 'class-' );
+	_mpt_load_files( 'classes/admin/', array(
+		'content-permissions',
+		'main',
+		'post-type',
+		'taxonomy',
+		'settings-main',
+		'users-to-members',
+		'welcome-message'
+	), 'class-' );
 
 	// Load class for API settings
 	if ( ! class_exists( 'WeDevs_Settings_API' ) ) {
@@ -123,9 +150,6 @@ register_deactivation_hook( __FILE__, array( 'MPT_Plugin', 'deactivate' ) );
 
 add_action( 'plugins_loaded', 'init_mpt_plugin' );
 function init_mpt_plugin() {
-	// Load translations
-	load_plugin_textdomain( 'mpt', false, basename( MPT_DIR ) . '/languages' );
-
 	// Client
 	new MPT_Main();
 	new MPT_Post_Type();

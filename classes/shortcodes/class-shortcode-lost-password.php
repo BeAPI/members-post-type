@@ -52,8 +52,8 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 			$_POST['mptlostpwd_s1'] = stripslashes_deep( $_POST['mptlostpwd_s1'] );
 
 			// Check _NONCE
-			$nonce = isset( $_POST['_wpnonce'] ) ? $_POST['_wpnonce'] : '';
-			if ( !wp_verify_nonce( $nonce, 'mptlostpwd_s1' ) ) {
+			$nonce = isset( $_POST['_mptnonce'] ) ? $_POST['_mptnonce'] : '';
+			if ( !mpt_verify_nonce( $nonce, 'mptlostpwd_s1' ) ) {
 				parent::set_message( 'check-nonce', 'Security check failed', 'error' );
 				return false;
 			}
@@ -132,8 +132,8 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 	public static function check_step_2_form() {
 		if ( isset( $_POST['mptlostpwd_s2'] ) ) {
 			// Check _NONCE
-			$nonce = isset( $_POST['_wpnonce'] ) ? $_POST['_wpnonce'] : '';
-			if ( !wp_verify_nonce( $nonce, 'mptlostpwd_s2' ) ) {
+			$nonce = isset( $_POST['_mptnonce'] ) ? $_POST['_mptnonce'] : '';
+			if ( !mpt_verify_nonce( $nonce, 'mptlostpwd_s2' ) ) {
 				parent::set_message( 'check-nonce', 'Security check failed', 'error' );
 				return false;
 			}

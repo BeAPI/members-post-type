@@ -76,7 +76,7 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 
 		// Check _NONCE
 		$nonce = isset( $_POST['_wpnonce'] ) ? $_POST['_wpnonce'] : '';
-		if ( !wp_verify_nonce( $nonce, 'mptregistration' ) ) {
+		if ( !mpt_verify_nonce( $nonce, 'mptregistration' ) ) {
 			parent::set_message( 'check-nonce', 'Security check failed', 'error' );
 		}
 
@@ -240,7 +240,7 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 		if ( isset( $_POST['mptregistration_s2'] ) ) {
 			// Check _NONCE
 			$nonce = isset( $_POST['_wpnonce'] ) ? $_POST['_wpnonce'] : '';
-			if ( !wp_verify_nonce( $nonce, 'mptregistration_s2' ) ) {
+			if ( !mpt_verify_nonce( $nonce, 'mptregistration_s2' ) ) {
 				parent::set_message( 'check-nonce', 'Security check failed', 'error' );
 			}
 

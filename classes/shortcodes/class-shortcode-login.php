@@ -69,8 +69,8 @@ class MPT_Shortcode_Login extends MPT_Shortcode {
 			// Need to look at the URL the way it will end up in wp_redirect()
 			$redirect_to = wp_sanitize_redirect($redirect_to);
 			$redirect_to = wp_validate_redirect($redirect_to, home_url('/'));
-			
-			wp_redirect( $redirect_to );
+
+			wp_redirect( apply_filters( 'mpt_login_redirect', $redirect_to ) );
 			exit();
 		}
 		

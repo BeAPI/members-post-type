@@ -23,12 +23,6 @@ class MPT_Plugin {
 			}
 			unset($role);
 		}
-
-		// Load builtin plugin "meta for taxo", if not already installed and actived
-		if ( !function_exists('install_table_termmeta') ) {
-			require_once(MPT_DIR.'libraries/meta-for-taxonomies/meta-for-taxonomies.php');
-			install_table_termmeta();
-		}
 	}
 
     /**

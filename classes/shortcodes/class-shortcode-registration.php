@@ -206,6 +206,10 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 
 			// Set success message
 			parent::set_message( 'mptregistration', sprintf( __( 'Your account has been created. You can now log-in with your access. <a href="%s">Click here</a> ', 'mpt' ), home_url( '/' ) ), 'success' );
+
+			// Allow to perform an action just after a member subscription
+			do_action( 'mpt_step_1_new_user_registered', $member );
+
 			return;
 		}
 	}

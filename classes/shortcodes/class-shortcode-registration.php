@@ -159,6 +159,10 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 
 			// Set success message
 			parent::set_message( 'mptregistration', __( 'Your account has been created. You just received an email to confirm your registration', 'mpt' ), 'success' );
+
+			// Allow to perform an action just after a member subscription
+			do_action( 'mpt_step_1_new_user_registered', $member );
+
 			return;
 		}
 

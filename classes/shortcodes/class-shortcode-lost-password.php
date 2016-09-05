@@ -51,8 +51,11 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 			// Cleanup data
 			$_POST['mptlostpwd_s1'] = stripslashes_deep( $_POST['mptlostpwd_s1'] );
 
-			// Check _NONCE
-			$nonce = isset( $_POST['_mptnonce'] ) ? $_POST['_mptnonce'] : '';
+			// Check _NONCE with the old way to avoid retrocompatibility issues
+			$nonce = isset( $_POST['_wpnonce'] ) ? $_POST['_wpnonce'] : '';
+
+			// Check _NONCE with the new way (using the mpt_nonce_field() function as per the shortcodes examples
+			$nonce = empty( $nonce ) && isset( $_POST['_mptnonce'] ) ? $_POST['_mptnonce'] : $nonce;
 			if ( !mpt_verify_nonce( $nonce, 'mptlostpwd_s1' ) ) {
 				parent::set_message( 'check-nonce', 'Security check failed', 'error' );
 				return false;

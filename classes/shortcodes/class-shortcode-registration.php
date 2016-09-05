@@ -74,8 +74,12 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 		// Parse vs default
 		$mptr = wp_parse_args( $mptr, self::$form_fields );
 
-		// Check _NONCE
+		// Check _NONCE with the old way to avoid retrocompatibility issues
 		$nonce = isset( $_POST['_wpnonce'] ) ? $_POST['_wpnonce'] : '';
+
+		// Check _NONCE with the new way (using the mpt_nonce_field() function as per the shortcodes examples
+		$nonce = empty( $nonce ) && isset( $_POST['_mptnonce'] ) ? $_POST['_mptnonce'] : $nonce;
+
 		if ( !mpt_verify_nonce( $nonce, 'mptregistration' ) ) {
 			parent::set_message( 'check-nonce', 'Security check failed', 'error' );
 		}

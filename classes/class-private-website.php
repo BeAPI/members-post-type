@@ -10,8 +10,8 @@ class MPT_Private_Website {
 	 */
 	public function __construct() {
 		$current_options = MPT_Options::get_option( 'mpt-main' );
-		
-		if ( mpt_get_option_value( 'mpt-main', 'redirect-logged-out-users' ) == 'on' ) {
+
+		if ( mpt_get_option_value( 'mpt-main', 'redirect-logged-out-users' ) === 'on' ) {
 			/* Redirects users to the login page. */
 			add_action( 'template_redirect', array( __CLASS__, 'template_redirect' ), 1 );
 		}

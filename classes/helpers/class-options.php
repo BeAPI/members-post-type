@@ -35,7 +35,7 @@ class MPT_Options {
 			self::_load_option();
 		}
 
-		return self::$options[$option_name];
+		return apply_filters( 'mpt_get_option', self::$options[ $option_name ], $option_name );
 	}
 
 	public static function get_option_value( $option_name, $key, $failback_default = false ) {

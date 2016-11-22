@@ -279,6 +279,12 @@ return array(
 			'name' => 'register_member_mail',
 			'label' => __( 'Member registration email', 'mpt' ),
 			'desc' => __( 'Management of notification\'s mail by a Member upon registration.', 'mpt' ),
+			'available_values' => array(
+				'blog_name' => __( "Blog's name.", 'mpt' ),
+				'user_name' => __( "User's name.", 'mpt' ),
+				'password'  => __( "User's password.", 'mpt' ),
+				'login_url' => __( "The reset password url.", 'mpt' ),
+			),
 			'type' => 'metabox',
 		),
 		array(
@@ -299,6 +305,11 @@ return array(
 			'name' => 'register_member_validation_mail',
 			'label' => __( 'Member registration email validation', 'mpt' ),
 			'desc' => __( 'Registration confirmation email with link validation counted', 'mpt' ),
+			'available_values' => array(
+				'blog_name'             => __( "Blog's name.", 'mpt' ),
+				'site_url'              => __( "Site's url.", 'mpt' ),
+				'confirm_register_link' => __( "Register link.", 'mpt' ),
+			),
 			'type' => 'metabox',
 		),
 		array(
@@ -319,6 +330,10 @@ return array(
 			'name' => 'lost_password_admin',
 			'label' => __( 'Admin mail for Member lost password', 'mpt' ),
 			'desc' => __( 'Management of notification\'s mail to the administrator when a member has lost his password.', 'mpt' ),
+			'available_values' => array(
+				'blog_name' => __( "Blog's name", 'mpt' ),
+				'user_name' => __( "User's name", 'mpt' ),
+			),
 			'type' => 'metabox',
 		),
 		array(
@@ -346,6 +361,12 @@ return array(
 			'name' => 'lost_password_member',
 			'label' => __( 'Member lost password mail', 'mpt' ),
 			'desc' => __( 'Management of notification\'s mail by a Member lost his password.', 'mpt' ),
+			'available_values' => array(
+				'blog_name'      => __( "Blog's name.", 'mpt' ),
+				'user_name'      => __( "User's name.", 'mpt' ),
+				'reset_pwd_link' => __( "The password reset link.", 'mpt' ),
+				'site_url'       => __( "Current site's url.", 'mpt' ),
+			),
 			'type' => 'metabox',
 		),
 		array(

@@ -8,9 +8,9 @@ return array(
 	),
 	array(
 		'id'        => 'mpt-pages',
-		'tab_label' => __( 'Feature Pages', 'mpt' ),
-		'title'     => __( 'Feature Pages', 'mpt' ),
-		'desc'      => __( 'You must define here the pages containing the WordPress shortcodes for different features (login, registration, etc).', 'mpt' ),
+		'tab_label' => __( 'Feature pages', 'mpt' ),
+		'title'     => __( 'Feature pages', 'mpt' ),
+		'desc'      => __( 'Define here the pages containing WordPress\'s shortcodes for the different features as login, registration, etc.', 'mpt' ),
 	),
 	array(
 		'id'        => 'mpt-security',

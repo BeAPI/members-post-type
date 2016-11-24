@@ -21,7 +21,7 @@ return array(
 	array(
 		'id'        => 'mpt-emails',
 		'tab_label' => __( 'Mails', 'mpt' ),
-		'title'     => __( 'Admin mail for Member registration', 'mpt' ),
-		'desc'      => __( 'Management of mail notification to the site administrator when a new member joins the site.', 'mpt' ),
+		'title'     => __( 'Manage admin and member email\'s templates', 'mpt' ),
+		'desc'      => __( 'Change however you want the admin\'s and member\'s email notifications. Please note that only described dynamic values will work for each notification.', 'mpt' ),
 	)
 );

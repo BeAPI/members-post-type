@@ -255,11 +255,22 @@ return array(
 	),
 	'mpt-emails'   => array(
 		array(
-			'name'    => 'registration_member_admin_mail',
+			'name'             => 'register_member_admin_mail',
+			'label'            => __( 'Admin mail for Member registration', 'mpt' ),
+			'desc'             => __( 'Management of mail notification to the site administrator when a new member joins the site.', 'mpt' ),
+			'available_values' => array(
+				'blog_name'  => __( "Blog's name.", 'mpt' ),
+				'user_name'  => __( "User's name.", 'mpt' ),
+				'user_email' => __( "User's email.", 'mpt' )
+			),
+			'type'             => 'metabox',
+		),
+		array(
+			'name'    => 'registration_member_admin_mail_to',
 			'label'   => __( 'Recipient Mail', 'mpt' ),
-			'type'    => 'text',
 			'default' => get_option( 'admin_email' ),
-			'desc'    => __( 'By default this is the administrator\'s email of the site but you can change the recipient. You can add more recipients, separating them with a comma', 'mpt' )
+			'desc'    => __( 'By default this is the administrator\'s email of the site but you can change the recipient. You can add more recipients, separating them with a comma', 'mpt' ),
+			'type'    => 'text',
 		),
 		array(
 			'name'    => 'registration_member_admin_subject',

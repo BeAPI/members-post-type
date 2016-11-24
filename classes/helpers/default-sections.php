@@ -15,8 +15,8 @@ return array(
 	array(
 		'id'        => 'mpt-security',
 		'tab_label' => __( 'Security', 'mpt' ),
-		'title'     => __( 'Password strength', 'mpt' ),
-		'desc'      => __( 'Enforce a specific password strength for your members.', 'mpt' ),
+		'title'     => __( 'Security policy', 'mpt' ),
+		'desc'      => __( 'Define your custom password policy by changing default behaviour about password strength, length, must-use characters and so on.', 'mpt' ),
 	),
 	array(
 		'id'        => 'mpt-emails',

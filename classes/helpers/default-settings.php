@@ -137,6 +137,12 @@ return array(
 	'mpt-security' => array(
 		array(
 			'name'    => 'mode',
+			'label'   => __( 'Password strength', 'mpt' ),
+			'desc'    => __( 'Enforce a specific password strength for your members.', 'mpt' ),
+			'type'    => 'metabox',
+		),
+		array(
+			'name'    => 'mode-select',
 			'label'   => __( 'Mode', 'mpt' ),
 			'desc'    => __( 'You can apply one of three modes for password security, no constraint, automatic cloned from WordPress JS meter and full manual mode', 'mpt' ),
 			'type'    => 'radio',

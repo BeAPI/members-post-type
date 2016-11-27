@@ -130,11 +130,57 @@ class MPT_Options {
 	 * @since 1.0.0
 	 * @author Maxime CULEA
 	 *
-	 * @param string $context : Where the method has been called from
+	 * @param string $context : Where the method has been called from.
 	 *
 	 * @return string : If empty, setting description will not show up.
 	 */
 	public static function description_setting_name( $context ) {
 		return self::can_display_setting_description( $context ) ? sprintf( '%s_description', $context ) : '';
+	}
+
+	/**
+	 * Handle the admin's setting description desc.
+	 *
+	 * @since 1.0.0
+	 * @author Maxime CULEA
+	 *
+	 * @param string $context : Where the method has been called from.
+	 *
+	 * @return string $html
+	 */
+	public static function description_setting_desc( $context ) {
+		// Default value
+		$html = '';
+
+		if ( ! self::can_display_setting_description( $context ) ) {
+			return $html;
+		}
+
+		/**
+		 * Get the available replacement_values for the current context.
+		 *
+		 * The dynamic portion of the hook name, `$context`, refers to
+		 * Where it has been called from.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param string $context Where it has been called from.
+		 *
+		 * @param array $replacement_values, All the available replacements values and their descriptions.
+		 */
+		$replacement_values = apply_filters( 'mpt_admin\setting\description\replacement_values', array(), $context );
+
+		if ( empty( $replacement_values ) ) {
+			return $html;
+		}
+
+		$html = '<h4>' . esc_html__( 'The available values are :', 'mpt' ) . '</h4>';
+		$html .= '<table><tbody>';
+		foreach ( $replacement_values as $replacement_value => $replacement_label ) {
+			$html .= sprintf( '<tr><td>%s : </td><td>%s</td></tr>', esc_html( $replacement_value ), esc_html( $replacement_label ) );
+		}
+		$html .= '</tbody></table>';
+
+		return $html;
 	}
 }

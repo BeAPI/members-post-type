@@ -76,4 +76,51 @@ class MPT_Options {
 
 		return $field_data['default'];
 	}
+
+	/**
+	 * Find out if to display the setting's description or not.
+	 *
+	 * @since 1.0.0
+	 * @author Maxime CULEA
+	 *
+	 * @param $context, where it has been called from.
+	 *
+	 * @return bool, whatever to display the setting description or not.
+	 */
+	public static function can_display_setting_description( $context ) {
+		/**
+		 * Allow to hide or display all admin's settings descriptions.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param bool $display_all_descriptions, True or False for choosing whatever to display all settings descriptions.
+		 */
+		$display_all_descriptions = apply_filters( 'mpt_admin\setting\display_all_descriptions', true );
+
+		/**
+		 * Allow to hide or display multiple admin's settings descriptions.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param bool $display_descriptions, True or False for choosing whatever to display this setting description.
+		 * @param string $context Where it has been called from.
+		 */
+		$display_descriptions = apply_filters( 'mpt_admin\setting\display_descriptions', true, $context );
+
+		/**
+		 * Allow to hide or display th current admin's setting description.
+		 *
+		 * The dynamic portion of the hook name, `$context`, refers to
+		 * Where it has been called from.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param string $context Where it has been called from.
+		 *
+		 * @param bool $display_description, True or False for choosing whatever to display this setting description.
+		 */
+		$display_description = apply_filters( 'mpt_admin\setting\display_description_' . $context, true );
+
+		return $display_all_descriptions && $display_descriptions && $display_description;
+	}
 }

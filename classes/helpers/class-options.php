@@ -164,11 +164,10 @@ class MPT_Options {
 		 *
 		 * @since 1.0.0
 		 *
-		 * @param string $context Where it has been called from.
-		 *
 		 * @param array $replacement_values, All the available replacements values and their descriptions.
+		 * @param string $context Where it has been called from.
 		 */
-		$replacement_values = apply_filters( 'mpt_admin\setting\description\replacement_values', array(), $context );
+		$replacement_values = apply_filters( 'mpt_admin\setting\replacement_values', array(), $context );
 
 		if ( empty( $replacement_values ) ) {
 			return $html;

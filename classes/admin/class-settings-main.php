@@ -17,6 +17,8 @@ class MPT_Admin_Settings_Main {
 		add_action( 'admin_init', array( __CLASS__, 'admin_init' ) );
 
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_enqueue_scripts' ), 10, 1 );
+
+		add_filter( 'mpt_admin\setting\replacement_values', array( $this, 'add_default_available_replacements_values' ), 20, 2 );
 	}
 
 	/**
@@ -77,7 +79,7 @@ class MPT_Admin_Settings_Main {
 		//initialize settings
 		self::$settings_api->admin_init( );
 	}
-	
+
 	/**
 	 * TODO: Keep logic
 	 *
@@ -114,4 +116,63 @@ class MPT_Admin_Settings_Main {
 		return apply_filters( 'mpt_settings_validate_input', $output, $input, self::$id );
 	}
 
+	/**
+	 * Add default replacement values and their description.
+	 * As context is the second argument, only wanted data will be returned.
+	 *
+	 * @since 1.0.0
+	 * @author Maxime CULEA
+	 *
+	 * @param array $available_values, By default it is empty
+	 * @param string $context, Where it has been called from.
+	 *
+	 * @return array, key / value corresponding to replacement value and description.
+	 */
+	public function add_default_available_replacements_values( $available_values, $context ) {
+		switch ( $context ) {
+
+			case 'lost_password_admin' :
+				$available_values = array(
+					'blog_name' => __( "Blog's name.", 'mpt' ),
+					'user_name' => __( "User's name.", 'mpt' ),
+				);
+				break;
+
+			case 'lost_password_member' :
+				$available_values = array(
+					'blog_name'      => __( "Blog's name.", 'mpt' ),
+					'user_name'      => __( "User's name.", 'mpt' ),
+					'reset_pwd_link' => __( "The password reset link.", 'mpt' ),
+					'site_url'       => __( "Current site's url.", 'mpt' ),
+				);
+				break;
+
+			case 'register_member' :
+				$available_values = array(
+					'blog_name' => __( "Blog's name.", 'mpt' ),
+					'user_name' => __( "User's name.", 'mpt' ),
+					'password'  => __( "User's password.", 'mpt' ),
+					'login_url' => __( "The reset password url.", 'mpt' ),
+				);
+				break;
+
+			case 'register_member_admin' :
+				$available_values = array(
+					'blog_name'  => __( "Blog's name.", 'mpt' ),
+					'user_name'  => __( "User's name.", 'mpt' ),
+					'user_email' => __( "User's email.", 'mpt' )
+				);
+				break;
+
+			case 'register_member_validation' :
+				$available_values = array(
+					'blog_name'             => __( "Blog's name.", 'mpt' ),
+					'site_url'              => __( "Current site's url.", 'mpt' ),
+					'confirm_register_link' => __( "The register link.", 'mpt' ),
+				);
+				break;
+		}
+
+		return $available_values;
+	}
 }

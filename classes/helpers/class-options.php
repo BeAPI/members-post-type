@@ -123,4 +123,18 @@ class MPT_Options {
 
 		return $display_all_descriptions && $display_descriptions && $display_description;
 	}
+
+	/**
+	 * Handle the admin's setting description name.
+	 *
+	 * @since 1.0.0
+	 * @author Maxime CULEA
+	 *
+	 * @param string $context : Where the method has been called from
+	 *
+	 * @return string : If empty, setting description will not show up.
+	 */
+	public static function description_setting_name( $context ) {
+		return self::can_display_setting_description( $context ) ? sprintf( '%s_description', $context ) : '';
+	}
 }

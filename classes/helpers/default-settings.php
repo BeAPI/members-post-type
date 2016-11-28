@@ -289,7 +289,6 @@ return array(
 			'label'             => __( 'Content mail', 'mpt' ),
 			'type'              => 'textarea',
 			'default'           => __( "New member registration on your site %%blog_name%% :\n\nUsername: %%user_name%%\nMail: %%user_email%%", 'mpt' ),
-			'desc'              => __( 'Values ​"​%% %%" will be replaced dynamically sending mail.', 'mpt' ),
 			'sanitize_callback' => 'strip_tags'
 		),
 		array(
@@ -314,7 +313,6 @@ return array(
 			'label'             => __( 'Content mail', 'mpt' ),
 			'type'              => 'textarea',
 			'default'           => __( "Username: %%user_name%%\nPassword: %%password%%\n\n%%login_url%%", 'mpt' ),
-			'desc'              => __( 'Values ​"​%% %%" will be replaced dynamically sending mail.', 'mpt' ),
 			'sanitize_callback' => 'strip_tags'
 		),
 		array(
@@ -339,7 +337,6 @@ return array(
 			'label'             => __( 'Content mail', 'mpt' ),
 			'type'              => 'textarea',
 			'default'           => __( "Thank you for registering on the site:\n\n%%site_url%%\n\nTo validate your account and complete the registration please click on the following link:\n\n%%confirm_register_link%%", 'mpt' ),
-			'desc'              => __( 'Values ​"​%% %%" will be replaced dynamically sending mail.', 'mpt' ),
 			'sanitize_callback' => 'strip_tags'
 		),
 		array(
@@ -371,7 +368,6 @@ return array(
 			'label'             => __( 'Content mail', 'mpt' ),
 			'type'              => 'textarea',
 			'default'           => __( 'Password Lost and Changed for member: %%user_name%%', 'mpt' ),
-			'desc'              => __( 'Values ​"​%% %%" will be replaced dynamically sending email', 'mpt' ),
 			'sanitize_callback' => 'strip_tags'
 		),
 		array(
@@ -396,7 +392,6 @@ return array(
 			'label'             => __( 'Content mail', 'mpt' ),
 			'type'              => 'textarea',
 			'default'           => __( "Someone requested that the password be reset for the following account:\n\n%%site_url%%\n\nUsername: %%user_name%%\n\nIf this was a mistake, just ignore this email and nothing will happen.\n\nTo reset your password, visit the following address:\n\n%%reset_pwd_link%%", 'mpt' ),
-			'desc'              => __( 'Values ​"​%% %%" will be replaced dynamically sending email', 'mpt' ),
 			'sanitize_callback' => 'strip_tags'
 		),
 	),

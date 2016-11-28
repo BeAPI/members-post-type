@@ -133,42 +133,42 @@ class MPT_Admin_Settings_Main {
 
 			case 'lost_password_admin' :
 				$available_values = array(
-					'blog_name' => __( "Blog's name.", 'mpt' ),
-					'user_name' => __( "User's name.", 'mpt' ),
+					'blog_name' => __( "Blog's name", 'mpt' ),
+					'user_name' => __( "User's name", 'mpt' ),
 				);
 				break;
 
 			case 'lost_password_member' :
 				$available_values = array(
-					'blog_name'      => __( "Blog's name.", 'mpt' ),
-					'user_name'      => __( "User's name.", 'mpt' ),
-					'reset_pwd_link' => __( "The password reset link.", 'mpt' ),
-					'site_url'       => __( "Current site's url.", 'mpt' ),
+					'blog_name'      => __( "Blog's name", 'mpt' ),
+					'user_name'      => __( "User's name", 'mpt' ),
+					'reset_pwd_link' => __( "The password reset link", 'mpt' ),
+					'site_url'       => __( "Current site's url", 'mpt' ),
 				);
 				break;
 
 			case 'register_member' :
 				$available_values = array(
-					'blog_name' => __( "Blog's name.", 'mpt' ),
-					'user_name' => __( "User's name.", 'mpt' ),
-					'password'  => __( "User's password.", 'mpt' ),
-					'login_url' => __( "The reset password url.", 'mpt' ),
+					'blog_name' => __( "Blog's name", 'mpt' ),
+					'user_name' => __( "User's name", 'mpt' ),
+					'password'  => __( "User's password", 'mpt' ),
+					'login_url' => __( "The site's login url", 'mpt' ),
 				);
 				break;
 
 			case 'register_member_admin' :
 				$available_values = array(
-					'blog_name'  => __( "Blog's name.", 'mpt' ),
-					'user_name'  => __( "User's name.", 'mpt' ),
-					'user_email' => __( "User's email.", 'mpt' )
+					'blog_name'  => __( "Blog's name", 'mpt' ),
+					'user_name'  => __( "User's name", 'mpt' ),
+					'user_email' => __( "User's email", 'mpt' )
 				);
 				break;
 
 			case 'register_member_validation' :
 				$available_values = array(
-					'blog_name'             => __( "Blog's name.", 'mpt' ),
-					'site_url'              => __( "Current site's url.", 'mpt' ),
-					'confirm_register_link' => __( "The register link.", 'mpt' ),
+					'blog_name'             => __( "Blog's name", 'mpt' ),
+					'site_url'              => __( "Current site's url", 'mpt' ),
+					'confirm_register_link' => __( "The register confirmation link", 'mpt' ),
 				);
 				break;
 		}

@@ -88,24 +88,6 @@ class MPT_Options {
 	 * @return bool, whatever to display the setting description or not.
 	 */
 	public static function can_display_setting_description( $context ) {
-		/**
-		 * Allow to hide or display all admin's settings descriptions.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param bool $display_all_descriptions, True or False for choosing whatever to display all settings descriptions.
-		 */
-		$display_all_descriptions = apply_filters( 'mpt_admin\setting\display_all_descriptions', true );
-
-		/**
-		 * Allow to hide or display multiple admin's settings descriptions.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param bool $display_descriptions, True or False for choosing whatever to display this setting description.
-		 * @param string $context Where it has been called from.
-		 */
-		$display_descriptions = apply_filters( 'mpt_admin\setting\display_descriptions', true, $context );
 
 		/**
 		 * Allow to hide or display th current admin's setting description.
@@ -117,11 +99,30 @@ class MPT_Options {
 		 *
 		 * @param string $context Where it has been called from.
 		 *
-		 * @param bool $display_description, True or False for choosing whatever to display this setting description.
+		 * @param bool $can_display, True or False for choosing whatever to display this setting description.
 		 */
-		$display_description = apply_filters( 'mpt_admin\setting\display_description_' . $context, true );
+		$can_display = apply_filters( 'mpt_admin\setting\display_description_' . $context, true );
 
-		return $display_all_descriptions && $display_descriptions && $display_description;
+		/**
+		 * Allow to hide or display multiple admin's settings descriptions.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param bool $can_display, True or False for choosing whatever to display this setting description.
+		 * @param string $context Where it has been called from.
+		 */
+		$can_display = apply_filters( 'mpt_admin\setting\display_descriptions', $can_display, $context );
+
+		/**
+		 * Allow to hide or display all admin's settings descriptions.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param bool $can_display, True or False for choosing whatever to display all settings descriptions.
+		 */
+		$can_display = apply_filters( 'mpt_admin\setting\display_all_descriptions', $can_display );
+
+		return $can_display;
 	}
 
 	/**
@@ -176,7 +177,7 @@ class MPT_Options {
 		$html = '<h4>' . esc_html__( 'The available values are :', 'mpt' ) . '</h4>';
 		$html .= '<table><tbody>';
 		foreach ( $replacement_values as $replacement_value => $replacement_label ) {
-			$html .= sprintf( '<tr><td>%s : </td><td>%s</td></tr>', esc_html( $replacement_value ), esc_html( $replacement_label ) );
+			$html .= sprintf( '<tr><td>%%%%%1$s%%%% : </td><td>%2$s</td></tr>', esc_html( $replacement_value ), esc_html( $replacement_label ) );
 		}
 		$html .= '</tbody></table>';
 

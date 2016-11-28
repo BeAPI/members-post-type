@@ -174,10 +174,11 @@ class MPT_Options {
 			return $html;
 		}
 
-		$html = '<h4>' . esc_html__( 'The available values are :', 'mpt' ) . '</h4>';
+		$html  = '<h4>' . esc_html__( 'The available values are :', 'mpt' ) . '</h4>';
+		$html .= '<p class="description">' . esc_html__( 'Values between "%% %%" will be dynamically replaced before email send.', 'mpt' ). '</p>';
 		$html .= '<table><tbody>';
 		foreach ( $replacement_values as $replacement_value => $replacement_label ) {
-			$html .= sprintf( '<tr><td>%%%%%1$s%%%% : </td><td>%2$s</td></tr>', esc_html( $replacement_value ), esc_html( $replacement_label ) );
+			$html .= sprintf( '<tr><td>%2$s : </td><td>%1$s</td></tr>', sprintf( '%%%%%s%%%%', esc_html( $replacement_value ) ), esc_html( $replacement_label ) );
 		}
 		$html .= '</tbody></table>';
 

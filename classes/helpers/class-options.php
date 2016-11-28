@@ -76,4 +76,112 @@ class MPT_Options {
 
 		return $field_data['default'];
 	}
+
+	/**
+	 * Find out if to display the setting's description or not.
+	 *
+	 * @since 1.0.0
+	 * @author Maxime CULEA
+	 *
+	 * @param $context, where it has been called from.
+	 *
+	 * @return bool, whatever to display the setting description or not.
+	 */
+	public static function can_display_setting_description( $context ) {
+
+		/**
+		 * Allow to hide or display th current admin's setting description.
+		 *
+		 * The dynamic portion of the hook name, `$context`, refers to
+		 * Where it has been called from.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param string $context Where it has been called from.
+		 *
+		 * @param bool $can_display, True or False for choosing whatever to display this setting description.
+		 */
+		$can_display = apply_filters( 'mpt_admin\setting\display_description_' . $context, true );
+
+		/**
+		 * Allow to hide or display multiple admin's settings descriptions.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param bool $can_display, True or False for choosing whatever to display this setting description.
+		 * @param string $context Where it has been called from.
+		 */
+		$can_display = apply_filters( 'mpt_admin\setting\display_descriptions', $can_display, $context );
+
+		/**
+		 * Allow to hide or display all admin's settings descriptions.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param bool $can_display, True or False for choosing whatever to display all settings descriptions.
+		 */
+		$can_display = apply_filters( 'mpt_admin\setting\display_all_descriptions', $can_display );
+
+		return $can_display;
+	}
+
+	/**
+	 * Handle the admin's setting description name.
+	 *
+	 * @since 1.0.0
+	 * @author Maxime CULEA
+	 *
+	 * @param string $context : Where the method has been called from.
+	 *
+	 * @return string : If empty, setting description will not show up.
+	 */
+	public static function description_setting_name( $context ) {
+		return self::can_display_setting_description( $context ) ? sprintf( '%s_description', $context ) : '';
+	}
+
+	/**
+	 * Handle the admin's setting description desc.
+	 *
+	 * @since 1.0.0
+	 * @author Maxime CULEA
+	 *
+	 * @param string $context : Where the method has been called from.
+	 *
+	 * @return string $html
+	 */
+	public static function description_setting_desc( $context ) {
+		// Default value
+		$html = '';
+
+		if ( ! self::can_display_setting_description( $context ) ) {
+			return $html;
+		}
+
+		/**
+		 * Get the available replacement_values for the current context.
+		 *
+		 * The dynamic portion of the hook name, `$context`, refers to
+		 * Where it has been called from.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array $replacement_values, All the available replacements values and their descriptions.
+		 * @param string $context Where it has been called from.
+		 */
+		$replacement_values = apply_filters( 'mpt_admin\setting\replacement_values', array(), $context );
+
+		if ( empty( $replacement_values ) ) {
+			return $html;
+		}
+
+		$html  = '<h4>' . esc_html__( 'The available values are :', 'mpt' ) . '</h4>';
+		$html .= '<p class="description">' . esc_html__( 'Values between "%% %%" will be dynamically replaced before email send.', 'mpt' ). '</p>';
+		$html .= '<table><tbody>';
+		foreach ( $replacement_values as $replacement_value => $replacement_label ) {
+			$html .= sprintf( '<tr><td>%2$s : </td><td>%1$s</td></tr>', sprintf( '%%%%%s%%%%', esc_html( $replacement_value ) ), esc_html( $replacement_label ) );
+		}
+		$html .= '</tbody></table>';
+
+		return $html;
+	}
 }

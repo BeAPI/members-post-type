@@ -143,7 +143,7 @@ if ( is_admin() ) {
 	$api_settings_file = MPT_DIR . 'vendor/tareq1988/wordpress-settings-api-class/src/class.settings-api.php';
 	if ( file_exists( $api_settings_file ) && ! class_exists( 'WeDevs_Settings_API' ) ) {
 		/**
-		 * Require Tareq's 1.1 version class API
+		 * Require Tareq's 1.2 version class API
 		 *
 		 * @since 1.0.X
 		 *

@@ -22,6 +22,6 @@
 	],
 	"require":{
 		"php":">=5.2.4",
-		"tareq1988/wordpress-settings-api-class":"1.1"
+		"tareq1988/wordpress-settings-api-class":"1.2"
 	}
 }

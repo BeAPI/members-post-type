@@ -141,7 +141,16 @@ if ( is_admin() ) {
 
 	// Load class for API settings
 	if ( ! class_exists( 'WeDevs_Settings_API' ) ) {
-		require_once( MPT_DIR . 'libraries/wordpress-settings-api-class/class.settings-api.php' );
+		/**
+		 * Require Tareq's 1.1 version class API
+		 *
+		 * @since 1.0.X
+		 *
+		 * @see : https://github.com/tareq1988/wordpress-settings-api-class
+		 *
+		 * @author Maxime CULEA
+		 */
+		require_once( MPT_DIR . 'vendor/tareq1988/wordpress-settings-api-class/src/class.settings-api.php' );
 	}
 }
 

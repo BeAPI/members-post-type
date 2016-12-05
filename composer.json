@@ -1,5 +1,5 @@
 {
-	"name":"beapi/bea-members-post-type",
+	"name":"beapi/members-post-type",
 	"type":"wordpress-plugin",
 	"description":"Manage members on WordPress as post type. Implement: post type, authentification, role, clone from WordPress.",
 	"keywords":[

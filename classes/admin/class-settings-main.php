@@ -154,10 +154,10 @@
 
 			case 'register_member' :
 				$available_values = array(
-					'blog_name' => __( "Blog's name", 'mpt' ),
-					'user_name' => __( "User's name", 'mpt' ),
-					'password'  => __( "User's password", 'mpt' ),
-					'login_url' => __( "The site's login url", 'mpt' ),
+					'blog_name'     => __( "Blog's name", 'mpt' ),
+					'user_name'     => __( "User's name", 'mpt' ),
+					'user_password' => __( "User's password", 'mpt' ),
+					'login_url'     => __( "The site's login url", 'mpt' ),
 				);
 				break;
 

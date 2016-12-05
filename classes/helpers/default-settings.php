@@ -312,7 +312,7 @@ return array(
 			'name'              => 'register_member_content',
 			'label'             => __( 'Content mail', 'mpt' ),
 			'type'              => 'textarea',
-			'default'           => __( "Username: %%user_name%%\nPassword: %%password%%\n\n%%login_url%%", 'mpt' ),
+			'default'           => __( "Username: %%user_name%%\nPassword: %%user_password%%\n\n%%login_url%%", 'mpt' ),
 			'sanitize_callback' => 'strip_tags'
 		),
 		array(

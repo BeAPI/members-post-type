@@ -19,6 +19,10 @@ To do so, download the meta for taxonomies plugin and let the plugin migrate the
 
 ## Changelog ##
 
+### 1.0.1
+* 5 Dec 2016
+* Fix wrong default register notification.
+
 ### 1.0.0
 * 28 Nov 2016
 * Add for email notifications the available replacements values which are automatically replaced before email send.

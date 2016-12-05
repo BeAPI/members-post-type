@@ -1,5 +1,4 @@
-<?php
-class MPT_Admin_Settings_Main {
+<?php class MPT_Admin_Settings_Main {
 	static $settings_api;
 	static $id = 'mpt-main';
 
@@ -10,15 +9,18 @@ class MPT_Admin_Settings_Main {
 	 *
 	 * @return mixed Value.
 	 */
-	public function __construct( ) {
-		self::$settings_api = new WeDevs_Settings_API( );
+	public function __construct() {
+		self::$settings_api = new WeDevs_Settings_API();
 
 		add_action( 'admin_menu', array( __CLASS__, 'admin_menu' ) );
 		add_action( 'admin_init', array( __CLASS__, 'admin_init' ) );
 
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_enqueue_scripts' ), 10, 1 );
 
-		add_filter( 'mpt_admin\setting\replacement_values', array( $this, 'add_default_available_replacements_values' ), 20, 2 );
+		add_filter( 'mpt_admin\setting\replacement_values', array(
+			$this,
+			'add_default_available_replacements_values'
+		), 20, 2 );
 	}
 
 	/**
@@ -32,8 +34,8 @@ class MPT_Admin_Settings_Main {
 	 * @return mixed Value.
 	 */
 	public static function admin_enqueue_scripts( $hook ) {
-		if( $hook == 'settings_page_'.'mpt-settings' ) {
-			wp_enqueue_script( MPT_CPT_NAME.'-admin-settings', MPT_URL.'assets/js/admin-settings.js', array( 'jquery' ), MPT_VERSION, true );
+		if ( $hook == 'settings_page_' . 'mpt-settings' ) {
+			wp_enqueue_script( MPT_CPT_NAME . '-admin-settings', MPT_URL . 'assets/js/admin-settings.js', array( 'jquery' ), MPT_VERSION, true );
 		}
 	}
 
@@ -47,8 +49,11 @@ class MPT_Admin_Settings_Main {
 	 *
 	 * @return mixed Value.
 	 */
-	public static function admin_menu( ) {
-		add_options_page( __( 'Members Post Type', 'mpt' ), __( 'Members Post Type', 'mpt' ), 'manage_options', 'mpt-settings', array( __CLASS__, 'render_page_settings' ) );
+	public static function admin_menu() {
+		add_options_page( __( 'Members Post Type', 'mpt' ), __( 'Members Post Type', 'mpt' ), 'manage_options', 'mpt-settings', array(
+			__CLASS__,
+			'render_page_settings'
+		) );
 	}
 
 	/**
@@ -59,8 +64,8 @@ class MPT_Admin_Settings_Main {
 	 *
 	 * @return mixed Value.
 	 */
-	public static function render_page_settings( ) {
-		include (MPT_DIR.'views/admin/page-settings.php');
+	public static function render_page_settings() {
+		include( MPT_DIR . 'views/admin/page-settings.php' );
 	}
 
 	/**
@@ -71,13 +76,13 @@ class MPT_Admin_Settings_Main {
 	 *
 	 * @return mixed Value.
 	 */
-	public static function admin_init( ) {
+	public static function admin_init() {
 		//set the settings
-		self::$settings_api->set_sections( MPT_Plugin::get_default_settings_sections( ) );
-		self::$settings_api->set_fields( MPT_Plugin::get_default_settings_fields( ) );
+		self::$settings_api->set_sections( MPT_Plugin::get_default_settings_sections() );
+		self::$settings_api->set_fields( MPT_Plugin::get_default_settings_fields() );
 
 		//initialize settings
-		self::$settings_api->admin_init( );
+		self::$settings_api->admin_init();
 	}
 
 	/**
@@ -95,20 +100,20 @@ class MPT_Admin_Settings_Main {
 		$input = stripslashes_deep( $input );
 
 		// Create our array for storing the validated options
-		$output = array( );
+		$output = array();
 
 		// Loop through each of the incoming options
-		foreach( self::get_default_options() as $key => $value ) {
-			if( isset( $input[$key] ) ) {
-				$output[$key] = strip_tags( $input[$key] );
+		foreach ( self::get_default_options() as $key => $value ) {
+			if ( isset( $input[ $key ] ) ) {
+				$output[ $key ] = strip_tags( $input[ $key ] );
 				// TODO : Remove striptags depending fields
 			} else {
-				$output[$key] = 0;
+				$output[ $key ] = 0;
 			}
 		}
 
 		// Constraint & Signon
-		if( (int)$output['allow-signon-email'] == 1 ) {
+		if ( (int) $output['allow-signon-email'] == 1 ) {
 			$output['unique-email'] = 1;
 		}
 
@@ -123,8 +128,8 @@ class MPT_Admin_Settings_Main {
 	 * @since 1.0.0
 	 * @author Maxime CULEA
 	 *
-	 * @param array $available_values, By default it is empty
-	 * @param string $context, Where it has been called from.
+	 * @param array $available_values , By default it is empty
+	 * @param string $context , Where it has been called from.
 	 *
 	 * @return array, key / value corresponding to replacement value and description.
 	 */
@@ -149,10 +154,10 @@ class MPT_Admin_Settings_Main {
 
 			case 'register_member' :
 				$available_values = array(
-					'blog_name' => __( "Blog's name", 'mpt' ),
-					'user_name' => __( "User's name", 'mpt' ),
-					'password'  => __( "User's password", 'mpt' ),
-					'login_url' => __( "The site's login url", 'mpt' ),
+					'blog_name'     => __( "Blog's name", 'mpt' ),
+					'user_name'     => __( "User's name", 'mpt' ),
+					'user_password' => __( "User's password", 'mpt' ),
+					'login_url'     => __( "The site's login url", 'mpt' ),
 				);
 				break;
 

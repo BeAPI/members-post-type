@@ -136,10 +136,10 @@ return array(
 	),
 	'mpt-security' => array(
 		array(
-			'name'    => 'mode',
-			'label'   => __( 'Password strength', 'mpt' ),
-			'desc'    => __( 'Enforce a specific password strength for your members.', 'mpt' ),
-			'type'    => 'metabox',
+			'name'  => 'mode',
+			'label' => __( 'Password strength', 'mpt' ),
+			'desc'  => __( 'Enforce a specific password strength for your members.', 'mpt' ),
+			'type'  => 'metabox',
 		),
 		array(
 			'name'    => 'mode-select',
@@ -261,15 +261,15 @@ return array(
 	),
 	'mpt-emails'   => array(
 		array(
-			'name'             => 'register_member_admin_mail',
-			'label'            => __( 'Admin mail for Member registration', 'mpt' ),
-			'desc'             => __( 'Management of mail notification to the site administrator when a new member joins the site.', 'mpt' ),
-			'type'             => 'metabox',
+			'name'  => 'register_member_admin_mail',
+			'label' => __( 'Admin mail for Member registration', 'mpt' ),
+			'desc'  => __( 'Management of mail notification to the site administrator when a new member joins the site.', 'mpt' ),
+			'type'  => 'metabox',
 		),
 		array(
-			'name'             => MPT_Options::description_setting_name( 'register_member_admin' ),
-			'desc'             => MPT_Options::description_setting_desc( 'register_member_admin' ),
-			'type'             => 'html',
+			'name' => MPT_Options::description_setting_name( 'register_member_admin' ),
+			'desc' => MPT_Options::description_setting_desc( 'register_member_admin' ),
+			'type' => 'html',
 		),
 		array(
 			'name'    => 'registration_member_admin_mail_to',
@@ -292,15 +292,15 @@ return array(
 			'sanitize_callback' => 'strip_tags'
 		),
 		array(
-			'name'             => 'register_member_mail',
-			'label'            => __( 'Member registration email', 'mpt' ),
-			'desc'             => __( 'Management of notification\'s mail by a Member upon registration.', 'mpt' ),
-			'type'             => 'metabox',
+			'name'  => 'register_member_mail',
+			'label' => __( 'Member registration email', 'mpt' ),
+			'desc'  => __( 'Management of notification\'s mail by a Member upon registration.', 'mpt' ),
+			'type'  => 'metabox',
 		),
 		array(
-			'name'             => MPT_Options::description_setting_name( 'register_member' ),
-			'desc'             => MPT_Options::description_setting_desc( 'register_member' ),
-			'type'             => 'html',
+			'name' => MPT_Options::description_setting_name( 'register_member' ),
+			'desc' => MPT_Options::description_setting_desc( 'register_member' ),
+			'type' => 'html',
 		),
 		array(
 			'name'    => 'register_member_subject',
@@ -312,19 +312,19 @@ return array(
 			'name'              => 'register_member_content',
 			'label'             => __( 'Content mail', 'mpt' ),
 			'type'              => 'textarea',
-			'default'           => __( "Username: %%user_name%%\nPassword: %%password%%\n\n%%login_url%%", 'mpt' ),
+			'default'           => __( "Username: %%user_name%%\nPassword: %%user_password%%\n\n%%login_url%%", 'mpt' ),
 			'sanitize_callback' => 'strip_tags'
 		),
 		array(
-			'name'             => 'register_member_validation_mail',
-			'label'            => __( 'Member registration email validation', 'mpt' ),
-			'desc'             => __( 'Registration confirmation email with link validation counted', 'mpt' ),
-			'type'             => 'metabox',
+			'name'  => 'register_member_validation_mail',
+			'label' => __( 'Member registration email validation', 'mpt' ),
+			'desc'  => __( 'Registration confirmation email with link validation counted', 'mpt' ),
+			'type'  => 'metabox',
 		),
 		array(
-			'name'             => MPT_Options::description_setting_name( 'register_member_validation' ),
-			'desc'             => MPT_Options::description_setting_desc( 'register_member_validation' ),
-			'type'             => 'html',
+			'name' => MPT_Options::description_setting_name( 'register_member_validation' ),
+			'desc' => MPT_Options::description_setting_desc( 'register_member_validation' ),
+			'type' => 'html',
 		),
 		array(
 			'name'    => 'register_member_validation_subject',
@@ -340,15 +340,15 @@ return array(
 			'sanitize_callback' => 'strip_tags'
 		),
 		array(
-			'name'             => 'lost_password_admin',
-			'label'            => __( 'Admin mail for Member lost password', 'mpt' ),
-			'desc'             => __( 'Management of notification\'s mail to the administrator when a member has lost his password.', 'mpt' ),
-			'type'             => 'metabox',
+			'name'  => 'lost_password_admin',
+			'label' => __( 'Admin mail for Member lost password', 'mpt' ),
+			'desc'  => __( 'Management of notification\'s mail to the administrator when a member has lost his password.', 'mpt' ),
+			'type'  => 'metabox',
 		),
 		array(
-			'name'             => MPT_Options::description_setting_name( 'lost_password_admin' ),
-			'desc'             => MPT_Options::description_setting_desc( 'lost_password_admin' ),
-			'type'             => 'html',
+			'name' => MPT_Options::description_setting_name( 'lost_password_admin' ),
+			'desc' => MPT_Options::description_setting_desc( 'lost_password_admin' ),
+			'type' => 'html',
 		),
 		array(
 			'name'    => 'lost_password_admin_mail',
@@ -371,15 +371,15 @@ return array(
 			'sanitize_callback' => 'strip_tags'
 		),
 		array(
-			'name'             => 'lost_password_member',
-			'label'            => __( 'Member lost password mail', 'mpt' ),
-			'desc'             => __( 'Management of notification\'s mail by a Member lost his password.', 'mpt' ),
-			'type'             => 'metabox',
+			'name'  => 'lost_password_member',
+			'label' => __( 'Member lost password mail', 'mpt' ),
+			'desc'  => __( 'Management of notification\'s mail by a Member lost his password.', 'mpt' ),
+			'type'  => 'metabox',
 		),
 		array(
-			'name'             => MPT_Options::description_setting_name( 'lost_password_member' ),
-			'desc'             => MPT_Options::description_setting_desc( 'lost_password_member' ),
-			'type'             => 'html',
+			'name' => MPT_Options::description_setting_name( 'lost_password_member' ),
+			'desc' => MPT_Options::description_setting_desc( 'lost_password_member' ),
+			'type' => 'html',
 		),
 		array(
 			'name'    => 'lost_password_member_subject',

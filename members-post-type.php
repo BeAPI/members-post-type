@@ -140,7 +140,8 @@ if ( is_admin() ) {
 	), 'class-' );
 
 	// Load class for API settings
-	if ( ! class_exists( 'WeDevs_Settings_API' ) ) {
+	$api_settings_file = MPT_DIR . 'vendor/tareq1988/wordpress-settings-api-class/src/class.settings-api.php';
+	if ( file_exists( $api_settings_file ) && ! class_exists( 'WeDevs_Settings_API' ) ) {
 		/**
 		 * Require Tareq's 1.1 version class API
 		 *
@@ -150,7 +151,7 @@ if ( is_admin() ) {
 		 *
 		 * @author Maxime CULEA
 		 */
-		require_once( MPT_DIR . 'vendor/tareq1988/wordpress-settings-api-class/src/class.settings-api.php' );
+		require_once( $api_settings_file );
 	}
 }
 

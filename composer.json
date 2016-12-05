@@ -1,0 +1,26 @@
+{
+	"name":"beapi/bea-members-post-type",
+	"type":"wordpress-plugin",
+	"description":"Manage members on WordPress as post type. Implement: post type, authentification, role, clone from WordPress.",
+	"keywords":[
+		"wp",
+		"wordpress",
+		"members",
+		"membership",
+		"notifications",
+		"role"
+	],
+	"homepage":"https://github.com/BeAPI/bea-members-post-type/blob/master/README.md",
+	"minimum-stability":"stable",
+	"license":"GPL-2.0",
+	"authors":[
+		{
+			"name":"BeAPI",
+			"email":"technical@beapi.fr",
+			"homepage":"https://beapi.fr"
+		}
+	],
+	"require":{
+		"php":">=5.2.4"
+	}
+}

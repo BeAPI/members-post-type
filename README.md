@@ -4,34 +4,49 @@
 
 Manage members on WordPress as post type. Implement: post type, authentification, role, clone from WordPress.
 
-## Important to know ##
+## Dependencies ##
 
-### 0.7.2
+This plugins uses Tareq's [Setting API Class](https://github.com/tareq1988/wordpress-settings-api-class) in V1.1.
+As it is a composer requirement, you don't need to do anything else.
+
+# Installation
+
+## WordPress
+
+* Download and install using the built-in WordPress plugin installer.
+* Site Activate in the "Plugins" area of the admin.
+* Update you settings : /options-general.php?page=mpt-settings
+
+## Composer
+
+* Add repository source : `{ "type": "vcs", "url": "https://github.com/BeAPI/members-post-type.git" }`.
+* Include `"beapi/members-post-type": "dev-master"` in your composer file.
+* Just check that Tareq's [Setting API Class](https://github.com/tareq1988/wordpress-settings-api-class) is well installed into vendor folder by composer requirement.
+
+# Important to know ##
+
+## 0.7.2
 Compatibility : 4.6
 
 If you have implemented custom views before 0.7.2, you might update them. Find an exemple [here](https://github.com/BeAPI/members-post-type/commit/2562b7e79feebf09967a2f964f3144e8f6d10930#diff-fac5c1b7350b8f3af605e75406b9c751).
 
-### 0.7.0
+## 0.7.0
 Compatibility : 4.4
 
 If you use the roles and capabilities you have to migrate all data from meta for taxonomies to WordPress native functions.
 To do so, download the meta for taxonomies plugin and let the plugin migrate the data for you.
 
-## Changelog ##
+# Changelog ##
 
-### 1.0.0
-* 28 Nov 2016
+## 1.0.0 - 28 Nov 2016
 * Add for email notifications the available replacements values which are automatically replaced before email send.
 * Update the .pot and French po/mo.
 
-### 0.7.2
-* 5 Oct 2016
+## 0.7.2 - 5 Oct 2016
 * `mpt_nonce_field()` method for nounce generating has been integrated to decorrelate members and WordPress users on one hand, and to not share the same cookie for all connected members, as before, in other hand.
 
-### 0.7.1
-* 10 Mar 2016
+## 0.7.1 - 10 Mar 2016
 * Fix missing `mpt_verify_nonce`.
 
-### 0.7.0
-* 10 Fev 2016
+## 0.7.0 - 10 Fev 2016
 * Update the way roles and capabilities works with members.

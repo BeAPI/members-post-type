@@ -9,7 +9,7 @@ Manage members on WordPress as post type. Implement: post type, authentification
 ### 0.7.2
 Compatibility : 4.6
 
-If you have implemented custom views before 0.7.2, you might update them. Find an exemple [here](https://github.com/BeAPI/members-post-type/commit/2562b7e79feebf09967a2f964f3144e8f6d10930#diff-fac5c1b7350b8f3af605e75406b9c751).
+If you have implemented custom views before 0.7.2, you might update them. Especially because `_wpnonce` => `_mptnonce` and `wp_verify_nonce` => `mpt_verify_nonce`. Find an exemple [here](https://github.com/BeAPI/members-post-type/commit/2562b7e79feebf09967a2f964f3144e8f6d10930#diff-fac5c1b7350b8f3af605e75406b9c751).
 
 ### 0.7.0
 Compatibility : 4.4

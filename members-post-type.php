@@ -145,7 +145,7 @@ if ( is_admin() ) {
 		/**
 		 * Require Tareq's 1.2 version class API
 		 *
-		 * @since 1.0.X
+		 * @since 1.0.2
 		 *
 		 * @see : https://github.com/tareq1988/wordpress-settings-api-class
 		 *

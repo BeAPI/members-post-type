@@ -263,7 +263,7 @@ class MPT_Member {
 				
 				// Replace with good values
 				$subject = str_replace( '%%blog_name%%', $blogname, $subject );
-				$content = str_replace( '%%user_name%%', $this->username, $content );
+				$content = str_replace( '%%user_name%%', $this->get_user_name(), $content );
 
 				wp_mail( stripslashes( $mail ), $subject, $content );
 				return true;
@@ -281,12 +281,7 @@ class MPT_Member {
 		if( !$this->exists( ) ) {// Valid instance member ?
 			return false;
 		}
-		
-		$sign_on = mpt_is_allowed_email_signon();
-		if( empty( $sign_on ) ){
-			$sign_on = false;
-		}
-		
+
 		$stop = apply_filters_ref_array( 'mpt_register_notification', array( false, &$this, $plaintext_pass ) );
 		if( $stop === true ) {
 			return false;
@@ -294,10 +289,7 @@ class MPT_Member {
 
 		$display_name = stripslashes( $this->get_display_name( ) );
 		$email = stripslashes( $this->email );
-		$username = $email;
-		if( $sign_on === false ){
-			$username = $this->username;
-		}
+		$username = stripslashes( $this->get_user_name() );
 
 		// The blogname option is escaped with esc_html on the way into the database in
 		// sanitize_option
@@ -376,7 +368,7 @@ class MPT_Member {
 		}
 		$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
 		
-		$username = stripslashes( $this->get_display_name( ) );
+		$username = stripslashes( $this->get_user_name() );
 		$display_name = stripslashes( $this->get_display_name( ) );
 		$email = stripslashes( $this->email );
 		
@@ -425,6 +417,19 @@ class MPT_Member {
 		}
 
 		return apply_filters( 'mpt_get_display_name', $display_name, $this );
+	}
+
+	/**
+	 * Get "username" depending on if is email login activated or not
+	 *
+	 * @since 1.0.2
+	 *
+	 * @author Maxime CULEA
+	 *
+	 * @return string, user's email or user_name
+	 */
+	public function get_user_name() {
+		return mpt_is_allowed_email_signon() ? $this->email : $this->username;
 	}
 
 	/**
@@ -509,7 +514,7 @@ class MPT_Member {
 
 		// Build message text
 		$message = str_replace( '%%site_url%%', network_site_url( ), $message );
-		$message = str_replace( '%%user_name%%', $this->get_display_name( ), $message );
+		$message = str_replace( '%%user_name%%', $this->get_user_name(), $message );
 		$message = str_replace( '%%reset_pwd_link%%', add_query_arg( array( 'mpt-action' => 'lost-password', 'key' => $key, 'id' => $this->id ), mpt_get_lost_password_permalink( ) ), $message );
 
 		// Allow plugins hooks

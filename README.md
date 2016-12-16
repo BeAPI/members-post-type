@@ -19,23 +19,21 @@ To do so, download the meta for taxonomies plugin and let the plugin migrate the
 
 ## Changelog ##
 
-### 1.0.1
-* 5 Dec 2016
+### 1.0.2 - 5 Dec 2016
+* Fix wrong mapping %%user_name%% value.
+
+### 1.0.1 - 5 Dec 2016
 * Fix wrong default register notification.
 
-### 1.0.0
-* 28 Nov 2016
+### 1.0.0 - 28 Nov 2016
 * Add for email notifications the available replacements values which are automatically replaced before email send.
 * Update the .pot and French po/mo.
 
-### 0.7.2
-* 5 Oct 2016
+### 0.7.2 - 5 Oct 2016
 * `mpt_nonce_field()` method for nounce generating has been integrated to decorrelate members and WordPress users on one hand, and to not share the same cookie for all connected members, as before, in other hand.
 
-### 0.7.1
-* 10 Mar 2016
+### 0.7.1 - 10 Mar 2016
 * Fix missing `mpt_verify_nonce`.
 
-### 0.7.0
-* 10 Fev 2016
+### 0.7.0 - 10 Fev 2016
 * Update the way roles and capabilities works with members.

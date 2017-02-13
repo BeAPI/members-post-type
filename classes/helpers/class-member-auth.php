@@ -116,8 +116,8 @@ class MPT_Member_Auth {
 		}
 		
 		$member = apply_filters('mpt_authenticate', null, $username, $password);
-		if ( $member == null ) {
-			// Only needed if all authentication handlers fail to return anything.
+		if ( $member == null || isset( $member->errors['invalid_username'] ) ) {
+			// Only needed if all authentication handlers fail to return anything && username issues
 			$member = new WP_Error('authentication_failed', __('<strong>ERROR</strong>: Invalid username or incorrect password.', 'mpt'));
 		}
 	

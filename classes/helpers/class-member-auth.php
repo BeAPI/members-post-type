@@ -183,10 +183,10 @@ class MPT_Member_Auth {
 			$error = new WP_Error();
 	
 			if ( empty($username) ) {
-				$error->add('empty_username', __('<strong>ERROR</strong>: The username field is empty.'));
+				$error->add('empty_username', __('<strong>ERROR</strong>: The username field is empty.', 'mpt'));
 			}
 			if ( empty($password) ) {
-				$error->add('empty_password', __('<strong>ERROR</strong>: The password field is empty.'));
+				$error->add('empty_password', __('<strong>ERROR</strong>: The password field is empty.', 'mpt'));
 			}
 			
 			return $error;
@@ -196,7 +196,7 @@ class MPT_Member_Auth {
 		$member->fill_by( 'username', $username );
 		
 		if ( !$member->exists() ) {
-			return new WP_Error('invalid_username', sprintf(__('<strong>ERROR</strong>: Invalid username. <a href="%s" title="Password Lost and Found">Lost your password</a>?'), mpt_get_lost_password_permalink() ) );
+			return new WP_Error('invalid_username', sprintf(__('<strong>ERROR</strong>: Invalid username. <a href="%s" title="Password Lost and Found">Lost your password</a>?', 'mpt'), mpt_get_lost_password_permalink() ) );
 		}
 		
 		$member = apply_filters('mpt_authenticate_member', $member, $password);
@@ -205,7 +205,7 @@ class MPT_Member_Auth {
 		}
 	
 		if ( !wp_check_password($password, $member->password, false) ) {
-			return new WP_Error( 'incorrect_password', sprintf( __( '<strong>ERROR</strong>: The password you entered for the username <strong>%1$s</strong> is incorrect. <a href="%2$s" title="Password Lost and Found">Lost your password</a>?' ),
+			return new WP_Error( 'incorrect_password', sprintf( __( '<strong>ERROR</strong>: The password you entered for the username <strong>%1$s</strong> is incorrect. <a href="%2$s" title="Password Lost and Found">Lost your password</a>?', 'mpt' ),
 			$username, mpt_get_lost_password_permalink() ) );
 		}
 	

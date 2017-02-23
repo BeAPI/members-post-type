@@ -35,7 +35,7 @@
 	
  ----
  
- Copyright 2016 BE API Technical team (human@beapi.fr)
+ Copyright 2017 BE API Technical team (human@beapi.fr)
  
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -58,7 +58,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin constants
-define('MPT_VERSION', '1.0.2');
+define('MPT_VERSION', '1.0.3');
 define('MPT_CPT_NAME', 'member');
 define('MPT_TAXO_NAME', 'members-role');
 

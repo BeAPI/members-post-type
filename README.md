@@ -19,7 +19,7 @@ To do so, download the meta for taxonomies plugin and let the plugin migrate the
 
 ## Changelog ##
 
-### 1.0.4 - 02 Mar 2017
+### 1.0.4.2 - 02 Mar 2017
 * composer support
 
 ### 1.0.3 - 15 Feb 2017

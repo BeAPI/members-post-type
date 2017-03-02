@@ -1,5 +1,5 @@
 {
-  "name": "bea/member-post-type",
+  "name": "bea/members-post-type",
   "description": "Manage members on WordPress as post type. Implement: post type, authentification, role, clone from WordPress.",
   "minimum-stability": "stable",
   "license": "GPL-2.0",

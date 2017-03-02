@@ -1,0 +1,16 @@
+{
+  "name": "bea/member-post-types",
+  "description": "Manage members on WordPress as post type. Implement: post type, authentification, role, clone from WordPress.",
+  "minimum-stability": "stable",
+  "license": "GPL-2.0",
+  "authors": [
+    {
+      "name": "Be API",
+      "email": "technique@beapi.fr"
+    }
+  ],
+  "type" : "wordpress-plugin",
+  "require" : {
+    "composer/installers" : "~1.0"
+  }
+}

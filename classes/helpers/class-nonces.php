@@ -66,7 +66,7 @@ class MPT_Nonces {
 		}
 
 		// Nonce generated 12-24 hours ago
-		$expected = substr( wp_hash( 'member-'.( $i - 1 ) . '|' . $action . '|' . $uid . '|' . $token, 'nonce' ), -12, 10 );
+		$expected = substr( wp_hash( 'member-'.( $i - 1 ) . '|' . $action . '|' . $mid . '|' . $token, 'nonce' ), -12, 10 );
 		if ( hash_equals( $expected, $nonce ) ) {
 			return 2;
 		}

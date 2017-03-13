@@ -19,6 +19,9 @@ To do so, download the meta for taxonomies plugin and let the plugin migrate the
 
 ## Changelog ##
 
+### 1.0.5 - 13 Mar 2017
+* fix undefined var
+
 ### 1.0.4.2 - 02 Mar 2017
 * composer support
 

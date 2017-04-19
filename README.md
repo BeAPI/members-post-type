@@ -19,6 +19,10 @@ To do so, download the meta for taxonomies plugin and let the plugin migrate the
 
 ## Changelog ##
 
+### 1.0.7 - 19 April 2017
+* add useful do_action() on login tpl
+* increment versions and make it the same as release
+
 ### 1.0.5 - 13 Mar 2017
 * fix undefined var
 

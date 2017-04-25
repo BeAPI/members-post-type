@@ -1,7 +1,7 @@
 <?php
 /*
  Plugin Name: Members post type
- Version: 1.0.7
+ Version: 1.0.8
  Plugin URI: http://www.beapi.fr
  Description: Manage members on WordPress as post type. Implement: post type, authentification, role, clone from WP.
  Author: BE API Technical team
@@ -45,7 +45,9 @@
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+ GNU General Public License for                if ( mpt_is_member_logged_in() ) {
+18
+r more details.
  
  You should have received a copy of the GNU General Public License
  along with this program; if not, write to the Free Software
@@ -58,7 +60,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin constants
-define('MPT_VERSION', '1.0.7');
+define('MPT_VERSION', '1.0.8');
 define('MPT_CPT_NAME', 'member');
 define('MPT_TAXO_NAME', 'members-role');
 

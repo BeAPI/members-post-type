@@ -15,8 +15,7 @@ class MPT_Shortcode_Login extends MPT_Shortcode {
 	public static function shortcode() {
 		// Member logged-in ?
 		if ( mpt_is_member_logged_in() ) {
-			do_action( 'mpt_shortcode_login_member_logged_in', mpt_get_current_member() );
-			return '<!-- Members already logged-in. -->';
+			return apply_filters( 'mpt_shortcode_login_member_logged_in', '<!-- Members already logged-in. -->', mpt_get_current_member() );
 		}
 		
 		// Get data from POST, cleanup it

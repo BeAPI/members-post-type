@@ -19,6 +19,9 @@ To do so, download the meta for taxonomies plugin and let the plugin migrate the
 
 ## Changelog ##
 
+### 1.0.8 - 25 April 2017
+* replace do_action() with apply_filters() cause you MUST NOT echo in shortcode handler
+
 ### 1.0.7 - 19 April 2017
 * add useful do_action() on login tpl
 * increment versions and make it the same as release

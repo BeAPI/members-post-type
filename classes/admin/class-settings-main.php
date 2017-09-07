@@ -147,6 +147,8 @@
 				$available_values = array(
 					'blog_name'      => __( "Blog's name", 'mpt' ),
 					'user_name'      => __( "User's name", 'mpt' ),
+					'user_firstname' => __( "User's first name", 'mpt' ),
+					'user_lastname'  => __( "User's last name", 'mpt' ),
 					'reset_pwd_link' => __( "The password reset link", 'mpt' ),
 					'site_url'       => __( "Current site's url", 'mpt' ),
 				);

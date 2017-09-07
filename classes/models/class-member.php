@@ -524,6 +524,8 @@
 		// Build message text
 		$message = str_replace( '%%site_url%%', network_site_url(), $message );
 		$message = str_replace( '%%user_name%%', $this->get_user_name(), $message );
+		$message = str_replace( '%%user_lastname%%', $this->last_name, $message );
+		$message = str_replace( '%%user_firstname%%', $this->first_name, $message );
 		$message = str_replace( '%%reset_pwd_link%%', add_query_arg( array(
 			'mpt-action' => 'lost-password',
 			'key'        => $key,

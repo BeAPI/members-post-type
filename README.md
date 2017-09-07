@@ -19,6 +19,9 @@ To do so, download the meta for taxonomies plugin and let the plugin migrate the
 
 ## Changelog ##
 
+### 1.0.9 - 7 Sept 2017
+* Add first name and last for user password reset notification.
+
 ### 1.0.8 - 25 April 2017
 * replace do_action() with apply_filters() cause you MUST NOT echo in shortcode handler
 

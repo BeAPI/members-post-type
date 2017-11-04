@@ -231,49 +231,48 @@
 	}
 
 	/**
-	 * Notify the blog admin of a member changing password, normally via email.
-	 *
-	 * @param object $member Member Object
+	 * Notifications to admins for member password changing
 	 */
 	public function password_change_notification() {
-		if ( ! $this->exists() ) {// Valid instance member ?
-			return false;
+		// Valid instance member ?
+		if ( ! $this->exists() ) {
+			return;
 		}
 
 		$stop = apply_filters_ref_array( 'mpt_password_change_notification', array( false, &$this ) );
 		if ( $stop === true ) {
-			return $stop;
+			return;
 		}
 
+		// The blogname option is escaped with esc_html on the way into the database in sanitize_option
+		// we want to reverse this for the plain text arena of emails.
+		$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
+
+		$subject = mpt_get_option_value( 'mpt-emails', 'lost_password_admin_subject', true );
+		$content = mpt_get_option_value( 'mpt-emails', 'lost_password_admin_content', true );
+
+		// Empty subject ? Empty content ?
+		if ( empty( $subject ) && empty( $content ) ) {
+			return;
+		}
+
+		// Replace with good values
+		$subject = str_replace( '%%blog_name%%', $blogname, $subject );
+		$content = str_replace( '%%user_name%%', $this->get_user_name(), $content );
+
+		// send a copy of password change notification to the admins
 		$recipients = explode( ',', mpt_get_option_value( 'mpt-emails', 'lost_password_admin_mail' ) );
 		$recipients = array_map( 'trim', $recipients );
 		foreach ( $recipients as $mail ) {
-			// send a copy of password change notification to the admin
-			// but check to see if it's the admin whose password we're changing, and skip this
-			if ( $this->email != $mail ) {
-				// The blogname option is escaped with esc_html on the way into the database in sanitize_option
-				// we want to reverse this for the plain text arena of emails.
-				$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
-
-				$subject = mpt_get_option_value( 'mpt-emails', 'lost_password_admin_subject', true );
-				$content = mpt_get_option_value( 'mpt-emails', 'lost_password_admin_content', true );
-
-				//Empty subject ? Empty content ? go out.
-				if ( empty( $subject ) && empty( $content ) ) {
-					return false;
-				}
-
-				// Replace with good values
-				$subject = str_replace( '%%blog_name%%', $blogname, $subject );
-				$content = str_replace( '%%user_name%%', $this->get_user_name(), $content );
-
-				wp_mail( stripslashes( $mail ), $subject, $content );
-
-				return true;
+			/**
+			 * But check to see if it's the admin whose password we're changing
+			 * Then skip him
+			 */
+			if ( $this->email === $mail ) {
+				continue;
 			}
+			wp_mail( stripslashes( $mail ), $subject, $content );
 		}
-
-		return false;
 	}
 
 	/**
@@ -379,7 +378,6 @@
 		// Get all options for admin notification email.
 		$message = mpt_get_option_value( 'mpt-emails', 'register_member_validation_content', true );
 		$subject = mpt_get_option_value( 'mpt-emails', 'register_member_validation_subject', true );
-
 		if ( empty( $message ) && empty( $subject ) ) {
 			return false;
 		}
@@ -539,6 +537,9 @@
 		if ( $message && ! wp_mail( $this->email, $subject, $message ) ) {
 			wp_die( __( 'The e-mail could not be sent.' ) . "<br />\n" . __( 'Possible reason: your host may have disabled the mail() function...' ) );
 		}
+
+		// notify the admin for email change
+		$this->password_change_notification();
 
 		return true;
 	}

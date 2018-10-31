@@ -91,7 +91,7 @@ class MPT_Shortcode_Change_Password extends MPT_Shortcode {
 
 			// Re sign-on on real time for not broken member session
 			$signon = MPT_Member_Auth::signon( array(
-				'm_login' => $current_member->username,
+				'm_login' => $user_login,
 				'm_password' => $_POST['mptchangepwd']['new']
 			) );
 

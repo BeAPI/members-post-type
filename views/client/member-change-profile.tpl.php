@@ -18,11 +18,15 @@ if ( ! empty( $email_waiting ) ) {
 ?>
 
 <form method="post" id="form1">
-	<label><?php _e( 'Your username', 'mpt' ); ?></label>
-	<input type="text" disabled name="mptchangeprofile[username]" value="<?php echo esc_attr( $member_data->username ); ?>"/>
 
-	<label><?php _e( 'Your email', 'mpt' ); ?>*</label>
-	<input type="email" required name="mptchangeprofile[email]" value="<?php echo esc_attr( $member_data->email ); ?>"/>
+	<div class="mpt-filed">
+		<label for="mpt-username"><?php _e( 'Your username', 'mpt' ); ?></label>
+		<input id="mpt-username" type="text" disabled name="mptchangeprofile[username]" value="<?php echo esc_attr( $member_data->username ); ?>"/>
+	</div>
+	<div class="mpt-filed">
+		<label for="mpt-email"><?php _e( 'Your email', 'mpt' ); ?>*</label>
+		<input id="mpt-email" type="email" required name="mptchangeprofile[email]" value="<?php echo esc_attr( $member_data->email ); ?>"/>
+	</div>
 	<?php if ( ! empty( $email_waiting ) ) : ?>
 		<div class="notice-warning">
 			<p>
@@ -31,14 +35,17 @@ if ( ! empty( $email_waiting ) ) {
 			</p>
 		</div>
 	<?php endif; ?>
-	<label><?php _e( 'Your first name', 'mpt' ); ?></label>
-	<input type="text" name="mptchangeprofile[first_name]" value="<?php echo esc_attr( $member_data->first_name ); ?>"/>
-
-	<label><?php _e( 'Your last name', 'mpt' ); ?></label>
-	<input type="text" name="mptchangeprofile[last_name]" value="<?php echo esc_attr( $member_data->last_name ); ?>"/>
-
-	<?php do_action( 'member_change_profile_field', $member_data ); ?>
-
-	<?php mpt_nonce_field( 'mptchangeprofile' ); ?>
-	<input type="submit" value="<?php _e( 'Submit', 'mpt' ); ?>"/>
+	<div class="mpt-filed">
+		<label for="mpt-firstname"><?php _e( 'Your first name', 'mpt' ); ?></label>
+		<input id="mpt-firstname" type="text" name="mptchangeprofile[first_name]" value="<?php echo esc_attr( $member_data->first_name ); ?>"/>
+	</div>
+	<div class="mpt-filed">
+		<label for="mpt-lastname"><?php _e( 'Your last name', 'mpt' ); ?></label>
+		<input id="mpt-lastname" type="text" name="mptchangeprofile[last_name]" value="<?php echo esc_attr( $member_data->last_name ); ?>"/>
+	</div>
+	<div class="mpt-filed">
+		<?php do_action( 'member_change_profile_field', $member_data ); ?>
+		<?php mpt_nonce_field( 'mptchangeprofile' ); ?>
+		<input type="submit" value="<?php _e( 'Submit', 'mpt' ); ?>"/>
+	</div>
 </form>

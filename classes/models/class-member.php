@@ -863,4 +863,14 @@
 	public function delete_email_waiting_for_validation() {
 		return delete_post_meta( $this->id, 'email_change_requested_at' );
 	}
+
+	/**
+	 * Get last login details
+	 * @return array
+	 */
+	public function get_last_login_activity() {
+		$last_activity = get_post_meta( $this->id, MPT_LAST_LOGIN_ACTIVITY, true );
+
+		return ! empty( $last_activity ) ? $last_activity : [];
+	}
 }

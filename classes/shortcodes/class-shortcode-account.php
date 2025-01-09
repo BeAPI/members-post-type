@@ -30,7 +30,7 @@ class MPT_Shortcode_Account extends MPT_Shortcode {
 			exit;
 		}
 
-		$member = mpt_get_current_member();
+		$member  = mpt_get_current_member();
 
 		return parent::load_template( 'member-account', $member );
 	}

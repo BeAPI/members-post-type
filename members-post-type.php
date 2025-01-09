@@ -63,6 +63,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define('MPT_VERSION', '1.0.10');
 define('MPT_CPT_NAME', 'member');
 define('MPT_TAXO_NAME', 'members-role');
+define( 'MPT_LAST_LOGIN_ACTIVITY', 'last_login_activity' );
 
 // Plugin URL and PATH
 define( 'MPT_URL', plugin_dir_url( __FILE__ ) );

@@ -42,9 +42,7 @@ $pages_query = new \WP_Query( $args );
 			<li><a href="<?php echo esc_url( get_permalink( $option_id ) ); ?>"><?php echo esc_html( get_the_title( $option_id ) ); ?></a></li>
 		<?php endforeach; ?>
 	</ul>
-
 <?php if ( $pages_query->have_posts() ) : ?>
-
 	<h2><?php esc_html_e( 'Your resources', 'mpt' ); ?></h2>
 	<ul>
 		<?php

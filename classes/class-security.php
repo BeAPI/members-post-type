@@ -27,6 +27,10 @@ class MPT_Security {
 		} elseif( isset($current_options['mode']) && $current_options['mode'] == 'custom' ) {
 			add_filter('mpt_set_password_check', array(__CLASS__, 'mpt_set_password_check' . '_custom_mode'), 10, 3 );
 		}
+
+		if ( isset( $current_options['user-activity'] ) && 'on' === $current_options['user-activity'] ) {
+			add_action( 'wp_head', array( __CLASS__, 'mpt_user_last_login_detail' ) );
+		}
 	}
 	
 	public static function template_redirect_aging() {
@@ -232,5 +236,21 @@ class MPT_Security {
 		}
 		
 		return false;
+	}
+
+	/**
+	 * Display last login detail to header
+	 * @return void
+	 */
+	public static function mpt_user_last_login_detail() {
+		$member_data = mpt_get_current_member();
+
+		if ( empty( $member_data ) ) {
+			return;
+		}
+
+		$message = apply_filters( 'mpt_last_login_activity_message', __( 'If you do not recognize the last activity listed above, please change your password immediately.', 'mpt' ), $member_data );
+
+		echo MPT_Shortcode::load_template( 'member-last-login', [ 'member' => $member_data, 'message' => $message ] );
 	}
 }

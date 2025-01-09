@@ -272,6 +272,19 @@ return array(
 			'default'           => 0,
 			'sanitize_callback' => 'intval'
 		),
+		array(
+			'name'  => 'last-login-details',
+			'label' => __( 'Last login details', 'mpt' ),
+			'desc'  => '',
+			'type'  => 'metabox',
+		),
+		array(
+			'name'              => 'user-activity',
+			'label'             => __( 'User\'s activity', 'mpt' ),
+			'desc'              => __( 'Display user\'s last connection information (date & time, operating system, browser, IP address).', 'mpt' ),
+			'type'              => 'checkbox',
+			'default'           => 0,
+		),
 	),
 	'mpt-emails'   => array(
 		array(

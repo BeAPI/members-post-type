@@ -28,7 +28,7 @@ if ( ! empty( $email_waiting ) ) {
 		<input id="mpt-email" type="email" required name="mptchangeprofile[email]" value="<?php echo esc_attr( $member_data->email ); ?>"/>
 	</div>
 	<?php if ( ! empty( $email_waiting ) ) : ?>
-		<div class="notice-warning">
+		<div class="mpt-field notice-warning">
 			<p>
 				<?php printf( __( 'There is a pending change of the member email to <strong>%s</strong>.', 'mpt' ), sanitize_email( $email_waiting ) ); ?>
 				<a href="<?php echo esc_url( $link_cancel ); ?>"><?php esc_html_e( 'Cancel', 'mpt' ); ?></a>

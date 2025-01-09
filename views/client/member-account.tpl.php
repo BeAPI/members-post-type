@@ -35,28 +35,29 @@ if ( ! empty( $my_roles ) && ! is_wp_error( $my_roles ) ) {
 
 $pages_query = new \WP_Query( $args );
 ?>
-	<nav>
-		<ul>
-			<?php foreach ( array_filter( $pages_options ) as $option_id ) : ?>
-				<li><a href="<?php echo esc_url( get_permalink( $option_id ) ); ?>"><?php echo esc_html( get_the_title( $option_id ) ); ?></a></li>
-			<?php endforeach; ?>
-		</ul>
-	</nav>
+
+	<h2><?php esc_html_e( 'Account', 'mpt' ); ?></h2>
+	<ul>
+		<?php foreach ( array_filter( $pages_options ) as $option_id ) : ?>
+			<li><a href="<?php echo esc_url( get_permalink( $option_id ) ); ?>"><?php echo esc_html( get_the_title( $option_id ) ); ?></a></li>
+		<?php endforeach; ?>
+	</ul>
 
 <?php if ( $pages_query->have_posts() ) : ?>
-	<nav>
-		<ul>
-			<?php
-			while ( $pages_query->have_posts() ) :
-				$pages_query->the_post();
-				?>
-				<li><a href="<?php echo esc_url( get_the_permalink() ); ?>"><?php echo esc_html( get_the_title() ); ?></a></li>
-			<?php
-			endwhile;
-			wp_reset_postdata();
+
+	<h2><?php esc_html_e( 'Your ressources', 'mpt' ); ?></h2>
+	<ul>
+		<?php
+		while ( $pages_query->have_posts() ) :
+			$pages_query->the_post();
 			?>
-		</ul>
-	</nav>
+			<li><a href="<?php echo esc_url( get_the_permalink() ); ?>"><?php echo esc_html( get_the_title() ); ?></a></li>
+		<?php
+		endwhile;
+		wp_reset_postdata();
+		?>
+	</ul>
+
 <?php
 else:
 	printf( __( 'No page associated with your role has been found.', 'mpt' ) );

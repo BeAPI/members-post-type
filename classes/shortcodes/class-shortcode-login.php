@@ -64,7 +64,9 @@ class MPT_Shortcode_Login extends MPT_Shortcode {
 			}
 			
 			// Failback redirect to home...
-			$redirect_to = (isset($_POST['mptlogin']['redirect_to']) && !empty($_POST['mptlogin']['redirect_to'])) ? $_POST['mptlogin']['redirect_to'] : home_url('/');
+			$account_id   = MPT_Main::get_action_page_id( 'account' );
+			$redirect_url = ! empty( $account_id ) ? get_permalink( $account_id ) : home_url( '/' );
+			$redirect_to  = ( isset( $_POST['mptlogin']['redirect_to'] ) && ! empty( $_POST['mptlogin']['redirect_to'] ) ) ? $_POST['mptlogin']['redirect_to'] : $redirect_url;
 			
 			// Need to look at the URL the way it will end up in wp_redirect()
 			$redirect_to = wp_sanitize_redirect($redirect_to);

@@ -216,7 +216,9 @@ class MPT_Main {
 			case 'registration' :
 			case 'registration-step-2' :
 			case 'login' :
+			case 'account' :
 			case 'change-password' :
+			case 'change-profile' :
 			case 'lost-password' :
 				if (isset($current_options['page-' . $action]) && absint($current_options['page-' . $action]) > 0) {
 					$page_id = $current_options['page-' . $action];

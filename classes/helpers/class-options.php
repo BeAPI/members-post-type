@@ -19,10 +19,12 @@ class MPT_Options {
 			foreach( $settings_names as $index => $name ) {
 				$defaults[$section['id']][$name] = isset( $settings[$section['id']][$index]['default'] ) ? $settings[$section['id']][$index]['default'] : '' ;
 			}
-			
+
 			$current_options[$section['id']] = wp_parse_args( (array) get_option( $section['id'] ), $defaults[$section['id']] );
 		}
-		
+
+		$current_options = apply_filters( 'mpt_load_option', $current_options );
+
 		self::$options = $current_options;
 	}
 	
@@ -35,7 +37,9 @@ class MPT_Options {
 			self::_load_option();
 		}
 
-		return self::$options[$option_name];
+		$option_value = apply_filters( 'mpt_option', self::$options[ $option_name ], $option_name );
+
+		return apply_filters( "mpt_option_{$option_name}", $option_value );
 	}
 
 	public static function get_option_value( $option_name, $key, $failback_default = false ) {
@@ -44,10 +48,12 @@ class MPT_Options {
 		}
 		
 		if( $failback_default === true && isset( self::$options[$option_name][$key] ) && empty( self::$options[$option_name][$key] ) ){
-			return self::get_default_value_from_default_options( $option_name, $key ); 
+			return self::get_default_value_from_default_options( $option_name, $key );
 		}
-		
-		return self::$options[$option_name][$key];
+
+		$option_value = apply_filters( "mpt_option_value_{$option_name}", self::get_option($option_name), $key, $option_name );
+
+		return apply_filters( "mpt_option_value_{$option_name}_{$key}", $option_value[$key], $option_name, $key );
 	}
 
 	public static function get_field_from_default_options( $option_name, $field ) {
@@ -57,7 +63,7 @@ class MPT_Options {
 		
 		foreach( self::$default_options[$option_name] as $key => $value ) {
 			if( $value['name'] == $field ) {
-				return self::$default_options[$option_name][$key];
+				return apply_filters( "mpt_default_option_{$option_name}", self::$default_options[ $option_name ][ $key ], $option_name, $field );
 			}
 		}
 
@@ -74,7 +80,7 @@ class MPT_Options {
 			return false;
 		}
 
-		return $field_data['default'];
+		return apply_filters( "mpt_default_value_option_{$option_name}", $field_data['default'], $option_name, $key );
 	}
 
 	/**

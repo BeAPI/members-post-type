@@ -1,20 +1,22 @@
 <?php
 class MPT_Shortcode {
 	/**
-     * Register 5 shortcodes : [member-registration], [member-login], [member-lost-password], [member-change-password]
+     * Register 5 shortcodes : [member-registration], [member-login], [member-lost-password], [member-change-password], [member-change-profile],[member-account],
      * 
      * @access public
      *
      * @return mixed Value.
      */
 	public function __construct() {
-		_mpt_load_files( 'classes/shortcodes/', array('shortcode-registration', 'shortcode-login', 'shortcode-lost-password', 'shortcode-change-password'), 'class-');
+		_mpt_load_files( 'classes/shortcodes/', array('shortcode-registration', 'shortcode-login', 'shortcode-lost-password', 'shortcode-change-password', 'shortcode-change-profile', 'shortcode-account'), 'class-');
 		
 		new MPT_Shortcode_Registration();
 		new MPT_Shortcode_Login();
 		new MPT_Shortcode_Lost_Password();
 		new MPT_Shortcode_Change_Password();
-	} 
+		new MPT_Shortcode_Change_Profile();
+		new MPT_Shortcode_Account();
+	}
 	
 	/**
 	 * Load a shortcode template from the theme or directly from the plugin

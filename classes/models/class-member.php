@@ -6,7 +6,7 @@
 		'last_name',
 		'password',
 		'connection_type',
-		'social_id'
+		'social_id',
 	);
 
 	// Core public fields
@@ -34,6 +34,12 @@
 	 * @var array
 	 */
 	public $roles = array();
+
+	/**
+	 * Get roles ids
+	 * @var array
+	 */
+	public $roles_id = array();
 
 	/**
 	 * All capabilities the member has, including individual and role based.
@@ -202,9 +208,9 @@
 	/**
 	 * Private method for get member id from key/value, work post meta table
 	 *
-	 * @param  string $key [description]
-	 * @param  string $value [description]
-	 * @param  array $exclude_ids [description]
+	 * @param string $key [description]
+	 * @param string $value [description]
+	 * @param array $exclude_ids [description]
 	 *
 	 * @return integer        [description]
 	 */
@@ -248,8 +254,11 @@
 		// we want to reverse this for the plain text arena of emails.
 		$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
 
-		$subject = mpt_get_option_value( 'mpt-emails', 'lost_password_admin_subject', true );
-		$content = mpt_get_option_value( 'mpt-emails', 'lost_password_admin_content', true );
+		$field_name_subject = 'lost_password_admin_subject';
+		$field_name_content = 'lost_password_admin_content';
+
+		$subject = apply_filters( 'mpt_lost_password_admin_subject_default_option', mpt_get_option_value( 'mpt-emails', $field_name_subject, true ), $this );
+		$content = apply_filters( 'mpt_lost_password_admin_content_default_option', mpt_get_option_value( 'mpt-emails', $field_name_content, true ), $this );
 
 		// Empty subject ? Empty content ?
 		if ( empty( $subject ) && empty( $content ) ) {
@@ -257,8 +266,8 @@
 		}
 
 		// Replace with good values
-		$subject = str_replace( '%%blog_name%%', $blogname, $subject );
-		$content = str_replace( '%%user_name%%', $this->get_user_name(), $content );
+		$subject = apply_filters( 'mpt_lost_password_admin_subject', str_replace( '%%blog_name%%', $blogname, $subject ), $this );
+		$content = apply_filters( 'lost_password_admin_content', str_replace( '%%user_name%%', $this->get_user_name(), $content ), $this );
 
 		// send a copy of password change notification to the admins
 		$recipients = explode( ',', mpt_get_option_value( 'mpt-emails', 'lost_password_admin_mail' ) );
@@ -301,8 +310,8 @@
 		$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
 
 		// Get all options for admin notification email.
-		$message    = mpt_get_option_value( 'mpt-emails', 'registration_member_admin_content', true );
-		$subject    = mpt_get_option_value( 'mpt-emails', 'registration_member_admin_subject', true );
+		$message    = apply_filters( 'mpt_registration_member_admin_content_default_option', mpt_get_option_value( 'mpt-emails', 'registration_member_admin_content', true ), $this );
+		$subject    = apply_filters( 'mpt_registration_member_admin_subject_default_option', mpt_get_option_value( 'mpt-emails', 'registration_member_admin_subject', true ), $this );
 		$recipients = explode( ',', mpt_get_option_value( 'mpt-emails', 'registration_member_admin_mail' ) );
 		$recipients = array_map( 'trim', $recipients );
 
@@ -360,7 +369,7 @@
 	 *
 	 * @return mixed Value.
 	 */
-	public function register_validation_notification( $key ) {
+	public function register_validation_notification( string $key = '' ) {
 		if ( ! $this->exists() ) {// Valid instance member ?
 			return false;
 		}
@@ -369,6 +378,7 @@
 		if ( $stop === true ) {
 			return false;
 		}
+		$key      = ! empty( $key ) ? $key : $this->get_member_key();
 		$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
 
 		$username     = stripslashes( $this->get_user_name() );
@@ -376,8 +386,8 @@
 		$email        = stripslashes( $this->email );
 
 		// Get all options for admin notification email.
-		$message = mpt_get_option_value( 'mpt-emails', 'register_member_validation_content', true );
-		$subject = mpt_get_option_value( 'mpt-emails', 'register_member_validation_subject', true );
+		$message = apply_filters( 'mpt_register_validation_notification_subject_default_option', mpt_get_option_value( 'mpt-emails', 'register_member_validation_content', true ), $this );
+		$subject = apply_filters( 'mpt_register_validation_notification_message_default_option', mpt_get_option_value( 'mpt-emails', 'register_member_validation_subject', true ), $this );
 		if ( empty( $message ) && empty( $subject ) ) {
 			return false;
 		}
@@ -391,7 +401,7 @@
 		$message = str_replace( '%%confirm_register_link%%', '' . add_query_arg( array(
 				'mpt-action' => 'validation-member-registration',
 				'ID'         => $this->id,
-				'key'        => $key
+				'key'        => $key,
 			), mpt_get_registration_permalink() ) . '', $message );
 		$message = str_replace( '%%first_name%%', ( ! empty( $this->first_name ) ) ? stripslashes( $this->first_name ) : "", $message );
 		$message = str_replace( '%%last_name%%', ( ! empty( $this->last_name ) ) ? stripslashes( $this->last_name ) : "", $message );
@@ -429,11 +439,11 @@
 	/**
 	 * Get "username" depending on if is email login activated or not
 	 *
-	 * @since 1.0.2
-	 *
+	 * @return string, user's email or user_name
 	 * @author Maxime CULEA
 	 *
-	 * @return string, user's email or user_name
+	 * @since 1.0.2
+	 *
 	 */
 	public function get_user_name() {
 		return mpt_is_allowed_email_signon() ? $this->email : $this->username;
@@ -490,17 +500,7 @@
 		}
 
 		// Buid new member activation key
-		$key = get_post_meta( $this->id, 'activation_key', true );
-		if ( empty( $key ) ) {
-			// Generate something random for a key...
-			$key = wp_generate_password( 20, false );
-
-			// Allow events
-			do_action( 'mpt_retrieve_password_key', $this->id, $key );
-
-			// Now insert the new key into the db
-			update_post_meta( $this->id, 'activation_key', $key );
-		}
+		$key = $this->get_member_key();
 
 		$stop = apply_filters_ref_array( 'mpt_reset_password_notification', array( false, &$this, $key ) );
 		if ( $stop === true ) {
@@ -508,8 +508,8 @@
 		}
 
 		// Get all options for admin notification email.
-		$message = mpt_get_option_value( 'mpt-emails', 'lost_password_member_content', true );
-		$subject = mpt_get_option_value( 'mpt-emails', 'lost_password_member_subject', true );
+		$message = apply_filters( 'mpt_retrieve_password_message_default_option', mpt_get_option_value( 'mpt-emails', 'lost_password_member_content', true ), $this );
+		$subject = apply_filters( 'mpt_retrieve_password_title_default_option', mpt_get_option_value( 'mpt-emails', 'lost_password_member_subject', true ), $this );
 
 		//No message ? No object ? Go OUT !!!
 		if ( empty( $message ) && empty( $subject ) ) {
@@ -588,6 +588,22 @@
 			$this->allcaps = array_merge( (array) $this->allcaps, (array) $the_role->capabilities );
 		}
 		$this->allcaps = array_merge( (array) $this->allcaps, (array) $this->caps );
+	}
+
+	/**
+	 * Get the terms for the model
+	 *
+	 * @param array $args
+	 *
+	 * @return WP_Term[]|WP_Error
+	 */
+	public function get_roles( array $args = [] ) {
+		$terms = get_object_term_cache( $this->id, MPT_TAXO_NAME );
+		if ( false === $terms ) {
+			$terms = wp_get_object_terms( $this->id, MPT_TAXO_NAME, $args );
+		}
+
+		return $terms;
 	}
 
 	/**
@@ -726,4 +742,125 @@
 		return false;
 	}
 
+	/**
+	 * Get member key
+	 * @return string
+	 */
+	public function get_member_key() {
+		$key = get_post_meta( $this->id, 'activation_key', true );
+
+		if ( ! empty( $key ) ) {
+			return $key;
+		}
+
+		$key = wp_generate_password( 20, false );
+		// Now insert the new key into the db
+		$this->set_activation_key( $key );
+
+		return $key;
+	}
+
+	/**
+	 * Generate validation registration key
+	 *
+	 * @param string $key
+	 *
+	 * @return void
+	 */
+	public function generate_validation_registration_key( string $key = '' ) {
+		$member_key = ! empty( $key ) ? $key : wp_generate_password( 20, false );
+		add_post_meta( $this->id, 'mpt_validation_registration_key', $member_key, true );
+	}
+
+	/**
+	 * Generate validation registration key
+	 *
+	 * @param string $key
+	 *
+	 * @return void
+	 */
+	public function get_validation_registration_key() {
+		return get_post_meta( $this->id, 'mpt_validation_registration_key', true );
+	}
+
+	/**
+	 * Set activation key
+	 *
+	 * @return void
+	 */
+	public function set_activation_key( string $password = '' ) {
+		// Generate something random for a key...
+		$key = ! empty( $password ) ? $password : wp_generate_password( 20, false );
+
+		update_post_meta( $this->id, 'activation_key', $key );
+	}
+
+	/**
+	 * Send member email with reset password link
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 */
+	public function validate_new_email( string $new_email ) {
+		do_action( 'mpt_validate_new_email', $this->id );
+
+		// Buid new member activation key
+		$key = $this->get_member_key();
+
+		// Get all options for admin notification email.
+		$subject = apply_filters( 'mpt_validate_new_email_title_default_option', mpt_get_option_value( 'mpt-emails', 'validate_new_email_member_subject', true ), $this );
+		$message = apply_filters( 'mpt_validate_new_email_message_default_option', mpt_get_option_value( 'mpt-emails', 'validate_new_email_member_content', true ), $this );
+
+		//No message ? No object ? Go OUT !!!
+		if ( empty( $message ) && empty( $subject ) ) {
+			return;
+		}
+
+		// Build title
+		$subject = str_replace( '%%blog_name%%', wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES ), $subject );
+
+		// Build message text
+		$message = str_replace( '%%site_url%%', get_site_url(), $message );
+		$message = str_replace( '%%display_name%%', $this->get_display_name(), $message );
+		$message = str_replace(
+			'%%validate_email_link%%',
+			add_query_arg(
+				[
+					'mpt-action' => 'validate-new-email',
+					'_mptnonce'  => MPT_Nonces::create_nonce( 'mpt_update_mail' ),
+					'id'         => $this->id
+				],
+				mpt_get_change_profile_permalink()
+			),
+			$message
+		);
+
+		// Allow plugins hooks
+		$subject = apply_filters( 'mpt_validate_new_email_title', $subject );
+		$message = apply_filters( 'mpt_validate_new_email_message', $message, $key );
+
+		if ( $message && ! wp_mail( $new_email, $subject, $message ) ) {
+			wp_die( __( 'The e-mail could not be sent.' ) . "<br />\n" . __( 'Possible reason: your host may have disabled the mail() function...' ) );
+		}
+
+		return;
+	}
+
+	/**
+	 * Retrieve email awaiting validation
+	 * @return string
+	 */
+	public function get_email_waiting_for_validation() {
+		return (string) ( get_post_meta( $this->id, 'email_change_requested_at', true ) ?: '' );
+	}
+
+
+	/**
+	 * Delete email awaiting validation
+	 * @return bool
+	 */
+	public function delete_email_waiting_for_validation() {
+		return delete_post_meta( $this->id, 'email_change_requested_at' );
+	}
 }

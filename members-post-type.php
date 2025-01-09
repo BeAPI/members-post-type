@@ -111,8 +111,15 @@ _mpt_load_files( 'classes/', array(
 	'post-type', 'private-website',
 	'security', 'shortcode',
 	'taxonomy',
-	'widget'
+	'widget',
+	'no-cache'
 ), 'class-');
+
+// Plugin compat classes
+_mpt_load_files( 'classes/compat/', array(
+	'polylang',
+), 'class-');
+
 
 // Plugin helper classes
 _mpt_load_files( 'classes/helpers/', array(
@@ -161,6 +168,11 @@ function init_mpt_plugin() {
 	new MPT_Private_Website();
 	new MPT_Shortcode();
 	new MPT_Security();
+	new MPT_No_Cache();
+	// Compat
+	if ( function_exists( 'PLL' ) ) {
+		new MPT_Polylang();
+	}
 
 	if( is_admin() ) {
 
@@ -193,5 +205,7 @@ function init_mpt_plugin() {
 	}
 
 	// Widget
-	add_action( 'widgets_init', create_function( '', 'return register_widget("MPT_Widget");' ) );
+	add_action( 'widgets_init', function() {
+		return register_widget( 'MPT_Widget' );
+	} );
 }

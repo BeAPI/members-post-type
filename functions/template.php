@@ -61,3 +61,12 @@ function mpt_get_lost_password_permalink() {
 function mpt_get_change_password_permalink() {
 	return MPT_Main::get_action_permalink( 'change-password' );
 }
+
+/**
+ * Return lost password page link
+ *
+ * @return string
+ */
+function mpt_get_change_profile_permalink() {
+	return MPT_Main::get_action_permalink( 'change-profile' );
+}

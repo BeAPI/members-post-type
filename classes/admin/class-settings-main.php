@@ -178,6 +178,14 @@
 					'confirm_register_link' => __( "The register confirmation link", 'mpt' ),
 				);
 				break;
+			case 'validate_new_email_member':
+				$available_values = array(
+					'blog_name'           => __( "Blog's name", 'mpt' ),
+					'site_url'            => __( "Current site's url", 'mpt' ),
+					'display_name'        => __( "User's display name", 'mpt' ),
+					'validate_email_link' => __( "The validate email link", 'mpt' ),
+				);
+				break;
 		}
 
 		return $available_values;

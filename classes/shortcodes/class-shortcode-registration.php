@@ -115,8 +115,6 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 		// Admin must validate member ?
 		$admin_validation = mpt_registration_with_member_validation();
 		if ( $admin_validation === 'on' ) {
-			// Generate something random for a validation reset key.
-			$key = wp_generate_password( 20, false );
 
 			// Default member insert args
 			$args = array();
@@ -133,9 +131,6 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 				return;
 			}
 
-			// Add post meta key
-			add_post_meta( $member_id, 'mpt_validation_registration_key', $key, true );
-
 			// Add filter for other plugins to stop process
 			$stop = apply_filters( 'mpt_admin_validation_registration', false, $member_id, $mptr );
 			if ( $stop === true ) {
@@ -144,7 +139,7 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 
 			// Send reset link
 			$member = new MPT_Member( $member_id );
-			$result = $member->register_validation_notification( $key );
+			$result = $member->register_validation_notification();
 			if ( is_wp_error( $result ) ) {
 				parent::set_message( $result->get_error_code(), $result->get_error_message(), 'error' );
 				return;
@@ -227,9 +222,13 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 			wp_die( __( 'Cheatin&#8217; uh?', 'mpt' ) );
 		}
 
+		// Check valid member key
+		if ( $member->get_member_key() !== $_GET['key'] ) {
+			wp_die( __( 'Key is not valid. Please contact the administrator of the site', 'mpt' ) );
+		}
+
 		// Check valid key ?
-		$key = get_post_meta( $member->id, 'mpt_validation_registration_key', true );
-		if ( empty( $key ) ) {
+		if ( empty( $member->get_validation_registration_key() ) ) {
 			wp_die( __( 'Registration key is not valide for this member', 'mpt' ), 'Error registration key' );
 		}
 

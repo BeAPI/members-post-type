@@ -45,7 +45,7 @@ $pages_query = new \WP_Query( $args );
 
 <?php if ( $pages_query->have_posts() ) : ?>
 
-	<h2><?php esc_html_e( 'Your ressources', 'mpt' ); ?></h2>
+	<h2><?php esc_html_e( 'Your resources', 'mpt' ); ?></h2>
 	<ul>
 		<?php
 		while ( $pages_query->have_posts() ) :

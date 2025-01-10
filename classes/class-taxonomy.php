@@ -48,7 +48,8 @@ class MPT_Taxonomy {
 			'show_in_nav_menus'          => false,
 			'show_tagcloud'              => false,
 			'rewrite'                    => false,
-			'update_count_callback'      => false
+			'update_count_callback'      => false,
+			'show_in_rest'               => true,
 		);
 		
 		$options = (array) MPT_Options::get_option( 'mpt-main' );

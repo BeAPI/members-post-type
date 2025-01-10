@@ -31,7 +31,45 @@ class MPT_Shortcode_Account extends MPT_Shortcode {
 		}
 
 		$member  = mpt_get_current_member();
+		$message = apply_filters( 'mpt_last_login_activity_message', __( 'If you do not recognize the last activity listed above, please change your password immediately.', 'mpt' ), $member );
 
-		return parent::load_template( 'member-account', $member );
+		return parent::load_template( 'member-account', [ 'member' => $member, 'message' => $message, 'last_activity_data' => self::prepare_data_last_activity( $member ) ] );
+	}
+
+	public static function prepare_data_last_activity( $member ) {
+		if ( ! mpt_get_option_value( 'mpt-security', 'user-activity' ) ) {
+			return [];
+		}
+
+		$data_last_activity = $member->get_last_login_activity();
+
+		if ( empty( $data_last_activity ) ) {
+			return [];
+		}
+
+		$prepare_data = [];
+		foreach ( $data_last_activity as $key => $data ) {
+			$value = $data['value'];
+
+			if ( empty( $value ) ) {
+				continue;
+			}
+
+			$label = $data['label'] ?? '';
+			if ( 'date_time' === $key ) {
+				try {
+					$date_time = new \DateTime( $value );
+					$value     = $date_time->format( 'j F Y - H:i' );
+				} catch ( Exception $e ) {
+					continue;
+				}
+			}
+			$prepare_data[] = [
+				'label' => $label,
+				'value' => $value,
+			];
+		}
+
+		return $prepare_data;
 	}
 }

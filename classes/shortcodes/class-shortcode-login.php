@@ -15,7 +15,14 @@ class MPT_Shortcode_Login extends MPT_Shortcode {
 	public static function shortcode() {
 		// Member logged-in ?
 		if ( mpt_is_member_logged_in() ) {
-			return apply_filters( 'mpt_shortcode_login_member_logged_in', '<!-- Members already logged-in. -->', mpt_get_current_member() );
+			 apply_filters( 'mpt_shortcode_login_member_logged_in', '<!-- Members already logged-in. -->', mpt_get_current_member() );
+
+			$account_link = MPT_Main::get_action_permalink('account');
+
+			if ( ! empty( $account_link ) ) {
+				wp_safe_redirect( $account_link, 302, 'mpt' );
+				exit;
+			}
 		}
 		
 		// Get data from POST, cleanup it
@@ -23,11 +30,6 @@ class MPT_Shortcode_Login extends MPT_Shortcode {
 		
 		// Parse vs defaults
 		$member_data = wp_parse_args( $member_data, array('username' => '', 'rememberme' => '', 'redirect_to' => '', 'rememberme' => false) );
-		
-		// If no redirect on POST, try to get it on $_GET
-		if ( isset($_GET['redirect_to']) && !empty($_GET['redirect_to']) ) {
-			$member_data['redirect_to'] = stripslashes($_GET['redirect_to']);
-		}
 		
 		return parent::load_template( 'member-login', $member_data );
 	}

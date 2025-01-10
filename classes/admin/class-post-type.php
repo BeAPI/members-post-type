@@ -123,6 +123,7 @@ class MPT_Admin_Post_Type {
 		if ( 'pending' === get_post_status() ) {
 			add_meta_box( MPT_CPT_NAME . '-postbox-resend-registration-notification', __( 'Resend registration notification', 'mpt' ), array( __CLASS__, 'metabox_resend_registration_notification' ), MPT_CPT_NAME, 'side', 'default' );
 		}
+		add_meta_box( MPT_CPT_NAME . '-postbox-last-user-activity', __( 'Last user activity', 'mpt' ), array( __CLASS__, 'metabox_user_activity' ), MPT_CPT_NAME, 'normal', 'high' );
 	}
 
     /**
@@ -188,6 +189,23 @@ class MPT_Admin_Post_Type {
 
 		// Call Template
 		include( MPT_DIR . 'views/admin/metabox-resend-registration-notification.php');
+	}
+
+	/**
+	 * Display user activity after logout
+	 *
+	 * @param $post
+	 *
+	 * @return void
+	 */
+	public static function metabox_user_activity($post){
+		$member = new MPT_Member($post->ID);
+
+		if ( ! $member->exists() ) {
+			return;
+		}
+
+		include( MPT_DIR . 'views/admin/metabox-last-user-activity.php');
 	}
 
     /**

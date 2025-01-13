@@ -159,7 +159,7 @@ class MPT_Member_Utility {
 				$new_email = sanitize_email( $new_data );
 				update_post_meta( $member->id, 'email_change_requested_at', $new_email );
 				// Send email to validate new member's email
-				$member->validate_new_email( $new_email );
+				$member->validate_new_email();
 				continue;
 			}
 

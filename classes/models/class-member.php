@@ -802,7 +802,7 @@
 	 *
 	 * @return void
 	 */
-	public function validate_new_email( string $new_email ) {
+	public function validate_new_email() {
 		do_action( 'mpt_validate_new_email', $this->id );
 
 		// Buid new member activation key
@@ -840,7 +840,7 @@
 		$subject = apply_filters( 'mpt_validate_new_email_title', $subject );
 		$message = apply_filters( 'mpt_validate_new_email_message', $message, $key );
 
-		if ( $message && ! wp_mail( $new_email, $subject, $message ) ) {
+		if ( $message && ! wp_mail( $this->email, $subject, $message ) ) {
 			wp_die( __( 'The e-mail could not be sent.' ) . "<br />\n" . __( 'Possible reason: your host may have disabled the mail() function...' ) );
 		}
 

@@ -1,23 +1,179 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MPT\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-07 17:02+0000\n"
-"PO-Revision-Date: 2017-09-07 17:10+0000\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/members-post-"
+"type\n"
+"POT-Creation-Date: 2025-01-13T13:59:26+00:00\n"
+"PO-Revision-Date: 2025-01-13 15:13+0100\n"
 "Last-Translator: beapi <mculea@beapi.fr>\n"
 "Language-Team: French (France)\n"
-"Language: fr-FR\n"
+"Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n > 1\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Textdomain-Support: yes\n"
 "X-Poedit-Basepath: .\n"
-"X-Generator: Loco - https://localise.biz/\n"
-"X-Poedit-SearchPath-0: .."
+"X-Generator: Poedit 3.3.2\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#. Plugin Name of the plugin
+#: members-post-type.php
+msgid "Members post type"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: members-post-type.php
+msgid "http://www.beapi.fr"
+msgstr ""
+
+#. Description of the plugin
+#: members-post-type.php
+msgid ""
+"Manage members on WordPress as post type. Implement: post type, "
+"authentification, role, clone from WP."
+msgstr ""
+
+#. Author of the plugin
+#: members-post-type.php
+msgid "BE API Technical team"
+msgstr ""
+
+#. Author URI of the plugin
+#: members-post-type.php
+msgid "https://beapi.fr/"
+msgstr ""
+
+#: classes/admin/class-content-permissions.php:49
+msgid "Content permissions (for MPT)"
+msgstr "Permissions d'accès au contenu (pour MPT)"
+
+#: classes/admin/class-export.php:34 views/admin/metabox-main.php:9
+#: views/client/member-registration.tpl.php:38
+msgid "Email"
+msgstr "Email"
+
+#: classes/admin/class-export.php:35
+msgid "Lastname"
+msgstr "Nom"
+
+#: classes/admin/class-export.php:36
+#: views/client/member-registration-step-2.tpl.php:18
+#: views/client/member-registration.tpl.php:21
+msgid "Firstname"
+msgstr "Prénom"
+
+#: classes/admin/class-export.php:37 views/admin/metabox-main.php:14
+#: views/client/member-login.tpl.php:12
+#: views/client/member-registration-step-2.tpl.php:13
+#: views/client/member-registration.tpl.php:13
+#: views/client/widget-mpt-unconnected.php:17
+msgid "Username"
+msgstr "Identifiant de l'utilisateur"
+
+#: classes/admin/class-export.php:38
+msgid "Counter Sign On"
+msgstr "Compteur de connexion"
+
+#: classes/admin/class-export.php:39
+msgid "Last Sign On Date"
+msgstr "Date de dernière connexion"
+
+#: classes/admin/class-export.php:135
+msgid "Export members"
+msgstr "Export des membres"
+
+#: classes/admin/class-import.php:91
+msgid "missing email and/or username"
+msgstr "Il manque l'email et/ou le pseudonyme"
+
+#: classes/admin/class-import.php:255
+msgid "Import members"
+msgstr "Import des membres"
+
+#: classes/admin/class-post-type-2.php:59 classes/admin/class-post-type.php:60
+msgid "Password and confirmation must be the same."
+msgstr "Les deux mots de passe que vous avez saisi ne correspondent pas."
+
+#: classes/admin/class-post-type-2.php:62 classes/admin/class-post-type.php:63
+#: classes/class-security.php:122
+msgid ""
+"The password does not meet the criteria required by the security policy."
+msgstr ""
+"Le mot de passe ne répond pas aux critères requis par la politique de "
+"sécurité."
+
+#: classes/admin/class-post-type-2.php:65 classes/admin/class-post-type.php:66
+msgid ""
+"The password is the same as that already active. No changes will be made to "
+"that member."
+msgstr ""
+"Le mot de passe est le même que l'actuel. Aucun changement ne sera fait pour "
+"ce membre."
+
+#: classes/admin/class-post-type-2.php:70 classes/admin/class-post-type.php:71
+msgid "The email is already in use. Back to initial value."
+msgstr "Cet email est déjà utilisé. Retour à la valeur initiale."
+
+#: classes/admin/class-post-type-2.php:109
+#: classes/admin/class-post-type.php:121
+msgid "Main information"
+msgstr "Informations principales"
+
+#: classes/admin/class-post-type-2.php:110
+#: classes/admin/class-post-type.php:122
+#: classes/helpers/default-settings.php:124
+msgid "Change password"
+msgstr "Modifier le mot de passe"
+
+#: classes/admin/class-post-type-2.php:112
+msgid "Notifiation to continue registration"
+msgstr ""
+
+#: classes/admin/class-post-type-2.php:344
+#: classes/admin/class-post-type.php:417
+msgid "Username / Mail"
+msgstr "Nom d'utilisateur/Email"
+
+#: classes/admin/class-post-type.php:76
+msgid "An error has occurred, please check back later."
+msgstr "Une erreur s’est produite, veuillez revenir plus tard."
+
+# @ wp3i
+#: classes/admin/class-post-type.php:79
+msgid "The notification has been sent."
+msgstr "La notification a été envoyée."
+
+#: classes/admin/class-post-type.php:124
+msgid "Resend registration notification"
+msgstr "Renvoyer la notification d’inscription"
+
+#: classes/admin/class-post-type.php:126
+msgid "Last user activity"
+msgstr ""
+
+#: classes/admin/class-settings-main.php:53
+msgid "Members Post Type"
+msgstr "Members Post Type"
+
+#: classes/admin/class-settings-main.php:141
+#: classes/admin/class-settings-main.php:148
+#: classes/admin/class-settings-main.php:159
+#: classes/admin/class-settings-main.php:168
+#: classes/admin/class-settings-main.php:176
+#: classes/admin/class-settings-main.php:183
+msgid "Blog's name"
+msgstr "Nom du blog"
+
+#: classes/admin/class-settings-main.php:142
+#: classes/admin/class-settings-main.php:149
+#: classes/admin/class-settings-main.php:160
+#: classes/admin/class-settings-main.php:169
+msgid "User's name"
+msgstr "Identifiant de l'utilisateur"
 
 #: classes/admin/class-settings-main.php:150
 msgid "User's first name"
@@ -27,170 +183,47 @@ msgstr "Prénom de l'utilisateur"
 msgid "User's last name"
 msgstr "Nom de famille de l'utilisateur"
 
-#: classes/helpers/class-options.php:177
-msgid "The available values are :"
-msgstr ""
+#: classes/admin/class-settings-main.php:152
+msgid "The password reset link"
+msgstr "Le lien de réinitialisation du mot de passe"
 
-#: classes/helpers/class-options.php:178
-msgid ""
-"Values between \"%% %%\" will be dynamically replaced before email send."
-msgstr ""
+#: classes/admin/class-settings-main.php:153
+#: classes/admin/class-settings-main.php:177
+#: classes/admin/class-settings-main.php:184
+msgid "Current site's url"
+msgstr "L'url du site courant"
 
-#: classes/helpers/default-settings.php:315
-#, c-format
-msgid ""
-"Username: %%user_name%%\n"
-"Password: %%user_password%%\n"
-"\n"
-"%%login_url%%"
-msgstr ""
+#: classes/admin/class-settings-main.php:161
+msgid "User's password"
+msgstr "Le mot de passe de l'utilisateur"
 
-#: views/admin/page-export.php:14
-msgid "Export"
-msgstr ""
+#: classes/admin/class-settings-main.php:162
+msgid "The site's login url"
+msgstr "L'url de connexion au back-office"
 
-#: views/admin/page-import.php:17
-msgid "Import"
-msgstr ""
+#: classes/admin/class-settings-main.php:170
+msgid "User's email"
+msgstr "Email de l'utilisateur"
 
-#. Name of the plugin
-msgid "Members post type"
-msgstr ""
+#: classes/admin/class-settings-main.php:178
+msgid "The register confirmation link"
+msgstr "Le lien de confirmation de l'inscription"
 
-#. Description of the plugin
-msgid ""
-"Manage members on WordPress as post type. Implement: post type, "
-"authentification, role, clone from WP."
-msgstr ""
+#: classes/admin/class-settings-main.php:185
+msgid "User's display name"
+msgstr "Nom d’affichage de l’utilisateur"
 
-#. URI of the plugin
-msgid "http://www.beapi.fr"
-msgstr ""
+#: classes/admin/class-settings-main.php:186
+msgid "The validate email link"
+msgstr "Le lien de validation de l’email"
 
-#. Author of the plugin
-msgid "BE API Technical team"
-msgstr ""
+#: classes/admin/class-taxonomy.php:38 views/admin/term-fields.php:15
+msgid "Remove capability"
+msgstr "Supprimer la permission"
 
-#. Author URI of the plugin
-msgid "https://beapi.fr/"
-msgstr ""
-
-#: classes/class-post-type.php:25
-msgctxt "Post Type General Name"
-msgid "Members"
-msgstr "Membres"
-
-#: classes/class-post-type.php:26
-msgctxt "Post Type Singular Name"
-msgid "Member"
-msgstr "Membre"
-
-#: classes/class-post-type.php:27 classes/class-post-type.php:41
-msgid "Members"
-msgstr "Membres"
-
-#: classes/class-post-type.php:28
-msgid "Parent Member:"
-msgstr "Membre parent : "
-
-#: classes/class-post-type.php:29
-msgid "All Members"
-msgstr "Tous les membres"
-
-#: classes/class-post-type.php:30
-msgid "View Member"
-msgstr "Voir le membre"
-
-# @ acf
-#: classes/class-post-type.php:31
-msgid "Add New Member"
-msgstr "Ajouter un nouveau membre"
-
-#: classes/class-post-type.php:32
-msgid "New Member"
-msgstr "Nouveau membre"
-
-# @ acf
-#: classes/class-post-type.php:33
-msgid "Edit Member"
-msgstr "Modifier le membre"
-
-# @ acf
-#: classes/class-post-type.php:34
-msgid "Update Member"
-msgstr "Mettre à jour le membre"
-
-# @ default
-#: classes/class-post-type.php:35
-msgid "Search members"
-msgstr "Chercher une membre"
-
-# @ default
-#: classes/class-post-type.php:36
-msgid "No members found"
-msgstr "Aucun membre trouvé"
-
-# @ default
-#: classes/class-post-type.php:37
-msgid "No members found in Trash"
-msgstr "Aucun membre trouvé dans la corbeille"
-
-#: classes/class-post-type.php:43
-msgid "Members as post type"
-msgstr "Type de contenu membres"
-
-#: classes/class-post-type.php:81
-#, c-format
-msgid "Member updated. <a href=\"%s\">View member</a>"
-msgstr "Membre mis à jour. <a href=\"%s\">Voir le membre</a>"
-
-#: classes/class-post-type.php:82
-msgid "Custom field updated."
-msgstr "Champ personnalisé mis à jour."
-
-#: classes/class-post-type.php:83
-msgid "Custom field deleted."
-msgstr "Champ personnalisé supprimé."
-
-#: classes/class-post-type.php:84
-msgid "Member updated."
-msgstr "Membre mis à jour."
-
-#: classes/class-post-type.php:86
-#, c-format
-msgid "Member restored to revision from %s"
-msgstr "Membre restauré à la révision de %s"
-
-#: classes/class-post-type.php:87
-#, c-format
-msgid "Member published. <a href=\"%s\">View member</a>"
-msgstr "Membre publié. <a href=\"%s\">Voir le membre</a>"
-
-#: classes/class-post-type.php:88
-msgid "Member saved."
-msgstr "Membre sauvegardé."
-
-#: classes/class-post-type.php:89
-#, c-format
-msgid "Member submitted. <a target=\"_blank\" href=\"%s\">Preview member</a>"
-msgstr "Membre soumis. <a target=\"_blank\" href=\"%s\">Voir le membre</a>"
-
-#: classes/class-post-type.php:90
-#, c-format
-msgid ""
-"Member scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" "
-"href=\"%2$s\">Preview member</a>"
-msgstr ""
-"Membre prévu pour: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">"
-"Voir le membre</a>"
-
-#: classes/class-post-type.php:93
-#, c-format
-msgid ""
-"Member draft updated. <a target=\"_blank\" href=\"%s\">Preview member</a>"
-msgstr ""
-"Brouillon du membre mis à jour. <a target=\"_blank\" href=\"%s\">Voir le "
-"membre</a>"
+#: classes/admin/class-welcome-message.php:27
+msgid "Welcome Message (for MPT)"
+msgstr "Email de bienvenue (pour MPT)"
 
 #: classes/class-plugin.php:14
 msgid "Members Manager"
@@ -204,18 +237,125 @@ msgstr "Aucun rôle par défaut"
 msgid "Select a page"
 msgstr "Sélectionner une page"
 
-# @ wp3i
-#: classes/class-widget.php:13 classes/class-widget.php:94
-msgid "Members authentification"
-msgstr "Authentification des membres"
+#: classes/class-post-type.php:27
+msgctxt "Post Type General Name"
+msgid "Members"
+msgstr "Membres"
 
-#: classes/class-widget.php:16
+#: classes/class-post-type.php:28
+msgctxt "Post Type Singular Name"
+msgid "Member"
+msgstr "Membre"
+
+#: classes/class-post-type.php:29 classes/class-post-type.php:43
+msgid "Members"
+msgstr "Membres"
+
+#: classes/class-post-type.php:30
+msgid "Parent Member:"
+msgstr "Membre parent : "
+
+#: classes/class-post-type.php:31
+msgid "All Members"
+msgstr "Tous les membres"
+
+#: classes/class-post-type.php:32
+msgid "View Member"
+msgstr "Voir le membre"
+
+# @ acf
+#: classes/class-post-type.php:33
+msgid "Add New Member"
+msgstr "Ajouter un nouveau membre"
+
+#: classes/class-post-type.php:34
+msgid "New Member"
+msgstr "Nouveau membre"
+
+# @ acf
+#: classes/class-post-type.php:35
+msgid "Edit Member"
+msgstr "Modifier le membre"
+
+# @ acf
+#: classes/class-post-type.php:36
+msgid "Update Member"
+msgstr "Mettre à jour le membre"
+
+# @ default
+#: classes/class-post-type.php:37
+msgid "Search members"
+msgstr "Chercher une membre"
+
+# @ default
+#: classes/class-post-type.php:38
+msgid "No members found"
+msgstr "Aucun membre trouvé"
+
+# @ default
+#: classes/class-post-type.php:39
+msgid "No members found in Trash"
+msgstr "Aucun membre trouvé dans la corbeille"
+
+#: classes/class-post-type.php:45
+msgid "Members as post type"
+msgstr "Type de contenu membres"
+
+#: classes/class-post-type.php:83
+msgid "Member updated. <a href=\"%s\">View member</a>"
+msgstr "Membre mis à jour. <a href=\"%s\">Voir le membre</a>"
+
+#: classes/class-post-type.php:84
+msgid "Custom field updated."
+msgstr "Champ personnalisé mis à jour."
+
+#: classes/class-post-type.php:85
+msgid "Custom field deleted."
+msgstr "Champ personnalisé supprimé."
+
+#: classes/class-post-type.php:86
+msgid "Member updated."
+msgstr "Membre mis à jour."
+
+#. translators: %s: date and time of the revision
+#: classes/class-post-type.php:88
+msgid "Member restored to revision from %s"
+msgstr "Membre restauré à la révision de %s"
+
+#: classes/class-post-type.php:89
+msgid "Member published. <a href=\"%s\">View member</a>"
+msgstr "Membre publié. <a href=\"%s\">Voir le membre</a>"
+
+#: classes/class-post-type.php:90
+msgid "Member saved."
+msgstr "Membre sauvegardé."
+
+#: classes/class-post-type.php:91
+msgid "Member submitted. <a target=\"_blank\" href=\"%s\">Preview member</a>"
+msgstr "Membre soumis. <a target=\"_blank\" href=\"%s\">Voir le membre</a>"
+
+#: classes/class-post-type.php:92
 msgid ""
-"Form for allow members to login/logout. Display also lost password and "
-"registration links"
+"Member scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" "
+"href=\"%2$s\">Preview member</a>"
 msgstr ""
-"Ce formulaire autorise les membres à se connecter et se déconnecter. Il "
-"affiche également les liens d'inscription et de mot de passe oublié."
+"Membre prévu pour: <strong>%1$s</strong>. <a target=\"_blank\" "
+"href=\"%2$s\">Voir le membre</a>"
+
+#: classes/class-post-type.php:95
+msgid ""
+"Member draft updated. <a target=\"_blank\" href=\"%s\">Preview member</a>"
+msgstr ""
+"Brouillon du membre mis à jour. <a target=\"_blank\" href=\"%s\">Voir le "
+"membre</a>"
+
+#: classes/class-private-website.php:42
+msgid ""
+"You must be logged in to access the site, but could not find the login page. "
+"Contact the webmaster."
+msgstr ""
+"Vous devez être connecté pour accéder au site, mais impossible de trouver la "
+"page de connexion. Contactez le webmaster."
 
 #: classes/class-security.php:98
 msgid ""
@@ -224,13 +364,6 @@ msgid ""
 msgstr ""
 "Vous ne pouvez pas utiliser ce mot de passe en raison de la politique de "
 "sécurité définie et le fait que vous l'ayez utilisé dans le passé."
-
-#: classes/class-security.php:122 classes/admin/class-post-type.php:62
-msgid ""
-"The password does not meet the criteria required by the security policy."
-msgstr ""
-"Le mot de passe ne répond pas aux critères requis par la politique de "
-"sécurité."
 
 #: classes/class-security.php:141
 msgid "Password too short."
@@ -330,164 +463,182 @@ msgstr "Ajouter ou supprimer des rôles"
 msgid "Choose from the most used roles"
 msgstr "Choisir parmi les rôles les plus utilisés"
 
-#: classes/class-private-website.php:42
+# @ wp3i
+#: classes/class-widget.php:13 classes/class-widget.php:94
+msgid "Members authentification"
+msgstr "Authentification des membres"
+
+#: classes/class-widget.php:16
 msgid ""
-"You must be logged in to access the site, but could not find the login page. "
-"Contact the webmaster."
+"Form for allow members to login/logout. Display also lost password and "
+"registration links"
 msgstr ""
-"Vous devez être connecté pour accéder au site, mais impossible de trouver la "
-"page de connexion. Contactez le webmaster."
+"Ce formulaire autorise les membres à se connecter et se déconnecter. Il "
+"affiche également les liens d'inscription et de mot de passe oublié."
 
-#: classes/admin/class-export.php:34 views/admin/metabox-main.php:9 
-#: views/client/member-registration.tpl.php:30
-msgid "Email"
-msgstr "Email"
+#: classes/helpers/class-member-auth.php:92
+msgid "Please log in again."
+msgstr "Merci de vous connecter à nouveau."
 
-#: classes/admin/class-export.php:35
-msgid "Lastname"
-msgstr "Nom"
+#: classes/helpers/class-member-auth.php:121
+msgid "<strong>ERROR</strong>: Invalid username or incorrect password."
+msgstr "<strong>ERREUR</strong> : Nom d'utilisateur ou mot de passe incorrect."
 
-#: classes/admin/class-export.php:36 
-#: views/client/member-registration-step-2.tpl.php:15 
-#: views/client/member-registration.tpl.php:17
-msgid "Firstname"
-msgstr "Prénom"
+#: classes/helpers/class-member-auth.php:145
+msgid "<strong>ERROR</strong>: The email field is empty."
+msgstr "<strong>ERREUR</strong> : Le champ email est vide."
 
-#: classes/admin/class-export.php:37 views/admin/metabox-main.php:14 
-#: views/client/widget-mpt-unconnected.php:17 
-#: views/client/member-login.tpl.php:10 
-#: views/client/member-registration-step-2.tpl.php:11 
-#: views/client/member-registration.tpl.php:11
-msgid "Username"
-msgstr "Identifiant de l'utilisateur"
+#: classes/helpers/class-member-auth.php:148
+#: classes/helpers/class-member-auth.php:189
+msgid "<strong>ERROR</strong>: The password field is empty."
+msgstr "<strong>ERREUR</strong> : Le champ mot de passe est vide."
 
-#: classes/admin/class-export.php:38
-msgid "Counter Sign On"
-msgstr "Compteur de connexion"
-
-#: classes/admin/class-export.php:39
-msgid "Last Sign On Date"
-msgstr "Date de dernière connexion"
-
-#: classes/admin/class-export.php:135
-msgid "Export members"
-msgstr "Export des membres"
-
-#: classes/admin/class-welcome-message.php:27
-msgid "Welcome Message (for MPT)"
-msgstr "Email de bienvenue (pour MPT)"
-
-#: classes/admin/class-content-permissions.php:45
-msgid "Content permissions (for MPT)"
-msgstr "Permissions d'accès au contenu (pour MPT)"
-
-#: classes/admin/class-post-type.php:59
-msgid "Password and confirmation must be the same."
-msgstr "Les deux mots de passe que vous avez saisi ne correspondent pas."
-
-#: classes/admin/class-post-type.php:65
+#: classes/helpers/class-member-auth.php:158
 msgid ""
-"The password is the same as that already active. No changes will be made to "
-"that member."
+"<strong>ERROR</strong>: Invalid email. <a href=\"%s\" title=\"Password Lost "
+"and Found\">Lost your password</a>?"
 msgstr ""
-"Le mot de passe est le même que l'actuel. Aucun changement ne sera fait pour "
-"ce membre."
+"<strong>ERREUR</strong> : Adresse email incorrecte. <a href=\"%s\" "
+"title=\"Mot de passe oublié\">Mot de passe oublié</a>?"
 
-#: classes/admin/class-post-type.php:70
-msgid "The email is already in use. Back to initial value."
-msgstr "Cet email est déjà utilisé. Retour à la valeur initiale."
+#: classes/helpers/class-member-auth.php:167
+msgid ""
+"<strong>ERROR</strong>: The password you entered for the email <strong>%1$s</"
+"strong> is incorrect. <a href=\"%2$s\" title=\"Password Lost and "
+"Found\">Lost your password</a>?"
+msgstr ""
+"<strong>ERREUR</strong> : Le mot de passe que vous avez saisi pour l'email "
+"<strong>%1$s</strong> est incorrect. <a href=\"%2$s\" title=\"Mot de passe "
+"oublié ?\">Mot de passe oublié ?</a>?"
 
-#: classes/admin/class-post-type.php:109
-msgid "Main information"
-msgstr "Informations principales"
+#: classes/helpers/class-member-auth.php:186
+msgid "<strong>ERROR</strong>: The username field is empty."
+msgstr "<strong>ERREUR</strong>: Le champ identifiant est vide."
 
-#: classes/admin/class-post-type.php:110 
-#: classes/helpers/default-settings.php:124
-msgid "Change password"
-msgstr "Modifier le mot de passe"
+#: classes/helpers/class-member-auth.php:199
+msgid ""
+"<strong>ERROR</strong>: Invalid username. <a href=\"%s\" title=\"Password "
+"Lost and Found\">Lost your password</a>?"
+msgstr ""
+"<strong>ERREUR</strong>: Identifiant invalide. <a href=\"%s\" title=\"Mot de "
+"passe perdu\">Vous avez perdu votre mot de passe</a>?"
 
-#: classes/admin/class-post-type.php:321
-msgid "Username / Mail"
-msgstr "Nom d'utilisateur/Email"
+#: classes/helpers/class-member-auth.php:208
+msgid ""
+"<strong>ERROR</strong>: The password you entered for the username "
+"<strong>%1$s</strong> is incorrect. <a href=\"%2$s\" title=\"Password Lost "
+"and Found\">Lost your password</a>?"
+msgstr ""
+"<strong>ERREUR</strong:> Le mot de passe que vous avez entré pour "
+"l’utilisateur <strong>%1$s</strong> est incorrect <a href=\"%2$s\" "
+"title=\"Mot de passe oublié\">Mot de passe oublié</a> ?"
 
-#: classes/admin/class-taxonomy.php:38 views/admin/term-fields.php:15
-msgid "Remove capability"
-msgstr "Supprimer la permission"
+#: classes/helpers/class-member-auth.php:327
+msgid "Date & Hour"
+msgstr "Date & Heure"
 
-#: classes/admin/class-import.php:91
-msgid "missing email and/or username"
-msgstr "Il manque l'email et/ou le pseudonyme"
+#: classes/helpers/class-member-auth.php:331
+msgid "Operating System"
+msgstr "Système d’exploitation"
 
-#: classes/admin/class-import.php:255
-msgid "Import members"
-msgstr "Import des membres"
+#: classes/helpers/class-member-auth.php:335
+msgid "Browser"
+msgstr "Navigateur"
 
-#: classes/admin/class-settings-main.php:53 
-#: classes/admin/class-settings-main.php:53
-msgid "Members Post Type"
-msgstr "Members Post Type"
+#: classes/helpers/class-member-auth.php:339
+msgid "IP address"
+msgstr "Adresse IP"
 
-#: classes/admin/class-settings-main.php:141 
-#: classes/admin/class-settings-main.php:148 
-#: classes/admin/class-settings-main.php:159 
-#: classes/admin/class-settings-main.php:168 
-#: classes/admin/class-settings-main.php:176
-msgid "Blog's name"
-msgstr "Nom du blog"
+#: classes/helpers/class-options.php:183
+msgid "The available values are :"
+msgstr "Les valeurs disponibles sont :"
 
-#: classes/admin/class-settings-main.php:142 
-#: classes/admin/class-settings-main.php:149 
-#: classes/admin/class-settings-main.php:160 
-#: classes/admin/class-settings-main.php:169
-msgid "User's name"
-msgstr "Identifiant de l'utilisateur"
+#: classes/helpers/class-options.php:184
+msgid ""
+"Values between \"%% %%\" will be dynamically replaced before email send."
+msgstr ""
+"Les valeurs comprises entre « %% %% » seront remplacées dynamiquement avant "
+"l’envoi du courrier électronique."
 
-#: classes/admin/class-settings-main.php:152
-msgid "The password reset link"
-msgstr "Le lien de réinitialisation du mot de passe"
+#: classes/helpers/default-sections.php:5
+msgid "General"
+msgstr "Général"
 
-#: classes/admin/class-settings-main.php:153 
-#: classes/admin/class-settings-main.php:177
-msgid "Current site's url"
-msgstr "L'url du site courant"
+# @ acf
+#: classes/helpers/default-sections.php:6
+msgid "Features available"
+msgstr "Fonctionnalités disponibles"
 
-#: classes/admin/class-settings-main.php:161
-msgid "User's password"
-msgstr "Le mot de passe de l'utilisateur"
+#: classes/helpers/default-sections.php:11
+#: classes/helpers/default-sections.php:12
+msgid "Feature pages"
+msgstr "Les pages spéciales"
 
-#: classes/admin/class-settings-main.php:162
-msgid "The site's login url"
-msgstr "L'url de connexion au back-office"
+#: classes/helpers/default-sections.php:13
+msgid ""
+"Define here the pages containing WordPress's shortcodes for the different "
+"features as login, registration, etc."
+msgstr ""
+"Définissez les pages contenant les shortcodes pour la page de connexion, "
+"inscription, etc."
 
-#: classes/admin/class-settings-main.php:170
-msgid "User's email"
-msgstr "Email de l'utilisateur"
+#: classes/helpers/default-sections.php:17
+msgid "Security"
+msgstr "Sécurité"
 
-#: classes/admin/class-settings-main.php:178
-msgid "The register confirmation link"
-msgstr "Le lien de confirmation de l'inscription"
+#: classes/helpers/default-sections.php:18
+msgid "Security policy"
+msgstr "Politique de sécurité"
+
+#: classes/helpers/default-sections.php:19
+msgid ""
+"Define your custom password policy by changing default behaviour about "
+"password strength, length, must-use characters and so on."
+msgstr ""
+"Définissez votre politique de sécurité en changeant les comportements par "
+"défaut concernant le mot de passe : sa complexité, sa longeure, les "
+"caractères obbligatoires, etc."
+
+#: classes/helpers/default-sections.php:23
+msgid "Mails"
+msgstr "Emails"
+
+#: classes/helpers/default-sections.php:24
+msgid "Manage admin and member email's templates"
+msgstr ""
+"Permet la personnalisation des template d'email envoyés au membres et admin."
+
+#: classes/helpers/default-sections.php:25
+msgid ""
+"Change however you want the admin's and member's email notifications. Please "
+"note that only described dynamic values will work for each notification."
+msgstr ""
+"Redéfinissez les templates par défaut des mails de notification pour les "
+"membres et les administrateurs. Veuillez prendre note, que seul les valeurs "
+"dynamiques mises en avant dans chaque notification seront disponible, afin "
+"d'être automatiquement remplacées avant l'envoi du mail."
 
 # @ acf
 #: classes/helpers/default-settings.php:6
 msgid "Features"
 msgstr "Fonctionnaliés"
 
-#: classes/helpers/default-settings.php:8 
+#: classes/helpers/default-settings.php:8
 #: classes/helpers/default-settings.php:47
 msgid "Role manager"
 msgstr "Gestionnaire de rôles"
 
-#: classes/helpers/default-settings.php:9 
+#: classes/helpers/default-settings.php:9
 #: classes/helpers/default-settings.php:61
 msgid "Content permissions"
 msgstr "Permission d'accès au contenu"
 
-#: classes/helpers/default-settings.php:10 
+#: classes/helpers/default-settings.php:10
 #: classes/helpers/default-settings.php:74
 msgid "Private website"
 msgstr "Site web privé"
 
-#: classes/helpers/default-settings.php:13 
+#: classes/helpers/default-settings.php:13
 #: classes/helpers/default-settings.php:27
 msgid ""
 "Do not change this value if you have already members! At the risk of "
@@ -652,19 +803,27 @@ msgstr "Connexion/déconnexion"
 msgid "Lost password"
 msgstr "Mot de passe perdu"
 
-#: classes/helpers/default-settings.php:140
+#: classes/helpers/default-settings.php:138
+msgid "Change profile"
+msgstr "Modifier le profil"
+
+#: classes/helpers/default-settings.php:145
+msgid "My account"
+msgstr "Mon compte"
+
+#: classes/helpers/default-settings.php:154
 msgid "Password strength"
 msgstr "Force du mot de passe"
 
-#: classes/helpers/default-settings.php:141
+#: classes/helpers/default-settings.php:155
 msgid "Enforce a specific password strength for your members."
 msgstr "Appliquer une force de mot de passe spécifique pour vos membres."
 
-#: classes/helpers/default-settings.php:146
+#: classes/helpers/default-settings.php:160
 msgid "Mode"
 msgstr "Mode"
 
-#: classes/helpers/default-settings.php:147
+#: classes/helpers/default-settings.php:161
 msgid ""
 "You can apply one of three modes for password security, no constraint, "
 "automatic cloned from WordPress JS meter and full manual mode"
@@ -673,23 +832,23 @@ msgstr ""
 "de contrainte, automatique clonés à partir de WordPress JS et mode manuel "
 "complet"
 
-#: classes/helpers/default-settings.php:151
+#: classes/helpers/default-settings.php:165
 msgid "Disabled"
 msgstr "Désactivé"
 
-#: classes/helpers/default-settings.php:152
+#: classes/helpers/default-settings.php:166
 msgid "Auto"
 msgstr "Automatique"
 
-#: classes/helpers/default-settings.php:153
+#: classes/helpers/default-settings.php:167
 msgid "Custom"
 msgstr "Customisé"
 
-#: classes/helpers/default-settings.php:158
+#: classes/helpers/default-settings.php:172
 msgid "Force refresh login"
 msgstr "Forcer le rafraîchissement de la connexion"
 
-#: classes/helpers/default-settings.php:159
+#: classes/helpers/default-settings.php:173
 msgid ""
 "When changing your password policy, this option forces members to change "
 "their password once they are logged in! If it does not meet your criteria of "
@@ -699,11 +858,11 @@ msgstr ""
 "les membres à changer leur mot de passe à leur prochaine connexion! Si le "
 "mot de passe ne répond pas à vos critères, bien sûr!"
 
-#: classes/helpers/default-settings.php:166
+#: classes/helpers/default-settings.php:180
 msgid "Password strength - auto mode"
 msgstr "Force du mot de passe - mode automatique"
 
-#: classes/helpers/default-settings.php:167
+#: classes/helpers/default-settings.php:181
 msgid ""
 "WordPress offers a interactive password meter (with JS) when editing "
 "passwords. This indicator score passwords on 4 levels: 1 = very weak; 2 = "
@@ -713,49 +872,49 @@ msgstr ""
 "de passe. Cet indicateur de score est sur 4 niveaux: 1 = très faible; 2 = "
 "faible; 3 = moyen; 4 = fort"
 
-#: classes/helpers/default-settings.php:172
+#: classes/helpers/default-settings.php:186
 msgid "Level required"
 msgstr "Niveau requis"
 
-#: classes/helpers/default-settings.php:176
+#: classes/helpers/default-settings.php:190
 msgid "Very weak"
 msgstr "Très faible"
 
-#: classes/helpers/default-settings.php:177
+#: classes/helpers/default-settings.php:191
 msgid "Weak"
 msgstr "Faible"
 
-#: classes/helpers/default-settings.php:178
+#: classes/helpers/default-settings.php:192
 msgid "Medium"
 msgstr "Moyen"
 
-#: classes/helpers/default-settings.php:179
+#: classes/helpers/default-settings.php:193
 msgid "Strong"
 msgstr "Fort"
 
-#: classes/helpers/default-settings.php:184
+#: classes/helpers/default-settings.php:198
 msgid "Password strength - Custom mode"
 msgstr "Force du mot de passe - mode customisé"
 
-#: classes/helpers/default-settings.php:185
+#: classes/helpers/default-settings.php:199
 msgid "This mode allows you to fine tune the security policy password"
 msgstr ""
 "Ce mode vous permet d'affiner la politique de sécurité des mots de passes"
 
-#: classes/helpers/default-settings.php:190
+#: classes/helpers/default-settings.php:204
 msgid "Minimum length"
 msgstr "Longueur minimale"
 
-#: classes/helpers/default-settings.php:191
+#: classes/helpers/default-settings.php:205
 msgid "Tip: password longer than 6 characters is highly recommended!"
 msgstr ""
 "Astuce: un mot de passe de plus de 6 caractères est fortement recommandé!"
 
-#: classes/helpers/default-settings.php:198
+#: classes/helpers/default-settings.php:212
 msgid "User data on password"
 msgstr "Données utilisateurs dans le mot de passe"
 
-#: classes/helpers/default-settings.php:199
+#: classes/helpers/default-settings.php:213
 msgid ""
 "Prohibit the presence of the username, email, first name, last name in the "
 "password"
@@ -763,50 +922,50 @@ msgstr ""
 "Interdire la présence du nom d'utilisateur, email, prénom, nom de famille "
 "dans le mot de passe"
 
-#: classes/helpers/default-settings.php:205
+#: classes/helpers/default-settings.php:219
 msgid "Uppercase character"
 msgstr "Caractère majuscule"
 
-#: classes/helpers/default-settings.php:206
+#: classes/helpers/default-settings.php:220
 msgid "Forces the presence of an uppercase character in the password"
 msgstr "Forcer la présence d'une majuscule dans le mot de passe"
 
-#: classes/helpers/default-settings.php:212
+#: classes/helpers/default-settings.php:226
 msgid "Lowercase character"
 msgstr "Caractère minuscule"
 
-#: classes/helpers/default-settings.php:213
+#: classes/helpers/default-settings.php:227
 msgid "Forces the presence of an lowercase character in the password"
 msgstr "Forcer la présence d'un caractère en minuscule dans le mot de passe"
 
-#: classes/helpers/default-settings.php:219
+#: classes/helpers/default-settings.php:233
 msgid "Number character"
 msgstr "Chiffre"
 
-#: classes/helpers/default-settings.php:220
+#: classes/helpers/default-settings.php:234
 msgid "Forces the presence of an number character in the password"
 msgstr "Forcer la présence d'un chiffre dans le mot de passe"
 
-#: classes/helpers/default-settings.php:226
+#: classes/helpers/default-settings.php:240
 msgid "Special character"
 msgstr "Caractère spécial"
 
-#: classes/helpers/default-settings.php:227
+#: classes/helpers/default-settings.php:241
 msgid "Forces the presence of an special character in the password"
 msgstr "Forcer la présence d'un caractère spécial dans le mot de passe"
 
-#: classes/helpers/default-settings.php:230
+#: classes/helpers/default-settings.php:244
 msgid ""
 "Special characters are often assimilated to punctuation character. (?!&\")"
 msgstr ""
 "Les caractères spéciaux sont souvent assimilés à caractère de ponctuation.  "
 "(?!&\")"
 
-#: classes/helpers/default-settings.php:234
+#: classes/helpers/default-settings.php:248
 msgid "Blacklist keywords"
 msgstr "Mots-clés bannis"
 
-#: classes/helpers/default-settings.php:235
+#: classes/helpers/default-settings.php:249
 msgid ""
 "You must separate blacklist words with commas. These words can not be "
 "contained in the passwords of your members."
@@ -814,11 +973,11 @@ msgstr ""
 "Vous devez séparer les mots-clés bannis par des virgules. Ces mots ne "
 "peuvent pas être contenus dans les mots de passe de vos membres."
 
-#: classes/helpers/default-settings.php:241
+#: classes/helpers/default-settings.php:255
 msgid "Password Policies"
 msgstr "Politique de mot de passe"
 
-#: classes/helpers/default-settings.php:242
+#: classes/helpers/default-settings.php:256
 msgid ""
 "A password policy is a set of rules designed to enhance security by "
 "encouraging users to employ strong passwords and use them properly"
@@ -827,11 +986,11 @@ msgstr ""
 "améliorer la sécurité en encourageant les utilisateurs à utiliser des mots "
 "de passe forts et les utiliser correctement"
 
-#: classes/helpers/default-settings.php:247
+#: classes/helpers/default-settings.php:261
 msgid "Aging"
 msgstr "Ancienneté"
 
-#: classes/helpers/default-settings.php:248
+#: classes/helpers/default-settings.php:262
 msgid ""
 "How many days old can a password be before requiring it be changed? Not "
 "recommended. 0 disables this feature. Default: 0."
@@ -839,11 +998,11 @@ msgstr ""
 "Tous les combiens de jours le mot de passe doit être changé? Non recommandé. "
 "0 désactive cette fonction. Par défaut: 0."
 
-#: classes/helpers/default-settings.php:255
+#: classes/helpers/default-settings.php:269
 msgid "History"
 msgstr "Historique"
 
-#: classes/helpers/default-settings.php:256
+#: classes/helpers/default-settings.php:270
 msgid ""
 "How many passwords should be remembered? Prevents reuse of old passwords. 0 "
 "disables this feature. Default: 0."
@@ -851,12 +1010,29 @@ msgstr ""
 "Combien de mots de passe faut-il retenir? Empêche la réutilisation d'anciens "
 "mots de passe. 0 désactive cette fonction. Par défaut: 0."
 
-#: classes/helpers/default-settings.php:265
+#: classes/helpers/default-settings.php:277
+#: views/client/member-account.tpl.php:65
+msgid "Last login details"
+msgstr "Derniers détails de connexion"
+
+#: classes/helpers/default-settings.php:283
+msgid "User's activity"
+msgstr "Activité de l’utilisateur"
+
+#: classes/helpers/default-settings.php:284
+msgid ""
+"Display user's last connection information (date & time, operating system, "
+"browser, IP address)."
+msgstr ""
+"Afficher les informations relatives à la dernière connexion de l’utilisateur "
+"(date et heure, système d’exploitation, navigateur, adresse IP)."
+
+#: classes/helpers/default-settings.php:292
 msgid "Admin mail for Member registration"
 msgstr ""
 "Email de notification à l'administrateur pour l'inscription d'un membre"
 
-#: classes/helpers/default-settings.php:266
+#: classes/helpers/default-settings.php:293
 msgid ""
 "Management of mail notification to the site administrator when a new member "
 "joins the site."
@@ -864,11 +1040,11 @@ msgstr ""
 "Gestion de l'email de notification à l'administrateur lorsqu'un nouveau "
 "membre s'inscrit sur le site."
 
-#: classes/helpers/default-settings.php:276
+#: classes/helpers/default-settings.php:303
 msgid "Recipient Mail"
 msgstr "Email du destinataire"
 
-#: classes/helpers/default-settings.php:278
+#: classes/helpers/default-settings.php:305
 msgid ""
 "By default this is the administrator's email of the site but you can change "
 "the recipient. You can add more recipients, separating them with a comma"
@@ -877,29 +1053,29 @@ msgstr ""
 "mais vous pouvez changer le bénéficiaire. Vous pouvez ajouter plusieurs "
 "destinataires, en les séparant par une virgule"
 
-#: classes/helpers/default-settings.php:283 
-#: classes/helpers/default-settings.php:307 
-#: classes/helpers/default-settings.php:331 
-#: classes/helpers/default-settings.php:362 
-#: classes/helpers/default-settings.php:386
+#: classes/helpers/default-settings.php:310
+#: classes/helpers/default-settings.php:334
+#: classes/helpers/default-settings.php:358
+#: classes/helpers/default-settings.php:389
+#: classes/helpers/default-settings.php:413
+#: classes/helpers/default-settings.php:437
 msgid "Subject mail"
 msgstr "Sujet de l'email"
 
-#: classes/helpers/default-settings.php:285
-#, c-format
+#: classes/helpers/default-settings.php:312
 msgid "[%%blog_name%%] New Member Registration"
 msgstr "[%%blog_name%%] Nouvelle inscription de membre"
 
-#: classes/helpers/default-settings.php:289 
-#: classes/helpers/default-settings.php:313 
-#: classes/helpers/default-settings.php:337 
-#: classes/helpers/default-settings.php:368 
-#: classes/helpers/default-settings.php:392
+#: classes/helpers/default-settings.php:316
+#: classes/helpers/default-settings.php:340
+#: classes/helpers/default-settings.php:364
+#: classes/helpers/default-settings.php:395
+#: classes/helpers/default-settings.php:419
+#: classes/helpers/default-settings.php:443
 msgid "Content mail"
 msgstr "Contenu de l'email."
 
-#: classes/helpers/default-settings.php:291
-#, c-format
+#: classes/helpers/default-settings.php:318
 msgid ""
 "New member registration on your site %%blog_name%% :\n"
 "\n"
@@ -911,34 +1087,39 @@ msgstr ""
 "Identifiant: %%user_name%%\n"
 "Email: %%user_email%%"
 
-#: classes/helpers/default-settings.php:296
+#: classes/helpers/default-settings.php:323
 msgid "Member registration email"
 msgstr "Email d'inscription d'un membre"
 
-#: classes/helpers/default-settings.php:297
+#: classes/helpers/default-settings.php:324
 msgid "Management of notification's mail by a Member upon registration."
 msgstr "Gestion des notifications email pour l'inscription d'un membre."
 
-#: classes/helpers/default-settings.php:309
-#, c-format
+#: classes/helpers/default-settings.php:336
 msgid "[%%blog_name%%] Your username and password"
 msgstr "[%%blog_name%%] Votre identifiant et mot de passe"
 
-#: classes/helpers/default-settings.php:320
+#: classes/helpers/default-settings.php:342
+msgid ""
+"Username: %%user_name%%\n"
+"Password: %%user_password%%\n"
+"\n"
+"%%login_url%%"
+msgstr ""
+
+#: classes/helpers/default-settings.php:347
 msgid "Member registration email validation"
 msgstr "Email d'inscription d'un membre avec validation du compte"
 
-#: classes/helpers/default-settings.php:321
+#: classes/helpers/default-settings.php:348
 msgid "Registration confirmation email with link validation counted"
 msgstr "Email de confirmation d'inscription avec lien de validation"
 
-#: classes/helpers/default-settings.php:333
-#, c-format
+#: classes/helpers/default-settings.php:360
 msgid "[%%blog_name%%] Validate your registration"
 msgstr "[%%blog_name%%] Valider votre inscription"
 
-#: classes/helpers/default-settings.php:339
-#, c-format
+#: classes/helpers/default-settings.php:366
 msgid ""
 "Thank you for registering on the site:\n"
 "\n"
@@ -958,11 +1139,11 @@ msgstr ""
 "\n"
 "%%confirm_register_link%%"
 
-#: classes/helpers/default-settings.php:344
+#: classes/helpers/default-settings.php:371
 msgid "Admin mail for Member lost password"
 msgstr "Email administrateur pour la perte d'un mot de passe membre"
 
-#: classes/helpers/default-settings.php:345
+#: classes/helpers/default-settings.php:372
 msgid ""
 "Management of notification's mail to the administrator when a member has "
 "lost his password."
@@ -970,11 +1151,11 @@ msgstr ""
 "Gestion des emails de notification à l'administrateur lorsqu'un membre a "
 "perdu son mot de passe."
 
-#: classes/helpers/default-settings.php:355
+#: classes/helpers/default-settings.php:382
 msgid "Recipient mail"
 msgstr "Email destinataire"
 
-#: classes/helpers/default-settings.php:358
+#: classes/helpers/default-settings.php:385
 msgid ""
 "By default this is the administrator's mail of the site but you can change "
 "the recipient. You can add more recipients, separating them with a comma"
@@ -983,32 +1164,28 @@ msgstr ""
 "changer le bénéficiaire. Vous pouvez également ajouter plusieurs "
 "destinataires, en les séparant par une virgule"
 
-#: classes/helpers/default-settings.php:364
-#, c-format
+#: classes/helpers/default-settings.php:391
 msgid "[%%blog_name%%] Password Lost/Changed"
 msgstr "[%%blog_name%%] Mot de passe perdu/changé"
 
-#: classes/helpers/default-settings.php:370
-#, c-format
+#: classes/helpers/default-settings.php:397
 msgid "Password Lost and Changed for member: %%user_name%%"
 msgstr "Mot de passe perdu et modifié pour le membre : %%user_name%%"
 
-#: classes/helpers/default-settings.php:375
+#: classes/helpers/default-settings.php:402
 msgid "Member lost password mail"
 msgstr "Email mot de passe perdu d'un membre"
 
-#: classes/helpers/default-settings.php:376
+#: classes/helpers/default-settings.php:403
 msgid "Management of notification's mail by a Member lost his password."
 msgstr ""
 "Gestion des notifications email pour la perte du mot de passe d'un membre."
 
-#: classes/helpers/default-settings.php:388
-#, c-format
+#: classes/helpers/default-settings.php:415
 msgid "[%%blog_name%%] Password Reset"
 msgstr "[%%blog_name%%] Réinitialisation du mot de passe"
 
-#: classes/helpers/default-settings.php:394
-#, c-format
+#: classes/helpers/default-settings.php:421
 msgid ""
 "Someone requested that the password be reset for the following account:\n"
 "\n"
@@ -1031,129 +1208,125 @@ msgstr ""
 "\n"
 "Si c'était une erreur, ignorez ce message et rien ne se passera.\n"
 "\n"
-"Pour réinitialiser votre mot de passe, veuillez consulter l'adresse suivante:"
-"\n"
+"Pour réinitialiser votre mot de passe, veuillez consulter l'adresse "
+"suivante:\n"
 "\n"
 "%%reset_pwd_link%%"
 
-#: classes/helpers/class-member-auth.php:92
-msgid "Please log in again."
-msgstr "Merci de vous connecter à nouveau."
+#: classes/helpers/default-settings.php:426
+msgid "Validate new email member"
+msgstr "Validation du nouvel email du membre"
 
-#: classes/helpers/class-member-auth.php:121
-msgid "<strong>ERROR</strong>: Invalid username or incorrect password."
-msgstr "<strong>ERREUR</strong> : Nom d'utilisateur ou mot de passe incorrect."
+#: classes/helpers/default-settings.php:427
+msgid "Manage member notification mail for email change."
+msgstr ""
+"Gérer le courrier de notification des membres en cas de changement d’adresse "
+"électronique."
 
-#: classes/helpers/class-member-auth.php:145
-msgid "<strong>ERROR</strong>: The email field is empty."
-msgstr "<strong>ERREUR</strong> : Le champ email est vide."
+#: classes/helpers/default-settings.php:439
+msgid "[%%blog_name%%] New Admin Email Address"
+msgstr "[%%blog_name%%] Nouvelle adresse e-mail de l’administrateur"
 
-#: classes/helpers/class-member-auth.php:148 
-#: classes/helpers/class-member-auth.php:189
-msgid "<strong>ERROR</strong>: The password field is empty."
-msgstr "<strong>ERREUR</strong> : Le champ mot de passe est vide."
-
-#: classes/helpers/class-member-auth.php:158
-#, c-format
+#: classes/helpers/default-settings.php:445
 msgid ""
-"<strong>ERROR</strong>: Invalid email. <a href=\"%s\" title=\"Password Lost "
-"and Found\">Lost your password</a>?"
+"Hello,\n"
+"A request to change your email address has been sent to :\n"
+"%%site_url%%.\n"
+"\n"
+"The request concerns the account of %%display_name%%.\n"
+"\n"
+"To confirm this change, please click on the following link:\n"
+" %%validate_email_link%%\n"
+"\n"
+"You can safely ignore and delete this email if you do not wish to take this "
+"action.\n"
+"\n"
+"Yours sincerely"
 msgstr ""
-"<strong>ERREUR</strong> : Adresse email incorrecte. <a href=\"%s\" "
-"title=\"Mot de passe oublié\">Mot de passe oublié</a>?"
+"Bonjour,\n"
+"Une demande de changement d’adresse e-mail a été envoyée à :\n"
+"%%site_url%%.\n"
+"\n"
+"Cette demande concerne le compte de %%display_name%%.\n"
+"\n"
+"Pour confirmer ce changement, veuillez cliquer sur le lien suivant :\n"
+" %%validate_email_link%%.\n"
+"\n"
+"Vous pouvez ignorer et supprimer cet e-mail en toute sécurité si vous ne "
+"souhaitez pas entreprendre cette action.\n"
+"\n"
+"Je vous prie d’agréer, Madame, Monsieur, l’expression de mes salutations "
+"distinguées."
 
-#: classes/helpers/class-member-auth.php:167
-#, c-format
+#: classes/shortcodes/class-shortcode-account.php:34
 msgid ""
-"<strong>ERROR</strong>: The password you entered for the email <strong>"
-"%1$s</strong> is incorrect. <a href=\"%2$s\" title=\"Password Lost and "
-"Found\">Lost your password</a>?"
+"If you do not recognize the last activity listed above, please change your "
+"password immediately."
 msgstr ""
-"<strong>ERREUR</strong> : Le mot de passe que vous avez saisi pour l'email "
-"<strong>%1$s</strong> est incorrect. <a href=\"%2$s\" title=\"Mot de passe "
-"oublié ?\">Mot de passe oublié ?</a>?"
+"Si vous ne reconnaissez pas la dernière activité mentionnée ci-dessus, "
+"veuillez modifier votre mot de passe immédiatement."
 
-#: classes/helpers/class-member-auth.php:186
-msgid "<strong>ERROR</strong>: The username field is empty."
-msgstr "<strong>ERREUR</strong>: Le champ identifiant est vide."
-
-#: classes/helpers/class-member-auth.php:199
-#, c-format
+#: classes/shortcodes/class-shortcode-change-password.php:17
 msgid ""
-"<strong>ERROR</strong>: Invalid username. <a href=\"%s\" title=\"Password "
-"Lost and Found\">Lost your password</a>?"
+"Your password has expired. You must change before continuing your visit."
 msgstr ""
-"<strong>ERREUR</strong>: Identifiant invalide. <a href=\"%s\" title=\"Mot de "
-"passe perdu\">Vous avez perdu votre mot de passe</a>?"
+"Votre mot de passe a expiré. Vous devez le changer avant de continuer votre "
+"visite."
 
-#: classes/helpers/class-member-auth.php:208
-#, c-format
+#: classes/shortcodes/class-shortcode-change-password.php:22
+msgid "You can't change your password, if you aren't logged-in."
+msgstr ""
+"Vous ne pouvez pas régénérer votre mot de passe si vous n'êtes pas "
+"connecté(e)"
+
+#: classes/shortcodes/class-shortcode-change-password.php:49
+#: classes/shortcodes/class-shortcode-lost-password.php:143
+msgid "The two passwords you entered don't match."
+msgstr "Les deux mots de passe que vous avez saisi ne coïncient pas"
+
+#: classes/shortcodes/class-shortcode-change-password.php:61
+msgid "You old password is incorrect."
+msgstr "Votre ancien mot de passe est incorrect."
+
+#: classes/shortcodes/class-shortcode-change-password.php:81
+#: classes/shortcodes/class-shortcode-lost-password.php:170
+msgid "An error occurred, password has not been changed."
+msgstr "Un erreur est survenue, votre mot de passe n'a pas été changé."
+
+#: classes/shortcodes/class-shortcode-change-password.php:102
+msgid "Password updated with success."
+msgstr "Mot de passe mis à jour avec succès."
+
+#: classes/shortcodes/class-shortcode-change-profile.php:59
+#: classes/shortcodes/class-shortcode-change-profile.php:72
+#: classes/shortcodes/class-shortcode-lost-password.php:113
+#: classes/shortcodes/class-shortcode-registration.php:215
 msgid ""
-"<strong>ERROR</strong>: The password you entered for the username <strong>"
-"%1$s</strong> is incorrect. <a href=\"%2$s\" title=\"Password Lost and "
-"Found\">Lost your password</a>?"
+"The link you clicked seems to be broken. Please contact the administrator of "
+"the site"
 msgstr ""
-"<strong>ERREUR</strong:> Le mot de passe que vous avez entré pour "
-"l’utilisateur <strong>%1$s</strong> est incorrect <a href=\"%2$s\" "
-"title=\"Mot de passe oublié\">Mot de passe oublié</a> ?"
+"Le lien sur lequel vous avez cliqué semble être corrompu. Merci de contacter "
+"l'administrateur du site"
 
-#: classes/helpers/default-sections.php:5
-msgid "General"
-msgstr "Général"
+#: classes/shortcodes/class-shortcode-change-profile.php:66
+#: classes/shortcodes/class-shortcode-lost-password.php:123
+#: classes/shortcodes/class-shortcode-lost-password.php:151
+#: classes/shortcodes/class-shortcode-registration.php:222
+#: classes/shortcodes/class-shortcode-registration.php:268
+msgid "Cheatin&#8217; uh?"
+msgstr "Alors on triche ?"
 
-# @ acf
-#: classes/helpers/default-sections.php:6
-msgid "Features available"
-msgstr "Fonctionnalités disponibles"
+#: classes/shortcodes/class-shortcode-change-profile.php:168
+msgid "Profile updated with success."
+msgstr "Profil mis à jour avec succès."
 
-#: classes/helpers/default-sections.php:11 
-#: classes/helpers/default-sections.php:12
-msgid "Feature pages"
-msgstr "Les pages spéciales"
-
-#: classes/helpers/default-sections.php:13
+#: classes/shortcodes/class-shortcode-change-profile.php:172
 msgid ""
-"Define here the pages containing WordPress's shortcodes for the different "
-"features as login, registration, etc."
+"An error occurred during the update. Please try again later or contact the "
+"site administrator."
 msgstr ""
-"Définissez les pages contenant les shortcodes pour la page de connexion, "
-"inscription, etc."
-
-#: classes/helpers/default-sections.php:17
-msgid "Security"
-msgstr "Sécurité"
-
-#: classes/helpers/default-sections.php:18
-msgid "Security policy"
-msgstr "Politique de sécurité"
-
-#: classes/helpers/default-sections.php:19
-msgid ""
-"Define your custom password policy by changing default behaviour about "
-"password strength, length, must-use characters and so on."
-msgstr ""
-"Définissez votre politique de sécurité en changeant les comportements par "
-"défaut concernant le mot de passe : sa complexité, sa longeure, les "
-"caractères obbligatoires, etc."
-
-#: classes/helpers/default-sections.php:23
-msgid "Mails"
-msgstr "Emails"
-
-#: classes/helpers/default-sections.php:24
-msgid "Manage admin and member email's templates"
-msgstr ""
-"Permet la personnalisation des template d'email envoyés au membres et admin."
-
-#: classes/helpers/default-sections.php:25
-msgid ""
-"Change however you want the admin's and member's email notifications. Please "
-"note that only described dynamic values will work for each notification."
-msgstr ""
-"Redéfinissez les templates par défaut des mails de notification pour les "
-"membres et les administrateurs. Veuillez prendre note, que seul les valeurs "
-"dynamiques mises en avant dans chaque notification seront disponible, afin "
-"d'être automatiquement remplacées avant l'envoi du mail."
+"Une erreur s’est produite lors de la mise à jour. Veuillez réessayer plus "
+"tard ou contacter l’administrateur du site."
 
 #: classes/shortcodes/class-shortcode-lost-password.php:63
 msgid "Invalid username or e-mail."
@@ -1175,53 +1348,6 @@ msgstr ""
 "Vous allez recevoir un email avec un lien pour réinitialiser votre mot de "
 "passe."
 
-#: classes/shortcodes/class-shortcode-lost-password.php:113 
-#: classes/shortcodes/class-shortcode-registration.php:220
-msgid ""
-"The link you clicked seems to be broken. Please contact the administrator of "
-"the site"
-msgstr ""
-"Le lien sur lequel vous avez cliqué semble être corrompu. Merci de contacter "
-"l'administrateur du site"
-
-#: classes/shortcodes/class-shortcode-lost-password.php:123 
-#: classes/shortcodes/class-shortcode-lost-password.php:151 
-#: classes/shortcodes/class-shortcode-registration.php:227 
-#: classes/shortcodes/class-shortcode-registration.php:269
-msgid "Cheatin&#8217; uh?"
-msgstr "Alors on triche ?"
-
-#: classes/shortcodes/class-shortcode-lost-password.php:143 
-#: classes/shortcodes/class-shortcode-change-password.php:49
-msgid "The two passwords you entered don't match."
-msgstr "Les deux mots de passe que vous avez saisi ne coïncient pas"
-
-#: classes/shortcodes/class-shortcode-lost-password.php:170 
-#: classes/shortcodes/class-shortcode-change-password.php:81
-msgid "An error occurred, password has not been changed."
-msgstr "Un erreur est survenue, votre mot de passe n'a pas été changé."
-
-#: classes/shortcodes/class-shortcode-change-password.php:17
-msgid ""
-"Your password has expired. You must change before continuing your visit."
-msgstr ""
-"Votre mot de passe a expiré. Vous devez le changer avant de continuer votre "
-"visite."
-
-#: classes/shortcodes/class-shortcode-change-password.php:22
-msgid "You can't change your password, if you aren't logged-in."
-msgstr ""
-"Vous ne pouvez pas régénérer votre mot de passe si vous n'êtes pas "
-"connecté(e)"
-
-#: classes/shortcodes/class-shortcode-change-password.php:61
-msgid "You old password is incorrect."
-msgstr "Votre ancien mot de passe est incorrect."
-
-#: classes/shortcodes/class-shortcode-change-password.php:102
-msgid "Password updated with success."
-msgstr "Mot de passe mis à jour avec succès."
-
 #: classes/shortcodes/class-shortcode-registration.php:91
 msgid "You need to enter a valid email address"
 msgstr "Vous devez entrer une adresse email valide"
@@ -1230,7 +1356,7 @@ msgstr "Vous devez entrer une adresse email valide"
 msgid "This email address is already taken"
 msgstr "Cette adresse email est déjà utilisée"
 
-#: classes/shortcodes/class-shortcode-registration.php:157
+#: classes/shortcodes/class-shortcode-registration.php:152
 msgid ""
 "Your account has been created. You just received an email to confirm your "
 "registration"
@@ -1238,24 +1364,23 @@ msgstr ""
 "Votre compte a bien été créé. Vous allez recevoir un email pour confirmer "
 "votre inscription."
 
-#: classes/shortcodes/class-shortcode-registration.php:164 
-#: classes/shortcodes/class-shortcode-registration.php:250
+#: classes/shortcodes/class-shortcode-registration.php:159
+#: classes/shortcodes/class-shortcode-registration.php:249
 msgid "The two password you filled doesn't match"
 msgstr "Les deux mots de passe que vous avez saisi ne correspondent pas"
 
-#: classes/shortcodes/class-shortcode-registration.php:166 
-#: classes/shortcodes/class-shortcode-registration.php:252
+#: classes/shortcodes/class-shortcode-registration.php:161
+#: classes/shortcodes/class-shortcode-registration.php:251
 msgid "You password need to be at least 6 characters long"
 msgstr "Votre mot de passe doit contenir au minimum 6 caractères"
 
-#: classes/shortcodes/class-shortcode-registration.php:169 
-#: classes/shortcodes/class-shortcode-registration.php:255
+#: classes/shortcodes/class-shortcode-registration.php:164
+#: classes/shortcodes/class-shortcode-registration.php:254
 msgid "You need to fill the two password fields"
 msgstr "Vous devez compléter les deux champs mot de passe"
 
-#: classes/shortcodes/class-shortcode-registration.php:204 
-#: classes/shortcodes/class-shortcode-registration.php:318
-#, c-format
+#: classes/shortcodes/class-shortcode-registration.php:199
+#: classes/shortcodes/class-shortcode-registration.php:317
 msgid ""
 "Your account has been created. You can now log-in with your access. <a "
 "href=\"%s\">Click here</a> "
@@ -1263,15 +1388,60 @@ msgstr ""
 "Votre compte a bien été créé. Vous pouvez désormais vous connecter avec vos "
 "accès. <a href=\"%s\">Cliquez ici</a> "
 
-#: classes/shortcodes/class-shortcode-registration.php:233
+#: classes/shortcodes/class-shortcode-registration.php:227
+msgid "Key is not valid. Please contact the administrator of the site"
+msgstr "La clé n’est pas valide. Veuillez contacter l’administrateur du site"
+
+#: classes/shortcodes/class-shortcode-registration.php:232
 msgid "Registration key is not valide for this member"
 msgstr "La clé d'enregistrement n'est pas valide pour ce membre"
 
-#: views/admin/metabox-password.php:12 
-#: views/client/widget-mpt-unconnected.php:20 
-#: views/client/member-login.tpl.php:13 
-#: views/client/member-registration-step-2.tpl.php:21 
-#: views/client/member-registration.tpl.php:23
+#: views/admin/metabox-content-permissions.php:8
+msgid "Limit access to this post's content to members of the selected roles."
+msgstr "Limiter l'accès au contenu aux membres des rôles sélectionnés."
+
+#: views/admin/metabox-content-permissions.php:21
+msgid ""
+"If no roles are selected, everyone can view the content. The post author, "
+"any users who can edit this post, and users with the %s capability can view "
+"the content regardless of role."
+msgstr ""
+"Si aucun rôle n'est séléctionner, tous les membres peuvent voir le contenu. "
+"L'auteur du contenu, toutes les personnes pouvant modifier le contenu, et "
+"tous les utilisateurs avec la permission %s peuvent afficher le contenu "
+"indépendamment du rôle."
+
+#: views/admin/metabox-content-permissions.php:25
+msgid "Custom error messsage:"
+msgstr "Message d'erreur personnalisé:"
+
+#: views/admin/metabox-last-user-activity.php:30
+msgid "No data available."
+msgstr "Pas de données disponibles."
+
+# @ acf
+#: views/admin/metabox-main.php:19
+msgid "First name"
+msgstr "Prénom"
+
+#: views/admin/metabox-main.php:23
+#: views/client/member-registration-step-2.tpl.php:22
+#: views/client/member-registration.tpl.php:25
+msgid "Last name"
+msgstr "Nom"
+
+#: views/admin/metabox-main.php:27
+msgid "Connection type"
+msgstr "Mode de connexion"
+
+#: views/admin/metabox-main.php:37
+msgid "Social ID"
+msgstr "ID social"
+
+#: views/admin/metabox-password.php:12 views/client/member-login.tpl.php:16
+#: views/client/member-registration-step-2.tpl.php:26
+#: views/client/member-registration.tpl.php:29
+#: views/client/widget-mpt-unconnected.php:20
 msgid "Password"
 msgstr "Mot de passe"
 
@@ -1299,6 +1469,11 @@ msgstr "Générer un mot de passe"
 msgid "Need to change password next connect"
 msgstr "Forcer le changement de mot de passe à la prochaine connexion"
 
+# @ wp3i
+#: views/admin/metabox-resend-registration-notification.php:8
+msgid "Send a notification"
+msgstr "Envoyer une notification"
+
 #: views/admin/metabox-welcome-message.php:8
 msgid "Send welcome message to this new member "
 msgstr "Envoyer un email de bienvenue au nouveau membre"
@@ -1315,24 +1490,60 @@ msgstr "Non"
 msgid "Export CSV file"
 msgstr "Exporter en CSV"
 
-# @ acf
-#: views/admin/metabox-main.php:19
-msgid "First name"
-msgstr "Prénom"
+#: views/admin/page-export.php:14
+msgid "Export"
+msgstr ""
 
-#: views/admin/metabox-main.php:23 
-#: views/client/member-registration-step-2.tpl.php:18 
-#: views/client/member-registration.tpl.php:20
-msgid "Last name"
-msgstr "Nom"
+#: views/admin/page-import.php:11
+msgid "Import CSV file"
+msgstr "Import fichier CSV"
 
-#: views/admin/metabox-main.php:27
-msgid "Connection type"
-msgstr "Mode de connexion"
+#: views/admin/page-import.php:13
+msgid ""
+"Import members from a CSV file. The format for the CSV file is \"email; "
+"lastname; firstname; username\". The password is automaticaly generated when "
+"the user is created."
+msgstr ""
+"Import de membres à partir d'un fichier CSV. Le format du fichier est  "
+"\"email; lastname; firstname; username\". Le mot de passe est automatique "
+"généré lors de la création du membre."
 
-#: views/admin/metabox-main.php:37
-msgid "Social ID"
-msgstr "ID social"
+#: views/admin/page-import.php:14
+msgid "Select a CSV file."
+msgstr "Sélectionner un fichier CSV."
+
+#: views/admin/page-import.php:17
+msgid "Import"
+msgstr ""
+
+#: views/admin/page-import.php:25
+msgid "Last import : %s"
+msgstr "Dernier import : %s"
+
+#: views/admin/page-import.php:27
+msgid "CSV formating error :"
+msgstr "CSV erreur de formatage :"
+
+#: views/admin/page-import.php:29
+msgid "Line %s : \"%s\" %s (%s)"
+msgstr "Ligne %s : \"%s\" %s (%s)"
+
+#: views/admin/page-import.php:33
+msgid "Importing status :"
+msgstr "Statut d'import :"
+
+#: views/admin/page-import.php:35
+msgid "%s) %s (%s) : %s"
+msgstr "%s) %s (%s) : %s"
+
+#: views/admin/page-import.php:39
+msgid "No report data available."
+msgstr "Pas de données de rapport disponibles."
+
+# @ wp3i
+#: views/admin/page-settings.php:9
+msgid "Members - Settings"
+msgstr "Membres - Paramètres"
 
 #: views/admin/term-fields.php:7
 msgctxt "Taxonomy Capabilities"
@@ -1377,137 +1588,104 @@ msgstr "HTML"
 msgid "AJAX"
 msgstr "AJAX"
 
-#: views/admin/metabox-content-permissions.php:8
-msgid "Limit access to this post's content to members of the selected roles."
-msgstr "Limiter l'accès au contenu aux membres des rôles sélectionnés."
+#: views/client/member-account.tpl.php:40
+msgid "Your resources"
+msgstr "Vos ressources"
 
-#: views/admin/metabox-content-permissions.php:21
-#, c-format
-msgid ""
-"If no roles are selected, everyone can view the content. The post author, "
-"any users who can edit this post, and users with the %s capability can view "
-"the content regardless of role."
-msgstr ""
-"Si aucun rôle n'est séléctionner, tous les membres peuvent voir le contenu. "
-"L'auteur du contenu, toutes les personnes pouvant modifier le contenu, et "
-"tous les utilisateurs avec la permission %s peuvent afficher le contenu "
-"indépendamment du rôle."
+#: views/client/member-account.tpl.php:54
+msgid "No page associated with your role has been found."
+msgstr "Aucune page associée à votre rôle n’a été trouvée."
 
-#: views/admin/metabox-content-permissions.php:25
-msgid "Custom error messsage:"
-msgstr "Message d'erreur personnalisé:"
+#: views/client/member-account.tpl.php:56
+msgid "Account"
+msgstr "Compte"
 
-#: views/admin/page-import.php:11
-msgid "Import CSV file"
-msgstr "Import fichier CSV"
-
-#: views/admin/page-import.php:13
-msgid ""
-"Import members from a CSV file. The format for the CSV file is \"email; "
-"lastname; firstname; username\". The password is automaticaly generated when "
-"the user is created."
-msgstr ""
-"Import de membres à partir d'un fichier CSV. Le format du fichier est  "
-"\"email; lastname; firstname; username\". Le mot de passe est automatique "
-"généré lors de la création du membre."
-
-#: views/admin/page-import.php:14
-msgid "Select a CSV file."
-msgstr "Sélectionner un fichier CSV."
-
-#: views/admin/page-import.php:25
-#, c-format
-msgid "Last import : %s"
-msgstr "Dernier import : %s"
-
-#: views/admin/page-import.php:27
-msgid "CSV formating error :"
-msgstr "CSV erreur de formatage :"
-
-#: views/admin/page-import.php:29
-#, c-format
-msgid "Line %s : \"%s\" %s (%s)"
-msgstr "Ligne %s : \"%s\" %s (%s)"
-
-#: views/admin/page-import.php:33
-msgid "Importing status :"
-msgstr "Statut d'import :"
-
-#: views/admin/page-import.php:35
-#, c-format
-msgid "%s) %s (%s) : %s"
-msgstr "%s) %s (%s) : %s"
-
-#: views/admin/page-import.php:39
-msgid "No report data available."
-msgstr "Pas de données de rapport disponibles."
-
-# @ wp3i
-#: views/admin/page-settings.php:9
-msgid "Members - Settings"
-msgstr "Membres - Paramètres"
-
-#: views/client/member-change-password.tpl.php:10
+#: views/client/member-change-password.tpl.php:12
 msgid "Your old password"
 msgstr "Votre ancien mot de passe"
 
-#: views/client/member-change-password.tpl.php:13 
-#: views/client/member-lost-password-step-2.tpl.php:10
+#: views/client/member-change-password.tpl.php:16
+#: views/client/member-lost-password-step-2.tpl.php:12
 msgid "Your new password"
 msgstr "Votre nouveau mot de passe"
 
-#: views/client/member-change-password.tpl.php:16 
-#: views/client/member-lost-password-step-2.tpl.php:13
+#: views/client/member-change-password.tpl.php:20
+#: views/client/member-lost-password-step-2.tpl.php:16
 msgid "Your new password (confirmation)"
 msgstr "Votre nouveau mot de passe (confirmation)"
 
-#: views/client/member-change-password.tpl.php:20 
-#: views/client/widget-mpt-unconnected.php:31 
-#: views/client/member-login.tpl.php:24 
-#: views/client/member-lost-password-step-1.tpl.php:14 
-#: views/client/member-registration-step-2.tpl.php:28 
-#: views/client/member-lost-password-step-2.tpl.php:17 
-#: views/client/member-registration.tpl.php:34
+#: views/client/member-change-password.tpl.php:25
+#: views/client/member-change-profile.tpl.php:49
+#: views/client/member-login.tpl.php:28
+#: views/client/member-lost-password-step-1.tpl.php:17
+#: views/client/member-lost-password-step-2.tpl.php:21
+#: views/client/member-registration-step-2.tpl.php:35
+#: views/client/member-registration.tpl.php:43
+#: views/client/widget-mpt-unconnected.php:31
 msgid "Submit"
 msgstr "Valider"
 
-#: views/client/widget-mpt-unconnected.php:17 
-#: views/client/member-login.tpl.php:10 
-#: views/client/member-lost-password-step-1.tpl.php:10
+#: views/client/member-change-profile.tpl.php:23
+msgid "Your username"
+msgstr "Votre identifiant"
+
+#: views/client/member-change-profile.tpl.php:27
+msgid "Your email"
+msgstr "Votre email"
+
+#: views/client/member-change-profile.tpl.php:33
+msgid "There is a pending change of the member email to <strong>%s</strong>."
+msgstr ""
+"La modification de l’adresse électronique du membre <strong>%s</strong> est "
+"en cours."
+
+#: views/client/member-change-profile.tpl.php:34
+msgid "Cancel"
+msgstr "Annuler"
+
+#: views/client/member-change-profile.tpl.php:39
+msgid "Your first name"
+msgstr "Votre prénom"
+
+#: views/client/member-change-profile.tpl.php:43
+msgid "Your last name"
+msgstr "Votre nom de famille"
+
+#: views/client/member-login.tpl.php:12
+#: views/client/member-lost-password-step-1.tpl.php:12
+#: views/client/widget-mpt-unconnected.php:17
 msgid "E-mail"
 msgstr "Email"
 
-#: views/client/widget-mpt-unconnected.php:25 
-#: views/client/member-login.tpl.php:18
+#: views/client/member-login.tpl.php:22
+#: views/client/widget-mpt-unconnected.php:25
 msgid "Remember me"
 msgstr "Se souvenir de moi"
 
-#: views/client/widget-mpt-unconnected.php:35 
-#: views/client/member-login.tpl.php:27
+#: views/client/member-login.tpl.php:32
+#: views/client/widget-mpt-unconnected.php:35
 msgid "Forgot password ?"
 msgstr "Mot de passe oublié ?"
 
 # @ acf
-#: views/client/widget-mpt-unconnected.php:39 
-#: views/client/member-login.tpl.php:28
+#: views/client/member-login.tpl.php:33
+#: views/client/widget-mpt-unconnected.php:39
 msgid "Register"
 msgstr "Inscription"
 
+#: views/client/member-lost-password-step-1.tpl.php:12
+msgid "Username or E-mail"
+msgstr "Identifiant ou email"
+
+#: views/client/member-registration-step-2.tpl.php:30
+#: views/client/member-registration.tpl.php:33
+msgid "Password (confirmation)"
+msgstr "Mot de passe (confirmation)"
+
 #: views/client/widget-mpt-connected.php:18
-#, c-format
 msgid "Welcome %s! It's been long since we had not seen you!"
 msgstr "Bienvenue %s ! Cela faisait longtemps que l'on ne t'avait pas vu !"
 
 #: views/client/widget-mpt-connected.php:20
-#, c-format
 msgid "Do you want to <a href=\"%s\">log out</a> ?"
 msgstr "Souhaites-tu te <a href=\"%s\">déconnecter</a> ?"
-
-#: views/client/member-lost-password-step-1.tpl.php:10
-msgid "Username or E-mail"
-msgstr "Identifiant ou email"
-
-#: views/client/member-registration-step-2.tpl.php:24 
-#: views/client/member-registration.tpl.php:26
-msgid "Password (confirmation)"
-msgstr "Mot de passe (confirmation)"

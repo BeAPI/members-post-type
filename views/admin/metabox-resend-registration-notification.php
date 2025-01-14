@@ -5,4 +5,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 
-<input type="submit" class="button button-primary" name="mpt_resend_notification_regsitration" value="<?php esc_attr_e( 'Send a notification', 'mpt' ); ?>"/>
+<input type="submit" class="button button-primary" name="mpt_resend_notification_registration" value="<?php esc_attr_e( 'Send a notification', 'mpt' ); ?>"/>

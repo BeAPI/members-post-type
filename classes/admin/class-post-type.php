@@ -357,13 +357,16 @@ class MPT_Admin_Post_Type {
 	 * @return void
 	 */
 	public static function save_metabox_resend_registration_notification( $post_id ) {
-		// Check nonce
-		if ( ! isset( $_POST[ MPT_CPT_NAME . '-postbox-resend-registration-notification' ] ) || ! wp_verify_nonce( $_POST[ MPT_CPT_NAME . '-postbox-resend-registration-notification' ], plugin_basename( __FILE__ ) ) ) {
+		$action = $_POST['mpt_resend_notification_regsitration'] ?? '';
+		// Check action
+		if ( empty( $action ) ) {
 			return;
 		}
 
-		// Check action
-		if ( empty( $_POST['mpt_resend_notification_regsitration'] ) ) {
+		// Check nonce
+		if ( ! isset( $_POST[ MPT_CPT_NAME . '-postbox-resend-registration-notification' ] ) || ! wp_verify_nonce( $_POST[ MPT_CPT_NAME . '-postbox-resend-registration-notification' ], plugin_basename( __FILE__ ) ) ) {
+			self::$errors[] = 5;
+
 			return;
 		}
 

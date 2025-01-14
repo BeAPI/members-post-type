@@ -119,6 +119,7 @@ _mpt_load_files( 'classes/', array(
 // Plugin compat classes
 _mpt_load_files( 'classes/compat/', array(
 	'polylang',
+	'gravityforms',
 ), 'class-');
 
 
@@ -171,8 +172,11 @@ function init_mpt_plugin() {
 	new MPT_Security();
 	new MPT_No_Cache();
 	// Compat
-	if ( function_exists( 'PLL' ) ) {
+	if ( function_exists( 'PLL' ) &&  function_exists('pll_is_translated_post_type') && pll_is_translated_post_type( MPT_CPT_NAME ) ) {
 		new MPT_Polylang();
+	}
+	if ( class_exists( 'GFForms' ) ) {
+		new MPT_Gravity_Forms();
 	}
 
 	if( is_admin() ) {

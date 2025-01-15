@@ -61,7 +61,7 @@ $pages_query = new \WP_Query( $args );
 	</ul>
 
 <?php if ( ! empty( $last_login_activity ) ) : ?>
-	<div class="mpt-field notice-warning">
+	<div class="mpt-field notice-info">
 		<h2><?php echo esc_html_e( 'Last login details', 'mpt' ); ?></h2>
 		<br>
 		<p><strong><?php echo esc_html( $member_data['message'] ); ?></strong></p>

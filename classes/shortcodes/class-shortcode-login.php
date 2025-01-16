@@ -17,6 +17,11 @@ class MPT_Shortcode_Login extends MPT_Shortcode {
 		if ( mpt_is_member_logged_in() ) {
 			 apply_filters( 'mpt_shortcode_login_member_logged_in', '<!-- Members already logged-in. -->', mpt_get_current_member() );
 
+			// Skip render shortcode in the bo
+			if ( is_admin() || ! empty( $_GET['_locale'] ) ) {
+				return;
+			}
+
 			$account_link = MPT_Main::get_action_permalink('account');
 
 			if ( ! empty( $account_link ) ) {

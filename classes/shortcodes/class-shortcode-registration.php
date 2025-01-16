@@ -25,7 +25,18 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 	public static function shortcode() {
 		// Member logged-in ?
 		if ( mpt_is_member_logged_in() ) {
-			return '<!-- Members already logged-in. -->';
+
+			// Skip render shortcode in the bo
+			if ( is_admin() || ! empty( $_GET['_locale'] ) ) {
+				return '<!-- Members already logged-in. -->';
+			}
+
+			$account_link = MPT_Main::get_action_permalink('account');
+
+			if ( ! empty( $account_link ) ) {
+				wp_safe_redirect( $account_link, 302, 'mpt' );
+				exit;
+			}
 		}
 
 		if ( isset( $_GET['mpt-action'] ) && $_GET['mpt-action'] == 'validation-member-registration' ) {

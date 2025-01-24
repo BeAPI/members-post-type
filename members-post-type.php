@@ -174,7 +174,7 @@ function init_mpt_plugin() {
 	new MPT_Shortcode();
 	new MPT_Security();
 	new MPT_No_Cache();
-	new MPT_Two_Factor();
+	//new MPT_Two_Factor();
 	// Compat
 	if ( function_exists( 'PLL' ) &&  function_exists('pll_is_translated_post_type') && pll_is_translated_post_type( MPT_CPT_NAME ) ) {
 		new MPT_Polylang();

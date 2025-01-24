@@ -120,6 +120,13 @@ return array(
 			'options' => $all_pages
 		),
 		array(
+			'name'    => 'page-two-factor',
+			'label'   => __( 'Two factor challenge', 'mpt' ),
+			//'desc' => __( 'Dropdown', 'mpt' ),
+			'type'    => 'select',
+			'options' => $all_pages
+		),
+		array(
 			'name'    => 'page-change-password',
 			'label'   => __( 'Change password', 'mpt' ),
 			//'desc' => __( 'Dropdown', 'mpt' ),

@@ -16,8 +16,10 @@ class MPT_Shortcode_Two_Factor extends MPT_Shortcode {
 	}
 
 	/**
-	 * @param string $login
-	 * @param int $member_id
+	 * Intercepts members' log in to redirect them to the two-factor challenge.
+	 *
+	 * @param string $login member's login
+	 * @param int $member_id member's id
 	 *
 	 * @return void
 	 */
@@ -27,10 +29,19 @@ class MPT_Shortcode_Two_Factor extends MPT_Shortcode {
 			return;
 		}
 
+		// Delete auth cookie before redirecting the member to two-factor challenge.
 		MPT_Member_Auth::clear_auth_cookie();
 
+		// Reset two-factor metadata for the member.
+		delete_post_meta( $member->id, self::MEMBER_2FA_CHALLENGE_ID_META_NAME );
+		delete_post_meta( $member->id, self::MEMBER_2FA_NONCE_META_NAME );
+		delete_post_meta( $member->id, self::MEMBER_2FA_CODE_META_NAME );
+
+		// Create new challenge id to identify the member in two factor page.
 		$challenge_id = wp_generate_uuid4();
 		update_post_meta( $member->id, self::MEMBER_2FA_CHALLENGE_ID_META_NAME, $challenge_id );
+
+		// Redirect member to two-factor page.
 		wp_safe_redirect(
 			add_query_arg(
 				[
@@ -44,15 +55,13 @@ class MPT_Shortcode_Two_Factor extends MPT_Shortcode {
 
 	/**
 	 * Render shortcode, use local or theme template
+	 *
 	 * @return string HTML of shortcode
 	 */
 	public static function shortcode() {
-		if (
-			( defined( 'DOING_AJAX' ) && DOING_AJAX )
-			|| ( defined( 'REST_REQUEST' ) && REST_REQUEST )
-			|| ( defined( 'DOING_CRON' ) && DOING_CRON )
-		) {
-			return;
+		// Skip render shortcode in the bo
+		if ( is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
+			return '';
 		}
 
 		// Member logged-in ?
@@ -75,11 +84,11 @@ class MPT_Shortcode_Two_Factor extends MPT_Shortcode {
 		$is_post_request = ( 'POST' === strtoupper( $_SERVER['REQUEST_METHOD'] ) );
 
 		// Get data from POST, cleanup it
-		$member_data = isset( $_POST['mpttwofactor'] ) ? $_POST['mpttwofactor'] : [];
+		$member_data = isset( $_POST['mpttwofactor'] ) ? wp_unslash( $_POST['mpttwofactor'] ) : [];
 
-		$challenge_id = isset( $member_data['challenge_id'] ) ? $member_data['challenge_id'] : '';
+		$challenge_id = isset( $member_data['challenge_id'] ) ? sanitize_text_field( $member_data['challenge_id'] ) : '';
 		if ( empty( $challenge_id ) && ! $is_post_request ) {
-			$challenge_id = isset( $_GET['challenge_id'] ) ? $_GET['challenge_id'] : '';
+			$challenge_id = isset( $_GET['challenge_id'] ) ? sanitize_text_field( $_GET['challenge_id'] ) : '';
 		}
 
 		if ( empty( $challenge_id ) ) {
@@ -87,13 +96,7 @@ class MPT_Shortcode_Two_Factor extends MPT_Shortcode {
 			exit;
 		}
 
-		$member_id = MPT_Member::get_id_from_key_value( self::MEMBER_2FA_CHALLENGE_ID_META_NAME, $challenge_id );
-		if ( empty( $member_id ) ) {
-			wp_safe_redirect( home_url( '/' ), 302, 'mpt' );
-			exit;
-		}
-
-		$member = new MPT_Member( $member_id );
+		$member = self::get_member_by_challenge_id( $challenge_id );
 		if ( ! $member->exists() ) {
 			wp_safe_redirect( home_url( '/' ), 302, 'mpt' );
 			exit;
@@ -103,6 +106,9 @@ class MPT_Shortcode_Two_Factor extends MPT_Shortcode {
 		if ( ! $login_nonce ) {
 			wp_die( esc_html__( 'Fail to create login nonce.', 'mpt' ) );
 		}
+
+		// Maybe print script to clean parameters from two-factor URL.
+		self::maybe_clean_url();
 
 		if ( ! self::member_has_code( $member ) ) {
 			self::generate_and_send_code( $member );
@@ -124,61 +130,110 @@ class MPT_Shortcode_Two_Factor extends MPT_Shortcode {
 	}
 
 	/**
-	 * Test if the members try to login
+	 * Process two-factor action.
 	 */
 	public static function init() {
-		if ( isset( $_POST['mptlogin'] ) ) {
-			// Cleanup data
-			$_POST['mptlogin'] = stripslashes_deep( $_POST['mptlogin'] );
-
-			// Check _NONCE
-			$nonce = isset( $_POST['_mptnonce'] ) ? $_POST['_mptnonce'] : '';
-			if ( ! mpt_verify_nonce( $nonce, 'mptlogin' ) ) {
-				parent::set_message( 'check-nonce', 'Security check failed', 'error' );
-
-				return false;
-			}
-
-			// Parse vs defaults
-			$_POST['mptlogin'] = wp_parse_args( $_POST['mptlogin'], [
-				'username'    => '',
-				'rememberme'  => '',
-				'redirect_to' => '',
-				'rememberme'  => false,
-			] );
-
-			// Try sign-on
-			$signon = MPT_Member_Auth::signon( [
-				'm_login'    => $_POST['mptlogin']['username'],
-				'm_password' => $_POST['mptlogin']['password'],
-				'remember'   => $_POST['mptlogin']['rememberme'],
-			] );
-
-			// result sign-on are error ?
-			if ( is_wp_error( $signon ) ) {
-				parent::set_message( $signon->get_error_code(), $signon->get_error_message(), 'error' );
-
-				return false;
-			}
-
-			// Failback redirect to home...
-			$account_id   = MPT_Main::get_action_page_id( 'account' );
-			$redirect_url = ! empty( $account_id ) ? get_permalink( $account_id ) : home_url( '/' );
-			$redirect_to  = ( isset( $_POST['mptlogin']['redirect_to'] ) && ! empty( $_POST['mptlogin']['redirect_to'] ) ) ? $_POST['mptlogin']['redirect_to'] : $redirect_url;
-
-			// Need to look at the URL the way it will end up in wp_redirect()
-			$redirect_to = wp_sanitize_redirect( $redirect_to );
-			$redirect_to = wp_validate_redirect( $redirect_to, home_url( '/' ) );
-
-			wp_redirect( apply_filters( 'mpt_login_redirect', $redirect_to ) );
-			exit();
+		if ( ! isset( $_POST['mpttwofactor'] ) ) {
+			return;
 		}
 
-		return false;
+		$mpttwofactor = wp_unslash( $_POST['mpttwofactor'] );
+
+		$challenge_id = isset( $mpttwofactor['challenge_id'] ) ? $mpttwofactor['challenge_id'] : '';
+		$nonce        = isset( $mpttwofactor['nonce'] ) ? $mpttwofactor['nonce'] : '';
+		$code         = isset( $mpttwofactor['code'] ) ? $mpttwofactor['code'] : '';
+		$member       = self::get_member_by_challenge_id( $challenge_id );
+		if ( empty( $challenge_id ) || empty( $nonce ) || ! $member->exists() ) {
+			wp_safe_redirect( home_url( '/' ) );
+			exit;
+		}
+
+		if ( ! self::validate_login_nonce( $member, $nonce ) ) {
+			wp_safe_redirect( home_url( '/' ) );
+			exit;
+		}
+
+		if ( isset( $_POST['mpt-two-factor-resend-code'] ) ) {
+			self::generate_and_send_code( $member );
+			MPT_Shortcode::set_message(
+				'two-factor-code-refresh',
+				esc_html__( 'A new authentication code has been sent.', 'mpt' ),
+				'info'
+			);
+
+			return;
+		}
+
+		if ( ! self::validate_two_factor_code( $member, $code ) ) {
+			MPT_Shortcode::set_message(
+				'invalid-two-factor-code',
+				esc_html__( 'Invalid two-factor authentication code.', 'mpt' )
+			);
+
+			return;
+		}
+
+		delete_post_meta( $member->id, self::MEMBER_2FA_CHALLENGE_ID_META_NAME );
+		delete_post_meta( $member->id, self::MEMBER_2FA_NONCE_META_NAME );
+		delete_post_meta( $member->id, self::MEMBER_2FA_CODE_META_NAME );
+
+		MPT_Member_Auth::set_auth_cookie( $member->id );
+		wp_safe_redirect( MPT_Main::get_action_permalink( 'account' ) );
+		exit;
 	}
 
 	/**
-	 * Create nonce to validate member 2FA operation.
+	 * Remove query param from URL.
+	 *
+	 * - challenge_id
+	 *
+	 * @return void
+	 */
+	protected static function maybe_clean_url() {
+		if ( ! isset( $_GET['challenge_id'] ) ) {
+			return;
+		}
+
+		$current_url  = set_url_scheme( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
+		$filtered_url = remove_query_arg( 'challenge_id', $current_url );
+		?>
+        <script>
+            if (window.history.replaceState) {
+                window.history.replaceState(null, null, '<?php echo esc_url( $filtered_url ); ?>');
+            }
+        </script>
+		<?php
+		unset( $current_url );
+		unset( $filtered_url );
+	}
+
+	/**
+	 * Find member from two-factor challenge id.
+	 *
+	 * @param string $challenge_id
+	 *
+	 * @return MPT_Member|false;
+	 */
+	protected static function get_member_by_challenge_id( $challenge_id ) {
+		if ( empty( $challenge_id ) ) {
+			return false;
+		}
+
+		$member_id = MPT_Member::get_id_from_key_value( self::MEMBER_2FA_CHALLENGE_ID_META_NAME, $challenge_id );
+		if ( empty( $member_id ) ) {
+			return false;
+		}
+
+		$member = new MPT_Member( $member_id );
+		if ( ! $member->exists() ) {
+			return false;
+		}
+
+		return $member;
+	}
+
+	/**
+	 * Create nonce to validate member two-factor operation.
 	 *
 	 * @param MPT_Member $member
 	 *
@@ -212,6 +267,8 @@ class MPT_Shortcode_Two_Factor extends MPT_Shortcode {
 	}
 
 	/**
+	 * Create key from login nonce data.
+	 *
 	 * @param array $data
 	 *
 	 * @return string|bool
@@ -226,6 +283,8 @@ class MPT_Shortcode_Two_Factor extends MPT_Shortcode {
 	}
 
 	/**
+	 * Generate a two-factor code metadata and send the code to the member by mail.
+	 *
 	 * @param MPT_Member $member
 	 *
 	 * @return void
@@ -253,6 +312,8 @@ class MPT_Shortcode_Two_Factor extends MPT_Shortcode {
 	}
 
 	/**
+	 * Check if member has a valid two-factor code metadata.
+	 *
 	 * @param MPT_Member $member
 	 *
 	 * @return bool
@@ -260,7 +321,7 @@ class MPT_Shortcode_Two_Factor extends MPT_Shortcode {
 	protected static function member_has_code( $member ) {
 		$member_code = get_post_meta( $member->id, self::MEMBER_2FA_CODE_META_NAME, true );
 
-		return ! empty( $member_code ) && isset( $member_code['code'] ) && isset( $member_code['expiration'] ) && (int) $member_code['expiration'] < time();
+		return ! empty( $member_code ) && isset( $member_code['code'] ) && isset( $member_code['expiration'] ) && time() < (int) $member_code['expiration'];
 	}
 
 	/**
@@ -276,5 +337,68 @@ class MPT_Shortcode_Two_Factor extends MPT_Shortcode {
 		}
 
 		return $random_string;
+	}
+
+	/**
+	 * Validate two-factor login nonce.
+	 *
+	 * This custom nonce has a limited lifetime of 10 minutes.
+	 *
+	 * @param MPT_Member $member
+	 * @param string $nonce
+	 *
+	 * @return bool
+	 */
+	protected static function validate_login_nonce( $member, $nonce ) {
+		$user_login_nonce = get_post_meta( $member->id, self::MEMBER_2FA_NONCE_META_NAME, true );
+		if ( empty( $user_login_nonce ) || ! isset( $user_login_nonce['expiration'] ) || ! isset( $user_login_nonce['key'] ) ) {
+			return false;
+		}
+
+		$unverified_login_nonce  = [
+			'member'     => $member->id,
+			'expiration' => $user_login_nonce['expiration'],
+			'key'        => $nonce,
+		];
+		$unverified_nonce_hashed = self::hash_key( $unverified_login_nonce );
+		$nonce_is_valid          = $unverified_nonce_hashed && hash_equals( $user_login_nonce['key'], $unverified_nonce_hashed );
+
+		if ( $nonce_is_valid && time() < (int) $user_login_nonce['expiration'] ) {
+			return true;
+		}
+
+		delete_post_meta( $member->id, self::MEMBER_2FA_NONCE_META_NAME );
+
+		return false;
+	}
+
+	/**
+	 * Validate two-factor code.
+	 *
+	 * @param MPT_Member $member
+	 * @param string $code
+	 *
+	 * @return bool
+	 */
+	protected static function validate_two_factor_code( $member, $code ) {
+		$user_code = get_post_meta( $member->id, self::MEMBER_2FA_CODE_META_NAME, true );
+		if ( empty( $user_code ) || ! isset( $user_code['code'] ) || ! isset( $user_code['expiration'] ) ) {
+			return false;
+		}
+
+		/**
+		 * Validate the two-factor code match the stored value and is not expired.
+		 * Expired code we'll be refreshed by {@see MPT_Shortcode_Two_Factor::generate_and_send_code()} when
+		 * the two-factor form is displayed.
+		 */
+		$code_is_valid = hash_equals( $user_code['code'], wp_hash( $code ) );
+		if ( ! $code_is_valid || time() > (int) $user_code['expiration'] ) {
+			return false;
+		}
+
+		// Delete code after being successfully use.
+		delete_post_meta( $member->id, self::MEMBER_2FA_CODE_META_NAME );
+
+		return true;
 	}
 }

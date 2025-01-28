@@ -499,13 +499,15 @@
 			return $allow;
 		}
 
-		// Buid new member activation key
+		// Build new member activation key
 		$key = $this->get_member_key();
 
 		$stop = apply_filters_ref_array( 'mpt_reset_password_notification', array( false, &$this, $key ) );
 		if ( $stop === true ) {
 			return false;
 		}
+
+		$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
 
 		// Get all options for admin notification email.
 		$message = apply_filters( 'mpt_retrieve_password_message_default_option', mpt_get_option_value( 'mpt-emails', 'lost_password_member_content', true ), $this );
@@ -517,9 +519,10 @@
 		}
 
 		// Build title
-		$subject = str_replace( '%%blog_name%%', wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES ), $subject );
+		$subject = str_replace( '%%blog_name%%', $blogname, $subject );
 
 		// Build message text
+		$message = str_replace( '%%blog_name%%', $blogname, $message );
 		$message = str_replace( '%%site_url%%', network_site_url(), $message );
 		$message = str_replace( '%%user_name%%', $this->get_user_name(), $message );
 		$message = str_replace( '%%user_lastname%%', $this->last_name, $message );
@@ -817,10 +820,13 @@
 			return;
 		}
 
+		$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
+
 		// Build title
-		$subject = str_replace( '%%blog_name%%', wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES ), $subject );
+		$subject = str_replace( '%%blog_name%%', $blogname, $subject );
 
 		// Build message text
+		$message = str_replace( '%%blog_name%%', $blogname, $message );
 		$message = str_replace( '%%site_url%%', get_site_url(), $message );
 		$message = str_replace( '%%display_name%%', $this->get_display_name(), $message );
 		$message = str_replace(

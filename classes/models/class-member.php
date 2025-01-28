@@ -792,7 +792,7 @@
 	}
 
 	/**
-	 * Generate validation registration key
+	 * Get validation registration key
 	 *
 	 * @param string $key
 	 *

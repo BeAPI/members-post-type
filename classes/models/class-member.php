@@ -365,12 +365,12 @@
 	/**
 	 * Send notification with confirmation link to member
 	 *
-	 * @access public
+	 * @param string $key
 	 *
-	 * @return mixed Value.
+	 * @return bool
 	 */
-	public function register_validation_notification( string $key = '' ) {
-		if ( ! $this->exists() ) {// Valid instance member ?
+	public function register_validation_notification( $key = '' ) {
+		if ( ! $this->exists() ) { // Valid instance member ?
 			return false;
 		}
 
@@ -786,13 +786,13 @@
 	 *
 	 * @return void
 	 */
-	public function generate_validation_registration_key( string $key = '' ) {
+	public function generate_validation_registration_key( $key = '' ) {
 		$member_key = ! empty( $key ) ? $key : wp_generate_password( 20, false );
 		add_post_meta( $this->id, 'mpt_validation_registration_key', $member_key, true );
 	}
 
 	/**
-	 * Get validation registration key
+	 * Generate validation registration key
 	 *
 	 * @param string $key
 	 *
@@ -805,9 +805,11 @@
 	/**
 	 * Set activation key
 	 *
+	 * @param string $password
+	 *
 	 * @return void
 	 */
-	public function set_activation_key( string $password = '' ) {
+	public function set_activation_key( $password = '' ) {
 		// Generate something random for a key...
 		$key = ! empty( $password ) ? $password : wp_generate_password( 20, false );
 

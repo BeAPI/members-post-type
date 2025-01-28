@@ -77,6 +77,11 @@ class MPT_Shortcode_Change_Profile extends MPT_Shortcode {
 		self::redirect_clear_url();
 	}
 
+	/**
+	 * Process cancel email action.
+	 *
+	 * @return void
+	 */
 	public static function cancel_email_change() {
 		$action = $_GET['mpt-action'] ?? ''; //phpcs:ignore
 		if ( 'cancel-change-email' !== $action ) {

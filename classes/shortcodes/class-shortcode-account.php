@@ -36,6 +36,13 @@ class MPT_Shortcode_Account extends MPT_Shortcode {
 		return parent::load_template( 'member-account', [ 'member' => $member, 'message' => $message, 'last_activity_data' => self::prepare_data_last_activity( $member ) ] );
 	}
 
+	/**
+	 * Prepare last activity data.
+	 *
+	 * @param MPT_Member $member
+	 *
+	 * @return array
+	 */
 	public static function prepare_data_last_activity( $member ) {
 		if ( ! mpt_get_option_value( 'mpt-security', 'user-activity' ) ) {
 			return [];

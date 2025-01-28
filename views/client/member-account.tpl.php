@@ -68,9 +68,9 @@ $pages_query = new \WP_Query( $args );
 		<br>
 		<?php
 		foreach ( $last_login_activity as $key => $data ) :
-			$label = $data['label'];
-			$value = $data['value'];
-			if ( empty( $value ) ) {
+			$label = $data['label'] ?? '';
+			$value = $data['value'] ?? '';
+			if ( empty( $label ) || empty( $value ) ) {
 				continue;
 			}
 

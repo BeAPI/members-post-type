@@ -115,8 +115,7 @@ _mpt_load_files( 'classes/', array(
 	'shortcode',
 	'taxonomy',
 	'widget',
-	'no-cache',
-	'two-factor'
+	'no-cache'
 ), 'class-');
 
 // Plugin compat classes
@@ -174,7 +173,6 @@ function init_mpt_plugin() {
 	new MPT_Shortcode();
 	new MPT_Security();
 	new MPT_No_Cache();
-	//new MPT_Two_Factor();
 	// Compat
 	if ( function_exists( 'PLL' ) &&  function_exists('pll_is_translated_post_type') && pll_is_translated_post_type( MPT_CPT_NAME ) ) {
 		new MPT_Polylang();

@@ -815,16 +815,16 @@
 	}
 
 	/**
-	 * Send member email with reset password link
+	 * Send confirmation email to the member when changing its existing account email.
 	 *
-	 * @access public
+	 * @param string $new_email the new email address.
 	 *
-	 * @return void
+	 * @return bool
 	 */
-	public function validate_new_email() {
-		do_action( 'mpt_validate_new_email', $this->id );
+	public function validate_new_email( $new_email ) {
+		do_action( 'mpt_validate_new_email', $this->id, $new_email );
 
-		// Buid new member activation key
+		// Build new member activation key
 		$key = $this->get_member_key();
 
 		// Get all options for admin notification email.
@@ -833,7 +833,7 @@
 
 		//No message ? No object ? Go OUT !!!
 		if ( empty( $message ) && empty( $subject ) ) {
-			return;
+			return false;
 		}
 
 		$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
@@ -862,11 +862,11 @@
 		$subject = apply_filters( 'mpt_validate_new_email_title', $subject );
 		$message = apply_filters( 'mpt_validate_new_email_message', $message, $key );
 
-		if ( $message && ! wp_mail( $this->email, $subject, $message ) ) {
+		if ( $message && ! wp_mail( $new_email, $subject, $message ) ) {
 			wp_die( __( 'The e-mail could not be sent.' ) . "<br />\n" . __( 'Possible reason: your host may have disabled the mail() function...' ) );
 		}
 
-		return;
+		return true;
 	}
 
 	/**

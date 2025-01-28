@@ -79,18 +79,12 @@ class MPT_Shortcode_Change_Profile extends MPT_Shortcode {
 
 	public static function cancel_email_change() {
 		$action = $_GET['mpt-action'] ?? ''; //phpcs:ignore
-
 		if ( 'cancel-change-email' !== $action ) {
 			return;
 		}
 
 		$mtp_nonce = $_GET['_mptnonce'] ?? ''; //phpcs:ignore
-
-		if ( empty( $mtp_nonce ) ) {
-			return;
-		}
-
-		if ( ! mpt_verify_nonce( $mtp_nonce, 'mptnewemail' ) ) {
+		if ( empty( $mtp_nonce ) || ! mpt_verify_nonce( $mtp_nonce, 'mptnewemail' ) ) {
 			parent::set_message( 'check-nonce', 'Security check failed', 'error' );
 
 			return;
@@ -102,13 +96,12 @@ class MPT_Shortcode_Change_Profile extends MPT_Shortcode {
 		}
 
 		// Get current member info
-		$get_current_member = mpt_get_current_member();
-
-		if ( empty( $get_current_member ) ) {
+		$current_member = mpt_get_current_member();
+		if ( ! ( $current_member instanceof MPT_Member ) || ! $current_member->exists() ) {
 			return;
 		}
 
-		$get_current_member->delete_email_waiting_for_validation();
+		$current_member->delete_email_waiting_for_validation();
 		self::redirect_clear_url();
 	}
 
@@ -127,12 +120,7 @@ class MPT_Shortcode_Change_Profile extends MPT_Shortcode {
 		}
 
 		$mtp_nonce = $_POST['_mptnonce'] ?? ''; //phpcs:ignore
-
-		if ( empty( $mtp_nonce ) ) {
-			return;
-		}
-
-		if ( ! mpt_verify_nonce( $mtp_nonce, 'mptchangeprofile' ) ) {
+		if ( empty( $mtp_nonce ) || ! mpt_verify_nonce( $mtp_nonce, 'mptchangeprofile' ) ) {
 			parent::set_message( 'check-nonce', 'Security check failed', 'error' );
 
 			return;

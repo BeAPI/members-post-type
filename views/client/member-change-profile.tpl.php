@@ -4,17 +4,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-echo MPT_Shortcode::get_messages();
 $email_waiting = $member_data->get_email_waiting_for_validation();
 if ( ! empty( $email_waiting ) ) {
 	$link_cancel = add_query_arg(
 		[
-			'dismiss'   => 'new_email',
-			'action'    => 'cancel-change-email',
-			'_mptnonce' => MPT_Nonces::create_nonce( 'mptnewemail' ),
+			'dismiss'    => 'new_email',
+			'mpt-action' => 'cancel-change-email',
+			'_mptnonce'  => MPT_Nonces::create_nonce( 'mptnewemail' ),
 		]
 	);
 }
+
+echo MPT_Shortcode::get_messages();
 ?>
 
 <form method="post" id="form1">

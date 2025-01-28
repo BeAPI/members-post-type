@@ -121,8 +121,10 @@ class MPT_Member_Utility {
 
 
 	/**
+	 * Check if a member need update based on an array of new data.
+	 *
 	 * @param MPT_Member $member
-	 * @param $new_data
+	 * @param array $new_data
 	 *
 	 * @return bool
 	 */
@@ -142,7 +144,25 @@ class MPT_Member_Utility {
 		return apply_filters( 'mpt_need_to_update_member', false, $member, $new_data );
 	}
 
+	/**
+	 * Update member's data.
+	 *
+	 *  The $member_data array can contain the following fields:
+	 *  'email' - A string containing the member's email address.
+	 *  'first_name' - The member's first name.
+	 *  'last_name' - The member's last name.
+	 *
+	 * @param MPT_Member $member
+	 * @param array $member_data
+	 *
+	 * @return int|WP_Error
+	 */
 	public static function update_member( MPT_Member $member, $member_data ) {
+		// Validate email
+		if ( isset( $member_data['email'] ) && $member_data['email'] !== $member->email && mpt_is_unique_email() && mpt_email_exists( $member_data['email'] ) ) {
+			return new WP_Error('existing_member_email', __('This email address is already registered.') );
+		}
+
 		$allowed_field = [
 			'last_name',
 			'first_name',
@@ -150,29 +170,30 @@ class MPT_Member_Utility {
 		];
 		foreach ( $allowed_field as $field ) {
 			$new_data = $member_data[ $field ] ?? '';
-			// Skip if same data
-			if ( $member->$field === $new_data ) {
-				continue;
-			}
 
-			if ( 'email' === $field && ! empty( $new_data ) ) {
+			if ( 'email' === $field ) {
 				$new_email = sanitize_email( $new_data );
-				update_post_meta( $member->id, 'email_change_requested_at', $new_email );
-				// Send email to validate new member's email
-				$member->validate_new_email();
-				continue;
-			}
 
-			update_post_meta( $member->id, $field, sanitize_text_field( $new_data ) );
+				// don't update email if empty, unchanged or invalid.
+				if ( empty( $new_email ) || $new_email === $member->email || ! is_email( $new_email ) ) {
+					continue;
+				}
+
+				// Store new email in member meta until validated.
+				update_post_meta( $member->id, 'email_change_requested_at', $new_email );
+
+				// Send email to validate new member's email
+				$member->validate_new_email( $new_email );
+			} else {
+				$member->set_meta_value( $field, sanitize_text_field( $new_data ) );
+			}
 		}
+
+		// Set proper post_title for WP
+		$member->regenerate_post_title( true );
 
 		do_action( 'mpt_update_member', $member, $member_data );
 
-		return wp_update_post(
-			[
-				'ID'         => $member->id,
-				'post_title' => sanitize_text_field( $member->get_display_name() ),
-			]
-		);
+		return $member->id;
 	}
 }

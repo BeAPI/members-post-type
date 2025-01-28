@@ -36,42 +36,38 @@ class MPT_Polylang {
 			return;
 		}
 
-		$current_option = MPT_Options::$options;
+		// Register string translations for mpt-main option
+		$option_values = MPT_Options::get_option( 'mpt-main' );
+		foreach ( $option_values as $field_name => $value ) {
+			$allow_field = [ 'default-post-error-message', 'feed-error-message', '' ];
 
-		foreach ( $current_option as $option_name => $option_value ) {
-			if ( 'mpt-main' === $option_name ) {
-				foreach ( $option_value as $field_name => $value ) {
-					$allow_field = [ 'default-post-error-message', 'feed-error-message', '' ];
+			if ( ! in_array( $field_name, $allow_field, true ) ) {
+				continue;
+			}
+			pll_register_string( $field_name, $value, 'MPT' );
+		}
 
-					if ( ! in_array( $field_name, $allow_field, true ) ) {
-						continue;
-					}
-					pll_register_string( $field_name, $value, 'MPT' );
-				}
+		// Register string translations for mpt-emails option
+		$option_values = MPT_Options::get_option( 'mpt-emails' );
+		foreach ( $option_values as $field_name => $value ) {
+			$skip_fields = [
+				'register_member_admin_mail',
+				'register_member_admin_description',
+				'register_member_mail',
+				'register_member_description',
+				'register_member_validation_mail',
+				'register_member_validation_description',
+				'lost_password_admin',
+				'lost_password_admin_description',
+				'validate_new_email_member',
+				'validate_new_email_member_description',
+			];
+
+			if ( in_array( $field_name, $skip_fields, true ) ) {
+				continue;
 			}
 
-			if ( 'mpt-emails' === $option_name ) {
-				foreach ( $option_value as $field_name => $value ) {
-					$skip_fields = [
-						'register_member_admin_mail',
-						'register_member_admin_description',
-						'register_member_mail',
-						'register_member_description',
-						'register_member_validation_mail',
-						'register_member_validation_description',
-						'lost_password_admin',
-						'lost_password_admin_description',
-						'validate_new_email_member',
-						'validate_new_email_member_description',
-					];
-
-					if ( in_array( $field_name, $skip_fields, true ) ) {
-						continue;
-					}
-
-					pll_register_string( $field_name, $value, 'MPT', true );
-				}
-			}
+			pll_register_string( $field_name, $value, 'MPT', true );
 		}
 	}
 

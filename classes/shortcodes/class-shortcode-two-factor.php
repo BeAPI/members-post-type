@@ -10,6 +10,10 @@ class MPT_Shortcode_Two_Factor extends MPT_Shortcode {
 	 * Constructor, register hooks
 	 */
 	public function __construct() {
+		$options = MPT_Options::get_option( 'mpt-security' );
+		if ( ! isset( $options['enable-two-factor'] ) || false === (bool) $options['enable-two-factor'] ) {
+			return;
+		}
 		add_shortcode( 'member-two-factor', [ __CLASS__, 'shortcode' ] );
 		add_action( 'mpt_login', [ $this, 'mpt_login' ], 10, 2 );
 		add_action( 'init', [ __CLASS__, 'init' ], 12 );

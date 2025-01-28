@@ -122,7 +122,7 @@ return array(
 		array(
 			'name'    => 'page-two-factor',
 			'label'   => __( 'Two factor challenge', 'mpt' ),
-			//'desc' => __( 'Dropdown', 'mpt' ),
+			'desc' => __( 'Used if the two-factor authentication is enable.', 'mpt' ),
 			'type'    => 'select',
 			'options' => $all_pages
 		),
@@ -289,6 +289,19 @@ return array(
 			'name'              => 'user-activity',
 			'label'             => __( 'User\'s activity', 'mpt' ),
 			'desc'              => __( 'Display user\'s last connection information (date & time, operating system, browser, IP address).', 'mpt' ),
+			'type'              => 'checkbox',
+			'default'           => 0,
+		),
+		array(
+			'name'  => 'two-factor-configuration',
+			'label' => __( 'Two-factor', 'mpt' ),
+			'desc'  => '',
+			'type'  => 'metabox',
+		),
+		array(
+			'name'              => 'enable-two-factor',
+			'label'             => __( 'Enable two-factor authentication', 'mpt' ),
+			'desc'              => __( 'Members will need to enter a code send by mail when login in.', 'mpt' ),
 			'type'              => 'checkbox',
 			'default'           => 0,
 		),

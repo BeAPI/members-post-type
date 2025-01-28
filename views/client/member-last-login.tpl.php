@@ -1,4 +1,9 @@
 <?php
+// don't load directly
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
+
 $member_object = $member_data['member'];
 
 if ( empty( $member_object ) ) {

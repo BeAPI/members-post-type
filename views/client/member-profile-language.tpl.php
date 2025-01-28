@@ -1,3 +1,10 @@
+<?php
+// don't load directly
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
+?>
+
 <div class="mpt-field">
 	<label for="mpt-language"><?php esc_html_e( 'Profile language' ); ?></label>
 	<select id="mpt-language" name="mptchangeprofile[language]">

@@ -112,6 +112,10 @@ class MPT_Post_Type {
 			return;
 		}
 
+		if ( MPT_CPT_NAME !== $current_post->post_type ) {
+			return;
+		}
+
 		if ( ! in_array( $old_status, [ 'auto-draft', 'draft', 'new' ], true ) ) {
 			return;
 		}

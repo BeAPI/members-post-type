@@ -594,19 +594,35 @@
 	}
 
 	/**
-	 * Get the terms for the model
+	 * Get the roles associated with the member.
 	 *
-	 * @param array $args
+	 * @param string $fields Choose the return format of the roles.
+	 *                       Allowed format are :
+	 *                        - `all` : an array of WP_Term
+	 *                        - `id`/`term_id` : an array of term_id
+	 *                        - `slug` : an array of terms' slugs
+	 *                       Defaults is `all`.
 	 *
-	 * @return WP_Term[]|WP_Error
+	 * @return int[]|string[]|\WP_Term[]
 	 */
-	public function get_roles( array $args = [] ) {
-		$terms = get_object_term_cache( $this->id, MPT_TAXO_NAME );
-		if ( false === $terms ) {
-			$terms = wp_get_object_terms( $this->id, MPT_TAXO_NAME, $args );
+	public function get_roles( $fields = 'all' ) {
+		$fields = in_array( $fields, [ 'all', 'id', 'term_id', 'slug' ], true ) ? $fields : 'all';
+		$roles  = [];
+		foreach ( $this->roles as $role_name ) {
+			if ( isset( MPT_Roles::$roles[ $role_name ] ) ) {
+				$roles[] = MPT_Roles::$roles[ $role_name ];
+			}
 		}
 
-		return $terms;
+		switch ( $fields ) {
+			case 'id':
+			case 'term_id':
+				return wp_list_pluck( $roles, 'term_id' );
+			case 'slug':
+				return wp_list_pluck( $roles, 'slug' );
+			default:
+				return $roles;
+		}
 	}
 
 	/**

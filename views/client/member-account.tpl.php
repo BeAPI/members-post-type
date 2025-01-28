@@ -4,16 +4,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+/* @var MPT_Member $member_object */
 $member_object       = $member_data['member'];
 $pages_options[]     = MPT_Options::get_option_value( 'mpt-pages', 'page-change-profile' );
 $pages_options[]     = MPT_Options::get_option_value( 'mpt-pages', 'page-change-password' );
-$my_roles            = $member_object->get_roles();
+$my_roles            = $member_object->get_roles( 'term_id' );
+
 $last_login_activity = $member_data['last_activity_data'] ?? [];
 $args                = [];
 $meta_key            = [];
-if ( ! empty( $my_roles ) && ! is_wp_error( $my_roles ) ) {
-	$my_roles = wp_list_pluck( $my_roles, 'term_id' );
-
+if ( ! empty( $my_roles ) ) {
 	foreach ( $my_roles as $role_id ) {
 		$meta_key[] = [
 			'key'     => '_mpt_role',

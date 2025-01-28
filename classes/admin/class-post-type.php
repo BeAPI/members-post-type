@@ -123,7 +123,7 @@ class MPT_Admin_Post_Type {
 		if ( 'pending' === get_post_status() ) {
 			add_meta_box( MPT_CPT_NAME . '-postbox-resend-registration-notification', __( 'Resend registration notification', 'mpt' ), array( __CLASS__, 'metabox_resend_registration_notification' ), MPT_CPT_NAME, 'side', 'default' );
 		}
-		add_meta_box( MPT_CPT_NAME . '-postbox-last-user-activity', __( 'Last user activity', 'mpt' ), array( __CLASS__, 'metabox_user_activity' ), MPT_CPT_NAME, 'normal', 'high' );
+		add_meta_box( MPT_CPT_NAME . '-postbox-last-user-activity', __( 'Last member activity', 'mpt' ), array( __CLASS__, 'metabox_user_activity' ), MPT_CPT_NAME, 'normal', 'high' );
 	}
 
     /**

@@ -21,7 +21,7 @@ class MPT_Polylang {
 		add_filter( 'mpt_retrieve_password_message_default_option', [ $this, 'translation_email' ], 10, 2 );
 		// Validate new email
 		add_filter( 'mpt_validate_new_email_title_default_option', [ $this, 'translation_email' ], 10, 2 );
-		add_filter( 'mpt_validate_new_email_messag_default_optione', [ $this, 'translation_email' ], 10, 2 );
+		add_filter( 'mpt_validate_new_email_message_default_option', [ $this, 'translation_email' ], 10, 2 );
 
 		add_action( 'mpt_insert_member', [ $this, 'set_pll_language' ] );
 		add_action( 'member_change_profile_field', [ $this, 'member_change_profile_field' ] );

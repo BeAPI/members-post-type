@@ -1,6 +1,7 @@
 <?php
 
 class MPT_Polylang {
+
 	public function __construct() {
 		add_filter( 'init', [ $this, 'register_translate_string' ], 8 );
 		add_filter( 'mpt_option', [ $this, 'translation_option_value' ], 19, 2 );
@@ -31,6 +32,11 @@ class MPT_Polylang {
 		add_action( 'mpt_update_member', [ $this, 'mpt_update_member' ], 10, 2 );
 	}
 
+	/**
+	 * Register translatable options in Polylang.
+	 *
+	 * @return void
+	 */
 	public function register_translate_string() {
 		if ( ! function_exists( 'pll_register_string' ) ) {
 			return;
@@ -39,7 +45,7 @@ class MPT_Polylang {
 		// Register string translations for mpt-main option
 		$option_values = MPT_Options::get_option( 'mpt-main' );
 		foreach ( $option_values as $field_name => $value ) {
-			$allow_field = [ 'default-post-error-message', 'feed-error-message', '' ];
+			$allow_field = [ 'default-post-error-message', 'feed-error-message' ];
 
 			if ( ! in_array( $field_name, $allow_field, true ) ) {
 				continue;
@@ -71,6 +77,14 @@ class MPT_Polylang {
 		}
 	}
 
+	/**
+	 * Translate option values.
+	 *
+	 * @param $option_value
+	 * @param $option_name
+	 *
+	 * @return mixed
+	 */
 	public function translation_option_value( $option_value, $option_name ) {
 		$current_language = pll_current_language();
 		if ( 'mpt-pages' === $option_name ) {
@@ -99,6 +113,8 @@ class MPT_Polylang {
 	}
 
 	/**
+	 * Translate email subject/message.
+	 *
 	 * @param string $content
 	 * @param MPT_Member $member
 	 *
@@ -110,7 +126,7 @@ class MPT_Polylang {
 
 
 	/**
-	 * Set current language
+	 * Set default language for member when created.
 	 *
 	 * @param int $member_id
 	 *
@@ -120,6 +136,13 @@ class MPT_Polylang {
 		pll_set_post_language( $member_id, pll_current_language() );
 	}
 
+	/**
+	 * Render language field in member profile settings page.
+	 *
+	 * @param MPT_Member $member
+	 *
+	 * @return void
+	 */
 	public function member_change_profile_field( MPT_Member $member ) {
 		if ( ! pll_is_translated_post_type( MPT_CPT_NAME ) ) {
 			return;

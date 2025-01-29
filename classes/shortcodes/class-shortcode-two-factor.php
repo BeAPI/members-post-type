@@ -179,9 +179,11 @@ class MPT_Shortcode_Two_Factor extends MPT_Shortcode {
 
 		delete_post_meta( $member->id, self::MEMBER_2FA_CHALLENGE_ID_META_NAME );
 		delete_post_meta( $member->id, self::MEMBER_2FA_NONCE_META_NAME );
-		delete_post_meta( $member->id, self::MEMBER_2FA_CODE_META_NAME );
 
 		MPT_Member_Auth::set_auth_cookie( $member->id );
+
+		do_action( 'mpt_two_factor_member_authenticated', $member );
+
 		wp_safe_redirect( MPT_Main::get_action_permalink( 'account' ) );
 		exit;
 	}

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-01-28T21:51:23+00:00\n"
+"POT-Creation-Date: 2025-01-30T09:12:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: mpt\n"
@@ -118,7 +118,7 @@ msgid "Main information"
 msgstr ""
 
 #: classes/admin/class-post-type.php:122
-#: classes/helpers/default-settings.php:124
+#: classes/helpers/default-settings.php:131
 msgid "Change password"
 msgstr ""
 
@@ -658,226 +658,246 @@ msgstr ""
 msgid "Login/logout"
 msgstr ""
 
-#: classes/helpers/default-settings.php:131
-msgid "Lost password"
+#: classes/helpers/default-settings.php:124
+msgid "Two factor challenge"
+msgstr ""
+
+#: classes/helpers/default-settings.php:125
+msgid "Used if the two-factor authentication is enable."
 msgstr ""
 
 #: classes/helpers/default-settings.php:138
-msgid "Change profile"
+msgid "Lost password"
 msgstr ""
 
 #: classes/helpers/default-settings.php:145
+msgid "Change profile"
+msgstr ""
+
+#: classes/helpers/default-settings.php:152
 msgid "My account"
 msgstr ""
 
-#: classes/helpers/default-settings.php:154
+#: classes/helpers/default-settings.php:161
 msgid "Password strength"
 msgstr ""
 
-#: classes/helpers/default-settings.php:155
+#: classes/helpers/default-settings.php:162
 msgid "Enforce a specific password strength for your members."
 msgstr ""
 
-#: classes/helpers/default-settings.php:160
+#: classes/helpers/default-settings.php:167
 msgid "Mode"
 msgstr ""
 
-#: classes/helpers/default-settings.php:161
+#: classes/helpers/default-settings.php:168
 msgid "You can apply one of three modes for password security, no constraint, automatic cloned from WordPress JS meter and full manual mode"
 msgstr ""
 
-#: classes/helpers/default-settings.php:165
+#: classes/helpers/default-settings.php:172
 msgid "Disabled"
 msgstr ""
 
-#: classes/helpers/default-settings.php:166
+#: classes/helpers/default-settings.php:173
 msgid "Auto"
 msgstr ""
 
-#: classes/helpers/default-settings.php:167
+#: classes/helpers/default-settings.php:174
 msgid "Custom"
 msgstr ""
 
-#: classes/helpers/default-settings.php:172
+#: classes/helpers/default-settings.php:179
 msgid "Force refresh login"
 msgstr ""
 
-#: classes/helpers/default-settings.php:173
+#: classes/helpers/default-settings.php:180
 msgid "When changing your password policy, this option forces members to change their password once they are logged in! If it does not meet your criteria of course!"
 msgstr ""
 
-#: classes/helpers/default-settings.php:180
+#: classes/helpers/default-settings.php:187
 msgid "Password strength - auto mode"
 msgstr ""
 
-#: classes/helpers/default-settings.php:181
+#: classes/helpers/default-settings.php:188
 msgid "WordPress offers a interactive password meter (with JS) when editing passwords. This indicator score passwords on 4 levels: 1 = very weak; 2 = weak; 3 = medium; 4 = strong"
 msgstr ""
 
-#: classes/helpers/default-settings.php:186
+#: classes/helpers/default-settings.php:193
 msgid "Level required"
 msgstr ""
 
-#: classes/helpers/default-settings.php:190
+#: classes/helpers/default-settings.php:197
 msgid "Very weak"
 msgstr ""
 
-#: classes/helpers/default-settings.php:191
+#: classes/helpers/default-settings.php:198
 msgid "Weak"
 msgstr ""
 
-#: classes/helpers/default-settings.php:192
+#: classes/helpers/default-settings.php:199
 msgid "Medium"
 msgstr ""
 
-#: classes/helpers/default-settings.php:193
+#: classes/helpers/default-settings.php:200
 msgid "Strong"
 msgstr ""
 
-#: classes/helpers/default-settings.php:198
+#: classes/helpers/default-settings.php:205
 msgid "Password strength - Custom mode"
 msgstr ""
 
-#: classes/helpers/default-settings.php:199
+#: classes/helpers/default-settings.php:206
 msgid "This mode allows you to fine tune the security policy password"
 msgstr ""
 
-#: classes/helpers/default-settings.php:204
+#: classes/helpers/default-settings.php:211
 msgid "Minimum length"
 msgstr ""
 
-#: classes/helpers/default-settings.php:205
+#: classes/helpers/default-settings.php:212
 msgid "Tip: password longer than 6 characters is highly recommended!"
 msgstr ""
 
-#: classes/helpers/default-settings.php:212
+#: classes/helpers/default-settings.php:219
 msgid "User data on password"
 msgstr ""
 
-#: classes/helpers/default-settings.php:213
+#: classes/helpers/default-settings.php:220
 msgid "Prohibit the presence of the username, email, first name, last name in the password"
 msgstr ""
 
-#: classes/helpers/default-settings.php:219
+#: classes/helpers/default-settings.php:226
 msgid "Uppercase character"
 msgstr ""
 
-#: classes/helpers/default-settings.php:220
+#: classes/helpers/default-settings.php:227
 msgid "Forces the presence of an uppercase character in the password"
 msgstr ""
 
-#: classes/helpers/default-settings.php:226
+#: classes/helpers/default-settings.php:233
 msgid "Lowercase character"
 msgstr ""
 
-#: classes/helpers/default-settings.php:227
+#: classes/helpers/default-settings.php:234
 msgid "Forces the presence of an lowercase character in the password"
 msgstr ""
 
-#: classes/helpers/default-settings.php:233
+#: classes/helpers/default-settings.php:240
 msgid "Number character"
 msgstr ""
 
-#: classes/helpers/default-settings.php:234
+#: classes/helpers/default-settings.php:241
 msgid "Forces the presence of an number character in the password"
 msgstr ""
 
-#: classes/helpers/default-settings.php:240
+#: classes/helpers/default-settings.php:247
 msgid "Special character"
 msgstr ""
 
-#: classes/helpers/default-settings.php:241
+#: classes/helpers/default-settings.php:248
 msgid "Forces the presence of an special character in the password"
 msgstr ""
 
-#: classes/helpers/default-settings.php:244
+#: classes/helpers/default-settings.php:251
 msgid "Special characters are often assimilated to punctuation character. (?!&\")"
 msgstr ""
 
-#: classes/helpers/default-settings.php:248
+#: classes/helpers/default-settings.php:255
 msgid "Blacklist keywords"
 msgstr ""
 
-#: classes/helpers/default-settings.php:249
+#: classes/helpers/default-settings.php:256
 msgid "You must separate blacklist words with commas. These words can not be contained in the passwords of your members."
 msgstr ""
 
-#: classes/helpers/default-settings.php:255
+#: classes/helpers/default-settings.php:262
 msgid "Password Policies"
 msgstr ""
 
-#: classes/helpers/default-settings.php:256
+#: classes/helpers/default-settings.php:263
 msgid "A password policy is a set of rules designed to enhance security by encouraging users to employ strong passwords and use them properly"
 msgstr ""
 
-#: classes/helpers/default-settings.php:261
+#: classes/helpers/default-settings.php:268
 msgid "Aging"
 msgstr ""
 
-#: classes/helpers/default-settings.php:262
+#: classes/helpers/default-settings.php:269
 msgid "How many days old can a password be before requiring it be changed? Not recommended. 0 disables this feature. Default: 0."
 msgstr ""
 
-#: classes/helpers/default-settings.php:269
+#: classes/helpers/default-settings.php:276
 msgid "History"
 msgstr ""
 
-#: classes/helpers/default-settings.php:270
+#: classes/helpers/default-settings.php:277
 msgid "How many passwords should be remembered? Prevents reuse of old passwords. 0 disables this feature. Default: 0."
 msgstr ""
 
-#: classes/helpers/default-settings.php:277
+#: classes/helpers/default-settings.php:284
 #: views/client/member-account.tpl.php:65
 msgid "Last login details"
 msgstr ""
 
-#: classes/helpers/default-settings.php:283
+#: classes/helpers/default-settings.php:290
 msgid "User's activity"
 msgstr ""
 
-#: classes/helpers/default-settings.php:284
+#: classes/helpers/default-settings.php:291
 msgid "Display user's last connection information (date & time, operating system, browser, IP address)."
 msgstr ""
 
-#: classes/helpers/default-settings.php:292
-msgid "Admin mail for Member registration"
-msgstr ""
-
-#: classes/helpers/default-settings.php:293
-msgid "Management of mail notification to the site administrator when a new member joins the site."
+#: classes/helpers/default-settings.php:297
+msgid "Two-factor"
 msgstr ""
 
 #: classes/helpers/default-settings.php:303
-msgid "Recipient Mail"
+msgid "Enable two-factor authentication"
 msgstr ""
 
-#: classes/helpers/default-settings.php:305
-msgid "By default this is the administrator's email of the site but you can change the recipient. You can add more recipients, separating them with a comma"
-msgstr ""
-
-#: classes/helpers/default-settings.php:310
-#: classes/helpers/default-settings.php:334
-#: classes/helpers/default-settings.php:358
-#: classes/helpers/default-settings.php:389
-#: classes/helpers/default-settings.php:413
-#: classes/helpers/default-settings.php:437
-msgid "Subject mail"
+#: classes/helpers/default-settings.php:304
+msgid "Members will need to enter a code send by mail when login in."
 msgstr ""
 
 #: classes/helpers/default-settings.php:312
+msgid "Admin mail for Member registration"
+msgstr ""
+
+#: classes/helpers/default-settings.php:313
+msgid "Management of mail notification to the site administrator when a new member joins the site."
+msgstr ""
+
+#: classes/helpers/default-settings.php:323
+msgid "Recipient Mail"
+msgstr ""
+
+#: classes/helpers/default-settings.php:325
+msgid "By default this is the administrator's email of the site but you can change the recipient. You can add more recipients, separating them with a comma"
+msgstr ""
+
+#: classes/helpers/default-settings.php:330
+#: classes/helpers/default-settings.php:354
+#: classes/helpers/default-settings.php:378
+#: classes/helpers/default-settings.php:409
+#: classes/helpers/default-settings.php:433
+#: classes/helpers/default-settings.php:457
+msgid "Subject mail"
+msgstr ""
+
+#: classes/helpers/default-settings.php:332
 msgid "[%%blog_name%%] New Member Registration"
 msgstr ""
 
-#: classes/helpers/default-settings.php:316
-#: classes/helpers/default-settings.php:340
-#: classes/helpers/default-settings.php:364
-#: classes/helpers/default-settings.php:395
-#: classes/helpers/default-settings.php:419
-#: classes/helpers/default-settings.php:443
+#: classes/helpers/default-settings.php:336
+#: classes/helpers/default-settings.php:360
+#: classes/helpers/default-settings.php:384
+#: classes/helpers/default-settings.php:415
+#: classes/helpers/default-settings.php:439
+#: classes/helpers/default-settings.php:463
 msgid "Content mail"
 msgstr ""
 
-#: classes/helpers/default-settings.php:318
+#: classes/helpers/default-settings.php:338
 msgid ""
 "New member registration on your site %%blog_name%% :\n"
 "\n"
@@ -885,19 +905,19 @@ msgid ""
 "Mail: %%user_email%%"
 msgstr ""
 
-#: classes/helpers/default-settings.php:323
+#: classes/helpers/default-settings.php:343
 msgid "Member registration email"
 msgstr ""
 
-#: classes/helpers/default-settings.php:324
+#: classes/helpers/default-settings.php:344
 msgid "Management of notification's mail by a Member upon registration."
 msgstr ""
 
-#: classes/helpers/default-settings.php:336
+#: classes/helpers/default-settings.php:356
 msgid "[%%blog_name%%] Your username and password"
 msgstr ""
 
-#: classes/helpers/default-settings.php:342
+#: classes/helpers/default-settings.php:362
 msgid ""
 "Username: %%user_name%%\n"
 "Password: %%user_password%%\n"
@@ -905,19 +925,19 @@ msgid ""
 "%%login_url%%"
 msgstr ""
 
-#: classes/helpers/default-settings.php:347
+#: classes/helpers/default-settings.php:367
 msgid "Member registration email validation"
 msgstr ""
 
-#: classes/helpers/default-settings.php:348
+#: classes/helpers/default-settings.php:368
 msgid "Registration confirmation email with link validation counted"
 msgstr ""
 
-#: classes/helpers/default-settings.php:360
+#: classes/helpers/default-settings.php:380
 msgid "[%%blog_name%%] Validate your registration"
 msgstr ""
 
-#: classes/helpers/default-settings.php:366
+#: classes/helpers/default-settings.php:386
 msgid ""
 "Thank you for registering on the site:\n"
 "\n"
@@ -928,43 +948,43 @@ msgid ""
 "%%confirm_register_link%%"
 msgstr ""
 
-#: classes/helpers/default-settings.php:371
+#: classes/helpers/default-settings.php:391
 msgid "Admin mail for Member lost password"
 msgstr ""
 
-#: classes/helpers/default-settings.php:372
+#: classes/helpers/default-settings.php:392
 msgid "Management of notification's mail to the administrator when a member has lost his password."
 msgstr ""
 
-#: classes/helpers/default-settings.php:382
+#: classes/helpers/default-settings.php:402
 msgid "Recipient mail"
 msgstr ""
 
-#: classes/helpers/default-settings.php:385
+#: classes/helpers/default-settings.php:405
 msgid "By default this is the administrator's mail of the site but you can change the recipient. You can add more recipients, separating them with a comma"
 msgstr ""
 
-#: classes/helpers/default-settings.php:391
+#: classes/helpers/default-settings.php:411
 msgid "[%%blog_name%%] Password Lost/Changed"
 msgstr ""
 
-#: classes/helpers/default-settings.php:397
+#: classes/helpers/default-settings.php:417
 msgid "Password Lost and Changed for member: %%user_name%%"
 msgstr ""
 
-#: classes/helpers/default-settings.php:402
+#: classes/helpers/default-settings.php:422
 msgid "Member lost password mail"
 msgstr ""
 
-#: classes/helpers/default-settings.php:403
+#: classes/helpers/default-settings.php:423
 msgid "Management of notification's mail by a Member lost his password."
 msgstr ""
 
-#: classes/helpers/default-settings.php:415
+#: classes/helpers/default-settings.php:435
 msgid "[%%blog_name%%] Password Reset"
 msgstr ""
 
-#: classes/helpers/default-settings.php:421
+#: classes/helpers/default-settings.php:441
 msgid ""
 "Someone requested that the password be reset for the following account:\n"
 "\n"
@@ -979,19 +999,19 @@ msgid ""
 "%%reset_pwd_link%%"
 msgstr ""
 
-#: classes/helpers/default-settings.php:426
+#: classes/helpers/default-settings.php:446
 msgid "Validate new email member"
 msgstr ""
 
-#: classes/helpers/default-settings.php:427
+#: classes/helpers/default-settings.php:447
 msgid "Manage member notification mail for email change."
 msgstr ""
 
-#: classes/helpers/default-settings.php:439
+#: classes/helpers/default-settings.php:459
 msgid "[%%blog_name%%] New Admin Email Address"
 msgstr ""
 
-#: classes/helpers/default-settings.php:445
+#: classes/helpers/default-settings.php:465
 msgid ""
 "Hello,\n"
 "A request to change your email address has been sent to :\n"
@@ -1114,6 +1134,18 @@ msgstr ""
 
 #: classes/shortcodes/class-shortcode-registration.php:243
 msgid "Registration key is not valide for this member"
+msgstr ""
+
+#: classes/shortcodes/class-shortcode-two-factor.php:111
+msgid "Fail to create login nonce."
+msgstr ""
+
+#: classes/shortcodes/class-shortcode-two-factor.php:164
+msgid "A new authentication code has been sent."
+msgstr ""
+
+#: classes/shortcodes/class-shortcode-two-factor.php:174
+msgid "Invalid two-factor authentication code."
 msgstr ""
 
 #: views/admin/metabox-content-permissions.php:8
@@ -1320,6 +1352,7 @@ msgstr ""
 #: views/client/member-lost-password-step-2.tpl.php:21
 #: views/client/member-registration-step-2.tpl.php:35
 #: views/client/member-registration.tpl.php:43
+#: views/client/member-two-factor.tpl.php:21
 #: views/client/widget-mpt-unconnected.php:31
 msgid "Submit"
 msgstr ""
@@ -1380,6 +1413,18 @@ msgstr ""
 #: views/client/member-registration-step-2.tpl.php:30
 #: views/client/member-registration.tpl.php:33
 msgid "Password (confirmation)"
+msgstr ""
+
+#: views/client/member-two-factor.tpl.php:10
+msgid "A verification code has been sent to the email address associated with your account."
+msgstr ""
+
+#: views/client/member-two-factor.tpl.php:13
+msgid "Verification Code:"
+msgstr ""
+
+#: views/client/member-two-factor.tpl.php:22
+msgid "Resend Code"
 msgstr ""
 
 #: views/client/widget-mpt-connected.php:18

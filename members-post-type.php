@@ -20,35 +20,35 @@
 
  	Widget
  		AJAX Mode
-	
+
 	Social integration
 		Facebook / Twitter / Google+
-	
+
 	Security
 		Login lock (http://plugins.svn.wordpress.org/simple-login-lockdown/trunk/)
 		Force HTTPs ?
 	+	Reset all password
 	+	New random password (https://github.com/soulseekah/Random-New-User-Passwords-for-WordPress)
-	
+
 	Content restriction via roles
 	Browse as
-	
+
  ----
- 
+
  Copyright 2017 BE API Technical team (human@beapi.fr)
- 
+
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation; either version 2 of the License, or
  (at your option) any later version.
- 
+
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for                if ( mpt_is_member_logged_in() ) {
 18
 r more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with this program; if not, write to the Free Software
  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
@@ -109,8 +109,10 @@ _mpt_load_files( 'classes/', array(
 	'main',
 	'plugin',
 	'content-permissions',
-	'post-type', 'private-website',
-	'security', 'shortcode',
+	'post-type',
+	'private-website',
+	'security',
+	'shortcode',
 	'taxonomy',
 	'widget',
 	'no-cache'

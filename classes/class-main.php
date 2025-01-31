@@ -235,23 +235,34 @@ class MPT_Main {
 	}
 
 
-	public static function is_action_page() {
+	/**
+	 * Check if current page is a MPT action page.
+	 *
+	 * @param string $action specific action to check against.
+	 *
+	 * @return bool true if the current URL is a page and is set in MPT settings, false otherwise.
+	 */
+	public static function is_action_page( $action = '' ) {
 		// Is page ?
-		if ( !is_page() ) {
+		if ( ! is_page() ) {
 			return false;
 		}
-
-		// Get page ids from options
-		$current_options = (array) MPT_Options::get_option('mpt-pages');
 
 		// Get current page ID asked
 		$current_page_id = get_queried_object_id();
-		if ( (int) $current_page_id == 0 ) {
+		if ( $current_page_id === 0 ) {
 			return false;
 		}
 
-		foreach( $current_options as $option_name => $option_page_id ) {
-			if ( $current_page_id == $option_page_id ) {
+		if ( ! empty( $action ) ) {
+			$current_options = [ (int) self::get_action_page_id( $action ) ];
+		} else {
+			// Get page ids from options
+			$current_options = (array) MPT_Options::get_option( 'mpt-pages' );
+		}
+
+		foreach ( $current_options as $option_page_id ) {
+			if ( $current_page_id === (int) $option_page_id ) {
 				return true;
 			}
 		}

@@ -16,6 +16,7 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 	public function __construct() {
 		add_shortcode( 'member-registration', array( __CLASS__, 'shortcode' ) );
 		add_action( 'init', array( __CLASS__, 'init' ), 12 );
+		add_action( 'template_redirect' , array( __CLASS__, 'template_redirect' ) );
 	}
 
 	/**
@@ -25,18 +26,7 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 	public static function shortcode() {
 		// Member logged-in ?
 		if ( mpt_is_member_logged_in() ) {
-
-			// Skip render shortcode in the bo
-			if ( is_admin() || ! empty( $_GET['_locale'] ) ) {
-				return '<!-- Members already logged-in. -->';
-			}
-
-			$account_link = MPT_Main::get_action_permalink('account');
-
-			if ( ! empty( $account_link ) ) {
-				wp_safe_redirect( $account_link, 302, 'mpt' );
-				exit;
-			}
+			return '<!-- Members already logged-in. -->';
 		}
 
 		if ( isset( $_GET['mpt-action'] ) && $_GET['mpt-action'] == 'validation-member-registration' ) {
@@ -332,4 +322,18 @@ class MPT_Shortcode_Registration extends MPT_Shortcode {
 		}
 	}
 
+	/**
+	 * Redirect logged in members to the account page.
+	 *
+	 * @return void
+	 */
+	public static function template_redirect() {
+		if ( ( MPT_Main::is_action_page( 'registration' ) || MPT_Main::is_action_page( 'registration-step-2' ) ) && mpt_is_member_logged_in() ) {
+			$account_link = MPT_Main::get_action_permalink( 'account' );
+			if ( ! empty( $account_link ) ) {
+				wp_safe_redirect( $account_link, 302, 'mpt' );
+				exit;
+			}
+		}
+	}
 }

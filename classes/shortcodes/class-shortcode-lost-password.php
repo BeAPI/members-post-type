@@ -7,6 +7,7 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 	public function __construct() {
 		add_shortcode( 'member-lost-password', array( __CLASS__, 'shortcode' ) );
 		add_action( 'init', array( __CLASS__, 'init' ), 12 );
+		add_action( 'template_redirect' , array( __CLASS__, 'template_redirect' ) );
 	}
 
 	/**
@@ -16,17 +17,7 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 	public static function shortcode() {
 		// Member logged-in ?
 		if ( mpt_is_member_logged_in() ) {
-			// Skip render shortcode in the bo
-			if ( is_admin() || ! empty( $_GET['_locale'] ) ) {
-				return '<!-- Members logged-in, impossible to reset password. -->';
-			}
-
-			$account_link = MPT_Main::get_action_permalink('account');
-
-			if ( ! empty( $account_link ) ) {
-				wp_safe_redirect( $account_link, 302, 'mpt' );
-				exit;
-			}
+			return '<!-- Members logged-in, impossible to reset password. -->';
 		}
 
 		if ( isset( $_GET['mpt-action'] ) && $_GET['mpt-action'] == 'lost-password' ) {
@@ -89,19 +80,19 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 				parent::set_message( 'step_1_error', __( 'No member with this value.', 'mpt' ), 'error' );
 				return false;
 			}
-			
+
 			if( $member->is_pending_member() ){
 				parent::set_message( 'step_1_pending_member', __( 'You have not verified your account. You can not renew your password.', 'mpt' ), 'error' );
 				return false;
 			}
-			
+
 			// Send reset link
 			$result = $member->reset_password_link();
 			if ( is_wp_error( $result ) ) {
 				parent::set_message( $result->get_error_code(), $result->get_error_message(), 'error' );
 				return false;
 			}
-			
+
 			parent::set_message( 'step_1_sucess', __( "You are going to receive an email with a reset link.", 'mpt' ), 'success' );
 			return true;
 		}
@@ -194,4 +185,18 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 		return false;
 	}
 
+	/**
+	 * Redirect logged in members to the account page.
+	 *
+	 * @return void
+	 */
+	public static function template_redirect() {
+		if ( MPT_Main::is_action_page( 'lost-password' ) && mpt_is_member_logged_in() ) {
+			$account_link = MPT_Main::get_action_permalink( 'account' );
+			if ( ! empty( $account_link ) ) {
+				wp_safe_redirect( $account_link, 302, 'mpt' );
+				exit;
+			}
+		}
+	}
 }

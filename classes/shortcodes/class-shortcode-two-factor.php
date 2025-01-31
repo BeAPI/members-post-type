@@ -17,6 +17,7 @@ class MPT_Shortcode_Two_Factor extends MPT_Shortcode {
 		add_shortcode( 'member-two-factor', [ __CLASS__, 'shortcode' ] );
 		add_action( 'mpt_login', [ $this, 'mpt_login' ], 10, 2 );
 		add_action( 'init', [ __CLASS__, 'init' ], 12 );
+		add_action( 'template_redirect', [ __CLASS__, 'template_redirect' ] );
 	}
 
 	/**
@@ -63,26 +64,9 @@ class MPT_Shortcode_Two_Factor extends MPT_Shortcode {
 	 * @return string HTML of shortcode
 	 */
 	public static function shortcode() {
-		// Skip render shortcode in the bo
-		if ( is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
-			return '';
-		}
-
 		// Member logged-in ?
 		if ( mpt_is_member_logged_in() ) {
-			apply_filters( 'mpt_shortcode_login_member_logged_in', '<!-- Members already logged-in. -->', mpt_get_current_member() );
-
-			// Skip render shortcode in the bo
-			if ( is_admin() || ! empty( $_GET['_locale'] ) ) {
-				return;
-			}
-
-			$account_link = MPT_Main::get_action_permalink( 'account' );
-
-			if ( ! empty( $account_link ) ) {
-				wp_safe_redirect( $account_link, 302, 'mpt' );
-				exit;
-			}
+			return apply_filters( 'mpt_shortcode_login_member_logged_in', '<!-- Members already logged-in. -->', mpt_get_current_member() );
 		}
 
 		$is_post_request = ( 'POST' === strtoupper( $_SERVER['REQUEST_METHOD'] ) );
@@ -96,14 +80,12 @@ class MPT_Shortcode_Two_Factor extends MPT_Shortcode {
 		}
 
 		if ( empty( $challenge_id ) ) {
-			wp_safe_redirect( home_url( '/' ), 302, 'mpt' );
-			exit;
+			wp_die( esc_html__( 'Missing/invalid challenge id.', 'mpt' ) );
 		}
 
 		$member = self::get_member_by_challenge_id( $challenge_id );
 		if ( ! $member->exists() ) {
-			wp_safe_redirect( home_url( '/' ), 302, 'mpt' );
-			exit;
+			wp_die( esc_html__( 'Missing/invalid challenge id.', 'mpt' ) );
 		}
 
 		$login_nonce = self::create_login_nonce( $member );
@@ -406,5 +388,29 @@ class MPT_Shortcode_Two_Factor extends MPT_Shortcode {
 		delete_post_meta( $member->id, self::MEMBER_2FA_CODE_META_NAME );
 
 		return true;
+	}
+
+	/**
+	 * Redirect anonymous members to the login page.
+	 *
+	 * @return void
+	 */
+	public static function template_redirect() {
+		if ( MPT_Main::is_action_page( 'two-factor' ) && mpt_is_member_logged_in() ) {
+			$account_link = MPT_Main::get_action_permalink( 'account' );
+			if ( ! empty( $account_link ) ) {
+				wp_safe_redirect( $account_link, 302, 'mpt' );
+				exit;
+			}
+		}
+
+		// Redirect GET request without `challenge_id` param to the login page.
+		if ( MPT_Main::is_action_page( 'two-factor' ) && 'GET' === strtoupper( $_SERVER['REQUEST_METHOD'] ) && ! isset( $_GET['challenge_id'] ) ) {
+			$login_link = MPT_Main::get_action_permalink( 'login' );
+			if ( ! empty( $login_link ) ) {
+				wp_safe_redirect( $login_link, 302, 'mpt' );
+				exit;
+			}
+		}
 	}
 }

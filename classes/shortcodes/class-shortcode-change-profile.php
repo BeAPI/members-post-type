@@ -5,11 +5,12 @@ class MPT_Shortcode_Change_Profile extends MPT_Shortcode {
 	 * Constructor, register hooks
 	 */
 	public function __construct() {
-		add_shortcode( 'member-change-profile', array( __CLASS__, 'shortcode' ) );
-		add_action( 'init', array( __CLASS__, 'check_url_email_change' ), 8 );
-		add_action( 'init', array( __CLASS__, 'cancel_email_change' ), 9 );
-		add_action( 'init', array( __CLASS__, 'init' ), 9 );
-		add_action( 'init', array( __CLASS__, 'notice' ), 8 );
+		add_shortcode( 'member-change-profile', [ __CLASS__, 'shortcode' ] );
+		add_action( 'init', [ __CLASS__, 'check_url_email_change' ], 8 );
+		add_action( 'init', [ __CLASS__, 'cancel_email_change' ], 9 );
+		add_action( 'init', [ __CLASS__, 'init' ], 9 );
+		add_action( 'init', [ __CLASS__, 'notice' ], 8 );
+		add_action( 'template_redirect', [ __CLASS__, 'template_redirect' ] );
 	}
 
 	/**
@@ -17,21 +18,9 @@ class MPT_Shortcode_Change_Profile extends MPT_Shortcode {
 	 * @return string HTML of shortcode
 	 */
 	public static function shortcode() {
-		// Skip render shortcode in the bo
-		if ( is_admin() || ! empty( $_GET['_locale'] ) ) {
-			return '';
-		}
-
 		// Member logged-in ?
 		if ( ! mpt_is_member_logged_in() ) {
-			$location = wp_validate_redirect( mpt_get_login_permalink() );
-
-			if ( empty( $location ) ) {
-				$location = home_url();
-			}
-
-			wp_safe_redirect( $location, 302, 'mpt' );
-			exit;
+			return __( 'You need to log in to update your profile.', 'mpt' );
 		}
 
 		$member = mpt_get_current_member();
@@ -187,5 +176,20 @@ class MPT_Shortcode_Change_Profile extends MPT_Shortcode {
 	public static function redirect_clear_url() {
 		wp_safe_redirect( add_query_arg( 'update', true, self::get_clean_url() ) );
 		exit;
+	}
+
+	/**
+	 * Redirect anonymous members to the login page.
+	 *
+	 * @return void
+	 */
+	public static function template_redirect() {
+		if ( MPT_Main::is_action_page( 'change-profile' ) && ! mpt_is_member_logged_in() ) {
+			$account_link = MPT_Main::get_action_permalink( 'login' );
+			if ( ! empty( $account_link ) ) {
+				wp_safe_redirect( $account_link, 302, 'mpt' );
+				exit;
+			}
+		}
 	}
 }

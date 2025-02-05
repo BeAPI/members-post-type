@@ -9,7 +9,6 @@ class MPT_Shortcode_Change_Profile extends MPT_Shortcode {
 		add_action( 'init', [ __CLASS__, 'check_url_email_change' ], 8 );
 		add_action( 'init', [ __CLASS__, 'cancel_email_change' ], 9 );
 		add_action( 'init', [ __CLASS__, 'init' ], 9 );
-		add_action( 'init', [ __CLASS__, 'notice' ], 8 );
 		add_action( 'template_redirect', [ __CLASS__, 'template_redirect' ] );
 	}
 
@@ -21,6 +20,13 @@ class MPT_Shortcode_Change_Profile extends MPT_Shortcode {
 		// Member logged-in ?
 		if ( ! mpt_is_member_logged_in() ) {
 			return __( 'You need to log in to update your profile.', 'mpt' );
+		}
+
+		$update_profile = sanitize_text_field( ( $_GET['update-profile'] ?? '' ) ); //phpcs:ignore
+		if ( '1' === $update_profile ) {
+			parent::set_message( 'change_profile_success', __( 'Profile updated with success.', 'mpt' ), 'updated' );
+		} elseif ( '2' === $update_profile ) {
+			parent::set_message( 'change_profile_error', __( 'An error occurred during the update. Please try again later or contact the site administrator.', 'mpt' ), 'failed' );
 		}
 
 		$member = mpt_get_current_member();
@@ -137,22 +143,6 @@ class MPT_Shortcode_Change_Profile extends MPT_Shortcode {
 		// Force to update value into field
 		wp_safe_redirect( add_query_arg( 'update-profile', 1, $clean_url ) );
 		exit();
-	}
-
-	/**
-	 * Display notice after update post
-	 * @return void
-	 */
-	public static function notice() {
-		$update_profile = $_GET['update-profile'] ?? ''; //phpcs:ignore
-
-		if ( '1' === $update_profile ) {
-			parent::set_message( 'change_profile_success', __( 'Profile updated with success.', 'mpt' ), 'updated' );
-		}
-
-		if ( '2' === $update_profile ) {
-			parent::set_message( 'change_profile_error', __( 'An error occurred during the update. Please try again later or contact the site administrator.', 'mpt' ), 'failed' );
-		}
 	}
 
 	/**

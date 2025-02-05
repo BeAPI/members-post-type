@@ -19,6 +19,12 @@ To do so, download the meta for taxonomies plugin and let the plugin migrate the
 
 ## Changelog ##
 
+### 1.1.0 - 5 Feb 2025
+* account editing for members
+* email change validation
+* support for polylang
+* two-factor authentication
+
 ### 1.0.10 - 4 Nov 2017
 * Ensure to send all admin notifications.
 

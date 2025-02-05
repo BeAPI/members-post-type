@@ -15,7 +15,7 @@ class MPT_Shortcode_Account extends MPT_Shortcode {
 	 */
 	public static function shortcode() {
 		// Member logged-in ?
-		if ( mpt_is_member_logged_in() ) {
+		if ( ! mpt_is_member_logged_in() ) {
 			return apply_filters( 'mpt_shortcode_account_member_not_logged_in', '<!-- Members not logged-in. -->' );
 		}
 

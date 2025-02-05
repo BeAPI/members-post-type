@@ -19,6 +19,9 @@ To do so, download the meta for taxonomies plugin and let the plugin migrate the
 
 ## Changelog ##
 
+### 1.1.1 - 5 Feb 2025
+* fix condition in account shortcode
+
 ### 1.1.0 - 5 Feb 2025
 * account editing for members
 * email change validation

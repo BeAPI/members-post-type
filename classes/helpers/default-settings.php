@@ -120,6 +120,13 @@ return array(
 			'options' => $all_pages
 		),
 		array(
+			'name'    => 'page-two-factor',
+			'label'   => __( 'Two factor challenge', 'mpt' ),
+			'desc' => __( 'Used if the two-factor authentication is enable.', 'mpt' ),
+			'type'    => 'select',
+			'options' => $all_pages
+		),
+		array(
 			'name'    => 'page-change-password',
 			'label'   => __( 'Change password', 'mpt' ),
 			//'desc' => __( 'Dropdown', 'mpt' ),
@@ -129,6 +136,20 @@ return array(
 		array(
 			'name'    => 'page-lost-password',
 			'label'   => __( 'Lost password', 'mpt' ),
+			//'desc' => __( 'Dropdown', 'mpt' ),
+			'type'    => 'select',
+			'options' => $all_pages
+		),
+		array(
+			'name'    => 'page-change-profile',
+			'label'   => __( 'Change profile', 'mpt' ),
+			//'desc' => __( 'Dropdown', 'mpt' ),
+			'type'    => 'select',
+			'options' => $all_pages
+		),
+		array(
+			'name'    => 'page-account',
+			'label'   => __( 'My account', 'mpt' ),
 			//'desc' => __( 'Dropdown', 'mpt' ),
 			'type'    => 'select',
 			'options' => $all_pages
@@ -257,6 +278,32 @@ return array(
 			'type'              => 'text',
 			'default'           => 0,
 			'sanitize_callback' => 'intval'
+		),
+		array(
+			'name'  => 'last-login-details',
+			'label' => __( 'Last login details', 'mpt' ),
+			'desc'  => '',
+			'type'  => 'metabox',
+		),
+		array(
+			'name'              => 'user-activity',
+			'label'             => __( 'User\'s activity', 'mpt' ),
+			'desc'              => __( 'Display user\'s last connection information (date & time, operating system, browser, IP address).', 'mpt' ),
+			'type'              => 'checkbox',
+			'default'           => 0,
+		),
+		array(
+			'name'  => 'two-factor-configuration',
+			'label' => __( 'Two-factor', 'mpt' ),
+			'desc'  => '',
+			'type'  => 'metabox',
+		),
+		array(
+			'name'              => 'enable-two-factor',
+			'label'             => __( 'Enable two-factor authentication', 'mpt' ),
+			'desc'              => __( 'Members will need to enter a code send by mail when login in.', 'mpt' ),
+			'type'              => 'checkbox',
+			'default'           => 0,
 		),
 	),
 	'mpt-emails'   => array(
@@ -392,6 +439,30 @@ return array(
 			'label'             => __( 'Content mail', 'mpt' ),
 			'type'              => 'textarea',
 			'default'           => __( "Someone requested that the password be reset for the following account:\n\n%%site_url%%\n\nUsername: %%user_name%%\n\nIf this was a mistake, just ignore this email and nothing will happen.\n\nTo reset your password, visit the following address:\n\n%%reset_pwd_link%%", 'mpt' ),
+			'sanitize_callback' => 'strip_tags'
+		),
+		array(
+			'name'  => 'validate_new_email_member',
+			'label' => __( 'Validate new email member', 'mpt' ),
+			'desc'  => __( 'Manage member notification mail for email change.', 'mpt' ),
+			'type'  => 'metabox',
+		),
+		array(
+			'name' => MPT_Options::description_setting_name( 'validate_new_email_member' ),
+			'desc' => MPT_Options::description_setting_desc( 'validate_new_email_member' ),
+			'type' => 'html',
+		),
+		array(
+			'name'    => 'validate_new_email_member_subject',
+			'label'   => __( 'Subject mail', 'mpt' ),
+			'type'    => 'text',
+			'default' => __( '[%%blog_name%%] New Admin Email Address', 'mpt' ),
+		),
+		array(
+			'name'              => 'validate_new_email_member_content',
+			'label'             => __( 'Content mail', 'mpt' ),
+			'type'              => 'textarea',
+			'default'           => __( "Hello,\nA request to change your email address has been sent to :\n%%site_url%%.\n\nThe request concerns the account of %%display_name%%.\n\nTo confirm this change, please click on the following link:\n %%validate_email_link%%\n\nYou can safely ignore and delete this email if you do not wish to take this action.\n\nYours sincerely", 'mpt' ),
 			'sanitize_callback' => 'strip_tags'
 		),
 	),

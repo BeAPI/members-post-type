@@ -42,9 +42,16 @@ class MPT_Admin_Welcome_Message{
 	}
 	
 	public static function mpt_send_mail_to_member( $postid ) {
-		
 		if( empty( $_REQUEST['welcome-message'] ) || $_REQUEST['welcome-message'] != 'yes' ){
 			return false;
+		}
+
+		$member = new MPT_Member( $postid );
+
+		if( $member->is_pending_member() ){
+			$member->register_validation_notification();
+
+			return;
 		}
 
 		if ( ( empty($_REQUEST['memberpwd']['password'] ) || empty($_REQUEST['memberpwd']['confirm_password'] ) || $_REQUEST['memberpwd']['password'] != $_REQUEST['memberpwd']['confirm_password'] ) && empty( $_REQUEST['memberpwd']['password-generate'] ) ) {
@@ -55,10 +62,7 @@ class MPT_Admin_Welcome_Message{
 		}elseif( !empty( $_REQUEST['memberpwd']['password-generate'] ) ){
 			$password = $_REQUEST['memberpwd']['password-generate'];
 		}
-		
-		
-		$member = new MPT_Member( $postid );
-		
+
 		$member->register_notification( $password );
 	}
 }

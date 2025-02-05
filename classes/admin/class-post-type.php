@@ -1,6 +1,7 @@
 <?php
 class MPT_Admin_Post_Type {
 	static $errors = array();
+	static $success = false;
 
     /**
      * __construct
@@ -69,6 +70,17 @@ class MPT_Admin_Post_Type {
 			if ( in_array('2', $message_codes) ) {
 				add_settings_error( MPT_CPT_NAME.'-postbox-main', MPT_CPT_NAME.'-postbox-main', __('The email is already in use. Back to initial value.', 'mpt'), 'error' );
 			}
+
+			// Resend notification registration
+			if ( in_array( '5', $message_codes, true ) ) {
+				$message = __( 'An error has occurred, please check back later.', 'mpt' );
+				$type_error = 'error';
+				if ( $_GET['mpt-success'] === '1' ) {
+					$message = __( 'The notification has been sent.', 'mpt' );
+					$type_error = 'success';
+				}
+				add_settings_error( MPT_CPT_NAME . '-postbox-resend-registration-notification', MPT_CPT_NAME . '-postbox-resend-registration-notification', $message, $type_error );
+			}
 		}
 	}
 
@@ -108,6 +120,10 @@ class MPT_Admin_Post_Type {
 	public static function add_meta_boxes( ) {
 		add_meta_box( MPT_CPT_NAME.'-postbox-main', __('Main information', 'mpt'), array( __CLASS__, 'metabox_main' ), MPT_CPT_NAME, 'normal', 'high' );
 		add_meta_box( MPT_CPT_NAME.'-postbox-password', __('Change password', 'mpt'), array( __CLASS__, 'metabox_password' ), MPT_CPT_NAME, 'normal', 'high' );
+		if ( 'pending' === get_post_status() ) {
+			add_meta_box( MPT_CPT_NAME . '-postbox-resend-registration-notification', __( 'Resend registration notification', 'mpt' ), array( __CLASS__, 'metabox_resend_registration_notification' ), MPT_CPT_NAME, 'side', 'default' );
+		}
+		add_meta_box( MPT_CPT_NAME . '-postbox-last-user-activity', __( 'Last member activity', 'mpt' ), array( __CLASS__, 'metabox_user_activity' ), MPT_CPT_NAME, 'normal', 'high' );
 	}
 
     /**
@@ -158,6 +174,40 @@ class MPT_Admin_Post_Type {
 		include( MPT_DIR . 'views/admin/metabox-password.php');
 	}
 
+	/**
+	 * Metabox to send new notification to continue registration
+	 *
+	 * @param $post
+	 *
+	 * @return void
+	 */
+	public static function metabox_resend_registration_notification( $post ) {
+		// Use nonce for verification
+		wp_nonce_field( plugin_basename( __FILE__ ), MPT_CPT_NAME.'-postbox-resend-registration-notification' );
+
+		settings_errors( MPT_CPT_NAME . '-postbox-resend-registration-notification' );
+
+		// Call Template
+		include( MPT_DIR . 'views/admin/metabox-resend-registration-notification.php');
+	}
+
+	/**
+	 * Display user activity after logout
+	 *
+	 * @param $post
+	 *
+	 * @return void
+	 */
+	public static function metabox_user_activity($post){
+		$member = new MPT_Member($post->ID);
+
+		if ( ! $member->exists() ) {
+			return;
+		}
+
+		include( MPT_DIR . 'views/admin/metabox-last-user-activity.php');
+	}
+
     /**
      * save_post
      * 
@@ -179,6 +229,7 @@ class MPT_Admin_Post_Type {
 
 		self::save_metabox_main( $post_id );
 		self::save_metabox_password( $post_id );
+		self::save_metabox_resend_registration_notification( $post_id );
 		
 		do_action( 'mpt_send_mail_to_member', $post_id );
 		
@@ -298,6 +349,47 @@ class MPT_Admin_Post_Type {
 		return true;
 	}
 
+	/**
+	 * Resend registration notification
+	 *
+	 * @param $post_id
+	 *
+	 * @return void
+	 */
+	public static function save_metabox_resend_registration_notification( $post_id ) {
+		$action = $_POST['mpt_resend_notification_regsitration'] ?? '';
+		// Check action
+		if ( empty( $action ) ) {
+			return;
+		}
+
+		// Check nonce
+		if ( ! isset( $_POST[ MPT_CPT_NAME . '-postbox-resend-registration-notification' ] ) || ! wp_verify_nonce( $_POST[ MPT_CPT_NAME . '-postbox-resend-registration-notification' ], plugin_basename( __FILE__ ) ) ) {
+			self::$errors[] = 5;
+
+			return;
+		}
+
+		$mpt_member = new \MPT_Member( $post_id );
+
+		if ( ! $mpt_member->exists() ) {
+			self::$errors[] = 5;
+
+			return;
+		}
+
+		update_post_meta( $mpt_member->id, 'password', wp_generate_password() );
+		// Generate validation registration key
+		$mpt_member->set_activation_key();
+		if ( false === $mpt_member->register_validation_notification() ) {
+			self::$errors[] = 5;
+
+			return;
+		}
+
+		self::$success = true;
+	}
+
     /**
      * redirect_post_location
      * 
@@ -310,8 +402,15 @@ class MPT_Admin_Post_Type {
      * @return mixed Value.
      */
 	public static function redirect_post_location( $location, $post_id ) {
+		// Clear query arg to reload page
+		$location = remove_query_arg( [ 'mpt-message', 'mpt-success' ], $location );
+
 		if ( !empty(self::$errors) ) {
 			return add_query_arg( array('mpt-message' => implode(',', self::$errors)), $location );
+		}
+
+		if ( self::$success === true ) {
+			return add_query_arg( array( 'mpt-message' => 5, 'mpt-success' => 1 ), $location );
 		}
 
 		return $location;

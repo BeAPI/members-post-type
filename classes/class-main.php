@@ -4,7 +4,7 @@ class MPT_Main {
 
 	/**
 	 * Register hooks
-	 * 
+	 *
 	 * @access public
 	 *
 	 * @return void.
@@ -38,12 +38,12 @@ class MPT_Main {
 		if ( !defined('DOING_AJAX') ) {
 			return false;
 		}
-		
+
 		// Require an action mptaction
 		if ( !isset($_REQUEST['mptaction']) || empty( $_REQUEST['mptaction'] ) ) {
 			return false;
 		}
-		
+
 		/** Allow for cross-domain requests (from the frontend). */
 		send_origin_headers();
 
@@ -60,13 +60,13 @@ class MPT_Main {
 		nocache_headers();
 
 		do_action( 'admin_init' );
-		
+
 		if ( mpt_is_member_logged_in() ) {
 			do_action('mpt_ajax_' . $_REQUEST['mptaction']); // Authenticated actions
 		} else {
 			do_action('mpt_ajax_nopriv_' . $_REQUEST['mptaction']); // Non-member actions
 		}
-		
+
 		die( '0' );
 	}
 
@@ -79,18 +79,19 @@ class MPT_Main {
 	 * @return void.
 	 */
 	public static function init() {
-		if (isset($_GET['mpt-action']) && $_GET['mpt-action'] == 'logout') {
-			if (MPT_Member_Auth::is_logged_in()) {
+		if ( isset( $_GET['mpt-action'] ) && $_GET['mpt-action'] == 'logout' ) {
+			if ( MPT_Member_Auth::is_logged_in() ) {
 				MPT_Member_Auth::logout();
-				$redirect_to = home_url('/#logout-success');
+				$redirect_to = home_url( '/#logout-success' );
 			} else {
-				$redirect_to = home_url('/#logout-error');
+				$redirect_to = home_url( '/#logout-error' );
 			}
 
-			// Check if request want redirect to somewehre
-			$redirect_to = (isset($_REQUEST['redirect_to']) && !empty($_REQUEST['redirect_to'])) ? $_REQUEST['redirect_to'] : $redirect_to;
+			// Check if request want to redirect somewhere
+			$redirect_to = ! empty( $_REQUEST['redirect_to'] ) ? wp_sanitize_redirect( $_REQUEST['redirect_to'] ) : $redirect_to;
+			$redirect_to = wp_validate_redirect( $redirect_to, home_url( '/' ) );
 
-			wp_redirect($redirect_to);
+			wp_safe_redirect( $redirect_to );
 			exit();
 		}
 	}
@@ -127,7 +128,7 @@ class MPT_Main {
 
 	/**
 	 * Add class to HTML body
-	 * 
+	 *
 	 * @param array $classes Array with body classes.
 	 *
 	 * @access public
@@ -145,7 +146,7 @@ class MPT_Main {
 
 	/**
 	 * Manage login counter, last connection
-	 * 
+	 *
 	 * @param string $member_name Description.
 	 * @param int    $member_id   Description.
 	 *
@@ -166,7 +167,7 @@ class MPT_Main {
 
 	/**
 	 * Build action link for MPT actions
-	 * 
+	 *
 	 * @param string $action action ask by developper.
 	 *
 	 * @access public
@@ -177,7 +178,7 @@ class MPT_Main {
 	public static function get_action_permalink($action = '') {
 		// Get page ids from options
 		$current_options = (array) MPT_Options::get_option('mpt-pages');
-		
+
 		// Build URL depending action
 		if ( $action == 'logout' ) {
 			$return_url = admin_url('/admin-ajax.php?mpt-action=logout');
@@ -190,13 +191,13 @@ class MPT_Main {
 				$return_url = home_url('/#no-known-action');
 			}
 		}
-		
+
 		return apply_filters('mpt_action_permalink', $return_url, $action);
 	}
-	
+
 	/**
 	 * Get page id for MPT actions
-	 * 
+	 *
 	 * @param string $action action ask by developper.
 	 *
 	 * @access public
@@ -216,8 +217,11 @@ class MPT_Main {
 			case 'registration' :
 			case 'registration-step-2' :
 			case 'login' :
+			case 'account' :
 			case 'change-password' :
+			case 'change-profile' :
 			case 'lost-password' :
+			case 'two-factor' :
 				if (isset($current_options['page-' . $action]) && absint($current_options['page-' . $action]) > 0) {
 					$page_id = $current_options['page-' . $action];
 				}
@@ -230,28 +234,39 @@ class MPT_Main {
 		return apply_filters('mpt_action_page_id', $page_id, $action);
 	}
 
-	
-	public static function is_action_page() {
+
+	/**
+	 * Check if current page is a MPT action page.
+	 *
+	 * @param string $action specific action to check against.
+	 *
+	 * @return bool true if the current URL is a page and is set in MPT settings, false otherwise.
+	 */
+	public static function is_action_page( $action = '' ) {
 		// Is page ?
-		if ( !is_page() ) {
+		if ( ! is_page() ) {
 			return false;
 		}
-		
-		// Get page ids from options
-		$current_options = (array) MPT_Options::get_option('mpt-pages');
 
 		// Get current page ID asked
 		$current_page_id = get_queried_object_id();
-		if ( (int) $current_page_id == 0 ) {
+		if ( $current_page_id === 0 ) {
 			return false;
 		}
 
-		foreach( $current_options as $option_name => $option_page_id ) {
-			if ( $current_page_id == $option_page_id ) {
+		if ( ! empty( $action ) ) {
+			$current_options = [ (int) self::get_action_page_id( $action ) ];
+		} else {
+			// Get page ids from options
+			$current_options = (array) MPT_Options::get_option( 'mpt-pages' );
+		}
+
+		foreach ( $current_options as $option_page_id ) {
+			if ( $current_page_id === (int) $option_page_id ) {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 }

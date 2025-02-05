@@ -307,7 +307,41 @@ class MPT_Member_Auth {
 	 *
 	 */
 	public static function logout() {
+		self::set_last_login_activity();
 		self::clear_auth_cookie();
+	}
+
+	/**
+	 * Set last login activity before user logout
+	 * @return void
+	 */
+	private static function set_last_login_activity(){
+		global $current_mpt_member;
+
+		if ( empty( $current_mpt_member ) ) {
+			return;
+		}
+
+		$last_login_activity_data = [
+			'date_time'    => [
+				'label' => __( 'Date & Hour', 'mpt' ),
+				'value' => wp_date( 'Y-m-d H:i:s' ),
+			],
+			'user_os'      => [
+				'label' => __( 'Operating System', 'mpt' ),
+				'value' => php_uname( 's' ),
+			],
+			'user_browser' => [
+				'label' => __( 'Browser', 'mpt' ),
+				'value' => $_SERVER['HTTP_USER_AGENT'] ?? '',
+			],
+			'user_ip'      => [
+				'label' => __( 'IP address', 'mpt' ),
+				'value' => $_SERVER['REMOTE_ADDR'] ?? '',
+			],
+		];
+
+		update_post_meta( $current_mpt_member->id, MPT_LAST_LOGIN_ACTIVITY, $last_login_activity_data );
 	}
 
 	/**

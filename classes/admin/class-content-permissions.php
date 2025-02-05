@@ -37,6 +37,10 @@ class MPT_Admin_Content_Permissions {
 		if ( $post_type == MPT_CPT_NAME ) {
 			return false;
 		}
+
+		if ( apply_filters( 'mpt_disabled_content_permissions_meta_boxes', false, $post_type ) ) {
+			return false;
+		}
 		
 		// TODO : Add this caps
 		/* Only add the meta box if the current user has the 'mpt_restrict_content' capability. */

@@ -9,7 +9,7 @@ echo MPT_Shortcode::get_messages();
 
 <form method="post">
 	<div class="mpt-field">
-		<label for="mpt-new-password">><?php _e( 'Your new password', 'mpt' ); ?></label>
+		<label for="mpt-new-password"><?php _e( 'Your new password', 'mpt' ); ?></label>
 		<input id="mpt-new-password" required="required" type="password" name="mptlostpwd_s2[password]" value=""/>
 	</div>
 	<div class="mpt-field">

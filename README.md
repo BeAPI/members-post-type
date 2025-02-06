@@ -19,6 +19,10 @@ To do so, download the meta for taxonomies plugin and let the plugin migrate the
 
 ## Changelog ##
 
+### 1.1.2 - 6 Feb 2025
+* skip two-factor shortcode rendering for admin/ajax/rest requests
+* fix extraneous chevron in shortcode template
+
 ### 1.1.1 - 5 Feb 2025
 * fix condition in account shortcode
 

@@ -64,6 +64,11 @@ class MPT_Shortcode_Two_Factor extends MPT_Shortcode {
 	 * @return string HTML of shortcode
 	 */
 	public static function shortcode() {
+		// Skip shortcode rendering for admin / ajax / rest requests.
+		if ( is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
+			return;
+		}
+
 		// Member logged-in ?
 		if ( mpt_is_member_logged_in() ) {
 			return apply_filters( 'mpt_shortcode_login_member_logged_in', '<!-- Members already logged-in. -->', mpt_get_current_member() );

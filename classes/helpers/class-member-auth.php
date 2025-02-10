@@ -325,7 +325,7 @@ class MPT_Member_Auth {
 		$last_login_activity_data = [
 			'date_time'    => [
 				'label' => __( 'Date & Hour', 'mpt' ),
-				'value' => wp_date( 'Y-m-d H:i:s' ),
+				'value' => wp_date( 'j F Y - H:i' ),
 			],
 			'user_os'      => [
 				'label' => __( 'Operating System', 'mpt' ),

@@ -357,7 +357,7 @@ class MPT_Admin_Post_Type {
 	 * @return void
 	 */
 	public static function save_metabox_resend_registration_notification( $post_id ) {
-		$action = $_POST['mpt_resend_notification_regsitration'] ?? '';
+		$action = $_POST['mpt_resend_notification_registration'] ?? '';
 		// Check action
 		if ( empty( $action ) ) {
 			return;

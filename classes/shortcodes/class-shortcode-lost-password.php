@@ -121,7 +121,7 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 		$member = new MPT_Member( );
 		$member->fill_by( 'activation_key', $_GET['key'] );
 		if ( !$member->exists() || ($member->exists() && $member->id != $_GET['id']) ) {
-			wp_die( __( 'Cheatin&#8217; uh?', 'mpt' ) );
+			wp_die( __( 'The link you clicked seems to be broken. Please contact the administrator of the site', 'mpt' ) );
 		}
 
 		return true;
@@ -149,7 +149,7 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 			$member = new MPT_Member( );
 			$member->fill_by( 'activation_key', $_GET['key'] );
 			if ( !$member->exists() || ($member->exists() && $member->id != $_GET['id']) ) {
-				wp_die( __( 'Cheatin&#8217; uh?', 'mpt' ) );
+				wp_die( __( 'The link you clicked seems to be broken. Please contact the administrator of the site', 'mpt' ) );
 			}
 
 			// Set new password

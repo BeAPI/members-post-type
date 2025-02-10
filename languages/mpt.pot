@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Members post type plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Members post type 1.0.10\n"
+"Project-Id-Version: Members post type 1.1.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/members-post-type\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-02-05T10:32:49+00:00\n"
+"POT-Creation-Date: 2025-02-10T17:05:54+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: mpt\n"
@@ -140,17 +140,17 @@ msgstr ""
 
 #: classes/admin/class-settings-main.php:141
 #: classes/admin/class-settings-main.php:148
-#: classes/admin/class-settings-main.php:160
-#: classes/admin/class-settings-main.php:169
-#: classes/admin/class-settings-main.php:177
-#: classes/admin/class-settings-main.php:184
+#: classes/admin/class-settings-main.php:159
+#: classes/admin/class-settings-main.php:168
+#: classes/admin/class-settings-main.php:176
+#: classes/admin/class-settings-main.php:183
 msgid "Blog's name"
 msgstr ""
 
 #: classes/admin/class-settings-main.php:142
 #: classes/admin/class-settings-main.php:149
-#: classes/admin/class-settings-main.php:161
-#: classes/admin/class-settings-main.php:170
+#: classes/admin/class-settings-main.php:160
+#: classes/admin/class-settings-main.php:169
 msgid "User's name"
 msgstr ""
 
@@ -167,36 +167,32 @@ msgid "The password reset link"
 msgstr ""
 
 #: classes/admin/class-settings-main.php:153
-#: classes/admin/class-settings-main.php:178
-#: classes/admin/class-settings-main.php:185
+#: classes/admin/class-settings-main.php:177
+#: classes/admin/class-settings-main.php:184
 msgid "Current site's url"
 msgstr ""
 
-#: classes/admin/class-settings-main.php:154
-msgid "Current blog's url"
-msgstr ""
-
-#: classes/admin/class-settings-main.php:162
+#: classes/admin/class-settings-main.php:161
 msgid "User's password"
 msgstr ""
 
-#: classes/admin/class-settings-main.php:163
+#: classes/admin/class-settings-main.php:162
 msgid "The site's login url"
 msgstr ""
 
-#: classes/admin/class-settings-main.php:171
+#: classes/admin/class-settings-main.php:170
 msgid "User's email"
 msgstr ""
 
-#: classes/admin/class-settings-main.php:179
+#: classes/admin/class-settings-main.php:178
 msgid "The register confirmation link"
 msgstr ""
 
-#: classes/admin/class-settings-main.php:186
+#: classes/admin/class-settings-main.php:185
 msgid "User's display name"
 msgstr ""
 
-#: classes/admin/class-settings-main.php:187
+#: classes/admin/class-settings-main.php:186
 msgid "The validate email link"
 msgstr ""
 
@@ -1019,7 +1015,7 @@ msgstr ""
 msgid ""
 "Hello,\n"
 "A request to change your email address has been sent to :\n"
-"%%site_url%%.\n"
+"%%site_url%%\n"
 "\n"
 "The request concerns the account of %%display_name%%.\n"
 "\n"
@@ -1061,31 +1057,31 @@ msgstr ""
 msgid "Password updated with success."
 msgstr ""
 
-#: classes/shortcodes/class-shortcode-change-profile.php:23
+#: classes/shortcodes/class-shortcode-change-profile.php:22
 msgid "You need to log in to update your profile."
 msgstr ""
 
-#: classes/shortcodes/class-shortcode-change-profile.php:48
-#: classes/shortcodes/class-shortcode-change-profile.php:61
+#: classes/shortcodes/class-shortcode-change-profile.php:27
+msgid "Profile updated with success."
+msgstr ""
+
+#: classes/shortcodes/class-shortcode-change-profile.php:29
+msgid "An error occurred during the update. Please try again later or contact the site administrator."
+msgstr ""
+
+#: classes/shortcodes/class-shortcode-change-profile.php:54
+#: classes/shortcodes/class-shortcode-change-profile.php:67
 #: classes/shortcodes/class-shortcode-lost-password.php:114
+#: classes/shortcodes/class-shortcode-lost-password.php:124
+#: classes/shortcodes/class-shortcode-lost-password.php:152
 #: classes/shortcodes/class-shortcode-registration.php:216
 msgid "The link you clicked seems to be broken. Please contact the administrator of the site"
 msgstr ""
 
-#: classes/shortcodes/class-shortcode-change-profile.php:55
-#: classes/shortcodes/class-shortcode-lost-password.php:124
-#: classes/shortcodes/class-shortcode-lost-password.php:152
+#: classes/shortcodes/class-shortcode-change-profile.php:61
 #: classes/shortcodes/class-shortcode-registration.php:223
 #: classes/shortcodes/class-shortcode-registration.php:269
 msgid "Cheatin&#8217; uh?"
-msgstr ""
-
-#: classes/shortcodes/class-shortcode-change-profile.php:150
-msgid "Profile updated with success."
-msgstr ""
-
-#: classes/shortcodes/class-shortcode-change-profile.php:154
-msgid "An error occurred during the update. Please try again later or contact the site administrator."
 msgstr ""
 
 #: classes/shortcodes/class-shortcode-lost-password.php:64
@@ -1144,20 +1140,20 @@ msgstr ""
 msgid "Registration key is not valide for this member"
 msgstr ""
 
-#: classes/shortcodes/class-shortcode-two-factor.php:83
 #: classes/shortcodes/class-shortcode-two-factor.php:88
+#: classes/shortcodes/class-shortcode-two-factor.php:93
 msgid "Missing/invalid challenge id."
 msgstr ""
 
-#: classes/shortcodes/class-shortcode-two-factor.php:93
+#: classes/shortcodes/class-shortcode-two-factor.php:98
 msgid "Fail to create login nonce."
 msgstr ""
 
-#: classes/shortcodes/class-shortcode-two-factor.php:146
+#: classes/shortcodes/class-shortcode-two-factor.php:151
 msgid "A new authentication code has been sent."
 msgstr ""
 
-#: classes/shortcodes/class-shortcode-two-factor.php:156
+#: classes/shortcodes/class-shortcode-two-factor.php:161
 msgid "Invalid two-factor authentication code."
 msgstr ""
 

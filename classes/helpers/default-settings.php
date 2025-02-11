@@ -462,7 +462,7 @@ return array(
 			'name'              => 'validate_new_email_member_content',
 			'label'             => __( 'Content mail', 'mpt' ),
 			'type'              => 'textarea',
-			'default'           => __( "Hello,\nA request to change your email address has been sent to :\n%%site_url%%.\n\nThe request concerns the account of %%display_name%%.\n\nTo confirm this change, please click on the following link:\n %%validate_email_link%%\n\nYou can safely ignore and delete this email if you do not wish to take this action.\n\nYours sincerely", 'mpt' ),
+			'default'           => __( "Hello,\nA request to change your email address has been sent to :\n%%site_url%%\n\nThe request concerns the account of %%display_name%%.\n\nTo confirm this change, please click on the following link:\n %%validate_email_link%%\n\nYou can safely ignore and delete this email if you do not wish to take this action.\n\nYours sincerely", 'mpt' ),
 			'sanitize_callback' => 'strip_tags'
 		),
 	),

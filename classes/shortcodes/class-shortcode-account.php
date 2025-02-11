@@ -51,15 +51,7 @@ class MPT_Shortcode_Account extends MPT_Shortcode {
 				continue;
 			}
 
-			$label = $data['label'] ?? '';
-			if ( 'date_time' === $key ) {
-				try {
-					$date_time = new \DateTime( $value );
-					$value     = $date_time->format( 'j F Y - H:i' );
-				} catch ( Exception $e ) {
-					continue;
-				}
-			}
+			$label          = $data['label'] ?? '';
 			$prepare_data[] = [
 				'label' => $label,
 				'value' => $value,

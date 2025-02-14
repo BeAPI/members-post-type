@@ -322,6 +322,31 @@ class MPT_Member_Auth {
 			return;
 		}
 
+		$os_platform = __('Unknown', 'mpt');
+
+		// Windows
+		if (preg_match('/windows|win32/i', $user_agent)) {
+			$os_platform = "Windows";
+		}
+		// MacOS
+		elseif (preg_match('/macintosh|mac os x/i', $user_agent)) {
+			$os_platform = "MacOS";
+		}
+		// Linux
+		elseif (preg_match('/linux/i', $user_agent)) {
+			$os_platform = "Linux";
+		}
+		// iOS
+		elseif (preg_match('/iphone|ipod/i', $user_agent)) {
+			$os_platform = "iOS";
+		}
+		// Android
+		elseif (preg_match('/android/i', $user_agent)) {
+			$os_platform = "Android";
+		}
+
+		return $os_platform;
+
 		$last_login_activity_data = [
 			'date_time'    => [
 				'label' => __( 'Date & Hour', 'mpt' ),

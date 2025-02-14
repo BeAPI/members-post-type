@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-02-10T17:05:54+00:00\n"
+"POT-Creation-Date: 2025-02-14T09:09:38+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: mpt\n"
@@ -140,17 +140,17 @@ msgstr ""
 
 #: classes/admin/class-settings-main.php:141
 #: classes/admin/class-settings-main.php:148
-#: classes/admin/class-settings-main.php:159
-#: classes/admin/class-settings-main.php:168
-#: classes/admin/class-settings-main.php:176
-#: classes/admin/class-settings-main.php:183
+#: classes/admin/class-settings-main.php:160
+#: classes/admin/class-settings-main.php:169
+#: classes/admin/class-settings-main.php:177
+#: classes/admin/class-settings-main.php:185
 msgid "Blog's name"
 msgstr ""
 
 #: classes/admin/class-settings-main.php:142
 #: classes/admin/class-settings-main.php:149
-#: classes/admin/class-settings-main.php:160
-#: classes/admin/class-settings-main.php:169
+#: classes/admin/class-settings-main.php:161
+#: classes/admin/class-settings-main.php:170
 msgid "User's name"
 msgstr ""
 
@@ -167,32 +167,38 @@ msgid "The password reset link"
 msgstr ""
 
 #: classes/admin/class-settings-main.php:153
-#: classes/admin/class-settings-main.php:177
-#: classes/admin/class-settings-main.php:184
+#: classes/admin/class-settings-main.php:178
+#: classes/admin/class-settings-main.php:186
+msgid "Current network's url"
+msgstr ""
+
+#: classes/admin/class-settings-main.php:154
+#: classes/admin/class-settings-main.php:179
+#: classes/admin/class-settings-main.php:187
 msgid "Current site's url"
 msgstr ""
 
-#: classes/admin/class-settings-main.php:161
+#: classes/admin/class-settings-main.php:162
 msgid "User's password"
 msgstr ""
 
-#: classes/admin/class-settings-main.php:162
+#: classes/admin/class-settings-main.php:163
 msgid "The site's login url"
 msgstr ""
 
-#: classes/admin/class-settings-main.php:170
+#: classes/admin/class-settings-main.php:171
 msgid "User's email"
 msgstr ""
 
-#: classes/admin/class-settings-main.php:178
+#: classes/admin/class-settings-main.php:180
 msgid "The register confirmation link"
 msgstr ""
 
-#: classes/admin/class-settings-main.php:185
+#: classes/admin/class-settings-main.php:188
 msgid "User's display name"
 msgstr ""
 
-#: classes/admin/class-settings-main.php:186
+#: classes/admin/class-settings-main.php:189
 msgid "The validate email link"
 msgstr ""
 
@@ -457,19 +463,23 @@ msgstr ""
 msgid "<strong>ERROR</strong>: The password you entered for the username <strong>%1$s</strong> is incorrect. <a href=\"%2$s\" title=\"Password Lost and Found\">Lost your password</a>?"
 msgstr ""
 
-#: classes/helpers/class-member-auth.php:327
+#: classes/helpers/class-member-auth.php:325
+msgid "Unknown"
+msgstr ""
+
+#: classes/helpers/class-member-auth.php:352
 msgid "Date & Hour"
 msgstr ""
 
-#: classes/helpers/class-member-auth.php:331
+#: classes/helpers/class-member-auth.php:356
 msgid "Operating System"
 msgstr ""
 
-#: classes/helpers/class-member-auth.php:335
+#: classes/helpers/class-member-auth.php:360
 msgid "Browser"
 msgstr ""
 
-#: classes/helpers/class-member-auth.php:339
+#: classes/helpers/class-member-auth.php:364
 msgid "IP address"
 msgstr ""
 

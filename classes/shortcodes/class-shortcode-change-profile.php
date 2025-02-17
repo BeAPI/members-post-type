@@ -140,8 +140,13 @@ class MPT_Shortcode_Change_Profile extends MPT_Shortcode {
 			}
 		}
 
+		$status = [
+			'update-profile' => 1,
+		];
+		do_action( 'mpt_redirect_after_profile_updated', $get_current_member, $status );
+
 		// Force to update value into field
-		wp_safe_redirect( add_query_arg( 'update-profile', 1, $clean_url ) );
+		wp_safe_redirect( add_query_arg( $status, $clean_url ) );
 		exit();
 	}
 

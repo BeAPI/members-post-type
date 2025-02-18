@@ -27,11 +27,17 @@ echo MPT_Shortcode::get_messages();
 		</div>
 		<div class="mpt-field">
 			<label for="mpt-password"><?php _e( 'Password', 'mpt' ); ?></label>
+			<div class="mpt-password">
 			<input id="mpt-password" required="required" type="password" name="mptregistration[password]" value=""/>
+			<?php echo MPT_Shortcode::load_template( 'member-password-toggle-button' ); ?>
+			</div>
 		</div>
 		<div class="mpt-field">
 			<label for="mpt-confirm-password"><?php _e( 'Password (confirmation)', 'mpt' ); ?></label>
-			<input id="mpt-confirm-password" required="required" type="password" name="mptregistration[password_repeat]" value=""/>
+			<div class="mpt-password">
+				<input id="mpt-confirm-password" required="required" type="password" name="mptregistration[password_repeat]" value=""/>
+				<?php echo MPT_Shortcode::load_template( 'member-password-toggle-button' ); ?>
+			</div>
 		</div>
 	<?php endif; ?>
 	<div class="mpt-field">

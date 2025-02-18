@@ -28,6 +28,9 @@ class MPT_Main {
 
 		// Counter/date connection
 		add_action('mpt_login', array(__CLASS__, 'mpt_login'), 10, 2);
+
+		//add fornt assets enqueue_front_assets
+		add_action('wp_enqueue_scripts', array($this, 'enqueue_front_assets'));
 	}
 
 	/**
@@ -268,5 +271,13 @@ class MPT_Main {
 		}
 
 		return false;
+	}
+
+	/** add front assets
+	 * @return void
+	 */
+	public function enqueue_front_assets() : void {
+		wp_enqueue_style('mpt-front-css', MPT_URL . '/assets/css/mpt-front.css', array( ), MPT_VERSION, 'all' );
+		wp_enqueue_script ('mpt-front-js', MPT_URL . '/assets/js/mpt-front.js', array(), MPT_VERSION, true );
 	}
 }

@@ -189,7 +189,7 @@ msgstr "URL du réseau courant"
 #: classes/admin/class-settings-main.php:179
 #: classes/admin/class-settings-main.php:187
 msgid "Current site's url"
-msgstr "L'url du site courant"
+msgstr "URL du site courant"
 
 #: classes/admin/class-settings-main.php:162
 msgid "User's password"

@@ -183,7 +183,7 @@ msgstr "Le lien de réinitialisation du mot de passe"
 #: classes/admin/class-settings-main.php:178
 #: classes/admin/class-settings-main.php:186
 msgid "Current network's url"
-msgstr "L'url du network courant"
+msgstr "URL du réseau courant"
 
 #: classes/admin/class-settings-main.php:154
 #: classes/admin/class-settings-main.php:179

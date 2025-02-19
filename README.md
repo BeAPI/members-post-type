@@ -19,6 +19,9 @@ To do so, download the meta for taxonomies plugin and let the plugin migrate the
 
 ## Changelog ##
 
+### 1.1.4 - 20 Feb 2025
+* Add support for password toggle
+
 ### 1.1.3 - 19 Feb 2025
 * fix resend notification for registration
 * add new dynamic variable to display current site's url

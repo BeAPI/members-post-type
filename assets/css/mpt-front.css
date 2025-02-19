@@ -1,25 +1,26 @@
-.mpt-password{
+.mpt-password {
     position: relative;
 }
-.mpt-password-button{
+
+.mpt-password-button {
     appearance: none;
     border: 0;
     background: transparent;
     padding: 4px;
 }
 
-.mpt-password-icon{
+.mpt-password-icon {
     display: block;
 }
 
-.mpt-password-icon--hide{
+.mpt-password-icon--hide {
     display: none;
 }
 
-.mpt-password-button[aria-pressed="true"] .mpt-password-icon--show{
+.mpt-password-button[aria-pressed="true"] .mpt-password-icon--show {
     display: none;
 }
 
-.mpt-password-button[aria-pressed="true"] .mpt-password-icon--hide{
+.mpt-password-button[aria-pressed="true"] .mpt-password-icon--hide {
     display: block;
 }

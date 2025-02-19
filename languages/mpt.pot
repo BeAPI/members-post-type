@@ -2,40 +2,35 @@
 # This file is distributed under the same license as the Members post type plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Members post type 1.1.2\n"
+"Project-Id-Version: Members post type 1.1.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/members-post-type\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-02-18T14:17:58+00:00\n"
+"POT-Creation-Date: 2025-02-19T16:59:00+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: mpt\n"
 
 #. Plugin Name of the plugin
-#: members-post-type.php
 msgid "Members post type"
 msgstr ""
 
 #. Plugin URI of the plugin
-#: members-post-type.php
 msgid "http://www.beapi.fr"
 msgstr ""
 
 #. Description of the plugin
-#: members-post-type.php
 msgid "Manage members on WordPress as post type. Implement: post type, authentification, role, clone from WP."
 msgstr ""
 
 #. Author of the plugin
-#: members-post-type.php
 msgid "BE API Technical team"
 msgstr ""
 
 #. Author URI of the plugin
-#: members-post-type.php
 msgid "https://beapi.fr/"
 msgstr ""
 
@@ -45,7 +40,7 @@ msgstr ""
 
 #: classes/admin/class-export.php:34
 #: views/admin/metabox-main.php:9
-#: views/client/member-registration.tpl.php:38
+#: views/client/member-registration.tpl.php:44
 msgid "Email"
 msgstr ""
 
@@ -64,7 +59,7 @@ msgstr ""
 #: views/client/member-login.tpl.php:12
 #: views/client/member-registration-step-2.tpl.php:13
 #: views/client/member-registration.tpl.php:13
-#: views/client/widget-mpt-unconnected.php:17
+#: views/client/widget-mpt-unconnected.php:20
 msgid "Username"
 msgstr ""
 
@@ -1201,7 +1196,7 @@ msgstr ""
 #: views/client/member-login.tpl.php:16
 #: views/client/member-registration-step-2.tpl.php:26
 #: views/client/member-registration.tpl.php:29
-#: views/client/widget-mpt-unconnected.php:20
+#: views/client/widget-mpt-unconnected.php:25
 msgid "Password"
 msgstr ""
 
@@ -1356,19 +1351,19 @@ msgid "Your new password"
 msgstr ""
 
 #: views/client/member-change-password.tpl.php:20
-#: views/client/member-lost-password-step-2.tpl.php:16
+#: views/client/member-lost-password-step-2.tpl.php:21
 msgid "Your new password (confirmation)"
 msgstr ""
 
 #: views/client/member-change-password.tpl.php:25
 #: views/client/member-change-profile.tpl.php:50
-#: views/client/member-login.tpl.php:28
+#: views/client/member-login.tpl.php:31
 #: views/client/member-lost-password-step-1.tpl.php:21
-#: views/client/member-lost-password-step-2.tpl.php:21
-#: views/client/member-registration-step-2.tpl.php:35
-#: views/client/member-registration.tpl.php:43
+#: views/client/member-lost-password-step-2.tpl.php:29
+#: views/client/member-registration-step-2.tpl.php:43
+#: views/client/member-registration.tpl.php:49
 #: views/client/member-two-factor.tpl.php:21
-#: views/client/widget-mpt-unconnected.php:31
+#: views/client/widget-mpt-unconnected.php:42
 msgid "Submit"
 msgstr ""
 
@@ -1398,22 +1393,22 @@ msgstr ""
 
 #: views/client/member-login.tpl.php:12
 #: views/client/member-lost-password-step-1.tpl.php:16
-#: views/client/widget-mpt-unconnected.php:17
+#: views/client/widget-mpt-unconnected.php:20
 msgid "E-mail"
 msgstr ""
 
-#: views/client/member-login.tpl.php:22
-#: views/client/widget-mpt-unconnected.php:25
+#: views/client/member-login.tpl.php:25
+#: views/client/widget-mpt-unconnected.php:35
 msgid "Remember me"
 msgstr ""
 
-#: views/client/member-login.tpl.php:32
-#: views/client/widget-mpt-unconnected.php:35
+#: views/client/member-login.tpl.php:35
+#: views/client/widget-mpt-unconnected.php:47
 msgid "Forgot password ?"
 msgstr ""
 
-#: views/client/member-login.tpl.php:33
-#: views/client/widget-mpt-unconnected.php:39
+#: views/client/member-login.tpl.php:36
+#: views/client/widget-mpt-unconnected.php:51
 msgid "Register"
 msgstr ""
 
@@ -1421,12 +1416,20 @@ msgstr ""
 msgid "Username or E-mail"
 msgstr ""
 
+#: views/client/member-password-toggle-button.tpl.php:1
+msgid "Show password"
+msgstr ""
+
+#: views/client/member-password-toggle-button.tpl.php:1
+msgid "Hide password"
+msgstr ""
+
 #: views/client/member-profile-language.tpl.php:9
 msgid "Profile language"
 msgstr ""
 
-#: views/client/member-registration-step-2.tpl.php:30
-#: views/client/member-registration.tpl.php:33
+#: views/client/member-registration-step-2.tpl.php:35
+#: views/client/member-registration.tpl.php:36
 msgid "Password (confirmation)"
 msgstr ""
 

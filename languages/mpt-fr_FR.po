@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: MPT\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/members-post-"
 "type\n"
-"POT-Creation-Date: 2025-02-18T14:17:58+00:00\n"
-"PO-Revision-Date: 2025-02-18 15:18+0100\n"
+"POT-Creation-Date: 2025-02-19T16:59:00+00:00\n"
+"PO-Revision-Date: 2025-02-19 18:02+0100\n"
 "Last-Translator: beapi <mculea@beapi.fr>\n"
 "Language-Team: French (France)\n"
 "Language: fr_FR\n"
@@ -17,33 +17,28 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Textdomain-Support: yes\n"
 "X-Poedit-Basepath: .\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.5\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #. Plugin Name of the plugin
-#: members-post-type.php
 msgid "Members post type"
 msgstr ""
 
 #. Plugin URI of the plugin
-#: members-post-type.php
 msgid "http://www.beapi.fr"
 msgstr ""
 
 #. Description of the plugin
-#: members-post-type.php
 msgid ""
 "Manage members on WordPress as post type. Implement: post type, "
 "authentification, role, clone from WP."
 msgstr ""
 
 #. Author of the plugin
-#: members-post-type.php
 msgid "BE API Technical team"
 msgstr ""
 
 #. Author URI of the plugin
-#: members-post-type.php
 msgid "https://beapi.fr/"
 msgstr ""
 
@@ -52,7 +47,7 @@ msgid "Content permissions (for MPT)"
 msgstr "Permissions d'accès au contenu (pour MPT)"
 
 #: classes/admin/class-export.php:34 views/admin/metabox-main.php:9
-#: views/client/member-registration.tpl.php:38
+#: views/client/member-registration.tpl.php:44
 msgid "Email"
 msgstr "Email"
 
@@ -70,7 +65,7 @@ msgstr "Prénom"
 #: views/client/member-login.tpl.php:12
 #: views/client/member-registration-step-2.tpl.php:13
 #: views/client/member-registration.tpl.php:13
-#: views/client/widget-mpt-unconnected.php:17
+#: views/client/widget-mpt-unconnected.php:20
 msgid "Username"
 msgstr "Identifiant de l'utilisateur"
 
@@ -1486,7 +1481,7 @@ msgstr "ID social"
 #: views/admin/metabox-password.php:12 views/client/member-login.tpl.php:16
 #: views/client/member-registration-step-2.tpl.php:26
 #: views/client/member-registration.tpl.php:29
-#: views/client/widget-mpt-unconnected.php:20
+#: views/client/widget-mpt-unconnected.php:25
 msgid "Password"
 msgstr "Mot de passe"
 
@@ -1655,19 +1650,19 @@ msgid "Your new password"
 msgstr "Votre nouveau mot de passe"
 
 #: views/client/member-change-password.tpl.php:20
-#: views/client/member-lost-password-step-2.tpl.php:16
+#: views/client/member-lost-password-step-2.tpl.php:21
 msgid "Your new password (confirmation)"
 msgstr "Votre nouveau mot de passe (confirmation)"
 
 #: views/client/member-change-password.tpl.php:25
 #: views/client/member-change-profile.tpl.php:50
-#: views/client/member-login.tpl.php:28
+#: views/client/member-login.tpl.php:31
 #: views/client/member-lost-password-step-1.tpl.php:21
-#: views/client/member-lost-password-step-2.tpl.php:21
-#: views/client/member-registration-step-2.tpl.php:35
-#: views/client/member-registration.tpl.php:43
+#: views/client/member-lost-password-step-2.tpl.php:29
+#: views/client/member-registration-step-2.tpl.php:43
+#: views/client/member-registration.tpl.php:49
 #: views/client/member-two-factor.tpl.php:21
-#: views/client/widget-mpt-unconnected.php:31
+#: views/client/widget-mpt-unconnected.php:42
 msgid "Submit"
 msgstr "Valider"
 
@@ -1698,23 +1693,23 @@ msgstr "Votre nom de famille"
 
 #: views/client/member-login.tpl.php:12
 #: views/client/member-lost-password-step-1.tpl.php:16
-#: views/client/widget-mpt-unconnected.php:17
+#: views/client/widget-mpt-unconnected.php:20
 msgid "E-mail"
 msgstr "Email"
 
-#: views/client/member-login.tpl.php:22
-#: views/client/widget-mpt-unconnected.php:25
+#: views/client/member-login.tpl.php:25
+#: views/client/widget-mpt-unconnected.php:35
 msgid "Remember me"
 msgstr "Se souvenir de moi"
 
-#: views/client/member-login.tpl.php:32
-#: views/client/widget-mpt-unconnected.php:35
+#: views/client/member-login.tpl.php:35
+#: views/client/widget-mpt-unconnected.php:47
 msgid "Forgot password ?"
 msgstr "Mot de passe oublié ?"
 
 # @ acf
-#: views/client/member-login.tpl.php:33
-#: views/client/widget-mpt-unconnected.php:39
+#: views/client/member-login.tpl.php:36
+#: views/client/widget-mpt-unconnected.php:51
 msgid "Register"
 msgstr "Inscription"
 
@@ -1722,12 +1717,20 @@ msgstr "Inscription"
 msgid "Username or E-mail"
 msgstr "Identifiant ou email"
 
+#: views/client/member-password-toggle-button.tpl.php:1
+msgid "Show password"
+msgstr "Montrer le passe perdu"
+
+#: views/client/member-password-toggle-button.tpl.php:1
+msgid "Hide password"
+msgstr "Cacher le mot de passe"
+
 #: views/client/member-profile-language.tpl.php:9
 msgid "Profile language"
 msgstr "Langue du profil"
 
-#: views/client/member-registration-step-2.tpl.php:30
-#: views/client/member-registration.tpl.php:33
+#: views/client/member-registration-step-2.tpl.php:35
+#: views/client/member-registration.tpl.php:36
 msgid "Password (confirmation)"
 msgstr "Mot de passe (confirmation)"
 

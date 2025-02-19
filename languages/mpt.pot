@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Members post type plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Members post type 1.0.10\n"
+"Project-Id-Version: Members post type 1.1.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/members-post-type\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-02-05T10:32:49+00:00\n"
+"POT-Creation-Date: 2025-02-18T14:17:58+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: mpt\n"
@@ -143,7 +143,7 @@ msgstr ""
 #: classes/admin/class-settings-main.php:160
 #: classes/admin/class-settings-main.php:169
 #: classes/admin/class-settings-main.php:177
-#: classes/admin/class-settings-main.php:184
+#: classes/admin/class-settings-main.php:185
 msgid "Blog's name"
 msgstr ""
 
@@ -168,12 +168,14 @@ msgstr ""
 
 #: classes/admin/class-settings-main.php:153
 #: classes/admin/class-settings-main.php:178
-#: classes/admin/class-settings-main.php:185
-msgid "Current site's url"
+#: classes/admin/class-settings-main.php:186
+msgid "Current network's url"
 msgstr ""
 
 #: classes/admin/class-settings-main.php:154
-msgid "Current blog's url"
+#: classes/admin/class-settings-main.php:179
+#: classes/admin/class-settings-main.php:187
+msgid "Current site's url"
 msgstr ""
 
 #: classes/admin/class-settings-main.php:162
@@ -188,15 +190,15 @@ msgstr ""
 msgid "User's email"
 msgstr ""
 
-#: classes/admin/class-settings-main.php:179
+#: classes/admin/class-settings-main.php:180
 msgid "The register confirmation link"
 msgstr ""
 
-#: classes/admin/class-settings-main.php:186
+#: classes/admin/class-settings-main.php:188
 msgid "User's display name"
 msgstr ""
 
-#: classes/admin/class-settings-main.php:187
+#: classes/admin/class-settings-main.php:189
 msgid "The validate email link"
 msgstr ""
 
@@ -461,19 +463,19 @@ msgstr ""
 msgid "<strong>ERROR</strong>: The password you entered for the username <strong>%1$s</strong> is incorrect. <a href=\"%2$s\" title=\"Password Lost and Found\">Lost your password</a>?"
 msgstr ""
 
-#: classes/helpers/class-member-auth.php:327
+#: classes/helpers/class-member-auth.php:329
 msgid "Date & Hour"
 msgstr ""
 
-#: classes/helpers/class-member-auth.php:331
+#: classes/helpers/class-member-auth.php:333
 msgid "Operating System"
 msgstr ""
 
-#: classes/helpers/class-member-auth.php:335
+#: classes/helpers/class-member-auth.php:337
 msgid "Browser"
 msgstr ""
 
-#: classes/helpers/class-member-auth.php:339
+#: classes/helpers/class-member-auth.php:341
 msgid "IP address"
 msgstr ""
 
@@ -1019,7 +1021,7 @@ msgstr ""
 msgid ""
 "Hello,\n"
 "A request to change your email address has been sent to :\n"
-"%%site_url%%.\n"
+"%%site_url%%\n"
 "\n"
 "The request concerns the account of %%display_name%%.\n"
 "\n"
@@ -1044,7 +1046,7 @@ msgid "You can't change your password, if you aren't logged-in."
 msgstr ""
 
 #: classes/shortcodes/class-shortcode-change-password.php:49
-#: classes/shortcodes/class-shortcode-lost-password.php:144
+#: classes/shortcodes/class-shortcode-lost-password.php:173
 msgid "The two passwords you entered don't match."
 msgstr ""
 
@@ -1053,7 +1055,7 @@ msgid "You old password is incorrect."
 msgstr ""
 
 #: classes/shortcodes/class-shortcode-change-password.php:81
-#: classes/shortcodes/class-shortcode-lost-password.php:171
+#: classes/shortcodes/class-shortcode-lost-password.php:200
 msgid "An error occurred, password has not been changed."
 msgstr ""
 
@@ -1061,47 +1063,47 @@ msgstr ""
 msgid "Password updated with success."
 msgstr ""
 
-#: classes/shortcodes/class-shortcode-change-profile.php:23
+#: classes/shortcodes/class-shortcode-change-profile.php:22
 msgid "You need to log in to update your profile."
 msgstr ""
 
-#: classes/shortcodes/class-shortcode-change-profile.php:48
-#: classes/shortcodes/class-shortcode-change-profile.php:61
-#: classes/shortcodes/class-shortcode-lost-password.php:114
+#: classes/shortcodes/class-shortcode-change-profile.php:27
+msgid "Profile updated with success."
+msgstr ""
+
+#: classes/shortcodes/class-shortcode-change-profile.php:29
+msgid "An error occurred during the update. Please try again later or contact the site administrator."
+msgstr ""
+
+#: classes/shortcodes/class-shortcode-change-profile.php:54
+#: classes/shortcodes/class-shortcode-change-profile.php:67
+#: classes/shortcodes/class-shortcode-lost-password.php:143
+#: classes/shortcodes/class-shortcode-lost-password.php:153
+#: classes/shortcodes/class-shortcode-lost-password.php:181
 #: classes/shortcodes/class-shortcode-registration.php:216
 msgid "The link you clicked seems to be broken. Please contact the administrator of the site"
 msgstr ""
 
-#: classes/shortcodes/class-shortcode-change-profile.php:55
-#: classes/shortcodes/class-shortcode-lost-password.php:124
-#: classes/shortcodes/class-shortcode-lost-password.php:152
+#: classes/shortcodes/class-shortcode-change-profile.php:61
 #: classes/shortcodes/class-shortcode-registration.php:223
 #: classes/shortcodes/class-shortcode-registration.php:269
 msgid "Cheatin&#8217; uh?"
 msgstr ""
 
-#: classes/shortcodes/class-shortcode-change-profile.php:150
-msgid "Profile updated with success."
+#: classes/shortcodes/class-shortcode-lost-password.php:32
+msgid "You are going to receive an email with a reset link."
 msgstr ""
 
-#: classes/shortcodes/class-shortcode-change-profile.php:154
-msgid "An error occurred during the update. Please try again later or contact the site administrator."
-msgstr ""
-
-#: classes/shortcodes/class-shortcode-lost-password.php:64
+#: classes/shortcodes/class-shortcode-lost-password.php:68
 msgid "Invalid username or e-mail."
 msgstr ""
 
-#: classes/shortcodes/class-shortcode-lost-password.php:80
+#: classes/shortcodes/class-shortcode-lost-password.php:84
 msgid "No member with this value."
 msgstr ""
 
-#: classes/shortcodes/class-shortcode-lost-password.php:85
+#: classes/shortcodes/class-shortcode-lost-password.php:89
 msgid "You have not verified your account. You can not renew your password."
-msgstr ""
-
-#: classes/shortcodes/class-shortcode-lost-password.php:96
-msgid "You are going to receive an email with a reset link."
 msgstr ""
 
 #: classes/shortcodes/class-shortcode-registration.php:92
@@ -1144,20 +1146,20 @@ msgstr ""
 msgid "Registration key is not valide for this member"
 msgstr ""
 
-#: classes/shortcodes/class-shortcode-two-factor.php:83
 #: classes/shortcodes/class-shortcode-two-factor.php:88
+#: classes/shortcodes/class-shortcode-two-factor.php:93
 msgid "Missing/invalid challenge id."
 msgstr ""
 
-#: classes/shortcodes/class-shortcode-two-factor.php:93
+#: classes/shortcodes/class-shortcode-two-factor.php:98
 msgid "Fail to create login nonce."
 msgstr ""
 
-#: classes/shortcodes/class-shortcode-two-factor.php:146
+#: classes/shortcodes/class-shortcode-two-factor.php:151
 msgid "A new authentication code has been sent."
 msgstr ""
 
-#: classes/shortcodes/class-shortcode-two-factor.php:156
+#: classes/shortcodes/class-shortcode-two-factor.php:161
 msgid "Invalid two-factor authentication code."
 msgstr ""
 
@@ -1361,7 +1363,7 @@ msgstr ""
 #: views/client/member-change-password.tpl.php:25
 #: views/client/member-change-profile.tpl.php:50
 #: views/client/member-login.tpl.php:28
-#: views/client/member-lost-password-step-1.tpl.php:17
+#: views/client/member-lost-password-step-1.tpl.php:21
 #: views/client/member-lost-password-step-2.tpl.php:21
 #: views/client/member-registration-step-2.tpl.php:35
 #: views/client/member-registration.tpl.php:43
@@ -1395,7 +1397,7 @@ msgid "Your last name"
 msgstr ""
 
 #: views/client/member-login.tpl.php:12
-#: views/client/member-lost-password-step-1.tpl.php:12
+#: views/client/member-lost-password-step-1.tpl.php:16
 #: views/client/widget-mpt-unconnected.php:17
 msgid "E-mail"
 msgstr ""
@@ -1415,7 +1417,7 @@ msgstr ""
 msgid "Register"
 msgstr ""
 
-#: views/client/member-lost-password-step-1.tpl.php:12
+#: views/client/member-lost-password-step-1.tpl.php:16
 msgid "Username or E-mail"
 msgstr ""
 

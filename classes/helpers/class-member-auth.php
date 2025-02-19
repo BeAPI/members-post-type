@@ -322,18 +322,20 @@ class MPT_Member_Auth {
 			return;
 		}
 
+		$user_agent = $_SERVER['HTTP_USER_AGENT'] ?? '';
+
 		$last_login_activity_data = [
 			'date_time'    => [
 				'label' => __( 'Date & Hour', 'mpt' ),
-				'value' => wp_date( 'Y-m-d H:i:s' ),
+				'value' => wp_date( 'j F Y - H:i' ),
 			],
 			'user_os'      => [
 				'label' => __( 'Operating System', 'mpt' ),
-				'value' => php_uname( 's' ),
+				'value' => self::detect_system_version( $user_agent ),
 			],
 			'user_browser' => [
 				'label' => __( 'Browser', 'mpt' ),
-				'value' => $_SERVER['HTTP_USER_AGENT'] ?? '',
+				'value' => self::detect_browser_version( $user_agent )
 			],
 			'user_ip'      => [
 				'label' => __( 'IP address', 'mpt' ),
@@ -342,6 +344,101 @@ class MPT_Member_Auth {
 		];
 
 		update_post_meta( $current_mpt_member->id, MPT_LAST_LOGIN_ACTIVITY, $last_login_activity_data );
+	}
+
+
+	/**
+	 * Detects the operating system and its version from the User-Agent string.
+	 *
+	 * @param string $ua The user-agent string
+	 *
+	 * @return string Operating system name and version
+	 */
+	private static function detect_system_version( $ua ) {
+		$ua = trim( $ua );
+
+		if ( empty( $ua ) ) {
+			return 'Not specified';
+		}
+
+		// System detection patterns
+		$systems = array( 'Android', 'Linux', 'Windows', 'iPhone', 'iPad', 'Macintosh', 'OpenBSD', 'Unix' );
+
+		$system = '';
+		$system_version = '';
+		foreach ( $systems as $system_id ) {
+			if ( strpos( $ua, $system_id ) !== false ) {
+				$system = $system_id;
+				// Special handling for Android to get version
+				if ( $system == 'Android' && preg_match( '/Android\s+([0-9\.]+)/', $ua, $matches ) ) {
+					$system_version = $matches[1];
+				}
+				// Special handling for MacOS to get version
+				elseif ( $system == 'Macintosh' && preg_match( '/Mac OS X\s([0-9_\.]+)/', $ua, $matches ) ) {
+					$system_version = str_replace('_', '.', $matches[1]);
+				}
+				// Windows version
+				elseif ( $system == 'Windows' && preg_match( '/Windows NT\s([0-9\.]+)/', $ua, $matches ) ) {
+					$system_version = $matches[1];
+				}
+				break;
+			}
+		}
+
+		// Default unknown system version handling
+		if ( !$system_version ) {
+			$system_version = 'Unknown';
+		}
+
+		return $system . ' ' . $system_version;
+	}
+
+	/**
+	 * Detects the browser and its version from the User-Agent string.
+	 *
+	 * @param string $ua The user-agent string
+	 *
+	 * @return string Browser name and version
+	 */
+	private static function detect_browser_version( $ua ) {
+		$ua = trim( $ua );
+
+		if ( empty( $ua ) ) {
+			return 'Not specified';
+		}
+
+		// Browser detection patterns and their corresponding names
+		$browsers = [
+			'Firefox/'   => 'Firefox',
+			'OPR/'       => 'Opera',
+			'Opera/'     => 'Opera',
+			'YaBrowser/' => 'Yandex Browser',
+			'Trident/'   => 'Internet Explorer',
+			'IE/'        => 'Internet Explorer',
+			'Edge/'      => 'Microsoft Edge',
+			'Edg/'       => 'Microsoft Edge',
+			'Chrome/'    => 'Chrome',
+			'Safari/'    => 'Safari',
+			'Lynx/'      => 'Lynx',
+		];
+
+		$browser = '';
+		$browser_version = '';
+		foreach ( $browsers as $browser_id => $browser_name ) {
+			if ( strpos( $ua, $browser_id ) !== false ) {
+				$browser = $browser_name;
+				if ( preg_match( '/' . preg_quote( $browser_id, '/' ) . '([0-9\.\_\-]+)/', $ua, $matches ) ) {
+					$browser_version = $matches[1];
+				}
+				break;
+			}
+		}
+
+		if ( !$browser_version ) {
+			$browser_version = 'Unknown';
+		}
+
+		return $browser . ' ' . $browser_version;
 	}
 
 	/**

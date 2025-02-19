@@ -28,6 +28,10 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 				parent::set_message( 'info', __( 'Please enter your username or email address. You will receive a link to create a new password via email.' ), 'notice' );
 			}
 
+			if ( isset( $_GET['update'] ) && $_GET['update'] === '1' ) {
+				parent::set_message( 'step_1_sucess', __( "You are going to receive an email with a reset link.", 'mpt' ), 'success' );
+			}
+
 			return parent::load_template( 'member-lost-password-step-1' );
 		}
 	}
@@ -93,12 +97,37 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 				return false;
 			}
 
-			parent::set_message( 'step_1_sucess', __( "You are going to receive an email with a reset link.", 'mpt' ), 'success' );
-			return true;
+			wp_safe_redirect( self::redirect_clear_url() );
+			exit;
 		}
 
 		return false;
 	}
+
+	/**
+	 * @return void
+	 */
+	public static function redirect_clear_url() {
+		wp_safe_redirect( add_query_arg( 'update', true, self::get_clean_url() ) );
+		exit;
+	}
+
+	/**
+	 * Get clean URL
+	 * @return string
+	 */
+	public static function get_clean_url() {
+		return remove_query_arg(
+			[
+				'update',
+				'mpt-action',
+				'_mptnonce',
+				'dismiss',
+			],
+			(string) get_permalink(),
+		);
+	}
+
 
 	/**
 	 * Check if member click on reset link, verify key/id on DB
@@ -121,7 +150,7 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 		$member = new MPT_Member( );
 		$member->fill_by( 'activation_key', $_GET['key'] );
 		if ( !$member->exists() || ($member->exists() && $member->id != $_GET['id']) ) {
-			wp_die( __( 'Cheatin&#8217; uh?', 'mpt' ) );
+			wp_die( __( 'The link you clicked seems to be broken. Please contact the administrator of the site', 'mpt' ) );
 		}
 
 		return true;
@@ -149,7 +178,7 @@ class MPT_Shortcode_Lost_Password extends MPT_Shortcode {
 			$member = new MPT_Member( );
 			$member->fill_by( 'activation_key', $_GET['key'] );
 			if ( !$member->exists() || ($member->exists() && $member->id != $_GET['id']) ) {
-				wp_die( __( 'Cheatin&#8217; uh?', 'mpt' ) );
+				wp_die( __( 'The link you clicked seems to be broken. Please contact the administrator of the site', 'mpt' ) );
 			}
 
 			// Set new password

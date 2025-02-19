@@ -351,6 +351,7 @@
 		$message = str_replace( '%%user_email%%', $email, $message );
 		$message = str_replace( '%%user_password%%', $plaintext_pass, $message );
 		$message = str_replace( '%%site_url%%', network_site_url(), $message );
+		$message = str_replace( '%%blog_url%%', get_site_url(), $message );
 		$message = str_replace( '%%login_url%%', mpt_get_login_permalink(), $message );
 		$message = str_replace( '%%first_name%%', ( ! empty( $this->first_name ) ) ? stripslashes( $this->first_name ) : "", $message );
 		$message = str_replace( '%%last_name%%', ( ! empty( $this->last_name ) ) ? stripslashes( $this->last_name ) : "", $message );
@@ -398,6 +399,7 @@
 		$message = str_replace( '%%display_name%%', $display_name, $message );
 		$message = str_replace( '%%user_name%%', $username, $message );
 		$message = str_replace( '%%site_url%%', network_site_url(), $message );
+		$message = str_replace( '%%blog_url%%', get_site_url(), $message );
 		$message = str_replace( '%%confirm_register_link%%', '' . add_query_arg( array(
 				'mpt-action' => 'validation-member-registration',
 				'ID'         => $this->id,
@@ -524,6 +526,7 @@
 		// Build message text
 		$message = str_replace( '%%blog_name%%', $blogname, $message );
 		$message = str_replace( '%%site_url%%', network_site_url(), $message );
+		$message = str_replace( '%%blog_url%%', get_site_url(), $message );
 		$message = str_replace( '%%user_name%%', $this->get_user_name(), $message );
 		$message = str_replace( '%%user_lastname%%', $this->last_name, $message );
 		$message = str_replace( '%%user_firstname%%', $this->first_name, $message );
@@ -846,6 +849,7 @@
 		// Build message text
 		$message = str_replace( '%%blog_name%%', $blogname, $message );
 		$message = str_replace( '%%site_url%%', get_site_url(), $message );
+		$message = str_replace( '%%blog_url%%', get_site_url(), $message );
 		$message = str_replace( '%%display_name%%', $this->get_display_name(), $message );
 		$message = str_replace(
 			'%%validate_email_link%%',

@@ -30,6 +30,7 @@ class MPT_Polylang {
 
 		add_filter( 'mpt_need_to_update_member', [ $this, 'mpt_need_to_update_member' ], 10, 3 );
 		add_action( 'mpt_update_member', [ $this, 'mpt_update_member' ], 10, 2 );
+		add_action( 'mpt_redirect_after_profile_updated', [ $this, 'mpt_redirect_after_profile_updated' ], 10, 2 );
 	}
 
 	/**
@@ -215,6 +216,23 @@ class MPT_Polylang {
 		}
 
 		pll_set_post_language( $member->id, $new_language );
+	}
+
+	public function mpt_redirect_after_profile_updated( $member, $status ) {
+		$member_language = $this->get_member_language( $member );
+
+		if ( pll_current_language() === $member_language ) {
+			return;
+		}
+
+		$translate_page_id = pll_get_post( MPT_Main::get_action_page_id( 'change-profile' ), $member_language );
+
+		if ( empty( $translate_page_id ) ) {
+			return;
+		}
+
+		wp_safe_redirect( add_query_arg( $status, get_permalink( $translate_page_id ) ) );
+		exit;
 	}
 
 	/**

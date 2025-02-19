@@ -5,6 +5,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 echo MPT_Shortcode::get_messages();
+
+if ( isset( $_GET['update'] ) && $_GET['update'] === '1' ) {
+	return;
+}
 ?>
 
 <form method="post">

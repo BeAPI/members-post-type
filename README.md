@@ -19,6 +19,16 @@ To do so, download the meta for taxonomies plugin and let the plugin migrate the
 
 ## Changelog ##
 
+### 1.1.3 - 19 Feb 2025
+* fix resend notification for registration
+* add new dynamic variable to display current site's url
+* fix date format for the activity log
+* fix user os for the activity log
+* fix user browser for the activity log
+* update translation
+* hide fields after password reset
+* add a redirection to the correct language when updating the language from the user profile. (PLL)
+
 ### 1.1.2 - 6 Feb 2025
 * skip two-factor shortcode rendering for admin/ajax/rest requests
 * fix extraneous chevron in shortcode template

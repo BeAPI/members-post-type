@@ -14,7 +14,10 @@ echo MPT_Shortcode::get_messages();
 	</div>
 	<div class="mpt-field">
 		<label for="mpt-password"><?php _e( 'Password', 'mpt' ); ?></label>
-		<input id="mpt-password" required="required" type="password" name="mptlogin[password]" value=""/>
+		<div class="mpt-password">
+			<input id="mpt-password" required="required" type="password" name="mptlogin[password]" value=""/>
+			<?php echo MPT_Shortcode::load_template( 'member-password-toggle-button' ); ?>
+		</div>
 	</div>
 	<div class="mpt-field">
 		<input id="mpt-remember" name="mptlogin[rememberme]" type="checkbox" value="forever" <?php checked( $member_data['rememberme'], 'forever' ); ?> />

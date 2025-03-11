@@ -23,6 +23,9 @@ class MPT_Polylang {
 		// Validate new email
 		add_filter( 'mpt_validate_new_email_title_default_option', [ $this, 'translation_email' ], 10, 2 );
 		add_filter( 'mpt_validate_new_email_message_default_option', [ $this, 'translation_email' ], 10, 2 );
+		// Two factor email
+		add_filter( 'mpt_two_factor_subject_default_option', [ $this, 'translation_email' ], 10, 2 );
+		add_filter( 'mpt_two_factor_content_default_option', [ $this, 'translation_email' ], 10, 2 );
 
 		add_action( 'mpt_insert_member', [ $this, 'set_pll_language' ] );
 		add_action( 'member_change_profile_field', [ $this, 'member_change_profile_field' ] );

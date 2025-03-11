@@ -482,5 +482,29 @@ return array(
 			'default'           => __( "Hello,\nA request to change your email address has been sent to :\n%%site_url%%\n\nThe request concerns the account of %%display_name%%.\n\nTo confirm this change, please click on the following link:\n %%validate_email_link%%\n\nYou can safely ignore and delete this email if you do not wish to take this action.\n\nYours sincerely", 'mpt' ),
 			'sanitize_callback' => 'strip_tags'
 		),
+		array(
+			'name'  => 'two_factor_code_mail',
+			'label' => __( 'Two-factor code mail', 'mpt' ),
+			'desc'  => __( 'Manage two-factor code mail notification.', 'mpt' ),
+			'type'  => 'metabox',
+		),
+		array(
+			'name' => MPT_Options::description_setting_name( 'two_factor' ),
+			'desc' => MPT_Options::description_setting_desc( 'two_factor' ),
+			'type' => 'html',
+		),
+		array(
+			'name'    => 'two_factor_subject',
+			'label'   => __( 'Subject mail', 'mpt' ),
+			'type'    => 'text',
+			'default' => __( 'Your confirmation code for %%blog_name%%', 'mpt' ),
+		),
+		array(
+			'name'              => 'two_factor_content',
+			'label'             => __( 'Content mail', 'mpt' ),
+			'type'              => 'textarea',
+			'default'           => __( 'Enter the code %%2fa_code%% to log in.', 'mpt' ),
+			'sanitize_callback' => 'strip_tags'
+		),
 	),
 );

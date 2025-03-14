@@ -31,6 +31,8 @@ class MPT_Polylang {
 		add_filter( 'mpt_need_to_update_member', [ $this, 'mpt_need_to_update_member' ], 10, 3 );
 		add_action( 'mpt_update_member', [ $this, 'mpt_update_member' ], 10, 2 );
 		add_action( 'mpt_redirect_after_profile_updated', [ $this, 'mpt_redirect_after_profile_updated' ], 10, 2 );
+
+		add_filter( 'mpt_email_language', [ $this, 'get_email_language' ], 10, 2 );
 	}
 
 	/**
@@ -233,6 +235,32 @@ class MPT_Polylang {
 
 		wp_safe_redirect( add_query_arg( $status, get_permalink( $translate_page_id ) ) );
 		exit;
+	}
+
+	/**
+	 * Get email language attribute based on member language.
+	 *
+	 * @param string $language
+	 * @param MPT_Member $member
+	 *
+	 * @return string
+	 */
+	public function get_email_language( $language, $member ) {
+		if ( ! $member || ! $member->exists() ) {
+			return $language;
+		}
+
+		$member_language = $this->get_member_language( $member );
+		if ( empty( $member_language ) ) {
+			return $language;
+		}
+
+		$pll_language = \PLL()->model->get_language( $member_language );
+		if ( ! $pll_language ) {
+			return $language;
+		}
+
+		return str_replace( '_', '-', $pll_language->get_locale() );
 	}
 
 	/**

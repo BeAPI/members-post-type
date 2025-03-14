@@ -308,6 +308,23 @@ return array(
 	),
 	'mpt-emails'   => array(
 		array(
+			'name'  => 'mail_general_configuration',
+			'label' => __( 'General configuration', 'mpt' ),
+			'desc'  => '',
+			'type'  => 'metabox',
+		),
+		array(
+			'name'    => 'use_html_for_mails',
+			'label'   => __( 'Enable HTML emails', 'mpt' ),
+			'desc'    => '',
+			'type'    => 'radio',
+			'options' => array(
+				'yes' => __( 'Yes', 'mpt' ),
+				'no'  => __( 'No', 'mpt' ),
+			),
+			'default' => 'no',
+		),
+		array(
 			'name'  => 'register_member_admin_mail',
 			'label' => __( 'Admin mail for Member registration', 'mpt' ),
 			'desc'  => __( 'Management of mail notification to the site administrator when a new member joins the site.', 'mpt' ),

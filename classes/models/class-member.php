@@ -272,6 +272,7 @@
 		// send a copy of password change notification to the admins
 		$recipients = explode( ',', mpt_get_option_value( 'mpt-emails', 'lost_password_admin_mail' ) );
 		$recipients = array_map( 'trim', $recipients );
+		$sender = MPT_Email::from_configuration();
 		foreach ( $recipients as $mail ) {
 			/**
 			 * But check to see if it's the admin whose password we're changing
@@ -280,7 +281,7 @@
 			if ( $this->email === $mail ) {
 				continue;
 			}
-			wp_mail( stripslashes( $mail ), $subject, $content );
+			$sender->send( stripslashes( $mail ),$subject, $content );
 		}
 	}
 
@@ -328,9 +329,10 @@
 		$message = str_replace( '%%first_name%%', ( ! empty( $this->first_name ) ) ? stripslashes( $this->first_name ) : "", $message );
 		$message = str_replace( '%%last_name%%', ( ! empty( $this->last_name ) ) ? stripslashes( $this->last_name ) : "", $message );
 
+		$sender = MPT_Email::from_configuration();
 		foreach ( $recipients as $mail ) {
 			// Send mail to admin
-			@wp_mail( stripslashes( $mail ), $subject, $message );
+			$sender->send( stripslashes( $mail ), $subject, $message );
 		}
 
 		if ( empty( $plaintext_pass ) ) {
@@ -360,7 +362,8 @@
 		$subject = apply_filters( 'mpt_register_notification_subject', $subject, $this );
 		$message = apply_filters( 'mpt_register_notification_message', $message, $plaintext_pass, $this );
 
-		return wp_mail( $email, $subject, $message );
+		$sender = MPT_Email::from_configuration();
+		return $sender->send( $email, $subject, $message );
 	}
 
 	/**
@@ -412,7 +415,8 @@
 		$subject = apply_filters( 'mpt_register_validation_notification_subject', $subject, $this );
 		$message = apply_filters( 'mpt_register_validation_notification_message', $message, $key, $this );
 
-		return wp_mail( $email, $subject, $message );
+		$sender = MPT_Email::from_configuration();
+		return $sender->send( $email, $subject, $message );
 	}
 
 	/**
@@ -540,8 +544,9 @@
 		$subject = apply_filters( 'mpt_retrieve_password_title', $subject );
 		$message = apply_filters( 'mpt_retrieve_password_message', $message, $key );
 
-		if ( $message && ! wp_mail( $this->email, $subject, $message ) ) {
-			wp_die( __( 'The e-mail could not be sent.' ) . "<br />\n" . __( 'Possible reason: your host may have disabled the mail() function...' ) );
+		$sender = MPT_Email::from_configuration();
+		if ( $message && ! $sender->send( $this->email, $subject, $message ) ) {
+			wp_die(__( 'The e-mail could not be sent.' ) . "<br />\n" . __( 'Possible reason: your host may have disabled the mail() function...' ) );
 		}
 
 		// notify the admin for email change
@@ -868,7 +873,8 @@
 		$subject = apply_filters( 'mpt_validate_new_email_title', $subject );
 		$message = apply_filters( 'mpt_validate_new_email_message', $message, $key );
 
-		if ( $message && ! wp_mail( $new_email, $subject, $message ) ) {
+		$sender = MPT_Email::from_configuration();
+		if ( $message && ! $sender->send( $new_email, $subject, $message ) ) {
 			wp_die( __( 'The e-mail could not be sent.' ) . "<br />\n" . __( 'Possible reason: your host may have disabled the mail() function...' ) );
 		}
 

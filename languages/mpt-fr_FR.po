@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: MPT\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/members-post-"
 "type\n"
-"POT-Creation-Date: 2025-02-19T16:59:00+00:00\n"
-"PO-Revision-Date: 2025-02-19 18:02+0100\n"
+"POT-Creation-Date: 2025-03-14T16:53:15+01:00\n"
+"PO-Revision-Date: 2025-03-14 16:56+0100\n"
 "Last-Translator: beapi <mculea@beapi.fr>\n"
 "Language-Team: French (France)\n"
 "Language: fr_FR\n"
@@ -21,24 +21,29 @@ msgstr ""
 "X-Poedit-SearchPath-0: ..\n"
 
 #. Plugin Name of the plugin
+#: members-post-type.php
 msgid "Members post type"
 msgstr ""
 
 #. Plugin URI of the plugin
+#: members-post-type.php
 msgid "http://www.beapi.fr"
 msgstr ""
 
 #. Description of the plugin
+#: members-post-type.php
 msgid ""
 "Manage members on WordPress as post type. Implement: post type, "
 "authentification, role, clone from WP."
 msgstr ""
 
 #. Author of the plugin
+#: members-post-type.php
 msgid "BE API Technical team"
 msgstr ""
 
 #. Author URI of the plugin
+#: members-post-type.php
 msgid "https://beapi.fr/"
 msgstr ""
 
@@ -1042,12 +1047,29 @@ msgstr ""
 "Les membres devront renseigner un code envoyer par mail lorsqu'il tente de "
 "se connecter."
 
+# @ wp3i
 #: classes/helpers/default-settings.php:312
+msgid "General configuration"
+msgstr "Configuration générale"
+
+#: classes/helpers/default-settings.php:318
+msgid "Enable HTML emails"
+msgstr "Activer les emails au format HTML"
+
+#: classes/helpers/default-settings.php:322
+msgid "Yes"
+msgstr "Oui"
+
+#: classes/helpers/default-settings.php:323
+msgid "No"
+msgstr "Non"
+
+#: classes/helpers/default-settings.php:329
 msgid "Admin mail for Member registration"
 msgstr ""
 "Email de notification à l'administrateur pour l'inscription d'un membre"
 
-#: classes/helpers/default-settings.php:313
+#: classes/helpers/default-settings.php:330
 msgid ""
 "Management of mail notification to the site administrator when a new member "
 "joins the site."
@@ -1055,11 +1077,11 @@ msgstr ""
 "Gestion de l'email de notification à l'administrateur lorsqu'un nouveau "
 "membre s'inscrit sur le site."
 
-#: classes/helpers/default-settings.php:323
+#: classes/helpers/default-settings.php:340
 msgid "Recipient Mail"
 msgstr "Email du destinataire"
 
-#: classes/helpers/default-settings.php:325
+#: classes/helpers/default-settings.php:342
 msgid ""
 "By default this is the administrator's email of the site but you can change "
 "the recipient. You can add more recipients, separating them with a comma"
@@ -1068,29 +1090,29 @@ msgstr ""
 "mais vous pouvez changer le bénéficiaire. Vous pouvez ajouter plusieurs "
 "destinataires, en les séparant par une virgule"
 
-#: classes/helpers/default-settings.php:330
-#: classes/helpers/default-settings.php:354
-#: classes/helpers/default-settings.php:378
-#: classes/helpers/default-settings.php:409
-#: classes/helpers/default-settings.php:433
-#: classes/helpers/default-settings.php:457
+#: classes/helpers/default-settings.php:347
+#: classes/helpers/default-settings.php:371
+#: classes/helpers/default-settings.php:395
+#: classes/helpers/default-settings.php:426
+#: classes/helpers/default-settings.php:450
+#: classes/helpers/default-settings.php:474
 msgid "Subject mail"
 msgstr "Sujet de l'email"
 
-#: classes/helpers/default-settings.php:332
+#: classes/helpers/default-settings.php:349
 msgid "[%%blog_name%%] New Member Registration"
 msgstr "[%%blog_name%%] Nouvelle inscription de membre"
 
-#: classes/helpers/default-settings.php:336
-#: classes/helpers/default-settings.php:360
-#: classes/helpers/default-settings.php:384
-#: classes/helpers/default-settings.php:415
-#: classes/helpers/default-settings.php:439
-#: classes/helpers/default-settings.php:463
+#: classes/helpers/default-settings.php:353
+#: classes/helpers/default-settings.php:377
+#: classes/helpers/default-settings.php:401
+#: classes/helpers/default-settings.php:432
+#: classes/helpers/default-settings.php:456
+#: classes/helpers/default-settings.php:480
 msgid "Content mail"
 msgstr "Contenu de l'email."
 
-#: classes/helpers/default-settings.php:338
+#: classes/helpers/default-settings.php:355
 msgid ""
 "New member registration on your site %%blog_name%% :\n"
 "\n"
@@ -1102,19 +1124,19 @@ msgstr ""
 "Identifiant: %%user_name%%\n"
 "Email: %%user_email%%"
 
-#: classes/helpers/default-settings.php:343
+#: classes/helpers/default-settings.php:360
 msgid "Member registration email"
 msgstr "Email d'inscription d'un membre"
 
-#: classes/helpers/default-settings.php:344
+#: classes/helpers/default-settings.php:361
 msgid "Management of notification's mail by a Member upon registration."
 msgstr "Gestion des notifications email pour l'inscription d'un membre."
 
-#: classes/helpers/default-settings.php:356
+#: classes/helpers/default-settings.php:373
 msgid "[%%blog_name%%] Your username and password"
 msgstr "[%%blog_name%%] Votre identifiant et mot de passe"
 
-#: classes/helpers/default-settings.php:362
+#: classes/helpers/default-settings.php:379
 msgid ""
 "Username: %%user_name%%\n"
 "Password: %%user_password%%\n"
@@ -1126,19 +1148,19 @@ msgstr ""
 "\n"
 "%%login_url%%"
 
-#: classes/helpers/default-settings.php:367
+#: classes/helpers/default-settings.php:384
 msgid "Member registration email validation"
 msgstr "Email d'inscription d'un membre avec validation du compte"
 
-#: classes/helpers/default-settings.php:368
+#: classes/helpers/default-settings.php:385
 msgid "Registration confirmation email with link validation counted"
 msgstr "Email de confirmation d'inscription avec lien de validation"
 
-#: classes/helpers/default-settings.php:380
+#: classes/helpers/default-settings.php:397
 msgid "[%%blog_name%%] Validate your registration"
 msgstr "[%%blog_name%%] Valider votre inscription"
 
-#: classes/helpers/default-settings.php:386
+#: classes/helpers/default-settings.php:403
 msgid ""
 "Thank you for registering on the site:\n"
 "\n"
@@ -1158,11 +1180,11 @@ msgstr ""
 "\n"
 "%%confirm_register_link%%"
 
-#: classes/helpers/default-settings.php:391
+#: classes/helpers/default-settings.php:408
 msgid "Admin mail for Member lost password"
 msgstr "Email administrateur pour la perte d'un mot de passe membre"
 
-#: classes/helpers/default-settings.php:392
+#: classes/helpers/default-settings.php:409
 msgid ""
 "Management of notification's mail to the administrator when a member has "
 "lost his password."
@@ -1170,11 +1192,11 @@ msgstr ""
 "Gestion des emails de notification à l'administrateur lorsqu'un membre a "
 "perdu son mot de passe."
 
-#: classes/helpers/default-settings.php:402
+#: classes/helpers/default-settings.php:419
 msgid "Recipient mail"
 msgstr "Email destinataire"
 
-#: classes/helpers/default-settings.php:405
+#: classes/helpers/default-settings.php:422
 msgid ""
 "By default this is the administrator's mail of the site but you can change "
 "the recipient. You can add more recipients, separating them with a comma"
@@ -1183,28 +1205,28 @@ msgstr ""
 "changer le bénéficiaire. Vous pouvez également ajouter plusieurs "
 "destinataires, en les séparant par une virgule"
 
-#: classes/helpers/default-settings.php:411
+#: classes/helpers/default-settings.php:428
 msgid "[%%blog_name%%] Password Lost/Changed"
 msgstr "[%%blog_name%%] Mot de passe perdu/changé"
 
-#: classes/helpers/default-settings.php:417
+#: classes/helpers/default-settings.php:434
 msgid "Password Lost and Changed for member: %%user_name%%"
 msgstr "Mot de passe perdu et modifié pour le membre : %%user_name%%"
 
-#: classes/helpers/default-settings.php:422
+#: classes/helpers/default-settings.php:439
 msgid "Member lost password mail"
 msgstr "Email mot de passe perdu d'un membre"
 
-#: classes/helpers/default-settings.php:423
+#: classes/helpers/default-settings.php:440
 msgid "Management of notification's mail by a Member lost his password."
 msgstr ""
 "Gestion des notifications email pour la perte du mot de passe d'un membre."
 
-#: classes/helpers/default-settings.php:435
+#: classes/helpers/default-settings.php:452
 msgid "[%%blog_name%%] Password Reset"
 msgstr "[%%blog_name%%] Réinitialisation du mot de passe"
 
-#: classes/helpers/default-settings.php:441
+#: classes/helpers/default-settings.php:458
 msgid ""
 "Someone requested that the password be reset for the following account:\n"
 "\n"
@@ -1232,21 +1254,21 @@ msgstr ""
 "\n"
 "%%reset_pwd_link%%"
 
-#: classes/helpers/default-settings.php:446
+#: classes/helpers/default-settings.php:463
 msgid "Validate new email member"
 msgstr "Validation du nouvel email du membre"
 
-#: classes/helpers/default-settings.php:447
+#: classes/helpers/default-settings.php:464
 msgid "Manage member notification mail for email change."
 msgstr ""
 "Gérer le courrier de notification des membres en cas de changement d’adresse "
 "électronique."
 
-#: classes/helpers/default-settings.php:459
+#: classes/helpers/default-settings.php:476
 msgid "[%%blog_name%%] New Admin Email Address"
 msgstr "[%%blog_name%%] Nouvelle adresse e-mail de l’administrateur"
 
-#: classes/helpers/default-settings.php:465
+#: classes/helpers/default-settings.php:482
 msgid ""
 "Hello,\n"
 "A request to change your email address has been sent to :\n"

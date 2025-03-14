@@ -115,7 +115,8 @@ _mpt_load_files( 'classes/', array(
 	'shortcode',
 	'taxonomy',
 	'widget',
-	'no-cache'
+	'no-cache',
+	'email',
 ), 'class-');
 
 // Plugin compat classes

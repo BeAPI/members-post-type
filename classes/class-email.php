@@ -53,7 +53,7 @@ class MPT_Email {
 			return $body;
 		}
 
-		$html_template = locate_template( 'mpt/email.php' );
+		$html_template = locate_template( 'mpt/email/email.php' );
 		if ( '' === $html_template ) {
 			$html_template = MPT_DIR . 'views/email/email.php';
 		}

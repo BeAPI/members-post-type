@@ -26,13 +26,12 @@ class MPT_Email {
 	 *
 	 * @return bool
 	 */
-	public function send( string $to, string $subject, string $body ) {
+	public function send( string $to, string $subject, string $body, MPT_Member $member = null ) {
 		if ( ! is_email( $to ) ) {
 			return false;
 		}
 
-		$body = $this->format_body( $body );
-		error_log( $body );
+		$body = $this->format_body( $body, $member );
 
 		add_filter( 'wp_mail_content_type', array( $this, 'maybe_set_content_type' ) );
 		$result = wp_mail( $to, $subject, $body );
@@ -48,7 +47,7 @@ class MPT_Email {
 	 *
 	 * @return string
 	 */
-	private function format_body( string $body ): string {
+	private function format_body( string $body, MPT_Member $member = null ): string {
 		if ( ! $this->use_html ) {
 			return $body;
 		}
@@ -81,7 +80,8 @@ class MPT_Email {
 		$body          = wpautop( $body );
 		$body          = make_clickable( $body );
 		$template_args = array(
-			'email_body' => $body,
+			'email_language' => apply_filters( 'mpt_email_language', get_bloginfo( 'language' ), $member ),
+			'email_body'     => $body,
 		);
 
 		/**

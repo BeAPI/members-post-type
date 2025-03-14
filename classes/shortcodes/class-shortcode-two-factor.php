@@ -302,7 +302,7 @@ class MPT_Shortcode_Two_Factor extends MPT_Shortcode {
 		$mpt_mail_2fa_code_message = apply_filters( 'mpt_mail_2fa_code_message', $mail_2fa_message, $code, $member->id );
 
 		$sender = MPT_Email::from_configuration();
-		$sender->send( $member->email, $mpt_mail_2fa_code_subject, $mpt_mail_2fa_code_message );
+		$sender->send( $member->email, $mpt_mail_2fa_code_subject, $mpt_mail_2fa_code_message, $member );
 	}
 
 	/**

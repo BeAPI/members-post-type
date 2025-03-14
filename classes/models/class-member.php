@@ -281,7 +281,7 @@
 			if ( $this->email === $mail ) {
 				continue;
 			}
-			$sender->send( stripslashes( $mail ),$subject, $content );
+			$sender->send( stripslashes( $mail ),$subject, $content, $this );
 		}
 	}
 
@@ -332,7 +332,7 @@
 		$sender = MPT_Email::from_configuration();
 		foreach ( $recipients as $mail ) {
 			// Send mail to admin
-			$sender->send( stripslashes( $mail ), $subject, $message );
+			$sender->send( stripslashes( $mail ), $subject, $message, $this );
 		}
 
 		if ( empty( $plaintext_pass ) ) {
@@ -363,7 +363,7 @@
 		$message = apply_filters( 'mpt_register_notification_message', $message, $plaintext_pass, $this );
 
 		$sender = MPT_Email::from_configuration();
-		return $sender->send( $email, $subject, $message );
+		return $sender->send( $email, $subject, $message, $this );
 	}
 
 	/**
@@ -416,7 +416,7 @@
 		$message = apply_filters( 'mpt_register_validation_notification_message', $message, $key, $this );
 
 		$sender = MPT_Email::from_configuration();
-		return $sender->send( $email, $subject, $message );
+		return $sender->send( $email, $subject, $message, $this );
 	}
 
 	/**
@@ -545,7 +545,7 @@
 		$message = apply_filters( 'mpt_retrieve_password_message', $message, $key );
 
 		$sender = MPT_Email::from_configuration();
-		if ( $message && ! $sender->send( $this->email, $subject, $message ) ) {
+		if ( $message && ! $sender->send( $this->email, $subject, $message, $this ) ) {
 			wp_die(__( 'The e-mail could not be sent.' ) . "<br />\n" . __( 'Possible reason: your host may have disabled the mail() function...' ) );
 		}
 
@@ -874,7 +874,7 @@
 		$message = apply_filters( 'mpt_validate_new_email_message', $message, $key );
 
 		$sender = MPT_Email::from_configuration();
-		if ( $message && ! $sender->send( $new_email, $subject, $message ) ) {
+		if ( $message && ! $sender->send( $new_email, $subject, $message, $this ) ) {
 			wp_die( __( 'The e-mail could not be sent.' ) . "<br />\n" . __( 'Possible reason: your host may have disabled the mail() function...' ) );
 		}
 

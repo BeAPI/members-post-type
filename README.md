@@ -19,6 +19,9 @@ To do so, download the meta for taxonomies plugin and let the plugin migrate the
 
 ## Changelog ##
 
+### 1.2.0 - 14 Mar 2025
+* Add option to send emails as HTML instead of plain text.
+
 ### 1.1.4 - 20 Feb 2025
 * Add support for password toggle
 

@@ -315,8 +315,8 @@ return array(
 		),
 		array(
 			'name'    => 'use_html_for_mails',
-			'label'   => __( 'Send mail in HTML', 'mpt' ),
-			'desc'    => __( 'Send mails in HTML.', 'mpt' ),
+			'label'   => __( 'Enable HTML emails', 'mpt' ),
+			'desc'    => '',
 			'type'    => 'radio',
 			'options' => array(
 				'yes' => __( 'Yes', 'mpt' ),

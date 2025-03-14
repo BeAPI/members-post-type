@@ -4,13 +4,24 @@ class MPT_Email {
 
 	private $use_html;
 
+	/**
+	 * Create a new email instance using the configuration.
+	 *
+	 * @return self
+	 */
 	public static function from_configuration(): self {
-		$use_html_for_mails = MPT_Options::get_option( 'mpt-emails' )['use_html_for_mails'] ?? 'no';
+		$mail_configuration = MPT_Options::get_option( 'mpt-emails' );
+		$use_html_for_mails = $mail_configuration['use_html_for_mails'] ?? 'no';
 		$send_as_html       = 'yes' === $use_html_for_mails;
 
 		return new MPT_Email( $send_as_html );
 	}
 
+	/**
+	 * Constructor.
+	 *
+	 * @param bool $send_as_html
+	 */
 	public function __construct( bool $send_as_html = false ) {
 		$this->use_html = $send_as_html;
 	}
@@ -23,6 +34,7 @@ class MPT_Email {
 	 * @param string $to recipient's email
 	 * @param string $subject email's subject
 	 * @param string $body email's body
+	 * @param MPT_Member $member member object
 	 *
 	 * @return bool
 	 */
@@ -44,6 +56,7 @@ class MPT_Email {
 	 * Format the body of the email.
 	 *
 	 * @param string $body email's body
+	 * @param MPT_Member $member member object
 	 *
 	 * @return string
 	 */

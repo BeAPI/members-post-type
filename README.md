@@ -19,6 +19,9 @@ To do so, download the meta for taxonomies plugin and let the plugin migrate the
 
 ## Changelog ##
 
+### 1.3.0 - 18 Mar 2025
+* Add options to customize and translate two-factor email.
+
 ### 1.2.0 - 14 Mar 2025
 * Add option to send emails as HTML instead of plain text.
 

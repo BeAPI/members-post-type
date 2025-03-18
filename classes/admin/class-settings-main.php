@@ -189,6 +189,12 @@
 					'validate_email_link' => __( "The validate email link", 'mpt' ),
 				);
 				break;
+			case 'two_factor':
+				$available_values = array(
+					'blog_name'           => __( "Blog's name", 'mpt' ),
+					'2fa_code'            => __( 'Two Factor validation code', 'mpt' ),
+				);
+				break;
 		}
 
 		return $available_values;

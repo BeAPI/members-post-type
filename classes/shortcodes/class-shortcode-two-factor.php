@@ -295,14 +295,40 @@ class MPT_Shortcode_Two_Factor extends MPT_Shortcode {
 			$member_code
 		);
 
-		$mail_2fa_subject = wp_strip_all_tags( sprintf( 'Your confirmation code for %s', wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES ) ) );
-		$mail_2fa_message = wp_strip_all_tags( sprintf( 'Enter the code %s to log in.', $code ) );
 
-		$mpt_mail_2fa_code_subject = apply_filters( 'mpt_mail_2fa_code_subject', $mail_2fa_subject, $code, $member->id );
-		$mpt_mail_2fa_code_message = apply_filters( 'mpt_mail_2fa_code_message', $mail_2fa_message, $code, $member->id );
+		// The blogname option is escaped with esc_html on the way into the database in sanitize_option
+		// we want to reverse this for the plain text arena of emails.
+		$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
+
+		$field_name_subject = 'two_factor_subject';
+		$field_name_content = 'two_factor_content';
+
+		$subject = apply_filters( 'mpt_two_factor_subject_default_option', mpt_get_option_value( 'mpt-emails', $field_name_subject, true ), $member );
+		$content = apply_filters( 'mpt_two_factor_content_default_option', mpt_get_option_value( 'mpt-emails', $field_name_content, true ), $member );
+
+		// Empty subject ? Empty content ?
+		if ( empty( $subject ) && empty( $content ) ) {
+			return;
+		}
+
+		// Replace with good values
+		$subject = apply_filters(
+			'mpt_two_factor_subject',
+			str_replace( '%%blog_name%%', $blogname, $subject ),
+			$member
+		);
+		$content = apply_filters(
+			'mpt_two_factor_content',
+			str_replace(
+				[ '%%blog_name%%', '%%2fa_code%%' ],
+				[ $blogname, $code ],
+				$content
+			),
+			$member
+		);
 
 		$sender = MPT_Email::from_configuration();
-		$sender->send( $member->email, $mpt_mail_2fa_code_subject, $mpt_mail_2fa_code_message, $member );
+		$sender->send( $member->email, wp_strip_all_tags( $subject ), wp_strip_all_tags( $content ), $member );
 	}
 
 	/**

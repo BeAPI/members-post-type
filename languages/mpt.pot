@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Members post type plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Members post type 1.1.4\n"
+"Project-Id-Version: Members post type 1.2.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/members-post-type\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-03-14T16:53:15+01:00\n"
+"POT-Creation-Date: 2025-03-18T16:01:10+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: mpt\n"
@@ -144,6 +144,7 @@ msgstr ""
 #: classes/admin/class-settings-main.php:169
 #: classes/admin/class-settings-main.php:177
 #: classes/admin/class-settings-main.php:185
+#: classes/admin/class-settings-main.php:194
 msgid "Blog's name"
 msgstr ""
 
@@ -200,6 +201,10 @@ msgstr ""
 
 #: classes/admin/class-settings-main.php:189
 msgid "The validate email link"
+msgstr ""
+
+#: classes/admin/class-settings-main.php:195
+msgid "Two Factor validation code"
 msgstr ""
 
 #: classes/admin/class-taxonomy.php:38
@@ -903,6 +908,7 @@ msgstr ""
 #: classes/helpers/default-settings.php:426
 #: classes/helpers/default-settings.php:450
 #: classes/helpers/default-settings.php:474
+#: classes/helpers/default-settings.php:498
 msgid "Subject mail"
 msgstr ""
 
@@ -916,6 +922,7 @@ msgstr ""
 #: classes/helpers/default-settings.php:432
 #: classes/helpers/default-settings.php:456
 #: classes/helpers/default-settings.php:480
+#: classes/helpers/default-settings.php:504
 msgid "Content mail"
 msgstr ""
 
@@ -1047,6 +1054,22 @@ msgid ""
 "You can safely ignore and delete this email if you do not wish to take this action.\n"
 "\n"
 "Yours sincerely"
+msgstr ""
+
+#: classes/helpers/default-settings.php:487
+msgid "Two-factor code mail"
+msgstr ""
+
+#: classes/helpers/default-settings.php:488
+msgid "Manage two-factor code mail notification."
+msgstr ""
+
+#: classes/helpers/default-settings.php:500
+msgid "Your confirmation code for %%blog_name%%"
+msgstr ""
+
+#: classes/helpers/default-settings.php:506
+msgid "Enter the code %%2fa_code%% to log in."
 msgstr ""
 
 #: classes/shortcodes/class-shortcode-account.php:23

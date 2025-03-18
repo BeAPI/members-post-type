@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: MPT\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/members-post-"
 "type\n"
-"POT-Creation-Date: 2025-03-14T16:53:15+01:00\n"
-"PO-Revision-Date: 2025-03-14 16:56+0100\n"
+"POT-Creation-Date: 2025-03-18T16:01:10+01:00\n"
+"PO-Revision-Date: 2025-03-18 16:10+0100\n"
 "Last-Translator: beapi <mculea@beapi.fr>\n"
 "Language-Team: French (France)\n"
 "Language: fr_FR\n"
@@ -157,6 +157,7 @@ msgstr "Members Post Type"
 #: classes/admin/class-settings-main.php:169
 #: classes/admin/class-settings-main.php:177
 #: classes/admin/class-settings-main.php:185
+#: classes/admin/class-settings-main.php:194
 msgid "Blog's name"
 msgstr "Nom du blog"
 
@@ -214,6 +215,10 @@ msgstr "Nom d’affichage de l’utilisateur"
 #: classes/admin/class-settings-main.php:189
 msgid "The validate email link"
 msgstr "Le lien de validation de l’email"
+
+#: classes/admin/class-settings-main.php:195
+msgid "Two Factor validation code"
+msgstr "Code d'authentification à deux facteurs"
 
 #: classes/admin/class-taxonomy.php:38 views/admin/term-fields.php:15
 msgid "Remove capability"
@@ -1096,6 +1101,7 @@ msgstr ""
 #: classes/helpers/default-settings.php:426
 #: classes/helpers/default-settings.php:450
 #: classes/helpers/default-settings.php:474
+#: classes/helpers/default-settings.php:498
 msgid "Subject mail"
 msgstr "Sujet de l'email"
 
@@ -1109,6 +1115,7 @@ msgstr "[%%blog_name%%] Nouvelle inscription de membre"
 #: classes/helpers/default-settings.php:432
 #: classes/helpers/default-settings.php:456
 #: classes/helpers/default-settings.php:480
+#: classes/helpers/default-settings.php:504
 msgid "Content mail"
 msgstr "Contenu de l'email."
 
@@ -1299,6 +1306,22 @@ msgstr ""
 "Je vous prie d’agréer, Madame, Monsieur, l’expression de mes salutations "
 "distinguées."
 
+#: classes/helpers/default-settings.php:487
+msgid "Two-factor code mail"
+msgstr "Email d'authentification à deux facteurs"
+
+#: classes/helpers/default-settings.php:488
+msgid "Manage two-factor code mail notification."
+msgstr "Gestion des emails pour l'authentification à deux facteurs."
+
+#: classes/helpers/default-settings.php:500
+msgid "Your confirmation code for %%blog_name%%"
+msgstr "Votre code de confirmation pour %%blog_name%%"
+
+#: classes/helpers/default-settings.php:506
+msgid "Enter the code %%2fa_code%% to log in."
+msgstr "Entrer le code %%2fa_code%% pour vous connecter."
+
 #: classes/shortcodes/class-shortcode-account.php:23
 msgid ""
 "If you do not recognize the last activity listed above, please change your "
@@ -1323,7 +1346,7 @@ msgstr ""
 #: classes/shortcodes/class-shortcode-change-password.php:49
 #: classes/shortcodes/class-shortcode-lost-password.php:173
 msgid "The two passwords you entered don't match."
-msgstr "Les deux mots de passe que vous avez saisi ne coïncient pas"
+msgstr "Les deux mots de passe que vous avez saisi ne coïncident pas."
 
 #: classes/shortcodes/class-shortcode-change-password.php:61
 msgid "You old password is incorrect."
@@ -1538,15 +1561,15 @@ msgstr "Envoyer une notification"
 
 #: views/admin/metabox-welcome-message.php:8
 msgid "Send welcome message to this new member "
-msgstr "Envoyer un email de bienvenue au nouveau membre"
+msgstr "Envoyer un email de bienvenue au nouveau membre "
 
 #: views/admin/metabox-welcome-message.php:11
 msgid "Yes "
-msgstr "Oui"
+msgstr "Oui "
 
 #: views/admin/metabox-welcome-message.php:13
 msgid "No "
-msgstr "Non"
+msgstr "Non "
 
 #: views/admin/page-export.php:11
 msgid "Export CSV file"

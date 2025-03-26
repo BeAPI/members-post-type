@@ -18,6 +18,8 @@ If you use the roles and capabilities you have to migrate all data from meta for
 To do so, download the meta for taxonomies plugin and let the plugin migrate the data for you.
 
 ## Changelog ##
+### 1.3.1 - 26 Mar 2025
+* Set "Role" taxonomy to be hierarchical.
 
 ### 1.3.0 - 18 Mar 2025
 * Add options to customize and translate two-factor email.

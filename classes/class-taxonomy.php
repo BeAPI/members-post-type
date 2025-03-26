@@ -40,7 +40,7 @@ class MPT_Taxonomy {
 		$args = array(
 			'capabilities'               => MPT_Plugin::get_capabilities('taxonomy'),
 			'labels'                     => $labels,
-			'hierarchical'               => false,
+			'hierarchical'               => true,
 			'public'                     => true,
 			'query_var'                  => false,
 			'show_ui'                    => false,

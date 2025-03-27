@@ -18,6 +18,9 @@ If you use the roles and capabilities you have to migrate all data from meta for
 To do so, download the meta for taxonomies plugin and let the plugin migrate the data for you.
 
 ## Changelog ##
+### 1.3.2 -  27 Mar 2025
+* Trim 2FA code sended by user
+
 ### 1.3.1 - 26 Mar 2025
 * Set "Role" taxonomy to be hierarchical.
 

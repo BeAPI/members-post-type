@@ -132,7 +132,7 @@ class MPT_Shortcode_Two_Factor extends MPT_Shortcode {
 
 		$challenge_id = isset( $mpttwofactor['challenge_id'] ) ? $mpttwofactor['challenge_id'] : '';
 		$nonce        = isset( $mpttwofactor['nonce'] ) ? $mpttwofactor['nonce'] : '';
-		$code         = isset( $mpttwofactor['code'] ) ? $mpttwofactor['code'] : '';
+		$code         = isset( $mpttwofactor['code'] ) ? trim( $mpttwofactor['code'] ) : '';
 		$member       = self::get_member_by_challenge_id( $challenge_id );
 		if ( empty( $challenge_id ) || empty( $nonce ) || ! $member->exists() ) {
 			wp_safe_redirect( home_url( '/' ) );

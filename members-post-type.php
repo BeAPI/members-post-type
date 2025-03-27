@@ -60,7 +60,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin constants
-define('MPT_VERSION', '1.3.1');
+define('MPT_VERSION', '1.3.2');
 define('MPT_CPT_NAME', 'member');
 define('MPT_TAXO_NAME', 'members-role');
 define( 'MPT_LAST_LOGIN_ACTIVITY', 'last_login_activity' );

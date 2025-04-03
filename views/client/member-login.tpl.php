@@ -33,5 +33,7 @@ echo MPT_Shortcode::get_messages();
 </form>
 <p>
 	<a href="<?php echo mpt_get_lost_password_permalink(); ?>"><?php _e( 'Forgot password ?', 'mpt' ); ?></a>
-	<a href="<?php echo mpt_get_register_permalink(); ?>"><?php _e( 'Register', 'mpt' ); ?></a>
+	<?php if ( ! empty( MPT_Main::get_action_page_id( 'registration' ) ) ) : // Check if option is defined ?>
+		<a href="<?php echo mpt_get_register_permalink(); ?>"><?php _e( 'Register', 'mpt' ); ?></a>
+	<?php endif; ?>
 </p>

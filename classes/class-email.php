@@ -75,8 +75,9 @@ class MPT_Email {
 		 *
 		 * @param string $html_template
 		 * @param string $body
+		 * @param MPT_Member $member
 		 */
-		$html_template = apply_filters( 'mpt_email_html_template', $html_template, $body );
+		$html_template = apply_filters( 'mpt_email_html_template', $html_template, $body, $member );
 		if ( '' === $html_template ) {
 			return $body;
 		}

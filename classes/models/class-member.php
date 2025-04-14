@@ -378,11 +378,11 @@
 			return false;
 		}
 
+		$key      = ! empty( $key ) ? $key : $this->get_member_key();
 		$stop = apply_filters_ref_array( 'mpt_register_validation_notification', array( false, &$this, $key ) );
 		if ( $stop === true ) {
 			return false;
 		}
-		$key      = ! empty( $key ) ? $key : $this->get_member_key();
 		$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
 
 		$username     = stripslashes( $this->get_user_name() );
@@ -855,7 +855,10 @@
 		$message = str_replace( '%%blog_name%%', $blogname, $message );
 		$message = str_replace( '%%site_url%%', get_site_url(), $message );
 		$message = str_replace( '%%blog_url%%', get_site_url(), $message );
+		// Deprecated: the %%display_name%% variable is not displayed in the front-office, but may be used.
 		$message = str_replace( '%%display_name%%', $this->get_display_name(), $message );
+		$message = str_replace( '%%user_lastname%%', $this->last_name, $message );
+		$message = str_replace( '%%user_firstname%%', $this->first_name, $message );
 		$message = str_replace(
 			'%%validate_email_link%%',
 			add_query_arg(

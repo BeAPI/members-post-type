@@ -185,7 +185,8 @@
 					'blog_name'           => __( "Blog's name", 'mpt' ),
 					'site_url'            => __( "Current network's url", 'mpt' ),
 					'blog_url'            => __( "Current site's url", 'mpt' ),
-					'display_name'        => __( "User's display name", 'mpt' ),
+					'user_firstname'      => __( "User's first name", 'mpt' ),
+					'user_lastname'       => __( "User's last name", 'mpt' ),
 					'validate_email_link' => __( "The validate email link", 'mpt' ),
 				);
 				break;

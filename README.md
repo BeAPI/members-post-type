@@ -18,6 +18,9 @@ If you use the roles and capabilities you have to migrate all data from meta for
 To do so, download the meta for taxonomies plugin and let the plugin migrate the data for you.
 
 ## Changelog ##
+### 1.3.4 -  15 Apr 2025
+* Add firstname and lastname constant for the validation new email
+
 ### 1.3.3 -  07 Apr 2025
 * Hide registration link if option is empty
 

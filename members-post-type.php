@@ -1,7 +1,7 @@
 <?php
 /*
  Plugin Name: Members post type
- Version: 1.3.3
+ Version: 1.3.4
  Plugin URI: http://www.beapi.fr
  Description: Manage members on WordPress as post type. Implement: post type, authentification, role, clone from WP.
  Author: BE API Technical team
@@ -60,7 +60,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin constants
-define('MPT_VERSION', '1.3.3');
+define('MPT_VERSION', '1.3.4');
 define('MPT_CPT_NAME', 'member');
 define('MPT_TAXO_NAME', 'members-role');
 define( 'MPT_LAST_LOGIN_ACTIVITY', 'last_login_activity' );

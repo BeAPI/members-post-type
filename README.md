@@ -18,6 +18,9 @@ If you use the roles and capabilities you have to migrate all data from meta for
 To do so, download the meta for taxonomies plugin and let the plugin migrate the data for you.
 
 ## Changelog ##
+### 1.3.5 -  25 Apr 2025
+* Add new filter `mpt_view_account_pages_query_args` to customize account's pages query args.
+
 ### 1.3.4 -  15 Apr 2025
 * Add firstname and lastname constant for the validation new email
 

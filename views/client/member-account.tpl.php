@@ -24,6 +24,7 @@ if ( ! empty( $my_roles ) ) {
 
 	$args = [
 		'post_type'      => 'page',
+		'post_status'    => 'publish',
 		'posts_per_page' => - 1,
 		'no_found_rows'  => true,
 		'meta_query'     => wp_parse_args(
@@ -33,6 +34,15 @@ if ( ! empty( $my_roles ) ) {
 			]
 		),
 	];
+
+	/**
+	 * Filter query args use to retrieve member pages.
+	 *
+	 * @param array $args The query args.
+	 * @param array $my_roles List of roles term_id.
+	 * @param MPT_Member $member_object The member model instance.
+	 */
+	$args = apply_filters( 'mpt_view_account_pages_query_args', $args, $my_roles, $member_object );
 }
 
 $pages_query = new \WP_Query( $args );
